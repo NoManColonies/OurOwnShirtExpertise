@@ -91,3 +91,10 @@ li a:hover:not(.active) {
 .active {
     background-color: #111;
 }
+
+.about{
+	background-color : #D1EEEE ;
+	padding : 5px 5px 5px 5px;
+	border : 0 0 25px 0 solid black;
+	font-size : 14px;
+}
