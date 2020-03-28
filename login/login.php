@@ -11,19 +11,19 @@
   <body>
     <?php
       require_once('../.confiq/confiq.php');
-      if (session_restore_result($connect)) {
-        mysqli_close($connect);
+      if (session_restore_result($connect, $server_url)) {
+        $connect->close();
         header("Location: https://worawanbydiistudent.store/index.php");
       }
       if ($_REQUEST['Username'] != null && $_REQUEST['Password'] != null && !isset($_COOKIE['current_userid']) && !isset($_COOKIE['encrypted_hash_key'])) {
-        if (!login_result($connect, $_REQUEST['Username'], $_REQUEST['Password'])) {
+        if (!login_result($connect, $server_url, $_REQUEST['Username'], $_REQUEST['Password'])) {
           echo "<script type=\"text/javascript\">";
           echo "alert(\"username or password does not match\");";
           echo "</script>";
-          mysqli_close($connect);
+          $connect->close();
           header("Location: https://worawanbydiistudent.store/login/login.php");
         } else {
-          mysqli_close($connect);
+          $connect->close();
           header("Location: https://worawanbydiistudent.store/index.php");
         }
       }
