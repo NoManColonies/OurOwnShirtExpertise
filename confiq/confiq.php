@@ -39,7 +39,10 @@
   function argon2_encrypt($text) {
     return password_hash($text, PASSWORD_ARGON2ID);
   }
-  function argon2_verify($text, $hash) {
+  function argon2_encrypt_mysqli(mysqli $text) {
+    return password_hash($text, PASSWORD_ARGON2ID);
+  }
+  function argon2_verify(mysqli $text, $hash) {
     return (password_hash($text, PASSWORD_ARGON2ID) == $hash);
   }
   function random_string($length) {
@@ -62,7 +65,7 @@
       if (argon2_verify($row['userhashkey'], $_COOKIE['encrypted_hash_key'])) {
         $random_string = random_string(20);
         $decrypted_hash_key = mysqli_query($connect, "select password('$random_string')");
-        $encrypted_hash_key = argon2_encrypt($decrypted_hash_key);
+        $encrypted_hash_key = argon2_encrypt_mysqli($decrypted_hash_key);
         setcookie('encrypted_hash_key', $encrypted_hash_key, time() + 3600, '/', $server_url, false, true);
         setcookie('current_userid', $userid, time() + 3600, '/', $server_url, false, true);
         setcookie('encrypted_administration_key', $row['useraccesskey'], time() + 3600, '/', $server_url, false, true);
@@ -110,7 +113,7 @@
     if ($try_to_get_passkey_tmp == $encrypted_password_tmp) {
       $random_string = random_string(20);
       $decrypted_hash_key_tmp = mysqli_query($connect, "select password('$random_string')");
-      $encrypted_hash_key_tmp = argon2_encrypt($decrypted_hash_key_tmp);
+      $encrypted_hash_key_tmp = argon2_encrypt_mysqli($decrypted_hash_key_tmp);
       $encrypted_administration_key_tmp = mysqli_query($connect, "select useraccesskey from usercredentials where userid='$userid'");
       setcookie('encrypted_hash_key', $encrypted_hash_key_tmp, time() + 3600, '/', $server_url, false, true);
       setcookie('current_userid', $userid, time() + 3600, '/', $server_url, false, true);
