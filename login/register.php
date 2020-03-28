@@ -11,12 +11,12 @@
   <body>
     <?php
       require_once('../.confiq/confiq.php');
-      if (session_restore_result()) {
+      if (session_restore_result($connect)) {
         mysqli_close($connect);
         header("Location: https://worawanbydiistudent.store/index.php");
       }
       if ($_REQUEST['Username'] != 'Username' && $_REQUEST['Password'] != 'Password') {
-        if (!register_result($_REQUEST['Username'], $_REQUEST['Password'])) {
+        if (!register_result($connect, $_REQUEST['Username'], $_REQUEST['Password'])) {
           echo "<script type=\"text/javascript\">";
           echo "alert(\"username or password does not match\");";
           echo "</script>";
