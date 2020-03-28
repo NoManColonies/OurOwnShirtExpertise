@@ -20,7 +20,7 @@
         <li style="float:right"><a href="../contact/contact.php">ติดต่อเรา</a></li>
         <?php
           require_once('../.confiq/confiq.php');
-          if (session_restore_result()) {
+          if (session_restore_result($connect)) {
             mysqli_close($connect);
             echo "<li style=\"float:right\"><a href=\"../login/account.php\">บัญชี</a></li>";
             echo "<li style=\"float:right\"><a href=\"../login/logout.php\">ออกจากระบบ</a></li>";
