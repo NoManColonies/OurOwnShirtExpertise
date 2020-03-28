@@ -34,16 +34,22 @@
           </div>
         </div>
       </div>
-      <form name="login_form"  method="post" action="login_process.php">
-        <p><b>Login Form</b></p>
-        <label for="Username">ชื่อผู้ใช้ : </label>
-        <input type="text"   id="Username" required name="Username" placeholder="Username">
-        <label for="Password">รหัสผ่าน : </label>
-        <input type="password"   id="Password" required name="Password" placeholder="Password">
-        <input type="submit" name="" value="submit">
-        <input type="reset" name="" value="reset">
-        <a href="register.php">register</a>
-      </form>
+      <?php
+        if (sessionrestoreresult()) {
+          header("Location: https://worawanbydiistudent.store/index.php");
+        } else {
+          echo "<form name=\"login_form\"  method=\"post\" action=\"login.php\">";
+          echo "<p><b>Login Form</b></p>";
+          echo "<label for=\"Username\">ชื่อผู้ใช้ : </label>";
+          echo "<input type=\"text\"   id=\"Username\" required name=\"Username\" placeholder=\"Username\">";
+          echo "<label for=\"Password\">รหัสผ่าน : </label>";
+          echo "<input type=\"password\"   id=\"Password\" required name=\"Password\" placeholder=\"Password\">";
+          echo "<input type=\"submit\" name=\"\" value=\"submit\">";
+          echo "<input type=\"reset\" name=\"\" value=\"reset\">";
+          echo "<a href=\"register.php\">register</a>";
+          echo "</form>";
+        }
+      ?>
     </div>
   </body>
 </html>
