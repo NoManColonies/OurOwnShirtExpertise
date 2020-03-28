@@ -51,7 +51,7 @@
     }
     return $random_string;
   }
-  function session_restore_result($connect) {
+  function session_restore_result(mysqli $connect) {
     if(isset($_COOKIE['current_userid']) && $_COOKIE['current_userid'] != null && isset($_COOKIE['encrypted_hash_key']) && $_COOKIE['encrypted_hash_key'] != null && $_COOKIE['encrypted_administration_key'] != null && isset($_COOKIE['encrypted_administration_key'])) {
       $userid = $_COOKIE['current_userid'];
       $server_decrypted_hash_key = mysqli_query($connect, "select * from usercredentials where userid='$userid'");
@@ -100,7 +100,7 @@
       return false;
     }
   }
-  function login_result($connect, $username, $vulnerable_password) {
+  function login_result(mysqli $connect, $username, $vulnerable_password) {
     $encrypted_password_tmp = mysqli_query($connect, "select password('$vulnerable_password')");
     if ($username == null) {
       $try_to_get_passkey_tmp = 'keynotavailable';
@@ -126,7 +126,7 @@
     }
     return false;
   }
-  function register_result($connect, $username, $vulnerable_password, $vulnerable_password_retype, $name, $lastname, $primary_address, $secondary_address, $city, $state, $provice, $postcode, $phonenumber, $emailaddress) {
+  function register_result(mysqli $connect, $username, $vulnerable_password, $vulnerable_password_retype, $name, $lastname, $primary_address, $secondary_address, $city, $state, $provice, $postcode, $phonenumber, $emailaddress) {
     $server_userid_check = mysqli_query($connect, "select userid from usercredentials");
     while($row = mysqli_fetch_assoc($server_userid_check)) {
       if ($row == $username) {
