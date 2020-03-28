@@ -8,9 +8,6 @@
     <title>Home</title>
   </head>
   <body>
-    <?php
-      //require_once('config/config.php');
-    ?>
     <div class="head">
       <ul>
         <li><a class="active" href="index.php">หน้าหลัก</a></li>
@@ -21,7 +18,17 @@
         <li><a href="other/other.php">อื่นๆ</a></li>
         <li style="float:right"><a href="https://www.google.com/webhp?hl=th&sa=X&ved=0ahUKEwiHoOHqmbPoAhUTbn0KHRc2BsIQPAgH">ค้นหา</a></li>
         <li style="float:right"><a href="contact/contact.php">ติดต่อเรา</a></li>
-        <li style="float:right"><a href="login/login.php">เข้าสู่ระบบ</a></li>
+        <?php
+          require_once('.confiq/confiq.php');
+          if (sessionrestoreresult()) {
+            mysqli_close($connect);
+            echo "<li style=\"float:right\"><a href=\"login/account.php\">บัญชี</a></li>";
+            echo "<li style=\"float:right\"><a href=\"login/logout.php\">ออกจากระบบ</a></li>";
+          } else {
+            echo "<li style=\"float:right\"><a href=\"login/login.php\">เข้าสู่ระบบ</a></li>";
+            mysqli_close($connect);
+          }
+        ?>
       </ul>
     </div>
     <div class="container">

@@ -10,7 +10,12 @@
   </head>
   <body>
     <?php
-      //require_once('config/config.php');
+      require_once('.confiq/confiq.php');
+      if (sessionrestoreresult()) {
+        mysqli_close($connect);
+        header("Location: https://worawanbydiistudent.store/index.php");
+      }
+      mysqli_close($connect);
     ?>
     <div class="head">
       <ul>
@@ -34,12 +39,12 @@
           </div>
         </div>
       </div>
-      <form name="login_form"  method="post" action="login_process.php">
+      <form name="login_form"  method="post" action="login.php">
         <p><b>Login Form</b></p>
         <label for="Username">ชื่อผู้ใช้ : </label>
-        <input type="text"   id="Username" required name="Username" placeholder="Username">
+        <input type="text" id="Username" required name="Username" placeholder="Username">
         <label for="Password">รหัสผ่าน : </label>
-        <input type="password"   id="Password" required name="Password" placeholder="Password">
+        <input type="password" id="Password" required name="Password" placeholder="Password">
         <input type="submit" name="" value="submit">
         <input type="reset" name="" value="reset">
         <a href="register.php">register</a>
