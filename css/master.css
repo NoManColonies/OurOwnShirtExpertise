@@ -1,4 +1,8 @@
-<style type="text/css">
+*,*::before,*::after {
+	padding: 0;
+	margin: 0;
+}
+
 .head {
 	background-color : #000055;
 
