@@ -26,8 +26,16 @@
       </ul>
     </div>
     <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light"></nav>
+          <div class="col-md-12 col-xs-12">
+            <img class="d-block w-100" src="../pic/head4.png" alt="devbanban">
+          </div>
+        </div>
+      </div>
       <form name="login_form"  method="post" action="login_process.php">
-        <p><b> Login Form </b></p>
+        <p><b>Login Form</b></p>
         <label for="Username">ชื่อผู้ใช้ : </label>
         <input type="text"   id="Username" required name="Username" placeholder="Username">
         <label for="Password">รหัสผ่าน : </label>
