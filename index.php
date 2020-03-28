@@ -1,5 +1,5 @@
 <?php
-  require_once ".confiq/confiq.php";
+  require_once "confiq/confiq.php";
  ?>
 <!DOCTYPE html>
 <html>
