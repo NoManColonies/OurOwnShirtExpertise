@@ -10,7 +10,7 @@
   </head>
   <body>
     <?php
-      require_once('.confiq/confiq.php');
+      require_once('../.confiq/confiq.php');
       if (sessionrestoreresult()) {
         mysqli_close($connect);
         header("Location: https://worawanbydiistudent.store/index.php");
