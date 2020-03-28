@@ -25,16 +25,18 @@
         <li style="float:right"><a class="active" href="login.php">เข้าสู่ระบบ</a></li>
       </ul>
     </div>
-    <form name="login_form"  method="post" action="login_process.php">
-      <p><b> Login Form </b></p>
-      <label for="Username">ชื่อผู้ใช้ : </label>
-      <input type="text"   id="Username" required name="Username" placeholder="Username">
-      <label for="Password">รหัสผ่าน : </label>
-      <input type="password"   id="Password" required name="Password" placeholder="Password">
-      <input type="submit" name="" value="submit">
-      <input type="reset" name="" value="reset">
-      &nbsp;&nbsp;
-	    <a href="register.php">register</a>
-    </form>
+    <div class="container">
+      <form name="login_form"  method="post" action="login_process.php">
+        <p><b> Login Form </b></p>
+        <label for="Username">ชื่อผู้ใช้ : </label>
+        <input type="text"   id="Username" required name="Username" placeholder="Username">
+        <label for="Password">รหัสผ่าน : </label>
+        <input type="password"   id="Password" required name="Password" placeholder="Password">
+        <input type="submit" name="" value="submit">
+        <input type="reset" name="" value="reset">
+        &nbsp;&nbsp;
+        <a href="register.php">register</a>
+      </form>
+    </div>
   </body>
 </html>

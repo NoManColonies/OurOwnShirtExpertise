@@ -30,39 +30,39 @@
           </div>
         </div>
       </div>
+      <h1><p>Items</p></h1>
+      <form class="" action="" method="post">
+        <div class="img">
+          <a href="buyfem1.html"a target="_blank">
+            <img src="../pic/fem1.jpg" alt="fem1">
+          </a>
+          <div class="desc">
+            <p>เสื้อนักศึกษาแขนสั้น<br>ผู้หญิง<br></p>
+            <p style="float:left">฿250</p>
+            <input style="float:right" type="submit" name="shirt1buy" value="Buy">
+          </div>
+        </div>
+        <div class="img">
+          <a href="buymen1.html"a target="_blank">
+            <img src="../pic/men1.jpg" alt="men1">
+          </a>
+          <div class="desc">
+            <p>เสื้อนักศึกษาแขนสั้น<br>ผู้ชาย<br></p>
+            <p style="float:left">฿250</p>
+            <input style="float:right" type="submit" name="shirt2buy" value="Buy">
+          </div>
+        </div>
+        <div class="img">
+          <a href="buymen2.html"a target="_blank">
+            <img src="../pic/men2.jpg" alt="men2">
+          </a>
+          <div class="desc">
+            <p>เสื้อนักศึกษาแขนยาว<br>ผู้ชาย<br></p>
+            <p style="float:left">฿290</p>
+            <input style="float:right" type="submit" name="shirt3buy" value="Buy">
+          </div>
+        </div>
+      </form>
     </div>
-    <h1><p>Items</p></h1>
-    <form class="" action="" method="post">
-      <div class="img">
-        <a href="buyfem1.html"a target="_blank">
-          <img src="../pic/fem1.jpg" alt="fem1">
-        </a>
-        <div class="desc">
-          <p>เสื้อนักศึกษาแขนสั้น<br>ผู้หญิง<br></p>
-          <p style="float:left">฿250</p>
-          <input style="float:right" type="submit" name="shirt1buy" value="Buy">
-        </div>
-      </div>
-      <div class="img">
-        <a href="buymen1.html"a target="_blank">
-          <img src="../pic/men1.jpg" alt="men1">
-        </a>
-        <div class="desc">
-          <p>เสื้อนักศึกษาแขนสั้น<br>ผู้ชาย<br></p>
-          <p style="float:left">฿250</p>
-          <input style="float:right" type="submit" name="shirt2buy" value="Buy">
-        </div>
-      </div>
-      <div class="img">
-        <a href="buymen2.html"a target="_blank">
-          <img src="../pic/men2.jpg" alt="men2">
-        </a>
-        <div class="desc">
-          <p>เสื้อนักศึกษาแขนยาว<br>ผู้ชาย<br></p>
-          <p style="float:left">฿290</p>
-          <input style="float:right" type="submit" name="shirt3buy" value="Buy">
-        </div>
-      </div>
-    </form>
   </body>
 </html>
