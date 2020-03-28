@@ -44,7 +44,7 @@
           <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="col-md-12 col-xs-12">
 
-                <img class="d-block w-100" src="pic/head4.png" alt="devbanban">
+                <img class="d-block w-100" src="../pic/head4.png" alt="devbanban">
 
         </div>
       </div>
@@ -57,7 +57,7 @@
 
 	<div class="img">
        <a href="buysh1.html"a target="_blank" >
-       <img src="pic/sh1.jpg" alt="sh1" >
+       <img src="../pic/sh1.jpg" alt="sh1" >
        </a>
     <div class="desc">รองเท้าหุ้มส้นสีดำ<br> ผู้ชาย
 	<br><p style="float:left">฿450</p>
@@ -66,7 +66,7 @@
 
 	<div class="img">
        <a href="buysh2.html"a target="_blank" >
-       <img src="pic/sh2.jpg" alt="sh2" >
+       <img src="../pic/sh2.jpg" alt="sh2" >
        </a>
     <div class="desc">รองเท้าผ้าใบสีขาว<br>ชาย/หญิง
 	<br><p style="float:left">฿250</p>
@@ -75,7 +75,7 @@
 
 	<div class="img">
        <a href="buysh3.html"a target="_blank" >
-       <img src="pic/sh3.jpg" alt="sh3" >
+       <img src="../pic/sh3.jpg" alt="sh3" >
        </a>
     <div class="desc">รองเท้าคัทชู<br>ผู้หญิง
 	<br><p style="float:left">฿290</p>
