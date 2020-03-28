@@ -77,7 +77,7 @@
   function login_result($username, $vulnerable_password) {
     $encryptedpassword_tmp = encrypt_hashkey($vulnerable_password);
     $trytogetpasskey_tmp = mysqli_query($connect, "select userpassword from usercredentials where userid='$username'");
-    if ($trytogetpasskey == $encryptedpassword) {
+    if ($trytogetpasskey == $encryptedpassword && $trytogetpasskey_tmp != null) {
       $randomstring = random_string(50);
       $decryptedhashkey_tmp = mysqli_query("password('$randomstring')");
       $encryptedhashkey_tmp = encrypt_hashkey($decryptedhashkey_tmp);
