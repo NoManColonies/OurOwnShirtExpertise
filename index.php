@@ -1,3 +1,6 @@
+<?php
+  require_once ".confiq/confiq.php";
+ ?>
 <!DOCTYPE html>
 <html>
 <head>
