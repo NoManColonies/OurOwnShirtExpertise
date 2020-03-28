@@ -9,8 +9,8 @@
     }
   } else {
     unset($_COOKIE['current_userid']);
-    unset($_COOKIE['encrypt_hashkey']);
-    unset($_COOKIE['encrypted_hashkey']);
+    unset($_COOKIE['encrypted_administration_key']);
+    unset($_COOKIE['encrypted_hash_key']);
     echo "<script type=\"text/javascript\">";
     echo "alert(\"session expired logging out automatically.\");";
     echo "</script>";

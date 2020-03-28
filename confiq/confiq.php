@@ -46,7 +46,7 @@
     return $random_string;
   }
   function session_restore_result() {
-    if(isset($_COOKIE['current_userid']) && $_COOKIE['current_userid'] != null && isset($_COOKIE['encrypted_hash_key']) && $_COOKIE['encrypted_hash_key'] != null && $_COOKIE['encrypted_administrationkey'] != null && isset($_COOKIE['encrypted_administrationkey'])) {
+    if(isset($_COOKIE['current_userid']) && $_COOKIE['current_userid'] != null && isset($_COOKIE['encrypted_hash_key']) && $_COOKIE['encrypted_hash_key'] != null && $_COOKIE['encrypted_administration_key'] != null && isset($_COOKIE['encrypted_administration_key'])) {
       $userid = $_COOKIE['current_userid'];
       $decrypted_hash_key = aes_decrypt($_COOKIE['encrypted_hash_key']);
       $server_decrypted_hash_key = mysqli_query($connect, "select * from usercredentials where userid='$userid'");
@@ -60,7 +60,7 @@
         $encrypted_hash_key = aes_encrypt($decrypted_hash_key);
         setcookie('encrypted_hash_key', $encrypted_hash_key, time() + 3600, '/', $server_url, false, true);
         setcookie('current_userid', $userid, time() + 3600, '/', $server_url, false, true);
-        setcookie('encrypted_administrationkey', $row['useraccesskey'], time() + 3600, '/', $server_url, false, true);
+        setcookie('encrypted_administration_key', $row['useraccesskey'], time() + 3600, '/', $server_url, false, true);
         $hash_key_update_result = mysqli_query($connect, "update usercredentials set userhashkey='$decrypted_hash_key' where userid='$userid'");
         if (!$hash_key_update_result) {
           die("session restore failed : fetal.");
@@ -74,8 +74,8 @@
         if (isset($_COOKIE['encrypted_hash_key'])) {
           unset($_COOKIE['encrypted_hash_key']);
         }
-        if (isset($_COOKIE['encrypted_administrationkey'])) {
-          unset($_COOKIE['encrypted_administrationkey']);
+        if (isset($_COOKIE['encrypted_administration_key'])) {
+          unset($_COOKIE['encrypted_administration_key']);
         }
         if (!$hash_key_update_result) {
           die("destroy server hashkey failed. userid doesn't exists on server. this shouldn't occur as we already checked before : fetal.");
@@ -89,8 +89,8 @@
       if (isset($_COOKIE['encrypted_hash_key'])) {
         unset($_COOKIE['encrypted_hash_key']);
       }
-      if (isset($_COOKIE['encrypted_administrationkey'])) {
-        unset($_COOKIE['encrypted_administrationkey']);
+      if (isset($_COOKIE['encrypted_administration_key'])) {
+        unset($_COOKIE['encrypted_administration_key']);
       }
       return false;
     }
@@ -109,12 +109,12 @@
       $encrypted_administration_key_tmp = mysqli_query($connect, "select useraccesskey from usercredentials where userid='$userid'");
       setcookie('encrypted_hash_key', $encrypted_hash_key_tmp, time() + 3600, '/', $server_url, false, true);
       setcookie('current_userid', $userid, time() + 3600, '/', $server_url, false, true);
-      setcookie('encrypted_administrationkey', $encrypted_administration_key_tmp, time() + 3600, '/', $server_url, false, true);
+      setcookie('encrypted_administration_key', $encrypted_administration_key_tmp, time() + 3600, '/', $server_url, false, true);
       $hash_key_update_result = mysqli_query($connect, "update usercredentials set userhash_key='$decrypted_hash_key_tmp' where userid='$username'");
       if(!$hash_key_update_result) {
         unset($_COOKIE['encrypted_hash_key']);
         unset($_COOKIE['current_userid']);
-        unset($_COOKIE['encrypted_administrationkey']);
+        unset($_COOKIE['encrypted_administration_key']);
         die("process failed during server hash_key update : fetal.");
       }
       return true;
