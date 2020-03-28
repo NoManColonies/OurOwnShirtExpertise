@@ -9,7 +9,7 @@
   </head>
   <body>
     <?php
-      //require_once('config/config.php');
+      require_once('.confiq/confiq.php');
     ?>
     <div class="head">
       <ul>
