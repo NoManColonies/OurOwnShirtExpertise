@@ -26,7 +26,7 @@
         <div class="col-md-12 col-xs-12">
           <nav class="navbar navbar-expand-lg navbar-light bg-light"></nav>
           <div class="col-md-12 col-xs-12">
-            <img class="d-block w-100" src="pic/head4.png" alt="devbanban">
+            <img class="d-block w-100" src="../pic/head4.png" alt="devbanban">
           </div>
         </div>
       </div>
@@ -34,7 +34,7 @@
         <h1><p>Items</p></h1>
         <div class="img">
           <a href="buyother1.php"a target="_blank" >
-            <img src="pic/ot1.jpg" alt="ot1" >
+            <img src="../pic/ot1.jpg" alt="ot1" >
           </a>
           <div class="desc">เนคไทด์นักศึกษา<br> มช.
             <br><p style="float:left">฿45000</p>
@@ -43,7 +43,7 @@
         </div>
         <div class="img">
           <a href="buyother2.php"a target="_blank" >
-            <img src="pic/ot2.jpg" alt="ot2" >
+            <img src="../pic/ot2.jpg" alt="ot2" >
           </a>
           <div class="desc">เข็มกลัดนักศึกษา<br> มช.
             <br><p style="float:left">฿145000</p>
@@ -52,7 +52,7 @@
         </div>
         <div class="img">
           <a href="buyother3.php"a target="_blank" >
-            <img src="pic/ot3.jpg" alt="ot3" >
+            <img src="../pic/ot3.jpg" alt="ot3" >
           </a>
           <div class="desc">หัวเข็มขัดนักศึกษา<br> มช.
             <br><p style="float:left">฿30000</p>
@@ -61,7 +61,7 @@
         </div>
         <div class="img">
           <a href="buyother4.php"a target="_blank" >
-            <img src="pic/ot4.jpg" alt="ot4" >
+            <img src="../pic/ot4.jpg" alt="ot4" >
           </a>
           <div class="desc">กระดุมนักศึกษามช.<br> 5 เม็ด
             <br><p style="float:left">฿10000</p>
@@ -70,7 +70,7 @@
         </div>
         <div class="img">
           <a href="buyother5.php"a target="_blank" >
-            <img src="pic/ot5.jpg" alt="ot5" >
+            <img src="../pic/ot5.jpg" alt="ot5" >
           </a>
           <div class="desc">ตุ้งติ้งนักศึกษา<br> มช.
             <br><p style="float:left">฿6000000</p>
