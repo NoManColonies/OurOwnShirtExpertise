@@ -18,7 +18,17 @@
         <li><a class="active" href="other.php">อื่นๆ</a></li>
         <li style="float:right"><a href="https://www.google.com/webhp?hl=th&sa=X&ved=0ahUKEwiHoOHqmbPoAhUTbn0KHRc2BsIQPAgH">ค้นหา</a></li>
         <li style="float:right"><a href="https://web.facebook.com/don.jirapipat?fref=gs&__tn__=%2CdlC-R-R&eid=ARD4Hn7n7y0YlNmiFkRA4pRC8wT9s0jqzBWc2Ffc5Hr4JDyBq0oFcob2oUzlIG2Per5K2EaVj0spOoBE&hc_ref=ARQT8XqV-z45u9iOFih8e6NeW5FfLPr1_UoW7itb2PfNVQr5SznweAP6t5DFePjomUw&ref=nf_target&dti=2510061589261957&hc_location=group&_rdc=1&_rdr">ติดต่อเรา</a></li>
-        <li style="float:right"><a href="../login/login.php">เข้าสู่ระบบ</a></li>
+        <?php
+          require_once('../.confiq/confiq.php');
+          if (session_restore_result()) {
+            mysqli_close($connect);
+            echo "<li style=\"float:right\"><a href=\"../login/account.php\">บัญชี</a></li>";
+            echo "<li style=\"float:right\"><a href=\"../login/logout.php\">ออกจากระบบ</a></li>";
+          } else {
+            echo "<li style=\"float:right\"><a href=\"../login/login.php\">เข้าสู่ระบบ</a></li>";
+            mysqli_close($connect);
+          }
+        ?>
       </ul>
     </div>
     <div class="container">

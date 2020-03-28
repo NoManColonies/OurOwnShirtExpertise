@@ -18,8 +18,18 @@
       <li><a  href="../other/other.php">อื่นๆ</a></li>
       <li style="float:right"><a  href="https://www.google.com/webhp?hl=th&sa=X&ved=0ahUKEwiHoOHqmbPoAhUTbn0KHRc2BsIQPAgH">ค้นหา</a></li>
       <li style="float:right"><a href="../contact/contact.php">ติดต่อเรา</a></li>
-      <li style="float:right"><a href="../login/login.php">เข้าสู่ระบบ</a></li>
-      </ul>
+      <?php
+        require_once('../.confiq/confiq.php');
+        if (session_restore_result()) {
+          mysqli_close($connect);
+          echo "<li style=\"float:right\"><a href=\"../login/account.php\">บัญชี</a></li>";
+          echo "<li style=\"float:right\"><a href=\"../login/logout.php\">ออกจากระบบ</a></li>";
+        } else {
+          echo "<li style=\"float:right\"><a href=\"../login/login.php\">เข้าสู่ระบบ</a></li>";
+          mysqli_close($connect);
+        }
+      ?>
+    </ul>
     </div>
     <div class="container">
       <div class="row">
