@@ -14,13 +14,13 @@
     ?>
     <div class="head">
       <ul>
-        <li><a class="active" href="../index.php">หน้าหลัก</a></li>
+        <li><a href="../index.php">หน้าหลัก</a></li>
         <li><a href="../about/about.php">เกี่ยวกับเรา</a></li>
-        <li><a  href="../shirt/shirt.php">เสื้อนักศึกษา</a></li>
-        <li><a  href="../sk/sk.php">กางเกง/กระโปรง</a></li>
-        <li><a  href="../shoes/shoes.php">รองเท้านักศึกษา</a></li>
-        <li><a  href="../other/other.php">อื่นๆ</a></li>
-        <li style="float:right"><a  href="https://www.google.com/webhp?hl=th&sa=X&ved=0ahUKEwiHoOHqmbPoAhUTbn0KHRc2BsIQPAgH">ค้นหา</a></li>
+        <li><a href="../shirt/shirt.php">เสื้อนักศึกษา</a></li>
+        <li><a href="../sk/sk.php">กางเกง/กระโปรง</a></li>
+        <li><a href="../shoes/shoes.php">รองเท้านักศึกษา</a></li>
+        <li><a href="../other/other.php">อื่นๆ</a></li>
+        <li style="float:right"><a href="https://www.google.com/webhp?hl=th&sa=X&ved=0ahUKEwiHoOHqmbPoAhUTbn0KHRc2BsIQPAgH">ค้นหา</a></li>
         <li style="float:right"><a href="../contact/contact.php">ติดต่อเรา</a></li>
         <li style="float:right"><a class="active" href="login.php">เข้าสู่ระบบ</a></li>
       </ul>
@@ -42,7 +42,6 @@
         <input type="password"   id="Password" required name="Password" placeholder="Password">
         <input type="submit" name="" value="submit">
         <input type="reset" name="" value="reset">
-        &nbsp;&nbsp;
         <a href="register.php">register</a>
       </form>
     </div>
