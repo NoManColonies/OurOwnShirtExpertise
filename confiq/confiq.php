@@ -32,17 +32,17 @@
       }
       $row = $server_decrypted_hash_key->fetch_assoc();
       if (password_verify($row['userhashkey'], $_COOKIE['encrypted_hash_key'])) {
-        $decrypted_hash_key = random_string(20);
+        $decrypted_hash_key = random_string(5);
         $encrypted_hash_key = argon2_encrypt($decrypted_hash_key);
         setcookie('encrypted_hash_key', $encrypted_hash_key, time() + 3600, '/', $server_url, false, true);
         setcookie('current_userid', $userid, time() + 3600, '/', $server_url, false, true);
         $hash_key_update_result = $connect->query("update usercredentials set userhashkey='".$decrypted_hash_key."' where userid='".$userid."'");
         if (!$hash_key_update_result) {
           if (isset($_COOKIE['encrypted_hash_key'])) {
-            unset($_COOKIE['encrypted_hash_key']);
+            setcookie('encrypted_hash_key', null);
           }
           if (isset($_COOKIE['current_userid'])) {
-            unset($_COOKIE['current_userid']);
+            setcookie('current_userid', null);
           }
           printf("session restore failed : [fetal]");
           exit();
@@ -51,10 +51,10 @@
       } else {
         $hash_key_update_result = $connect->query("update usercredentials set userhashkey=null where='".$userid."'");
         if (isset($_COOKIE['current_userid'])) {
-          unset($_COOKIE['current_userid']);
+          setcookie('current_userid', null);
         }
         if (isset($_COOKIE['encrypted_hash_key'])) {
-          unset($_COOKIE['encrypted_hash_key']);
+          setcookie('encrypted_hash_key', null);
         }
         if (!$hash_key_update_result) {
           printf("destroy server hashkey failed. userid : '".$userid."' doesn't exists on server. this shouldn't occur as we already checked before : [fetal]");
@@ -64,10 +64,10 @@
       }
     } else {
       if (isset($_COOKIE['current_userid'])) {
-        unset($_COOKIE['current_userid']);
+        setcookie('current_userid', null);
       }
       if (isset($_COOKIE['encrypted_hash_key'])) {
-        unset($_COOKIE['encrypted_hash_key']);
+        setcookie('encrypted_hash_key', null);
       }
       return false;
     }
@@ -80,7 +80,7 @@
       $try_to_get_passkey_tmp = $connect->query("select userpassword from usercredentials where userid='".$username."'");
     }
     if ($try_to_get_passkey_tmp == $encrypted_password_tmp) {
-      $decrypted_hash_key_tmp = random_string(20);
+      $decrypted_hash_key_tmp = random_string(5);
       $encrypted_hash_key_tmp = argon2_encrypt($decrypted_hash_key_tmp);
       $encrypted_administration_key_tmp = $connect->query("select * from usercredentials where userid='".$username."'");
       $encrypted_administration_key_tmp_string = $encrypted_administration_key_tmp->fetch_assoc();
@@ -113,7 +113,7 @@
               'email_valid' => false
       ];
     }
-    $encrypted_administration_key_tmp = argon2_encrypt(random_string(10));
+    $encrypted_administration_key_tmp = argon2_encrypt(random_string(5));
     $try_to_register_credentials_result = $connect->query("insert into usercredentials ('uid', 'userid', 'username', 'userlastname', 'userpassword', 'userhashkey', 'useraccesskey', 'usercurrentip') values(null, '".$username."', '".$name."', '".$lastname."', password('".$vulnerable_password."'), null, '".$encrypted_administration_key_tmp."', null)");
     if (!$try_to_register_credentials_result) {
       printf("failed to register credentials. It seem likes your password did not met the password policy. : [fetal]");
