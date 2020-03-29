@@ -68,13 +68,13 @@
             exit();
           }
           $did_code = $get_did_code->fetch_assoc();
-          $update_userbasicdata_result = $connect->query("update userbasicdata set primaryaddress='".$_REQUEST['Address1']."' and secondaryaddress='".$_REQUEST['Address2']."' and city='".$_REQUEST['City']."' and state='".$_REQUEST['State']."' and province='".$_REQUEST['Province']."' and postnum='".$_REQUEST['Postcode']."' and emailaddress='".$_REQUEST['Email']."' and phonenumber='".$_REQUEST['Phone']."' where did='".$did_code['uid']."'");
+          $update_userbasicdata_result = $connect->query("update userbasicdata set primaryaddress='".$_REQUEST['Address1']."', secondaryaddress='".$_REQUEST['Address2']."', city='".$_REQUEST['City']."', state='".$_REQUEST['State']."', province='".$_REQUEST['Province']."', postnum='".$_REQUEST['Postcode']."', emailaddress='".$_REQUEST['Email']."', phonenumber='".$_REQUEST['Phone']."' where did='".$did_code['uid']."'");
           if (!$update_userbasicdata_result) {
             printf("Failed to update userbasicdata : [fetal]");
             exit();
           }
         default:
-          if ($get_did_code->num_rows == 0) {
+          if ($get_did_code == null) {
             $get_did_code = $connect->query("select uid from usercredentials where userid='".$_COOKIE['current_userid']."'");
           }
           if ($get_did_code->num_rows == 0) {
