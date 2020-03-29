@@ -45,6 +45,9 @@
                 <div class="carousel-item active">
                   <img class="d-block w-100" src="pic/head.png" alt="devbanban">
                 </div>
+				<div class="carousel-item active">
+                  <img class="d-block w-100" src="pic/head1.png" alt="devbanban">
+                </div>
                 <div class="carousel-item">
                   <img class="d-block w-100" src="pic/head2.png" alt="devbanban">
                 </div>
