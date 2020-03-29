@@ -10,37 +10,8 @@
     exit();
   }
   session_start();
-  /*
-  function encrypt_hashkey($decrypted_hashkey_f) {
-    return mysqli_query($connect, "SELECT AES_ENCRYPT($decrypted_hashkey_f, '')");
-  }
-  function decrypt_hashkey($encrypted_hashkey_f) {
-    return mysqli_query($connect, "SELECT AES_DECRYPT($encrypted_hashkey_f, '')");
-  }
-  function aes_encrypt($text) {
-    $key = aes_key('');
-    $pad_value = 16 - (strlen($text) % 16);
-    $text = str_pad($text, (16 * (floor(strlen($text) / 16) + 1)), chr($pad_value));
-    return mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $key, $text, MCRYPT_MODE_ECB, mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_ECB), MCRYPT_DEV_URANDOM));
-  }
-  function aes_decrypt($text) {
-    $key = aes_key('');
-    $text = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $key, $text, MCRYPT_MODE_ECB, mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_ECB), MCRYPT_DEV_URANDOM));
-    return rtrim($text, "\0..\16");
-  }
-  function aes_key($key) {
-    $new_key = str_repeat(chr(0), 16);
-    for($i=0,$len=strlen($key);$i<$len;$i++) {
-        $new_key[$i%16] = $new_key[$i%16] ^ $key[$i];
-    }
-    return $new_key;
-  }
-  */
   function argon2_encrypt($text) {
     return password_hash($text, PASSWORD_ARGON2I);
-  }
-  function argon2_verify($text, $hash) {
-    return (password_hash($text, PASSWORD_ARGON2I) == $hash);
   }
   function random_string($length) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+=-~/?>.,<\|฿';
@@ -60,7 +31,7 @@
         exit();
       }
       $row = $server_decrypted_hash_key->fetch_assoc();
-      if (argon2_verify($row['userhashkey'], $_COOKIE['encrypted_hash_key'])) {
+      if (password_verify($row['userhashkey'], $_COOKIE['encrypted_hash_key'])) {
         $decrypted_hash_key = random_string(20);
         $encrypted_hash_key = argon2_encrypt($decrypted_hash_key);
         setcookie('encrypted_hash_key', $encrypted_hash_key, time() + 3600, '/', $server_url, false, true);
