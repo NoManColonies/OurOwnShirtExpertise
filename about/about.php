@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet"href="../css_comp/master.css">
+    <link type="text/css" rel="stylesheet"href="../css/master.css">
     <title>เกี่ยวกับเรา</title>
   </head>
   <body>
@@ -17,7 +17,7 @@
         <li><a  href="../shoes/shoes.php">รองเท้านักศึกษา</a></li>
         <li><a  href="../other/other.php">อื่นๆ</a></li>
         <li style="float:right"><a  href="https://www.google.com/webhp?hl=th&sa=X&ved=0ahUKEwiHoOHqmbPoAhUTbn0KHRc2BsIQPAgH">ค้นหา</a></li>
-        <li style="float:right"><a href="../contact/contact.php">ติดต่อเรา</a></li>
+        <li style="float:right"><a href="https://web.facebook.com/don.jirapipat?fref=gs&__tn__=%2CdlC-R-R&eid=ARD4Hn7n7y0YlNmiFkRA4pRC8wT9s0jqzBWc2Ffc5Hr4JDyBq0oFcob2oUzlIG2Per5K2EaVj0spOoBE&hc_ref=ARQT8XqV-z45u9iOFih8e6NeW5FfLPr1_UoW7itb2PfNVQr5SznweAP6t5DFePjomUw&ref=nf_target&dti=2510061589261957&hc_location=group&_rdc=1&_rdr">ติดต่อเรา</a></li>
         <?php
           require_once('../.confiq/confiq.php');
           if (session_restore_result($connect, $server_url)) {
