@@ -4,24 +4,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet"href="css/master.css">
+    <link type="text/css" rel="stylesheet"href="../css/master.css">
     <title>Home</title>
   </head>
   <body>
     <div class="head">
       <ul>
         <li><a class="active" href="index.php">หน้าหลัก</a></li>
-        <li><a href="about/about.php">เกี่ยวกับเรา</a></li>
-        <li><a href="shirt/shirt.php">เสื้อนักศึกษา</a></li>
-        <li><a href="sk/sk.php">กางเกง/กระโปรง</a></li>
-        <li><a href="shoes/shoes.php">รองเท้านักศึกษา</a></li>
-        <li><a href="other/other.php">อื่นๆ</a></li>
+        <li><a href="../about/about.php">เกี่ยวกับเรา</a></li>
+        <li><a href="../shirt/shirt.php">เสื้อนักศึกษา</a></li>
+        <li><a href="../sk/sk.php">กางเกง/กระโปรง</a></li>
+        <li><a href="../shoes/shoes.php">รองเท้านักศึกษา</a></li>
+        <li><a href="../other/other.php">อื่นๆ</a></li>
         <li style="float:right"><a href="https://www.google.com/webhp?hl=th&sa=X&ved=0ahUKEwiHoOHqmbPoAhUTbn0KHRc2BsIQPAgH">ค้นหา</a></li>
         <li style="float:right"><a href="https://web.facebook.com/don.jirapipat?fref=gs&__tn__=%2CdlC-R-R&eid=ARD4Hn7n7y0YlNmiFkRA4pRC8wT9s0jqzBWc2Ffc5Hr4JDyBq0oFcob2oUzlIG2Per5K2EaVj0spOoBE&hc_ref=ARQT8XqV-z45u9iOFih8e6NeW5FfLPr1_UoW7itb2PfNVQr5SznweAP6t5DFePjomUw&ref=nf_target&dti=2510061589261957&hc_location=group&_rdc=1&_rdr">ติดต่อเรา</a></li>
-        <li style="float:right"><a href="login/account.php">บัญชี</a>
-        <li style="float:right"><a href="login/logout.php">ออกจากระบบ</a></li>
+        <li style="float:right"><a href="account.php">บัญชี</a>
+        <li style="float:right"><a href="logout.php">ออกจากระบบ</a></li>
         <?php
-          require_once('.confiq/confiq.php');
+          require_once('../.confiq/confiq.php');
           if (!session_restore_result($connect, $server_url)) {
             $connect->close();
             header("Location: https://worawanbydiistudent.store/index.php");
@@ -34,32 +34,7 @@
         <div class="col-md-12 col-xs-12">
           <nav class="navbar navbar-expand-lg navbar-light bg-light"></nav>
           <div class="col-md-12 col-xs-12">
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-              <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-              </ol>
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img class="d-block w-100" src="pic/head.png" alt="devbanban">
-                </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" src="pic/head2.png" alt="devbanban">
-                </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" src="pic/head3.png" alt="devbanban">
-                </div>
-              </div>
-              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
-            </div>
+            <img class="d-block w-100" src="../pic/head4.png" alt="devbanban">
           </div>
         </div>
       </div>
