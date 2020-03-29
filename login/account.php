@@ -10,7 +10,7 @@
   <body>
     <div class="head">
       <ul>
-        <li><a class="active" href="index.php">หน้าหลัก</a></li>
+        <li><a class="active" href="../index.php">หน้าหลัก</a></li>
         <li><a href="../about/about.php">เกี่ยวกับเรา</a></li>
         <li><a href="../shirt/shirt.php">เสื้อนักศึกษา</a></li>
         <li><a href="../sk/sk.php">กางเกง/กระโปรง</a></li>
