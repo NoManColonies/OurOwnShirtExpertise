@@ -44,11 +44,12 @@
       } else if (isset($_COOKIE['value']) && $_REQUEST['value'] == 'false') {
         setcookie('edit_state', 'false', time() + 60, '/', $server_url, false, true);
         $get_did_code = $connect->query("select uid from usercredentials where userid='".$_COOKIE['current_userid']."'");
-        if ($get_did_code == null) {
+        if ($get_did_code->num_rows == 0) {
           printf("Returned UID was NULL after second condition check has passed : [fetal]");
           exit();
         }
-        $update_userbasicdata_result = $connect->query("update userbasicdata set primaryaddress='".$_REQUEST['Address1']."' and secondaryaddress='".$_REQUEST['Address2']."' and city='".$_REQUEST['City']."' and state='".$_REQUEST['State']."' and province='".$_REQUEST['Province']."' and postnum='".$_REQUEST['Postcode']."' and emailaddress='".$_REQUEST['emailaddress']."' and phonenumber='".$_REQUEST['phonenumber']."' where did=".$get_did_code."");
+        $did_code = $get_did_code->fetch_assoc();
+        $update_userbasicdata_result = $connect->query("update userbasicdata set primaryaddress='".$_REQUEST['Address1']."' and secondaryaddress='".$_REQUEST['Address2']."' and city='".$_REQUEST['City']."' and state='".$_REQUEST['State']."' and province='".$_REQUEST['Province']."' and postnum='".$_REQUEST['Postcode']."' and emailaddress='".$_REQUEST['emailaddress']."' and phonenumber='".$_REQUEST['phonenumber']."' where did=".$did_code['uid']."");
         if (!$update_userbasicdata_result) {
           printf("Failed to update userbasicdata : [fetal]");
           exit();
@@ -59,15 +60,16 @@
         $connect->close();
         header("Location: https://worawanbydiistudent.store/index.php");
       }
-      if ($get_did_code == null) {
+      if ($get_did_code->num_rows == 0) {
         $get_did_code = $connect->query("select uid from usercredentials where userid='".$_COOKIE['current_userid']."'");
       }
-      if ($get_did_code == null) {
+      if ($get_did_code->num_rows == 0) {
         printf("Returned UID was NULL after edit_state was assigned to ".$_COOKIE['edit_state']." : [fetal]");
         exit();
       }
+      $did_code = $get_did_code->fetch_assoc();
       if (isset($_COOKIE['edit_state']) && $_COOKIE['edit_state'] == 'false') {
-        $user_basic_data = $connect->query("select * from userbasicdata where did='".$get_did_code."'");
+        $user_basic_data = $connect->query("select * from userbasicdata where did='".$did_code['uid']."'");
         if ($user_basic_data->num_rows == 0) {
           printf("Returned data is NULL at edit_state : false : [fetal]");
           exit();
@@ -78,7 +80,7 @@
         echo "<tr><td>ที่อยู่</td><td>".$row['primaryaddress']."</td></tr><tr><td>ที่อยู่เพิ่มเติม(ไม่จำเป็น)</td><td>".$row['secondaryaddress']."</td></tr><tr><td>อำเภอ</td><td>".$row['city']."</td></tr><tr><td>ตำบล</td><td>".$row['state']."</td></tr><tr><td>จังหวัด</td><td>".$row['province']."</td></tr><tr><td>เลขที่ไปรษณีย์</td><td>".$row['postnum']."</td></tr><tr><td>อีเมล</td><td>".$row['emailaddress']."</td></tr><tr><td>เบอร์โทรศัพท์</td><td>".$row['phonenumber']."</td></tr>";
         echo "</table>";
       } else if (isset($_COOKIE['edit_state']) && $_COOKIE['edit_state'] == 'true') {
-        $user_basic_data = $connect->query("select * from userbasicdata where did='".$get_did_code."'");
+        $user_basic_data = $connect->query("select * from userbasicdata where did='".$did_code['uid']."'");
         $row = $user_basic_data->fetch_assoc();
         echo "<form action=\"account.php\" method=\"post\">";
         echo "<table><tr><td>ที่อยู่</td><td><input type=\"text\" name=\"Address1\" value=".$row['primaryaddress']."</td></tr>";
