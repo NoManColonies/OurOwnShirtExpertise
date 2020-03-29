@@ -21,9 +21,8 @@
         <?php
           require_once('.confiq/confiq.php');
           if (session_restore_result($connect, $server_url)) {
+            echo "<div class=\"dropdown\"><button class=\"dropbtn\">บัญชี</button><div class=\"dropdown-content\"><a href=\"login/account.php\">แก้ไขข้อมูล</a><a href=\"login/transaction.php\">ประวัติการซื้อ</a><a href=\"login/logout.php\">ออกจากระบบ</a></div></div>";
             $connect->close();
-            echo "<li style=\"float:right\"><a href=\"login/account.php\">บัญชี</a></li>";
-            echo "<li style=\"float:right\"><a href=\"login/logout.php\">ออกจากระบบ</a></li>";
           } else {
             echo "<li style=\"float:right\"><a href=\"login/login.php\">เข้าสู่ระบบ</a></li>";
             $connect->close();

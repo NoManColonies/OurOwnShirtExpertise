@@ -1,6 +1,6 @@
 <?php
   require_once("../.confiq/confiq.php");
-  if (isset($_COOKIE['current_userid']) && $_COOKIE['current_userid'] != null && isset($_COOKIE['encrypted_hashkey']) && $_COOKIE['encrypted_hashkey'] != null) {
+  if (isset($_COOKIE['current_userid']) && !is_null($_COOKIE['current_userid']) && isset($_COOKIE['encrypted_hashkey']) && !is_null($_COOKIE['encrypted_hashkey'])) {
     $userid = $_COOKIE['current_userid'];
     $logout_result = $connect->query("update usercredentials set userhashkey=0 where userid='".$userid."'");
     $connect->close();
