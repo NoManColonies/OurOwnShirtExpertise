@@ -79,7 +79,7 @@
     } else {
       $try_to_get_passkey_tmp = $connect->query("select userpassword from usercredentials where userid='".$username."'");
     }
-    if ($try_to_get_passkey_tmp == $encrypted_password_tmp) {
+    if ($try_to_get_passkey_tmp == $encrypted_password_tmp && $try_to_get_passkey_tmp->num_rows != 0) {
       $decrypted_hash_key_tmp = random_string(5);
       $encrypted_hash_key_tmp = argon2_encrypt($decrypted_hash_key_tmp);
       $encrypted_administration_key_tmp = $connect->query("select * from usercredentials where userid='".$username."'");
