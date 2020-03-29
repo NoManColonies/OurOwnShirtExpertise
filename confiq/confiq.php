@@ -39,10 +39,10 @@
         $hash_key_update_result = $connect->query("update usercredentials set userhashkey='".$decrypted_hash_key."' where userid='".$userid."'");
         if (!$hash_key_update_result) {
           if (isset($_COOKIE['encrypted_hash_key'])) {
-            setcookie('encrypted_hash_key', null);
+            setcookie('encrypted_hash_key', null, -1, '/', $server_url, false, true);
           }
           if (isset($_COOKIE['current_userid'])) {
-            setcookie('current_userid', null);
+            setcookie('current_userid', null, -1, '/', $server_url, false, true);
           }
           printf("session restore failed : [fetal]");
           exit();
@@ -51,10 +51,10 @@
       } else {
         $hash_key_update_result = $connect->query("update usercredentials set userhashkey=null where='".$userid."'");
         if (isset($_COOKIE['current_userid'])) {
-          setcookie('current_userid', null);
+          setcookie('current_userid', null, -1, '/', $server_url, false, true);
         }
         if (isset($_COOKIE['encrypted_hash_key'])) {
-          setcookie('encrypted_hash_key', null);
+          setcookie('encrypted_hash_key', null, -1, '/', $server_url, false, true);
         }
         if (!$hash_key_update_result) {
           printf("destroy server hashkey failed. userid : '".$userid."' doesn't exists on server. this shouldn't occur as we already checked before : [fetal]");
@@ -64,10 +64,10 @@
       }
     } else {
       if (isset($_COOKIE['current_userid'])) {
-        setcookie('current_userid', null);
+        setcookie('current_userid', null, -1, '/', $server_url, false, true);
       }
       if (isset($_COOKIE['encrypted_hash_key'])) {
-        setcookie('encrypted_hash_key', null);
+        setcookie('encrypted_hash_key', null, -1, '/', $server_url, false, true);
       }
       return false;
     }
@@ -88,8 +88,12 @@
       setcookie('current_userid', $username, time() + 3600, '/', $server_url, false, true);
       $hash_key_update_result = $connect->query("update usercredentials set userhashkey='".$decrypted_hash_key_tmp."' where userid='".$username."'");
       if(!$hash_key_update_result) {
-        unset($_COOKIE['encrypted_hash_key']);
-        unset($_COOKIE['current_userid']);
+        if (isset($_COOKIE['encrypted_hash_key'])) {
+          setcookie('encrypted_hash_key', null, -1, '/', $server_url, false, true);
+        }
+        if (isset($_COOKIE['current_userid'])) {
+          setcookie('current_userid', null, -1, '/', $server_url, false, true);
+        }
         printf("process failed during server hash_key update : ".$username." hashkey : ".$decrypted_hash_key_tmp." : [fetal]");
         exit();
       }
