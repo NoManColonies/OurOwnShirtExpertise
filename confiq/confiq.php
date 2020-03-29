@@ -118,9 +118,10 @@
       ];
     }
     $encrypted_administration_key_tmp = argon2_encrypt(random_string(5));
-    $try_to_register_credentials_result = $connect->query("insert into usercredentials ('uid', 'userid', 'username', 'userlastname', 'userpassword', 'userhashkey', 'useraccesskey', 'usercurrentip') values(null, '".$username."', '".$name."', '".$lastname."', password('".$vulnerable_password."'), null, '".$encrypted_administration_key_tmp."', null)");
+    $encrypted_password_tmp = $connect->query("select password('".$vulnerable_password."')");
+    $try_to_register_credentials_result = $connect->query("insert into usercredentials ('uid', 'userid', 'username', 'userlastname', 'userpassword', 'userhashkey', 'useraccesskey', 'usercurrentip') values(null, '".$username."', '".$name."', '".$lastname."', '".$encrypted_password_tmp."', null, '".$encrypted_administration_key_tmp."', null)");
     if (!$try_to_register_credentials_result) {
-      printf("failed to register credentials. It seem likes your password did not met the password policy. : [fetal]");
+      printf("failed to register credentials : [fetal]");
       exit();
     }
     $try_to_register_basicdata_result = $connect->query("insert into userbasicdata ('did', 'primaryaddress', 'secondaryaddress', 'city', 'state', 'province', 'postnum', 'phonenumber', 'emailaddress', 'extra') values(null, '".$primary_address."', '".$secondary_address."', '".$city."', '".$state."', '".$provice."', '".$postcode."', '".$phonenumber."', '".$emailaddress."', null)");
