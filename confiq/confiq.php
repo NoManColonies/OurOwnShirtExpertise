@@ -119,12 +119,12 @@
     }
     $encrypted_administration_key_tmp = argon2_encrypt(random_string(10));
     $encrypted_password_tmp = argon2_encrypt($vulnerable_password);
-    $try_to_register_credentials_result = $connect->query("insert into usercredentials ('uid', 'userid', 'username', 'userlastname', 'userpassword', 'useraccesskey') values(NULL, '".$username."', '".$name."', '".$lastname."', '".$encrypted_password_tmp."', '".$encrypted_administration_key_tmp."')");
+    $try_to_register_credentials_result = $connect->query("insert into usercredentials (uid, userid, username, userlastname, userpassword, useraccesskey) values(NULL, '".$username."', '".$name."', '".$lastname."', '".$encrypted_password_tmp."', '".$encrypted_administration_key_tmp."')");
     if (!$try_to_register_credentials_result) {
       printf("failed to register credentials : [fetal]");
       exit();
     }
-    $try_to_register_basicdata_result = $connect->query("insert into userbasicdata ('did', 'primaryaddress', 'secondaryaddress', 'city', 'state', 'province', 'postnum', 'phonenumber', 'emailaddress', 'extra') values(NULL, '".$primary_address."', '".$secondary_address."', '".$city."', '".$state."', '".$provice."', '".$postcode."', '".$phonenumber."', '".$emailaddress."', null)");
+    $try_to_register_basicdata_result = $connect->query("insert into userbasicdata (did, primaryaddress, secondaryaddress, city, state, province, postnum, phonenumber, emailaddress, extra) values(NULL, '".$primary_address."', '".$secondary_address."', '".$city."', '".$state."', '".$provice."', '".$postcode."', '".$phonenumber."', '".$emailaddress."', null)");
     if (!$try_to_register_basicdata_result) {
       printf("failed to register basic data : [fetal]");
       exit();
