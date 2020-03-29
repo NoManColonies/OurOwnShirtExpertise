@@ -45,7 +45,7 @@
         setcookie('edit_state', 'false', time() + 60, '/', $server_url, false, true);
         $get_did_code = $connect->query("select uid from usercredentials where userid='".$_COOKIE['current_userid']."'");
         if ($get_did_code == null) {
-          printf("Returned UID was NULL : [fetal]");
+          printf("Returned UID was NULL after second condition check has passed : [fetal]");
           exit();
         }
         $update_userbasicdata_result = $connect->query("update userbasicdata set primaryaddress='".$_REQUEST['Address1']."' and secondaryaddress='".$_REQUEST['Address2']."' and city='".$_REQUEST['City']."' and state='".$_REQUEST['State']."' and province='".$_REQUEST['Province']."' and postnum='".$_REQUEST['Postcode']."' and emailaddress='".$_REQUEST['emailaddress']."' and phonenumber='".$_REQUEST['phonenumber']."' where did=".$get_did_code."");
@@ -59,15 +59,24 @@
         $connect->close();
         header("Location: https://worawanbydiistudent.store/index.php");
       }
-      if (isset($_COOKIE['edit_state']) && $_COOKIE['edit_state'] == false) {
-        $user_basic_data = $connect->query("select * from userbasicdata where userid='".$_COOKIE['current_userid']."'");
+      $get_did_code = $connect->query("select uid from usercredentials where userid='".$_COOKIE['current_userid']."'");
+      if ($get_did_code == null) {
+        printf("Returned UID was NULL after edit_state was assigned to ".$_COOKIE['edit_state']." : [fetal]");
+        exit();
+      }
+      if (isset($_COOKIE['edit_state']) && $_COOKIE['edit_state'] == 'false') {
+        $user_basic_data = $connect->query("select * from userbasicdata where did='".$get_did_code."'");
+        if ($user_basic_data->num_rows == 0) {
+          printf("Returned data is NULL at edit_state : false : [fetal]");
+          exit();
+        }
         $row = $user_basic_data->fetch_assoc();
         echo "<form action=\"account.php\" method=\"post\"><input type=\"hidden\" name=\"value\" value=\"true\"><input type=\"submit\" value=\"Edit\"></form>";
         echo "<table>";
         echo "<tr><td>ที่อยู่</td><td>".$row['primaryaddress']."</td></tr><tr><td>ที่อยู่เพิ่มเติม(ไม่จำเป็น)</td><td>".$row['secondaryaddress']."</td></tr><tr><td>อำเภอ</td><td>".$row['city']."</td></tr><tr><td>ตำบล</td><td>".$row['state']."</td></tr><tr><td>จังหวัด</td><td>".$row['province']."</td></tr><tr><td>เลขที่ไปรษณีย์</td><td>".$row['postnum']."</td></tr><tr><td>อีเมล</td><td>".$row['emailaddress']."</td></tr><tr><td>เบอร์โทรศัพท์</td><td>".$row['phonenumber']."</td></tr>";
         echo "</table>";
-      } else if (isset($_COOKIE['edit_state']) && $_COOKIE['edit_state'] == true) {
-        $user_basic_data = $connect->query("select * from userbasicdata where userid='".$_COOKIE['current_userid']."'");
+      } else if (isset($_COOKIE['edit_state']) && $_COOKIE['edit_state'] == 'true') {
+        $user_basic_data = $connect->query("select * from userbasicdata where did='".$get_did_code."'");
         $row = $user_basic_data->fetch_assoc();
         echo "<form action=\"account.php\" method=\"post\">";
         echo "<table><tr><td>ที่อยู่</td><td><input type=\"text\" name=\"Address1\" value=".$row['primaryaddress']."</td></tr>";
@@ -80,6 +89,7 @@
         echo "<tr><td>เบอร์โทรศัพท์</td><td><input type=\"text\" name=\"Phone\" value=".$row['phonenumber']."</td></tr></table>";
         echo "<input type=\"hidden\" name=\"value\" value=\"false\"><input type=\"submit\" value=\"Submit\"></form>";
       }
+      $connect->close();
       ?>
     </div>
     <center>
