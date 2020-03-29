@@ -68,7 +68,7 @@
             exit();
           }
           $did_code = $get_did_code->fetch_assoc();
-          $update_userbasicdata_result = $connect->query("update userbasicdata set primaryaddress='".$_REQUEST['Address1']."' and secondaryaddress='".$_REQUEST['Address2']."' and city='".$_REQUEST['City']."' and state='".$_REQUEST['State']."' and province='".$_REQUEST['Province']."' and postnum='".$_REQUEST['Postcode']."' and emailaddress='".$_REQUEST['Email']."' and phonenumber='".$_REQUEST['Phone']."' where did=".$did_code['uid']."");
+          $update_userbasicdata_result = $connect->query("update userbasicdata set primaryaddress='".$_REQUEST['Address1']."' and secondaryaddress='".$_REQUEST['Address2']."' and city='".$_REQUEST['City']."' and state='".$_REQUEST['State']."' and province='".$_REQUEST['Province']."' and postnum='".$_REQUEST['Postcode']."' and emailaddress='".$_REQUEST['Email']."' and phonenumber='".$_REQUEST['Phone']."' where did='".$did_code['uid']."'");
           if (!$update_userbasicdata_result) {
             printf("Failed to update userbasicdata : [fetal]");
             exit();
