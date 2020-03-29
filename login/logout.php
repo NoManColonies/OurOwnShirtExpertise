@@ -1,6 +1,6 @@
 <?php
   require_once("../.confiq/confiq.php");
-  if (isset($_COOKIE['current_userid'] && $_COOKIE['current_userid'] != null && isset($_COOKIE['encrypted_hashkey']) && $_COOKIE['encrypted_hashkey'] != null)) {
+  if (isset($_COOKIE['current_userid']) && $_COOKIE['current_userid'] != null && isset($_COOKIE['encrypted_hashkey']) && $_COOKIE['encrypted_hashkey'] != null) {
     $userid = $_COOKIE['current_userid'];
     $logout_result = $connect->query("update usercredentials set userhashkey=null where userid='".$userid."'");
     $connect->close();
@@ -10,13 +10,10 @@
     }
   } else {
     if (isset($_COOKIE['current_userid'])) {
-      unset($_COOKIE['current_userid']);
-    }
-    if (isset($_COOKIE['encrypted_administration_key'])) {
-      unset($_COOKIE['encrypted_administration_key']);
+      setcookie('current_userid', null);
     }
     if (isset($_COOKIE['encrypted_hash_key'])) {
-      unset($_COOKIE['encrypted_hash_key']);
+      setcookie('encrypted_hash_key', null);
     }
     echo "<script type=\"text/javascript\">";
     echo "console.log(\"session expired logging out automatically.\");";
