@@ -24,7 +24,7 @@
     return $random_string;
   }
   function session_restore_result(mysqli $connect, $server_url) {
-    if(isset($_COOKIE['current_userid']) && $_COOKIE['current_userid'] != null && isset($_COOKIE['encrypted_hash_key']) && $_COOKIE['encrypted_hash_key'] != null) {
+    if(isset($_COOKIE['current_userid']) && !is_null($_COOKIE['current_userid']) && isset($_COOKIE['encrypted_hash_key']) && !is_null($_COOKIE['encrypted_hash_key'])) {
       $userid = $_COOKIE['current_userid'];
       $server_decrypted_hash_key = $connect->query("select * from usercredentials where userid='".$userid."'");
       if ($server_decrypted_hash_key->num_rows == 0) {
@@ -80,7 +80,7 @@
       $try_to_get_passkey_tmp = $connect->query("select userpassword from usercredentials where userid='".$username."'");
       $try_to_get_passkey_tmp_string = $try_to_get_passkey_tmp->fetch_assoc();
     }
-    if (password_verify($vulnerable_password, $try_to_get_passkey_tmp_string['userpassword']) && $try_to_get_passkey_tmp->num_rows != 0) {
+    if (password_verify($vulnerable_password, $try_to_get_passkey_tmp_string['userpassword']) && !empty($try_to_get_passkey_tmp->num_rows)) {
       $decrypted_hash_key_tmp = random_string();
       $encrypted_hash_key_tmp = argon2_encrypt($decrypted_hash_key_tmp);
       $encrypted_administration_key_tmp = $connect->query("select * from usercredentials where userid='".$username."'");
@@ -112,7 +112,7 @@
         ];
       }
     }
-    if ($vulnerable_password != $vulnerable_password_retype || $vulnerable_password == 'keynotavailable' || $vulnerable_password == null) {
+    if ($vulnerable_password != $vulnerable_password_retype || $vulnerable_password == 'keynotavailable' || is_null($vulnerable_password)) {
       return ['username_valid' => true,
               'password_valid' => false,
               'email_valid' => false

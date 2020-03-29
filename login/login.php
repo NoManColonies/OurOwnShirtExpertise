@@ -15,7 +15,7 @@
         $connect->close();
         header("Location: https://worawanbydiistudent.store/index.php");
       }
-      if (($_REQUEST['Username'] != null || $_REQUEST['Password'] != null) && !isset($_COOKIE['current_userid']) && !isset($_COOKIE['encrypted_hash_key'])) {
+      if ((!is_null($_REQUEST['Username']) || !is_null($_REQUEST['Password'])) && !isset($_COOKIE['current_userid']) && !isset($_COOKIE['encrypted_hash_key'])) {
         if (!login_result($connect, $server_url, $_REQUEST['Username'], $_REQUEST['Password'])) {
           echo "<script type=\"text/javascript\">";
           echo "console.log(\"username or password does not match\");";
