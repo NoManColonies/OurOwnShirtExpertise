@@ -76,15 +76,15 @@
         default:
           if ($get_did_code == null) {
             $get_did_code = $connect->query("select uid from usercredentials where userid='".$_COOKIE['current_userid']."'");
+            $did_code = $get_did_code->fetch_assoc();
           }
           if ($get_did_code->num_rows == 0) {
             printf("Returned UID was NULL after edit_state was assigned to ".$_COOKIE['edit_state']." : [fetal]");
             exit();
           }
-          $did_code = $get_did_code->fetch_assoc();
           $user_basic_data = $connect->query("select * from userbasicdata where did='".$did_code['uid']."'");
           if ($user_basic_data->num_rows == 0) {
-            printf("Returned data is NULL at edit_state : false : [fetal]");
+            printf("Returned data is NULL at edit_state : NULL. DID : ".$did_code['uid']." : [fetal]");
             exit();
           }
           $row = $user_basic_data->fetch_assoc();
