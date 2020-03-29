@@ -121,25 +121,23 @@ li a:hover:not(.active) {
 }
 
 .dropdown-content {
-	display: -webkit-flex;
-	display: -ms-flex;
-	display: flex;
-	flex-direction: column;
+	content: '';
   position: absolute;
   background-color: #4CAF50;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 	left: 0;
-	top: 100%;
+	top: 0;
 	max-height: 0;
 	transition: all ease-in-out 300ms;
+	overflow: hidden;
 }
 
 .dropdown-content a {
   color: white;
   padding: 12px 16px;
   text-decoration: none;
-  display: inline-block;
+  display: block;
 }
 
 .dropdown-content a:hover {
