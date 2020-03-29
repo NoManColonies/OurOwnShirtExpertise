@@ -37,10 +37,10 @@
   }
   */
   function argon2_encrypt($text) {
-    return password_hash($text, PASSWORD_ARGON2ID);
+    return password_hash($text, PASSWORD_ARGON2I);
   }
   function argon2_verify($text, $hash) {
-    return (password_hash($text, PASSWORD_ARGON2ID) == $hash);
+    return (password_hash($text, PASSWORD_ARGON2I) == $hash);
   }
   function random_string($length) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+=-~/?>.,<\|฿';
@@ -52,7 +52,7 @@
     return $random_string;
   }
   function session_restore_result(mysqli $connect, $server_url) {
-    if(isset($_COOKIE['current_userid']) && $_COOKIE['current_userid'] != null && isset($_COOKIE['encrypted_hash_key']) && $_COOKIE['encrypted_hash_key'] != null && $_COOKIE['encrypted_administration_key'] != null && isset($_COOKIE['encrypted_administration_key'])) {
+    if(isset($_COOKIE['current_userid']) && $_COOKIE['current_userid'] != null && isset($_COOKIE['encrypted_hash_key']) && $_COOKIE['encrypted_hash_key'] != null) {
       $userid = $_COOKIE['current_userid'];
       $server_decrypted_hash_key = $connect->query("select * from usercredentials where userid='".$userid."'");
       if ($server_decrypted_hash_key->num_rows == 0) {
@@ -65,7 +65,6 @@
         $encrypted_hash_key = argon2_encrypt($decrypted_hash_key);
         setcookie('encrypted_hash_key', $encrypted_hash_key, time() + 3600, '/', $server_url, false, true);
         setcookie('current_userid', $userid, time() + 3600, '/', $server_url, false, true);
-        setcookie('encrypted_administration_key', $row['useraccesskey'], time() + 3600, '/', $server_url, false, true);
         $hash_key_update_result = $connect->query("update usercredentials set userhashkey='".$decrypted_hash_key."' where userid='".$userid."'");
         if (!$hash_key_update_result) {
           if (isset($_COOKIE['encrypted_hash_key'])) {
@@ -73,9 +72,6 @@
           }
           if (isset($_COOKIE['current_userid'])) {
             unset($_COOKIE['current_userid']);
-          }
-          if (isset($_COOKIE['encrypted_administration_key'])) {
-            unset($_COOKIE['encrypted_administration_key']);
           }
           printf("session restore failed : [fetal]");
           exit();
@@ -89,11 +85,8 @@
         if (isset($_COOKIE['encrypted_hash_key'])) {
           unset($_COOKIE['encrypted_hash_key']);
         }
-        if (isset($_COOKIE['encrypted_administration_key'])) {
-          unset($_COOKIE['encrypted_administration_key']);
-        }
         if (!$hash_key_update_result) {
-          printf("destroy server hashkey failed. userid doesn't exists on server. this shouldn't occur as we already checked before : [fetal]");
+          printf("destroy server hashkey failed. userid : '".$userid."' doesn't exists on server. this shouldn't occur as we already checked before : [fetal]");
           exit();
         }
         return false;
@@ -104,9 +97,6 @@
       }
       if (isset($_COOKIE['encrypted_hash_key'])) {
         unset($_COOKIE['encrypted_hash_key']);
-      }
-      if (isset($_COOKIE['encrypted_administration_key'])) {
-        unset($_COOKIE['encrypted_administration_key']);
       }
       return false;
     }
@@ -125,12 +115,10 @@
       $encrypted_administration_key_tmp_string = $encrypted_administration_key_tmp->fetch_assoc();
       setcookie('encrypted_hash_key', $encrypted_hash_key_tmp, time() + 3600, '/', $server_url, false, true);
       setcookie('current_userid', $username, time() + 3600, '/', $server_url, false, true);
-      setcookie('encrypted_administration_key', $encrypted_administration_key_tmp_string['useraccesskey'], time() + 3600, '/', $server_url, false, true);
       $hash_key_update_result = $connect->query("update usercredentials set userhashkey='".$decrypted_hash_key_tmp."' where userid='".$username."'");
       if(!$hash_key_update_result) {
         unset($_COOKIE['encrypted_hash_key']);
         unset($_COOKIE['current_userid']);
-        unset($_COOKIE['encrypted_administration_key']);
         printf("process failed during server hash_key update : ".$username." hashkey : ".$decrypted_hash_key_tmp." : [fetal]");
         exit();
       }
