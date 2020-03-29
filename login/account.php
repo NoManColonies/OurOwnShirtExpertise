@@ -59,7 +59,9 @@
         $connect->close();
         header("Location: https://worawanbydiistudent.store/index.php");
       }
-      $get_did_code = $connect->query("select uid from usercredentials where userid='".$_COOKIE['current_userid']."'");
+      if ($get_did_code == null) {
+        $get_did_code = $connect->query("select uid from usercredentials where userid='".$_COOKIE['current_userid']."'");
+      }
       if ($get_did_code == null) {
         printf("Returned UID was NULL after edit_state was assigned to ".$_COOKIE['edit_state']." : [fetal]");
         exit();
