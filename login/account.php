@@ -42,7 +42,7 @@
       if (isset($_REQUEST['value']) && $_REQUEST['value'] == true) {
         setcookie('edit_state', true);
       } else if (isset($_COOKIE['value']) && $_REQUEST['value'] == false) {
-        setcookie('edit_state', null);
+        setcookie('edit_state', false);
         $get_did_code = $connect->query("select uid from usercredentials where userid='".$_COOKIE['current_userid']."'");
         if ($get_did_code == null) {
           printf("Returned UID was NULL : [fetal]");
