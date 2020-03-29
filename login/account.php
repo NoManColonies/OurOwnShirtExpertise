@@ -42,7 +42,7 @@
       if (isset($_REQUEST['value']) && $_REQUEST['value'] == true) {
         setcookie('edit_state', true);
       } else if (isset($_COOKIE['value']) && $_REQUEST['value'] == false) {
-        setcookie('edit_state', null);
+        setcookie('edit_state', false);
         $get_did_code = $connect->query("select uid from usercredentials where userid='".$_COOKIE['current_userid']."'");
         if ($get_did_code == null) {
           printf("Returned UID was NULL : [fetal]");
@@ -54,11 +54,11 @@
           exit();
         }
       } else if (!isset($_COOKIE['value'])) {
-        setcookie('edit_state', null);
+        setcookie('edit_state', false);
       } else {
         header("Location: https://worawanbydiistudent.store/index.php");
       }
-      if (!isset($_COOKIE['edit_state'])) {
+      if (isset($_COOKIE['edit_state'] && $_COOKIE['edit_state'] == false)) {
         $user_basic_data = $connect->query("select * from userbasicdata where userid='".$_COOKIE['current_userid']."'");
         $row = $user_basic_data->fetch_assoc();
         echo "<form action=\"account.php\" method=\"post\"><input type=\"hidden\" name=\"value\" value=\"true\"><input type=\"submit\" value=\"Edit\"></form>";
