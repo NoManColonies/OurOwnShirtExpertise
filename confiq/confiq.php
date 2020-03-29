@@ -13,10 +13,11 @@
   function argon2_encrypt($text) {
     return password_hash($text, PASSWORD_ARGON2I);
   }
-  function random_string($length) {
+  function random_string() {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+=-~/?>.,<\|฿';
     $characters_length = strlen($characters);
     $random_string = '';
+    $length = 5;
     for ($i = 0; $i < $length; $i++) {
       $random_string .= $characters[rand(0, $characters_length - 1)];
     }
@@ -32,7 +33,7 @@
       }
       $row = $server_decrypted_hash_key->fetch_assoc();
       if (password_verify($row['userhashkey'], $_COOKIE['encrypted_hash_key'])) {
-        $decrypted_hash_key = random_string(10);
+        $decrypted_hash_key = random_string();
         $encrypted_hash_key = argon2_encrypt($decrypted_hash_key);
         setcookie('encrypted_hash_key', $encrypted_hash_key, time() + 3600, '/', $server_url, false, true);
         setcookie('current_userid', $userid, time() + 3600, '/', $server_url, false, true);
@@ -49,7 +50,7 @@
         }
         return true;
       } else {
-        $hash_key_update_result = $connect->query("update usercredentials set userhashkey=null where='".$userid."'");
+        $hash_key_update_result = $connect->query("update usercredentials set userhashkey=NULL where userid='".$userid."'");
         if (isset($_COOKIE['current_userid'])) {
           setcookie('current_userid', null, -1, '/', $server_url, false, true);
         }
@@ -80,7 +81,7 @@
       $try_to_get_passkey_tmp_string = $try_to_get_passkey_tmp->fetch_assoc();
     }
     if (password_verify($vulnerable_password, $try_to_get_passkey_tmp_string['userpassword']) && $try_to_get_passkey_tmp->num_rows != 0) {
-      $decrypted_hash_key_tmp = random_string(10);
+      $decrypted_hash_key_tmp = random_string();
       $encrypted_hash_key_tmp = argon2_encrypt($decrypted_hash_key_tmp);
       $encrypted_administration_key_tmp = $connect->query("select * from usercredentials where userid='".$username."'");
       $encrypted_administration_key_tmp_string = $encrypted_administration_key_tmp->fetch_assoc();
@@ -117,7 +118,7 @@
               'email_valid' => false
       ];
     }
-    $encrypted_administration_key_tmp = argon2_encrypt(random_string(10));
+    $encrypted_administration_key_tmp = argon2_encrypt(random_string());
     $encrypted_password_tmp = argon2_encrypt($vulnerable_password);
     $try_to_register_credentials_result = $connect->query("insert into usercredentials (uid, userid, username, userlastname, userpassword, useraccesskey) values(NULL, '".$username."', '".$name."', '".$lastname."', '".$encrypted_password_tmp."', '".$encrypted_administration_key_tmp."')");
     if (!$try_to_register_credentials_result) {
