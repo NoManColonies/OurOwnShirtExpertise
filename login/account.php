@@ -88,7 +88,7 @@
           default:
           if (isset($_REQUEST['passchange'])) {
             $check_password_result = $connect->query("select userpassword from usercredentials where userid='".$_COOKIE['current_userid']."'");
-            if (empty($check_password_result->num_rows) {
+            if (empty($check_password_result->num_rows)) {
               printf("Failed to match userid when try to change password : [fetal]");
             }
             $password_string = $check_password_result->fetch_assoc();
