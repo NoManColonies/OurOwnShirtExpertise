@@ -103,7 +103,7 @@ li:last-child {
     border-right: none;
 }
 
-li a {
+a {
 	display: block;
 	color: white;
 	text-align: center;
@@ -111,7 +111,7 @@ li a {
 	background-color:#000055;
 }
 
-li a:hover:not(.active) {
+a:hover:not(.active) {
     background-color: #B5B5FD;
 }
 
