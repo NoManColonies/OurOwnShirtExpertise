@@ -98,7 +98,7 @@
               $connect->close();
               header("Location: https://worawanbydiistudent.store/login/account.php");
             }
-            if ($_REQUEST['Newpass'] != $_REQUEST['Repass'] && !is_null($_REQUEST['Newpass'])) {
+            if ($_REQUEST['Newpass'] != $_REQUEST['Repass'] || is_null($_REQUEST['Newpass'])) {
               $connect->close();
               header("Location: https://worawanbydiistudent.store/login/account.php?passchange=true");
             }
