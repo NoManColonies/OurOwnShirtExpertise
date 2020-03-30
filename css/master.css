@@ -172,6 +172,8 @@ a:hover:not(.active) {
 
 .menu__btn a:hover {
 	background-color: #99FFCC;
+	color: white;
+	text-decoration: none;
 }
 
 .menu {
