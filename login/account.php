@@ -94,9 +94,9 @@
               printf("Failed to match userid when try to change password : [fetal]");
             }
             $password_string = $check_password_result->fetch_assoc();
-            if (!password_verify($_REQUEST['Oldpass'], $password_string)) {
+            if (!password_verify($_REQUEST['Oldpass'], $password_string['userpassword'])) {
               $connect->close();
-              header("Location: https://worawanbydiistudent.store/login/account.php");
+              header("Location: https://worawanbydiistudent.store/login/account.php?passchange=true");
             }
             if ($_REQUEST['Newpass'] != $_REQUEST['Repass'] || is_null($_REQUEST['Newpass'])) {
               $connect->close();
