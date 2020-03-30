@@ -7,7 +7,7 @@ $query = $connect->query("SELECT * FROM producttable ORDER BY productdate DESC")
 
 if($query->num_rows > 0){
     while($row = $query->fetch_assoc()){
-        $imageURL = 'images/'.$row["file_name"];
+        $imageURL = '../images/'.$row["file_name"];
 ?>
     <img src="<?php echo $imageURL; ?>" alt="" />
 <?php }

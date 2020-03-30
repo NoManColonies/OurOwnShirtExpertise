@@ -4,7 +4,7 @@ require_once('../.confiq/confiq.php');
 $statusMsg = '';
 
 // File upload path
-$targetDir = "images/";
+$targetDir = "../images/";
 $fileName = basename($_FILES["file"]["name"]);
 $targetFilePath = $targetDir . $fileName;
 $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
