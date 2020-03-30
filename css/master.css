@@ -113,7 +113,7 @@ li:last-child {
 	text-align: center;
 	text-decoration: none;
 	background-color:#000055;
-	border-left: 1px solid #bbb;
+	border-right: 1px solid #bbb;
 }
 
 .flex__container__right a {
@@ -126,7 +126,7 @@ li:last-child {
 	text-align: center;
 	text-decoration: none;
 	background-color:#000055;
-	border-right: 1px solid #bbb;
+	border-left: 1px solid #bbb;
 }
 
 a:hover {
@@ -159,11 +159,14 @@ a:hover:not(.active) {
 .menu__btn {
   background-color: #4CAF50;
   color: white;
-  padding: 16px;
   font-size: 16px;
   border: none;
   cursor: pointer;
 	min-width: 160px;
+}
+
+.menu__btn a {
+	padding: 20px 17px;
 }
 
 .menu {
@@ -194,6 +197,7 @@ a:hover:not(.active) {
 
 .smenu a:hover {
 	background-color: #99FFCC;
+	color: black;
 }
 
 .menu:hover .smenu {
