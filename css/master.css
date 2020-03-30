@@ -157,7 +157,6 @@ a:hover:not(.active) {
 }
 
 .menu__btn {
-  background-color: #4CAF50;
   color: white;
   font-size: 16px;
   border: none;
@@ -172,11 +171,11 @@ a:hover:not(.active) {
 .menu {
   position: relative;
   display: inline-block;
+	background-color: #4CAF50;
 }
 
 .smenu {
 	min-width: 160px;
-	background-color: #4CAF50;
 	content: '';
   position: absolute;
 	left: 0;
