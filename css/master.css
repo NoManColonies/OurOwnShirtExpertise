@@ -113,18 +113,20 @@ li:last-child {
 	text-align: center;
 	text-decoration: none;
 	background-color:#000055;
-	border-left: 2px solid white;
+	border-left: 1px solid #bbb;
 }
 
 .flex__container__right a {
-	flex-flow: row-reverse;
+	-webkit-flex-direction: row-reverse;
+	-ms-flex-direction: row-reverse;
+	flex-direction: row-reverse;
 	display: block;
 	padding: 20px 17px;
 	color: white;
 	text-align: center;
 	text-decoration: none;
 	background-color:#000055;
-	border-right: 2px solid white;
+	border-right: 1px solid #bbb;
 }
 
 a:hover {
