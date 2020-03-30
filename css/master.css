@@ -220,16 +220,3 @@ a:hover:not(.active) {
 	border: 2px solid black;
 	margin: 6px;
 }
-
-.registration__layout__table {
-	display: grid;
-	grid-template-columns: auto, auto;
-}
-
-.registration__left {
-	grid-column: 1;
-}
-
-.registration__right {
-	grid-column: 2;
-}
