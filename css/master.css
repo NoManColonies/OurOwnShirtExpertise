@@ -164,6 +164,7 @@ a:hover:not(.active) {
   border: none;
   cursor: pointer;
 	min-width: 160px;
+	background-color: #4CAF50;
 }
 
 .menu__btn a {
