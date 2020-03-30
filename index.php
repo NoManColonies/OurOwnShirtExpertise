@@ -8,45 +8,45 @@
     <title>Home</title>
   </head>
   <body>
-    <div class="head">
-      <ul>
-        <li><a class="active" href="index.php">หน้าหลัก</a></li>
-        <li><a href="about/about.php">เกี่ยวกับเรา</a></li>
-        <li><a href="shirt/shirt.php">เสื้อนักศึกษา</a></li>
-        <li><a href="sk/sk.php">กางเกง/กระโปรง</a></li>
-        <li><a href="shoes/shoes.php">รองเท้านักศึกษา</a></li>
-        <li><a href="other/other.php">อื่นๆ</a></li>
-        <li style="float:right"><a href="https://www.google.com/webhp?hl=th&sa=X&ved=0ahUKEwiHoOHqmbPoAhUTbn0KHRc2BsIQPAgH">ค้นหา</a></li>
-        <li style="float:right"><a href="https://web.facebook.com/don.jirapipat?fref=gs&__tn__=%2CdlC-R-R&eid=ARD4Hn7n7y0YlNmiFkRA4pRC8wT9s0jqzBWc2Ffc5Hr4JDyBq0oFcob2oUzlIG2Per5K2EaVj0spOoBE&hc_ref=ARQT8XqV-z45u9iOFih8e6NeW5FfLPr1_UoW7itb2PfNVQr5SznweAP6t5DFePjomUw&ref=nf_target&dti=2510061589261957&hc_location=group&_rdc=1&_rdr">ติดต่อเรา</a></li>
+    <div class="grid__container">
+      <div class="flex__container__left">
+        <a class="active" href="index.php"><i class="fas fa-home"></i>หน้าหลัก</a>
+        <a href="about/about.php"><i class="fas fa-building"></i>เกี่ยวกับเรา</a>
+        <a href="shirt/shirt.php"><i class="fas fa-tshirt"></i>เสื้อนักศึกษา</a>
+        <a href="sk/sk.php"><i class="fas fa-venus-mars"></i>กางเกง/กระโปรง</a>
+        <a href="shoes/shoes.php"><i class="fas fa-shoe-prints"></i>รองเท้านักศึกษา</a>
+        <a href="other/other.php"><i class="far fa-question-circle"></i>อื่นๆ</a>
+      </div>
+      <div class="flex__container__right">
+        <a href="https://www.google.com/webhp?hl=th&sa=X&ved=0ahUKEwiHoOHqmbPoAhUTbn0KHRc2BsIQPAgH"><i class="fas fa-search"></i>ค้นหา</a>
         <?php
-          require_once('.confiq/confiq.php');
-          if (session_restore_result($connect, $server_url)) {
-            echo "<div class=\"dropdown\"><button class=\"dropbtn\">บัญชี</button><div class=\"dropdown-content\"><a href=\"login/account.php\">แก้ไขข้อมูล</a><a href=\"login/transaction.php\">ประวัติการซื้อ</a><a href=\"login/logout.php\">ออกจากระบบ</a></div></div>";
-            $connect->close();
-          } else {
-            echo "<li style=\"float:right\"><a href=\"login/login.php\">เข้าสู่ระบบ</a></li>";
-            $connect->close();
-          }
+        require_once('.confiq/confiq.php');
+        if (session_restore_result($connect, $server_url)) {
+          echo "<div class=\"menu\"><div class=\"menu__btn\"><a href=\"#\"><i class=\"fas fa-user-shield\"></i>บัญชี</a></div><div class=\"smenu\"><a href=\"login/account.php\"><i class=\"fas fa-edit\"></i>แก้ไขข้อมูล</a><a href=\"login/transaction.php\"><i class=\"fas fa-clipboard-list\"></i>ประวัติการซื้อ</a><a href=\"login/logout.php\"><i class=\"fas fa-sign-out-alt\"></i>ออกจากระบบ</a></div></div>";
+          $connect->close();
+        } else {
+          echo "<a href=\"login/login.php\"><i class=\"fas fa-sign-in-alt\"></i>เข้าสู่ระบบ</a>";
+          $connect->close();
+        }
         ?>
-      </ul>
+        <a href="https://web.facebook.com/don.jirapipat?fref=gs&__tn__=%2CdlC-R-R&eid=ARD4Hn7n7y0YlNmiFkRA4pRC8wT9s0jqzBWc2Ffc5Hr4JDyBq0oFcob2oUzlIG2Per5K2EaVj0spOoBE&hc_ref=ARQT8XqV-z45u9iOFih8e6NeW5FfLPr1_UoW7itb2PfNVQr5SznweAP6t5DFePjomUw&ref=nf_target&dti=2510061589261957&hc_location=group&_rdc=1&_rdr"><i class="fas fa-address-book"></i>ติดต่อเรา</a>
+      </div>
     </div>
     <div class="container">
       <div class="row">
         <div class="col-md-12 col-xs-12">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light"></nav>
           <div class="col-md-12 col-xs-12">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
               <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-				<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
               </ol>
               <div class="carousel-inner">
                 <div class="carousel-item active">
                   <img class="d-block w-100" src="pic/head.png" alt="devbanban">
                 </div>
-				<div class="carousel-item">
+                <div class="carousel-item">
                   <img class="d-block w-100" src="pic/head1.jpg" alt="devbanban">
                 </div>
                 <div class="carousel-item">
@@ -185,6 +185,7 @@
     <center>
       <footer class="footer" style="margin-top: 50px"></footer>
     </center>
+    <script src="https://kit.fontawesome.com/115266479a.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
