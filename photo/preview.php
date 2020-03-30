@@ -3,11 +3,11 @@
 require_once('../.confiq/confiq.php');
 
 // Get images from the database
-$query = $connect->query("SELECT * FROM producttable ORDER BY uploaded_on DESC");
+$query = $connect->query("SELECT * FROM producttable ORDER BY productdate DESC");
 
 if($query->num_rows > 0){
     while($row = $query->fetch_assoc()){
-        $imageURL = 'uploads/'.$row["file_name"];
+        $imageURL = 'images/'.$row["file_name"];
 ?>
     <img src="<?php echo $imageURL; ?>" alt="" />
 <?php }
