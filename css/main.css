@@ -1,0 +1,100 @@
+<style type="text/css">
+{}
+
+.head {
+	background-color : #000055;
+	
+	color : #000033;
+	
+	margin: fixed ;
+	
+}
+
+h1 {
+    color: red;
+		
+}
+
+
+
+
+ { box-sizing: border-box; }
+
+body { font-family: sans-serif; }
+
+.carousel {
+  background : none ;
+}
+
+.carousel-cell {
+  width: 66%;
+  height: 200px;
+  margin-right: 10px ;
+  background-image: url(pic/logo.png);
+  border-radius: 5px;
+  counter-increment: gallery-cell;
+  
+}
+
+
+
+   .img {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 180px;
+}	
+
+.img:hover {
+    border: 1px solid #777;
+}
+
+.img img {
+    width: 100%;
+    height: auto;
+}
+
+.desc {
+    padding: 15px;
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000055;
+}
+
+li {
+    float: left;
+    border-right:1px solid #bbb;
+}
+
+li:last-child {
+    border-right: none;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #B5B5FD;
+}
+
+.active {
+    background-color: #111;
+}
+
+.about{
+	background-color : #D1EEEE ;
+	padding : 5px 5px 5px 5px;
+	border : 0 0 25px 0 solid black;
+	font-size : 14px;
+}
