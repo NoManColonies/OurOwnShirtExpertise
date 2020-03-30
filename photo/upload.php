@@ -65,7 +65,7 @@ if(isset($_POST["submit"]) && !empty($_FILES["file"]["name"])){
         // Upload file to server
         if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
             // Insert image file name into database
-            $insert = $connect->query("INSERT into producttable (productname, productprice, productqty, productimagelink, productdate) VALUES ('test', 0, 1, ".$fileName.", NOW()')");
+            $insert = $connect->query("INSERT into producttable (productname, productprice, productqty, productimagelink, productdate) VALUES ('test', 0, 1, ".$fileName.", 'NOW()')");
             if($insert){
                 $statusMsg = "The file ".$fileName. " has been uploaded successfully.";
             }else{
