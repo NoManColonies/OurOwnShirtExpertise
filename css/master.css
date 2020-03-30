@@ -131,13 +131,10 @@ li:last-child {
 	font-weight: bold;
 }
 
-a:hover {
-	text-decoration: none;
-	color: black;
-}
-
 a:hover:not(.active) {
     background-color: #B5B5FD;
+		text-decoration: none;
+		color: black;
 }
 
 .active {
@@ -171,6 +168,10 @@ a:hover:not(.active) {
 	padding: 20px 17px;
 	background-color: #4CAF50;
 	font-weight: bold;
+}
+
+.menu__btn a:hover {
+	background-color: #99FFCC;
 }
 
 .menu {
