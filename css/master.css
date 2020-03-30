@@ -69,7 +69,7 @@ body {
 .flex__container {
 		top: 0;
 		left: 0;
-		width: 1vw;
+		width: 100vw;
     list-style-type: none;
     background-color: #000055;
 		display: -webkit-flex;
