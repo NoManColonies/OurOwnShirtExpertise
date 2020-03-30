@@ -66,11 +66,17 @@ body {
     text-align: center;
 }
 
-ul {
+ul.flex__container {
     list-style-type: none;
     margin: 0;
     padding: 0;
     background-color: #000055;
+		display: -webkit-flex;
+		display: -ms-flex;
+		display: flex;
+		-webkit-flex-direction: row;
+		-ms-flex-direction: row;
+		flex-direction: row;
 }
 
 li {
