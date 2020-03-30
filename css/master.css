@@ -131,7 +131,7 @@ li:last-child {
 
 a:hover {
 	text-decoration: none;
-	color: white;
+	color: black;
 }
 
 a:hover:not(.active) {
@@ -166,12 +166,12 @@ a:hover:not(.active) {
 
 .menu__btn a {
 	padding: 20px 17px;
+	background-color: #4CAF50;
 }
 
 .menu {
   position: relative;
   display: inline-block;
-	background-color: #4CAF50;
 }
 
 .smenu {
@@ -187,6 +187,7 @@ a:hover:not(.active) {
 }
 
 .smenu a {
+	background-color: #4CAF50;
 	min-width: 160px;
   color: white;
   padding: 12px 16px;
