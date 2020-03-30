@@ -1,6 +1,6 @@
 <?php
 // Include the database configuration file
-require_once('../.confiq/confiq.php');
+require_once('.confiq/confiq.php');
 $statusMsg = '';
 
 class UploadException extends Exception
@@ -53,7 +53,7 @@ class UploadException extends Exception
 
 // Use
 // File upload path
-$targetDir = "../images/";
+$targetDir = "images/";
 $fileName = basename($_FILES["file"]["name"]);
 $targetFilePath = $targetDir . $fileName;
 $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
@@ -65,7 +65,7 @@ if(isset($_POST["submit"]) && !empty($_FILES["file"]["name"])){
         // Upload file to server
         if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
             // Insert image file name into database
-            $insert = $connect->query("INSERT into producttable (productname, productprice, productqty, productimagelink, productdate) VALUES ('test', 0, 1, ".$fileName.", NOW()')");
+            $insert = $connect->query("INSERT into producttable (productname, productprice, productqty, productimagelink, productdate) VALUES ('test', 0, 1, ".$fileName.", 'NOW()')");
             if($insert){
                 $statusMsg = "The file ".$fileName. " has been uploaded successfully.";
             }else{
