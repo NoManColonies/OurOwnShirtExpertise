@@ -48,7 +48,7 @@
       </div>
       <?php
       if (isset($_REQUEST['passchange']) && !empty($_REQUEST['passchange'])) {
-        echo "<form action=\"account.php\"><table><tr>Old password : <td></td><td><input type=\"password\" name=\"Oldpass\"></td></tr>";
+        echo "<form action=\"account.php\" method=\"post\"><table><tr>Old password : <td></td><td><input type=\"password\" name=\"Oldpass\"></td></tr>";
         echo "<tr><td>New password : </td><td><input type=\"password\" name=\"Newpass\"></td></tr>";
         echo "<tr><td>Retype password : </td><td><input type=\"password\" name=\"Repass\"></td></tr></table><input type=\"hidden\" name=\"passchange\" value=\"false\"><input type=\"submit\" value=\"Submit\"></form>";
         $connect->close();
