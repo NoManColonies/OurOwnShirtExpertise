@@ -44,6 +44,7 @@ body {
 }
 
 .img {
+		padding: 5px;
     border: 1px solid #ccc;
     float: left;
     width: 180px;
@@ -105,7 +106,16 @@ li:last-child {
     border-right: none;
 }
 
-.flex__container__left,.flex__container__right a {
+.flex__container__left a {
+	display: block;
+	padding: 10px 24px;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	background-color:#000055;
+}
+
+.flex__container__right a {
 	display: block;
 	padding: 10px 24px;
 	color: white;
