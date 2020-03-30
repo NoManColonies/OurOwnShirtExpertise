@@ -35,7 +35,6 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12 col-xs-12">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light"></nav>
           <div class="col-md-12 col-xs-12">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
               <ol class="carousel-indicators">
