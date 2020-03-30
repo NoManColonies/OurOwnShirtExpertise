@@ -10,7 +10,7 @@
   <body>
     <div class="head">
       <ul>
-        <li><a href="index.php"><i class="fas fa-home"></i>หน้าหลัก</a></li>
+        <li><a class="active" href="index.php"><i class="fas fa-home"></i>หน้าหลัก</a></li>
         <li><a href="about/about.php"><i class="fas fa-building"></i>เกี่ยวกับเรา</a></li>
         <li><a href="shirt/shirt.php"><i class="fas fa-tshirt"></i>เสื้อนักศึกษา</a></li>
         <li><a href="sk/sk.php"><i class="fas fa-venus-mars"></i>กางเกง/กระโปรง</a></li>
