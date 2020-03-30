@@ -33,7 +33,6 @@
       </ul>
     </div>
     <div class="container">
-      <!--
       <div class="row">
         <div class="col-md-12 col-xs-12">
           <nav class="navbar navbar-expand-lg navbar-light bg-light"></nav>
@@ -67,7 +66,6 @@
           </div>
         </div>
       </div>
-    -->
       <h1><p>Items</p></h1>
       <form class="" action="index.html" method="post">
         <div class="img">

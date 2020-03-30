@@ -69,10 +69,8 @@ body {
 .flex__container {
 		top: 0;
 		left: 0;
-		width: 100%;
+		width: 1vw;
     list-style-type: none;
-    margin: 0;
-    padding: 0;
     background-color: #000055;
 		display: -webkit-flex;
 		display: -ms-flex;
@@ -83,6 +81,8 @@ body {
 }
 
 .flex__container__left {
+	top: 0;
+	left: 0;
 	display: -webkit-flex;
 	display: -ms-flex;
 	display: flex;
@@ -92,6 +92,8 @@ body {
 }
 
 .flex__container__right {
+	top: 0;
+	right: 0;
 	display: -webkit-flex;
 	display: -ms-flex;
 	display: flex;
