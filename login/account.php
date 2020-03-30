@@ -96,9 +96,9 @@
             $password_string = $check_password_result->fetch_assoc();
             if (!password_verify($_REQUEST['Oldpass'], $password_string)) {
               $connect->close();
-              header("Location: https://worawanbydiistudent.store/login/account.php?passchange=true");
+              header("Location: https://worawanbydiistudent.store/login/account.php");
             }
-            if ($_REQUEST['Newpass'] === $_REQUEST['Repass']) {
+            if ($_REQUEST['Newpass'] == $_REQUEST['Repass']) {
               $connect->close();
               header("Location: https://worawanbydiistudent.store/login/account.php?passchange=true");
             }
