@@ -47,7 +47,7 @@
         </div>
       </div>
       <?php
-      if (isset($_REQUEST['passchange']) && !empty($_REQUEST['passchange'])) {
+      if (isset($_REQUEST['passchange']) && $_REQUEST['passchange'] == 'true') {
         echo "<form action=\"account.php\" method=\"post\"><table><tr>Old password : <td></td><td><input type=\"password\" name=\"Oldpass\"></td></tr>";
         echo "<tr><td>New password : </td><td><input type=\"password\" name=\"Newpass\"></td></tr>";
         echo "<tr><td>Retype password : </td><td><input type=\"password\" name=\"Repass\"></td></tr></table><input type=\"hidden\" name=\"passchange\" value=\"false\"><input type=\"submit\" value=\"Submit\"></form>";
@@ -98,7 +98,7 @@
               $connect->close();
               header("Location: https://worawanbydiistudent.store/login/account.php");
             }
-            if ($_REQUEST['Newpass'] != $_REQUEST['Repass']) {
+            if ($_REQUEST['Newpass'] != $_REQUEST['Repass'] && !is_null($_REQUEST['Newpass'])) {
               $connect->close();
               header("Location: https://worawanbydiistudent.store/login/account.php?passchange=true");
             }
