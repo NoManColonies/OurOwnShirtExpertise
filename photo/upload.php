@@ -1,6 +1,6 @@
 <?php
 // Include the database configuration file
-require_once('.confiq/confiq.php');
+require_once('../.confiq/confiq.php');
 $statusMsg = '';
 
 class UploadException extends Exception
@@ -53,7 +53,7 @@ class UploadException extends Exception
 
 // Use
 // File upload path
-$targetDir = "images/";
+$targetDir = "../images/";
 $fileName = basename($_FILES["file"]["name"]);
 $targetFilePath = $targetDir . $fileName;
 $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
