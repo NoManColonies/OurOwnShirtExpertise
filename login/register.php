@@ -56,120 +56,124 @@
       </div>
       <form action="#" method="post" name="add" class="form-horizontal" id="add">
         <h1>Create Account</h1>
-        <div class="register">
-          <div class="form-group">
-            <div class="col-sm-2 control-label">
-              <label for="Username">ชื่อผู้ใช้ :</label>
-            </div>
-            <div class="col-sm-2">
-              <input type="text" id="Username" name="Username" required class="form-control" placeholder="Username">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-2 control-label" class="form-control" >
-              <label for="Password">รหัสผ่าน : </label>
-            </div>
-            <div class="col-sm-2">
-              <input type="password" id="Password" name="Password" required class="form-control" placeholder="Password">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-2 control-label" class="form-control" >
-              <label for="Repassword">ยืนยันรหัสผ่าน :</label>
-            </div>
-            <div class="col-sm-2">
-              <input type="password" name="Repassword" required class="form-control" placeholder="Confirm Password">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-2 control-label">
-              <label for="Name">ชื่อ :</label>
-            </div>
-            <div class="col-sm-3">
-              <input type="text" id="Name" name="Name" required class="form-control" placeholder="Name">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-2 control-label">
-              <label for="Lastname">นามสกุล : </label>
-            </div>
-            <div class="col-sm-3">
-              <input type="text" id="Lastname" name="Lastname" required class="form-control" placeholder="Lastname">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-2 control-label">
-              <label for="Phone">เบอร์โทร : </label>
-            </div>
-            <div class="col-sm-3">
-              <input type="text" id="Phone" name="Phone" required class="form-control" placeholder="เช่น 091 999 9999">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-2 control-label">
-              <label for="Email">อีเมล์ : </label>
-            </div>
-            <div class="col-sm-3">
-              <input type="email" id="Email" name="Email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-2 control-label">
-              <label for="Address1">ที่อยู่ : </label>
-            </div>
-            <div class="col-sm-3">
-              <input type="text" id="Address1" name="Address1" required class="form-control" placeholder="Address">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-2 control-label">
-              <label for="Address2">ที่อยู่2 : </label>
-            </div>
-            <div class="col-sm-3">
-              <input type="text" id="Address2" name="Address2" required class="form-control" placeholder="(ไม่จำเป็น)">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-2 control-label">
-              <label for="State">ตำบล : </label>
-            </div>
-            <div class="col-sm-3">
-              <input type="text" id="State" name="State" required class="form-control" placeholder="State">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-2 control-label">
-              <label for="City">อำเภอ : </label>
-            </div>
-            <div class="col-sm-3">
-              <input type="text" id="City" name="City" required class="form-control" placeholder="City">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-2 control-label">
-              <label for="Province">จังหวัด : </label>
-            </div>
-            <div class="col-sm-3">
-              <input type="text" id="Province" name="Province" required class="form-control" placeholder="Province">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-2 control-label">
-              <label for="Postcode">รหัสไปรษณีย์ : </label>
-            </div>
-            <div class="col-sm-3">
-              <input type="text" id="Postcode" name="Postcode" required class="form-control" placeholder="Postcode">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-3">
+        <div class="register registration__layout__table">
+          <div class="registration__left">
+            <div class="form-group">
+              <div class="col-sm-2 control-label">
+                <label for="Username">ชื่อผู้ใช้ : </label>
+              </div>
+              <div class="col-sm-2">
+                <input type="text" id="Username" name="Username" required class="form-control" placeholder="Username">
+              </div>
             </div>
             <div class="form-group">
+              <div class="col-sm-2 control-label" class="form-control" >
+                <label for="Password">รหัสผ่าน : </label>
+              </div>
               <div class="col-sm-2">
+                <input type="password" id="Password" name="Password" required class="form-control" placeholder="Password">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-2 control-label" class="form-control" >
+                <label for="Repassword">ยืนยันรหัสผ่าน : </label>
+              </div>
+              <div class="col-sm-2">
+                <input type="password" name="Repassword" required class="form-control" placeholder="Confirm Password">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-2 control-label">
+                <label for="Name">ชื่อ : </label>
               </div>
               <div class="col-sm-3">
-                <button type="submit" class="btn btn-primary">สมัครสมาชิก</button>
-                <button type="reset" class="btn btn-danger">ยกเลิก</button>
+                <input type="text" id="Name" name="Name" required class="form-control" placeholder="Name">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-2 control-label">
+                <label for="Lastname">นามสกุล : </label>
+              </div>
+              <div class="col-sm-3">
+                <input type="text" id="Lastname" name="Lastname" required class="form-control" placeholder="Lastname">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-2 control-label">
+                <label for="Phone">เบอร์โทร : </label>
+              </div>
+              <div class="col-sm-3">
+                <input type="text" id="Phone" name="Phone" required class="form-control" placeholder="เช่น 091 999 9999">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-2 control-label">
+                <label for="Email">อีเมล์ : </label>
+              </div>
+              <div class="col-sm-3">
+                <input type="email" id="Email" name="Email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+              </div>
+            </div>
+          </div>
+          <div class="registration__right">
+            <div class="form-group">
+              <div class="col-sm-2 control-label">
+                <label for="Address1">ที่อยู่ : </label>
+              </div>
+              <div class="col-sm-3">
+                <input type="text" id="Address1" name="Address1" required class="form-control" placeholder="Address">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-2 control-label">
+                <label for="Address2">ที่อยู่2 : </label>
+              </div>
+              <div class="col-sm-3">
+                <input type="text" id="Address2" name="Address2" required class="form-control" placeholder="(ไม่จำเป็น)">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-2 control-label">
+                <label for="State">ตำบล : </label>
+              </div>
+              <div class="col-sm-3">
+                <input type="text" id="State" name="State" required class="form-control" placeholder="State">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-2 control-label">
+                <label for="City">อำเภอ : </label>
+              </div>
+              <div class="col-sm-3">
+                <input type="text" id="City" name="City" required class="form-control" placeholder="City">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-2 control-label">
+                <label for="Province">จังหวัด : </label>
+              </div>
+              <div class="col-sm-3">
+                <input type="text" id="Province" name="Province" required class="form-control" placeholder="Province">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-2 control-label">
+                <label for="Postcode">รหัสไปรษณีย์ : </label>
+              </div>
+              <div class="col-sm-3">
+                <input type="text" id="Postcode" name="Postcode" required class="form-control" placeholder="Postcode">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-3">
+              </div>
+              <div class="form-group">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-3">
+                  <button type="submit" class="btn btn-primary">สมัครสมาชิก</button>
+                  <button type="reset" class="btn btn-danger">ยกเลิก</button>
+                </div>
               </div>
             </div>
           </div>

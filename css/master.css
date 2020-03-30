@@ -213,9 +213,23 @@ a:hover:not(.active) {
 .menu:hover .menu__btn {
   background-color: #B5B5FD;
 }
+
 .register{
 	text-align: left;
 	padding: 5px 0px 5px 5px;
 	border: 2px solid black;
 	margin: 6px;
+}
+
+.registration__layout__table {
+	display: grid;
+	grid-template-columns: auto, auto;
+}
+
+.registration__left {
+	grid-column: 1;
+}
+
+.registration__right {
+	grid-column: 2;
 }
