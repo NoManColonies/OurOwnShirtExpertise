@@ -102,7 +102,7 @@
               $connect->close();
               header("Location: https://worawanbydiistudent.store/login/account.php?passchange=true");
             }
-            $try_to_update_password = $connect->query("update usercredentials set userpassword='".$_REQUEST['Newpass']."' where userid='".$_COOKIE['current_userid']."'");
+            $try_to_update_password = $connect->query("update usercredentials set userpassword='".argon2_encrypt($_REQUEST['Newpass'])."' where userid='".$_COOKIE['current_userid']."'");
             if (!$try_to_update_password) {
               printf("Failed to update password at userid : ".$_COOKIE['current_userid']." : [fetal]");
               exit();
