@@ -23,7 +23,7 @@ if(isset($_POST["submit"]) && !empty($_FILES["file"]["name"])){
                 $statusMsg = "File upload failed, please try again.".$connect->errno;
             }
         }else{
-            $statusMsg = "Sorry, there was an error uploading your file.".$connect->errno;
+            $statusMsg = "Sorry, there was an error uploading your file.".$_FILES['file']['error'];
         }
     }else{
         $statusMsg = 'Sorry, only JPG, JPEG, PNG, GIF, & PDF files are allowed to upload.';
