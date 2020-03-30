@@ -41,7 +41,7 @@
       </div>
       <div class="flex__container__right">
         <a href="https://www.google.com/webhp?hl=th&sa=X&ved=0ahUKEwiHoOHqmbPoAhUTbn0KHRc2BsIQPAgH"><i class="fas fa-search"></i>ค้นหา</a>
-        <a class="active" href="login.php"><i class="fas fa-sign-in-alt"></i>เข้าสู่ระบบ</a>
+        <a class="active" href="login/login.php"><i class="fas fa-sign-in-alt"></i>เข้าสู่ระบบ</a>
         <a href="https://web.facebook.com/don.jirapipat?fref=gs&__tn__=%2CdlC-R-R&eid=ARD4Hn7n7y0YlNmiFkRA4pRC8wT9s0jqzBWc2Ffc5Hr4JDyBq0oFcob2oUzlIG2Per5K2EaVj0spOoBE&hc_ref=ARQT8XqV-z45u9iOFih8e6NeW5FfLPr1_UoW7itb2PfNVQr5SznweAP6t5DFePjomUw&ref=nf_target&dti=2510061589261957&hc_location=group&_rdc=1&_rdr"><i class="fas fa-address-book"></i>ติดต่อเรา</a>
       </div>
     </div>
@@ -54,15 +54,106 @@
           </div>
         </div>
       </div>
-      <form name="login_form"  method="post" action="login.php">
-        <p><b>Login Form</b></p>
-        <label for="Username">ชื่อผู้ใช้ : </label>
-        <input type="text" id="Username" required name="Username" placeholder="Username">
-        <label for="Password">รหัสผ่าน : </label>
-        <input type="password" id="Password" required name="Password" placeholder="Password">
-        <input type="submit" name="" value="Login">
-        <input type="reset" name="" value="Clear">
-        <a href="register.php">register</a>
+	  
+	  
+	  
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+form {border: 3px solid #f1f1f1;}
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+.register_bt{
+float:right;
+}
+img.avatar {
+  width: 20%;
+  border-radius: 50%;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}
+</style>
+</head>
+
+
+<h2>Login</h2>
+
+<form>
+  <div class="imgcontainer">
+    <img src="../pic/camt.png" alt="Avatar" class="avatar">
+  </div>
+
+  <div class="container">
+    <label for="Username"><b>Username</b></label>
+    <input type="text" id="Username" required name="Username" placeholder="Username">
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" id="Password" required name="Password" placeholder="Password">
+        
+    <button type="submit">Login</button>
+    <span class="register_bt"><a href="register.php">register</a></span><br>
+    <label>
+      <input type="checkbox" checked="checked" name="remember"> Remember me
+    </label>
+  </div>
+
+  <div class="container" style="background-color:#f1f1f1">
+    <button type="button" class="cancelbtn">Cancel</button>
+    <span class="psw">Forgot <a href="####################################################">password?</a></span>
+  </div>
+</form>		
       </form>
     </div>
   </body>
