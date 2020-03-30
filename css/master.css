@@ -73,7 +73,7 @@ body {
     background-color: #000055;
 		display: grid;
 		grid-template-columns: 1fr, 1fr;
-		min-width: 100vw;
+		width: 100vw;
 }
 
 .flex__container__left {
@@ -84,6 +84,7 @@ body {
 	-webkit-flex-direction: row;
 	-ms-flex-direction: row;
 	flex-direction: row;
+	width: 1fr;
 }
 
 .flex__container__right {
@@ -95,10 +96,7 @@ body {
 	-ms-flex-direction: row;
 	flex-direction: row;
 	justify-content: flex-end;
-}
-
-.flex__container__center {
-	width: 1fr;
+	float: right;
 }
 
 li {
