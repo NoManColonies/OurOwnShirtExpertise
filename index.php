@@ -17,6 +17,8 @@
         <li><a href="shoes/shoes.php"><i class="fas fa-shoe-prints"></i>รองเท้านักศึกษา</a></li>
         <li><a href="other/other.php"><i class="far fa-question-circle"></i>อื่นๆ</a></li>
       </ul>
+      <div class="flex__container__center">
+      </div>
       <ul class="flex__container__right">
         <li><a href="https://www.google.com/webhp?hl=th&sa=X&ved=0ahUKEwiHoOHqmbPoAhUTbn0KHRc2BsIQPAgH"><i class="fas fa-search"></i>ค้นหา</a></li>
         <li><a href="https://web.facebook.com/don.jirapipat?fref=gs&__tn__=%2CdlC-R-R&eid=ARD4Hn7n7y0YlNmiFkRA4pRC8wT9s0jqzBWc2Ffc5Hr4JDyBq0oFcob2oUzlIG2Per5K2EaVj0spOoBE&hc_ref=ARQT8XqV-z45u9iOFih8e6NeW5FfLPr1_UoW7itb2PfNVQr5SznweAP6t5DFePjomUw&ref=nf_target&dti=2510061589261957&hc_location=group&_rdc=1&_rdr"><i class="fas fa-address-book"></i>ติดต่อเรา</a></li>

@@ -69,7 +69,6 @@ body {
 .flex__container {
 		top: 0;
 		left: 0;
-		width: 100vw;
     list-style-type: none;
     background-color: #000055;
 		display: -webkit-flex;
@@ -81,8 +80,6 @@ body {
 }
 
 .flex__container__left {
-	top: 0;
-	left: 0;
 	display: -webkit-flex;
 	display: -ms-flex;
 	display: flex;
@@ -92,8 +89,6 @@ body {
 }
 
 .flex__container__right {
-	top: 0;
-	right: 0;
 	display: -webkit-flex;
 	display: -ms-flex;
 	display: flex;
@@ -103,6 +98,10 @@ body {
 	-webkit-flex-direction: row-reverse;
 	-ms-flex-direction: row-reverse;
 	flex-direction: row-reverse;
+}
+
+.flex__container__center {
+	width: 1fr;
 }
 
 li {
