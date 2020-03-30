@@ -66,7 +66,10 @@ body {
     text-align: center;
 }
 
-ul.flex__container {
+.flex__container {
+		top: 0;
+		left: 0;
+		width: 100%;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -77,6 +80,27 @@ ul.flex__container {
 		-webkit-flex-direction: row;
 		-ms-flex-direction: row;
 		flex-direction: row;
+}
+
+.flex__container__left {
+	display: -webkit-flex;
+	display: -ms-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	-ms-flex-direction: row;
+	flex-direction: row;
+}
+
+.flex__container__right {
+	display: -webkit-flex;
+	display: -ms-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	-webkit-flex-direction: row-reverse;
+	-ms-flex-direction: row-reverse;
+	flex-direction: row-reverse;
 }
 
 li {
