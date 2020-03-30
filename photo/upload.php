@@ -20,7 +20,7 @@ if(isset($_POST["submit"]) && !empty($_FILES["file"]["name"])){
             if($insert){
                 $statusMsg = "The file ".$fileName. " has been uploaded successfully.";
             }else{
-                $statusMsg = "File upload failed, please try again.".$connect->errno;
+                $statusMsg = "File upload failed, please try again.".$connect->errno." : ".$fileName;
             }
         }else{
           $statusMsg = "Sorry, there was an error uploading your file.".$_FILES['file']['error'];
