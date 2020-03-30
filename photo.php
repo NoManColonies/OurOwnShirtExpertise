@@ -15,7 +15,7 @@
   	// image file directory
   	$target = "images/".basename($image);
 
-  	$sql = "INSERT INTO producttable (cid, productname, productprice, productqty, productimagelink, productimage) VALUES (NULL, 'test', 0, 1, '$image', '$image_text')";
+  	$sql = "INSERT INTO producttable (cid, productname, productprice, productqty, productimage, productimagelink) VALUES (NULL, 'test', 0, 1, '$image', '$image_text')";
   	// execute query
   	$image_insert_result = $connect->query($sql);
     if (!$image_insert_result) {
@@ -90,7 +90,7 @@
       	placeholder="Say something about this image..."></textarea>
   	</div>
   	<div>
-  		<input type="submit" name="upload">POST</input>
+  		<input type="submit" name="upload" value="Submit"></input>
   	</div>
   </form>
 </div>
