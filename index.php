@@ -21,7 +21,7 @@
         <?php
           require_once('.confiq/confiq.php');
           if (session_restore_result($connect, $server_url)) {
-            echo "<div class=\"dropdown\"><button class=\"dropbtn\"><i class=\"fas fa-user-shield\">บัญชี</button><div class=\"dropdown-content\"><a href=\"login/account.php\"><i class=\"fas fa-edit\"></i>แก้ไขข้อมูล</a><a href=\"login/transaction.php\"><i class=\"fas fa-clipboard-list\"></i>ประวัติการซื้อ</a><a href=\"login/logout.php\"><i class=\"fas fa-sign-out-alt\"></i>ออกจากระบบ</a></div></div>";
+            echo "<div class=\"menu\"><button class=\"menu__btn\"><i class=\"fas fa-user-shield\">บัญชี</button><div class=\"smenu\"><a href=\"login/account.php\"><i class=\"fas fa-edit\"></i>แก้ไขข้อมูล</a><a href=\"login/transaction.php\"><i class=\"fas fa-clipboard-list\"></i>ประวัติการซื้อ</a><a href=\"login/logout.php\"><i class=\"fas fa-sign-out-alt\"></i>ออกจากระบบ</a></div></div>";
             $connect->close();
           } else {
             echo "<li style=\"float:right\"><a href=\"login/login.php\"><i class=\"fas fa-sign-in-alt\"></i>เข้าสู่ระบบ</a></li>";
