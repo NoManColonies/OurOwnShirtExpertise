@@ -32,15 +32,15 @@
     ?>
     <div class="head">
       <ul>
-        <li><a href="../index.php">หน้าหลัก</a></li>
-        <li><a href="../about/about.php">เกี่ยวกับเรา</a></li>
-        <li><a href="../shirt/shirt.php">เสื้อนักศึกษา</a></li>
-        <li><a href="../sk/sk.php">กางเกง/กระโปรง</a></li>
-        <li><a href="../shoes/shoes.php">รองเท้านักศึกษา</a></li>
-        <li><a href="../other/other.php">อื่นๆ</a></li>
-        <li style="float:right"><a href="https://www.google.com/webhp?hl=th&sa=X&ved=0ahUKEwiHoOHqmbPoAhUTbn0KHRc2BsIQPAgH">ค้นหา</a></li>
-        <li style="float:right"><a href="https://web.facebook.com/don.jirapipat?fref=gs&__tn__=%2CdlC-R-R&eid=ARD4Hn7n7y0YlNmiFkRA4pRC8wT9s0jqzBWc2Ffc5Hr4JDyBq0oFcob2oUzlIG2Per5K2EaVj0spOoBE&hc_ref=ARQT8XqV-z45u9iOFih8e6NeW5FfLPr1_UoW7itb2PfNVQr5SznweAP6t5DFePjomUw&ref=nf_target&dti=2510061589261957&hc_location=group&_rdc=1&_rdr">ติดต่อเรา</a></li>
-        <li style="float:right"><a class="active" href="login.php">เข้าสู่ระบบ</a></li>
+        <li><a href="../index.php"><i class="fas fa-home"></i>หน้าหลัก</a></li>
+        <li><a href="../about/about.php"><i class="fas fa-building"></i>เกี่ยวกับเรา</a></li>
+        <li><a href="../shirt/shirt.php"><i class="fas fa-tshirt"></i>เสื้อนักศึกษา</a></li>
+        <li><a href="../sk/sk.php"><i class="fas fa-venus-mars"></i>กางเกง/กระโปรง</a></li>
+        <li><a href="../shoes/shoes.php"><i class="fas fa-shoe-prints"></i>รองเท้านักศึกษา</a></li>
+        <li><a href="../other/other.php"><i class="far fa-question-circle"></i>อื่นๆ</a></li>
+        <li style="float:right"><a href="https://www.google.com/webhp?hl=th&sa=X&ved=0ahUKEwiHoOHqmbPoAhUTbn0KHRc2BsIQPAgH"><i class="fas fa-search"></i>ค้นหา</a></li>
+        <li style="float:right"><a href="https://web.facebook.com/don.jirapipat?fref=gs&__tn__=%2CdlC-R-R&eid=ARD4Hn7n7y0YlNmiFkRA4pRC8wT9s0jqzBWc2Ffc5Hr4JDyBq0oFcob2oUzlIG2Per5K2EaVj0spOoBE&hc_ref=ARQT8XqV-z45u9iOFih8e6NeW5FfLPr1_UoW7itb2PfNVQr5SznweAP6t5DFePjomUw&ref=nf_target&dti=2510061589261957&hc_location=group&_rdc=1&_rdr"><i class="fas fa-address-book"></i>ติดต่อเรา</a></li>
+        <li style="float:right"><a class="active" href="login.php"><i class="fas fa-sign-in-alt">เข้าสู่ระบบ</a></li>
       </ul>
     </div>
     <div class="container">
@@ -85,4 +85,5 @@
       </form>
     </div>
   </body>
+  <script src="https://kit.fontawesome.com/115266479a.js" crossorigin="anonymous"></script>
 </html>
