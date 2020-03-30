@@ -13,7 +13,7 @@
   	$image_text = $connect->real_escape_string($_POST['image_text']);
 
   	// image file directory
-  	$target = "images/".basename($image);
+  	$target = "producttable/".basename($image);
 
   	$sql = "INSERT INTO producttable (cid, productname, productprice, productqty, productimage, productimagelink) VALUES (NULL, 'test', 0, 1, '$image', '$image_text')";
   	// execute query
@@ -71,7 +71,7 @@
   <?php
     while ($row = $result->fetch_array()) {
       echo "<div id='img_div'>";
-      	echo "<img src='images/".$row['productimage']."' >";
+      	echo "<img src='producttable/".$row['productimage']."' >";
       	echo "<p>".$row['productimagelink']."</p>";
       echo "</div>";
     }
