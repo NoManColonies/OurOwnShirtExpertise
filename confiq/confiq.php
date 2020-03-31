@@ -43,11 +43,12 @@ function random_string() {
   return $random_string;
 }
 function session_auth_check(mysqli $connect, $server_url) {
-  if ($session = session_restore_result($connect, $server_url)['session_valid']) {
-    if (argon2_encrypt('') === $session['useraccesskey']) {
+  $session = session_restore_result($connect, $server_url)
+  if ($session['session_valid']) {
+    if (argon2_encrypt('') === $session['auth_key']) {
       return [
-        'session_valid' => true;
-        'auth_key_valid' => true;
+        'session_valid' => true,
+        'auth_key_valid' => true
       ];
     } else {
       return [

@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet"href="css/master.css">
+    <link type="text/css" rel="stylesheet"href="../css/master.css">
     <title>Admin</title>
   </head>
   <body>
     <?php
     require_once('../.confiq/confiq.php');
-    if (!session_restore_result($connect, $server_url)['session_valid']) {
+    $session = session_auth_check($connect, $server_url);
+    if (!$session['session_valid'] || !$session['auth_key_valid']) {
       $connect->close();
       header("Location: https://worawanbydiistudent.store/index.php");
     }
