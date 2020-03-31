@@ -209,7 +209,7 @@ a:hover:not(.active) {
 }
 
 .menu:hover .smenu {
-  max-height: 10em;
+  max-height: 15em;
 }
 
 .menu:hover .menu__btn {
@@ -222,6 +222,7 @@ a:hover:not(.active) {
 	border: 2px solid black;
 	margin: 6px;
 }
+
 .register_bt{
 	padding-top:5px;
 	text-align:right;
