@@ -169,7 +169,7 @@
               </div>
               <div class="col-sm-3">
                 <button type="submit" class="btn btn-primary">สมัครสมาชิก</button>
-                <button type="reset" class="btn btn-danger">ยกเลิก</button>
+                <button type="reset" class="btn btn-danger">รีเซ็ท</button>
               </div>
             </div>
           </div>
