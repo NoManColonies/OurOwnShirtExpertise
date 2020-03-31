@@ -22,7 +22,7 @@ function log_alert(mysqli $connect, $content) {
 function admin_redirect(mysqli $connect, $content) {
   echo "<script>alert(".$content.");</script>";
   $connect->close();
-  header("Location: https://worawanbydiistudent.store/photo/product_add.php");
+  header("Location: https://worawanbydiistudent.store/authorities/product_add.php");
 }
 function login_retry_redirect(mysqli $connect, $content) {
   echo "<script>alert(".$content.");</script>";
