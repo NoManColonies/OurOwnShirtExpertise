@@ -110,7 +110,7 @@
       $query = $connect->query("select * from producttable");
       if(!empty($query->num_rows)){
         while($row = $query->fetch_assoc()){
-          if ($session['auth_key_valid'] && isset($_REQUEST['submit']) && $_REQUEST['submit'] === "Edit" && $_REQUEST['productcode'] == $row['pid']) {
+          if ($session['auth_key_valid'] && isset($_REQUEST['submit']) && $_REQUEST['submit'] === "Edit" && $_REQUEST['productcode'] == $row['productcode']) {
             ?>
             <form action="index.php" method="post" class="img" enctype="multipart/form-data">
               <input type="hidden" name="productcode" value="<?php echo $row['pid'];?>">
@@ -146,7 +146,7 @@
                 } else {
                   echo "<p style=\"float:left;text-decoration:line-through;\">".$row['productprice']."฿</p><p style=\"float:left;margin-left:0.5em;\">".$row['productdprice']."฿</p>";
                 }
-                echo "<input type=\"hidden\" name=\"productcode\" value=\"".$row['pid']."\">";
+                echo "<input type=\"hidden\" name=\"productcode\" value=\"".$row['productcode']."\">";
                 if ($session['auth_key_valid']) {
                   echo "<input style=\"float:right\" type=\"submit\" value=\"Edit\">";
                 } else {
