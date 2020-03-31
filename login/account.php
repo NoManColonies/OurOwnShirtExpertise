@@ -9,9 +9,9 @@
   </head>
   <?php
   require_once('../.confiq/confiq.php');
-  if (!session_restore_result($connect, $server_url)) {
-    $connect->close();
-    header("Location: https://worawanbydiistudent.store/index.php");
+  $session = session_auth_check($connect, $server_url);
+  if (!$session['session_valid']) {
+    login_retry_redirect($connect, "Session expired at acount.php page.");
   }
   ?>
   <body>
@@ -31,6 +31,11 @@
           <div class="smenu">
             <a href="account.php"><i class="fas fa-edit"></i>แก้ไขข้อมูล</a>
             <a href="transaction.php"><i class="fas fa-clipboard-list"></i>ประวัติการซื้อ</a>
+            <?php
+            if ($session['auth_key_valid']) {
+              echo "<a href=\"../photo/product_add.php\"><i class=\"fas fa-user-shield\"></i>เพิ่มการสินค้า</a>";
+            }
+            ?>
             <a href="logout.php"><i class="fas fa-sign-out-alt"></i>ออกจากระบบ</a>
           </div>
         </div>
@@ -51,14 +56,12 @@
         echo "<form action=\"account.php\" method=\"post\"><table><tr>Old password : <td></td><td><input type=\"password\" name=\"Oldpass\"></td></tr>";
         echo "<tr><td>New password : </td><td><input type=\"password\" name=\"Newpass\"></td></tr>";
         echo "<tr><td>Retype password : </td><td><input type=\"password\" name=\"Repass\"></td></tr></table><input type=\"hidden\" name=\"passchange\" value=\"false\"><input type=\"submit\" value=\"Submit\"></form>";
-        $connect->close();
       } else {
         switch ($_REQUEST['basicdata']) {
           case 'true':
           $get_did_code = $connect->query("select uid from usercredentials where userid='".$_COOKIE['current_userid']."'");
           if (empty($get_did_code->num_rows)) {
-            printf("Returned UID was NULL after second condition check has passed : [fetal]");
-            exit();
+            error_alert($connect, "Returned UID was NULL after first condition check has passed.");
           }
           $did_code = $get_did_code->fetch_assoc();
           $user_basic_data = $connect->query("select * from userbasicdata where did='".$did_code['uid']."'");
@@ -73,39 +76,35 @@
           echo "<tr><td>อีเมล</td><td><input type=\"text\" name=\"Email\" value=".$row['emailaddress']."></td></tr>";
           echo "<tr><td>เบอร์โทรศัพท์</td><td><input type=\"text\" name=\"Phone\" value=".$row['phonenumber']."></td></tr></table>";
           echo "<input type=\"hidden\" name=\"basicdata\" value=\"false\"><input type=\"submit\" value=\"Submit\"></form>";
-          $connect->close();
           break;
           case 'false':
           $get_did_code = $connect->query("select uid from usercredentials where userid='".$_COOKIE['current_userid']."'");
           if (empty($get_did_code->num_rows)) {
-            printf("Returned UID was NULL after second condition check has passed : [fetal]");
-            exit();
+            error_alert($connect, "Returned UID was NULL after second condition check has passed.");
           }
           $did_code = $get_did_code->fetch_assoc();
           $update_userbasicdata_result = $connect->query("update userbasicdata set primaryaddress='".$_REQUEST['Address1']."', secondaryaddress='".$_REQUEST['Address2']."', city='".$_REQUEST['City']."', state='".$_REQUEST['State']."', province='".$_REQUEST['Province']."', postnum='".$_REQUEST['Postcode']."', emailaddress='".$_REQUEST['Email']."', phonenumber='".$_REQUEST['Phone']."' where did='".$did_code['uid']."'");
           if (!$update_userbasicdata_result) {
-            printf("Failed to update userbasicdata : [fetal]");
-            exit();
+            error_alert($connect, "Failed to update userbasicdata.");
           }
           default:
           if (isset($_REQUEST['passchange'])) {
             $check_password_result = $connect->query("select userpassword from usercredentials where userid='".$_COOKIE['current_userid']."'");
             if (empty($check_password_result->num_rows)) {
-              printf("Failed to match userid when try to change password : [fetal]");
+              error_alert($connect, "Failed to match userid when try to change password.");
             }
             $password_string = $check_password_result->fetch_assoc();
             if (!password_verify($_REQUEST['Oldpass'], $password_string['userpassword'])) {
-              $connect->close();
+              log_alert($connect, "Your password does not match with the one in database.");
               header("Location: https://worawanbydiistudent.store/login/account.php?passchange=true");
             }
             if ($_REQUEST['Newpass'] != $_REQUEST['Repass'] || is_null($_REQUEST['Newpass'])) {
-              $connect->close();
+              log_alert($connect, "Two of your new passwords do not seem to be the same.");
               header("Location: https://worawanbydiistudent.store/login/account.php?passchange=true");
             }
             $try_to_update_password = $connect->query("update usercredentials set userpassword='".argon2_encrypt($_REQUEST['Newpass'])."' where userid='".$_COOKIE['current_userid']."'");
             if (!$try_to_update_password) {
-              printf("Failed to update password at userid : ".$_COOKIE['current_userid']." : [fetal]");
-              exit();
+              error_alert($connect, "Failed to update password at userid : ".$_COOKIE['current_userid'].".");
             }
           }
           if (is_null($get_did_code)) {
@@ -113,13 +112,11 @@
             $did_code = $get_did_code->fetch_assoc();
           }
           if (empty($get_did_code->num_rows)) {
-            printf("Returned UID was NULL after edit_state was assigned to ".$_COOKIE['edit_state']." : [fetal]");
-            exit();
+            error_alert($connect, "Returned UID was NULL after edit_state was assigned to ".$_COOKIE['edit_state'].".");
           }
           $user_basic_data = $connect->query("select * from userbasicdata where did='".$did_code['uid']."'");
           if (empty($user_basic_data->num_rows)) {
-            printf("Returned data is NULL at edit_state : NULL. DID : ".$did_code['uid']." : [fetal]");
-            exit();
+            error_alert($connect, "Returned data is NULL at edit_state : NULL. DID : ".$did_code['uid'].".");
           }
           $row = $user_basic_data->fetch_assoc();
           echo "<form action=\"account.php\" method=\"get\"><input type=\"hidden\" name=\"basicdata\" value=\"true\"><input type=\"submit\" value=\"Edit data\"></form>";
@@ -127,10 +124,10 @@
           echo "<table>";
           echo "<tr><td>ที่อยู่ : </td><td>".$row['primaryaddress']."</td></tr><tr><td>ที่อยู่เพิ่มเติม(ไม่จำเป็น) : </td><td>".$row['secondaryaddress']."</td></tr><tr><td>อำเภอ : </td><td>".$row['city']."</td></tr><tr><td>ตำบล : </td><td>".$row['state']."</td></tr><tr><td>จังหวัด : </td><td>".$row['province']."</td></tr><tr><td>เลขที่ไปรษณีย์ : </td><td>".$row['postnum']."</td></tr><tr><td>อีเมล : </td><td>".$row['emailaddress']."</td></tr><tr><td>เบอร์โทรศัพท์ : </td><td>".$row['phonenumber']."</td></tr>";
           echo "</table>";
-          $connect->close();
           break;
         }
       }
+      $connect->close();
       ?>
     </div>
     <center>

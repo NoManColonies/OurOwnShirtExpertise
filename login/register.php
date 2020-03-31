@@ -10,8 +10,8 @@
   </head>
   <body>
     <?php
-    require_once('../.confiq/confiq.php');
-    if (session_restore_result($connect, $server_url)) {
+    require_once('../.confiq/auth_confiq.php');
+    if (session_restore_result($connect, $server_url)['session_valid']) {
       $connect->close();
       header("Location: https://worawanbydiistudent.store/index.php");
     }
@@ -169,7 +169,7 @@
               </div>
               <div class="col-sm-3">
                 <button type="submit" class="btn btn-primary">สมัครสมาชิก</button>
-                <button type="reset" class="btn btn-danger">ยกเลิก</button>
+                <button type="reset" class="btn btn-danger">รีเซ็ท</button>
               </div>
             </div>
           </div>

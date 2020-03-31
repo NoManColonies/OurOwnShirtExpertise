@@ -7,87 +7,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link type="text/css" rel="stylesheet"href="../css/master.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {font-family: Arial, Helvetica, sans-serif;}
-form {border: 3px solid #f1f1f1;}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
 
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
+      form {
+        border: 3px solid #f1f1f1;
+      }
 
-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-}
+      input[type=text], input[type=password] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+      }
 
-button:hover {
-  opacity: 0.8;
-}
+      button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+      }
 
-.cancelbtn {
-  width: auto;
-  padding: 10px 18px;
-  background-color: #f44336;
-}
+      button:hover {
+        opacity: 0.8;
+      }
 
-.imgcontainer {
-  text-align: center;
-  margin: 24px 0 12px 0;
-}
-.register_bt{
-float:right;
-}
-img.avatar {
-  width: 20%;
-  border-radius: 50%;
-}
+      .cancelbtn {
+        width: auto;
+        padding: 10px 18px;
+        background-color: #f44336;
+      }
 
-.container {
-  padding: 16px;
-}
+      .imgcontainer {
+        text-align: center;
+        margin: 24px 0 12px 0;
+      }
+      .register_bt{
+      float:right;
+      }
+      img.avatar {
+        width: 20%;
+        border-radius: 50%;
+      }
 
-span.psw {
-  float: right;
-  padding-top: 16px;
-}
+      .container {
+        padding: 16px;
+      }
 
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-  span.psw {
-     display: block;
-     float: none;
-  }
-  .cancelbtn {
-     width: 100%;
-  }
-}
-</style>
-</head>
+      span.psw {
+        float: right;
+        padding-top: 16px;
+      }
+
+      /* Change styles for span and cancel button on extra small screens */
+      @media screen and (max-width: 300px) {
+        span.psw {
+           display: block;
+           float: none;
+        }
+        .cancelbtn {
+           width: 100%;
+        }
+      }
+    </style>
+  </head>
   <body>
     <?php
       require_once('../.confiq/confiq.php');
-      if (session_restore_result($connect, $server_url)) {
+      if (session_restore_result($connect, $server_url)['session_valid']) {
         $connect->close();
         header("Location: https://worawanbydiistudent.store/index.php");
       }
       if ((!is_null($_REQUEST['Username']) || !is_null($_REQUEST['Password'])) && !isset($_COOKIE['current_userid']) && !isset($_COOKIE['encrypted_hash_key'])) {
         if (!login_result($connect, $server_url, $_REQUEST['Username'], $_REQUEST['Password'])) {
-          echo "<script type=\"text/javascript\">";
-          echo "console.log(\"username or password does not match\");";
-          echo "</script>";
-          $connect->close();
-          header("Location: https://worawanbydiistudent.store/login/login.php");
+          login_retry_redirect($connect, "Username or password does not match.");
         } else {
           $connect->close();
           header("Location: https://worawanbydiistudent.store/index.php");
@@ -120,31 +121,25 @@ span.psw {
           </div>
         </div>
       </div>
-<h2>Login</h2>
-<form action="login.php" method="post">
-  <div class="imgcontainer">
-    <img src="../pic/camt.png" alt="Avatar" class="avatar">
-  </div>
-
-  <div class="container">
-    <label for="Username"><b>Username</b></label>
-    <input type="text" id="Username" required name="Username" placeholder="Username">
-
-    <label for="psw"><b>Password</b></label>
-    <input type="password" id="Password" required name="Password" placeholder="Password">
-        
-    <button type="submit">Login</button>
-    <span class="register_bt"><a href="register.php">register</a></span><br>
-    <label>
-      <input type="checkbox" checked="checked" name="remember"> Remember me
-    </label>
-  </div>
-
-  <div class="container" style="background-color:#f1f1f1">
-    <button type="button" class="cancelbtn">Cancel</button>
-    <span class="psw">Forgot <a href="####################################################">password?</a></span>
-  </div>
-</form>		
+      <h2>Login</h2>
+      <form action="login.php" method="post">
+        <div class="imgcontainer">
+          <img src="../pic/camt.png" alt="Avatar" class="avatar">
+        </div>
+        <div class="container">
+          <label for="Username"><b>Username</b></label>
+          <input type="text" id="Username" required name="Username" placeholder="Username">
+          <label for="psw"><b>Password</b></label>
+          <input type="password" id="Password" required name="Password" placeholder="Password">
+          <button type="submit">Login</button>
+          <span class="register_bt"><a href="register.php">register</a></span><br>
+          <label for="remember"> Remember me</label>
+          <input type="checkbox" checked="checked" name="remember">
+        </div>
+        <div class="container" style="background-color:#f1f1f1">
+          <button href="../index.php" type="button" class="cancelbtn">Cancel</button>
+          <span class="psw">Forgot <a href="#">password?</a></span>
+        </div>
       </form>
     </div>
   </body>
