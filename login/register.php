@@ -16,7 +16,7 @@
       header("Location: https://worawanbydiistudent.store/index.php");
     }
     if ($_REQUEST['Username'] != null || $_REQUEST['Password'] != null) {
-      $array_of_error_code = register_result($connect, $_REQUEST['Username'], $_REQUEST['Password'], $_REQUEST['Repassword'], $_REQUEST['Name'], $_REQUEST['Lastname'], $_REQUEST['Address1'], $_REQUEST['Address2'], $_REQUEST['City'], $_REQUEST['State'], $_REQUEST['Province'], $_REQUEST['Postcode'], $_REQUEST['Phone'], $_REQUEST['Email']);
+      $array_of_error_code = register_result($connect, $listmanager, $_REQUEST['Username'], $_REQUEST['Password'], $_REQUEST['Repassword'], $_REQUEST['Name'], $_REQUEST['Lastname'], $_REQUEST['Address1'], $_REQUEST['Address2'], $_REQUEST['City'], $_REQUEST['State'], $_REQUEST['Province'], $_REQUEST['Postcode'], $_REQUEST['Phone'], $_REQUEST['Email']);
       if (!$array_of_error_code['username_valid'] || !$array_of_error_code['password_valid']) {
         echo "<script type=\"text/javascript\">";
         echo "console.log(\"username or password does not match\");";
