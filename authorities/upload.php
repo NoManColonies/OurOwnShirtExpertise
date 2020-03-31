@@ -24,7 +24,7 @@ if (session_auth_check($connect, $server_url)['auth_key_valid']) {
         $statusMsg = "Sorry, there was an error uploading your file.".$_FILES['file']['error'];
       }
     } else {
-      $statusMsg = "Sorry, only JPG, JPEG, PNG, GIF, JFIF, & PDF files are allowed to upload.";
+      $statusMsg = "Sorry, only JPG, JPEG, PNG, GIF, JFIF & PDF files are allowed to upload.";
     }
   } else {
     $statusMsg = "Please select a file to upload.";

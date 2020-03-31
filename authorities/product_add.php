@@ -114,7 +114,7 @@
         <input type="text" required name="productqty" value="">
         <label for="productdprice">discounted price(optional) : </label>
         <input type="text" name="productdprice" value="">
-        <button class="buttonload"><i type="submit" name="submit" class="fa fa-refresh fa-spin"></i>Upload</button>
+        <button type="submit" name="submit" class="buttonload"><i type="submit" name="submit" class="fa fa-refresh fa-spin"></i>Upload</button>
       </div>
     </form>
   </body>
