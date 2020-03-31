@@ -9,7 +9,7 @@ function register_result(mysqli $connect, mysqli $listmanager, $username, $vulne
   while($row = $server_userid_check->fetch_assoc()) {
     if ($row['userid'] == $username) {
       $listmanager->close();
-      log_alert($connect, "Could not find your credentials.");
+      log_alert($connect, "Your username was already taken.");
       return [
         'username_valid' => false,
         'password_valid' => false,
@@ -38,7 +38,7 @@ function register_result(mysqli $connect, mysqli $listmanager, $username, $vulne
     $listmanager->close();
     error_alert($connect, "failed to register basic data : ".$connect->errno);
   }
-  $try_to_add_cartlist_result = $listmanager->query("create table ".$username."_cartlist (cid int(5) not null auto_increment primary key,itemid int(5) not null,itemqty int(5) not null,status int(1) not null default 1)");
+  $try_to_add_cartlist_result = $listmanager->query("create table ".$username."_cartlist (cid int(5) not null auto_increment primary key,itemid int(5) not null,itemqty int(5) not null,status int(1) not null default=1)");
   if (!$try_to_add_cartlist_result) {
     $listmanager->close();
     error_alert($connect, "Failed to initialize usercartlist table : ".$listmanager->errno);
