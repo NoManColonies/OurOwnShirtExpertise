@@ -1,3 +1,3 @@
 <?php
-echo "<script>alert(1);</script>";
+echo "<script>alert(p);</script>";
 ?>
