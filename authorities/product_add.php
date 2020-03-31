@@ -55,4 +55,5 @@
       <input type="submit" name="submit" value="Upload">
     </form>
   </body>
+  <script src="https://kit.fontawesome.com/115266479a.js" crossorigin="anonymous"></script>
 </html>
