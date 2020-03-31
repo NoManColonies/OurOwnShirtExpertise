@@ -222,3 +222,8 @@ a:hover:not(.active) {
 	border: 2px solid black;
 	margin: 6px;
 }
+
+.register_bt{
+	padding-top:5px;
+	text-align:right;
+}
