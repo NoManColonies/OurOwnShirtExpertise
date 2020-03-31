@@ -77,7 +77,7 @@
       $query = $connect->query("SELECT * FROM producttable");
       if(!empty($query->num_rows)){
         while($row = $query->fetch_assoc()){
-          $imageURL = '../images/'.$row["productimagelink"];
+          $imageURL = '../images/'.$row["productimagepath"];
           ?>
           <div class="img">
             <a href="#" target="_blank" >
