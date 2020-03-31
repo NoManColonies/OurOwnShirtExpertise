@@ -74,35 +74,94 @@
       </div>
       <h1><p>Items</p></h1>
       <?php
+      if (isset($_REQUEST['submit_edit']) && $_REQUEST['submit_edit'] === "submit_edit" && $session['auth_key_valid']) {
+        $statusMsg = '';
+        $targetDir = "images/";
+        $fileName = basename($_FILES["file"]["name"]);
+        $targetFilePath = $targetDir.$fileName;
+        $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+        if(isset($_POST["submit"]) && !empty($_FILES["file"]["name"])){
+          $allowTypes = array('jpg', 'png', 'jpeg', 'gif', 'pdf', 'jfif');
+          if(in_array($fileType, $allowTypes)){
+            if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
+              $try_to_update_product = $connect->query("update producttable set productname='".$_REQUEST['productname']."', productdescription='".$_REQUEST['productdescription']."', productprice=".$_REQUEST['productprice'].", productqty=".$_REQUEST['productqty'].", productdprice=".$_REQUEST['productdprice'].", productimagepath='".$fileName."' where pid=".$_REQUEST['productcode']);
+              if ($try_to_update_product) {
+                $statusMsg = "The file ".$fileName. " has been uploaded successfully.";
+              } else {
+                $statusMsg = "File upload failed, please try again.".$connect->errno." : ".$fileName;
+              }
+            } else {
+              $statusMsg = "Sorry, there was an error uploading your file.".$_FILES['file']['error'];
+            }
+          } else {
+            $statusMsg = 'Sorry, only JPG, JPEG, PNG, GIF, JFIF, & PDF files are allowed to upload.';
+          }
+        } else {
+          $statusMsg = 'No file detected. proceeding... ';
+          $try_to_update_product = $connect->query("update producttable set productname='".$_REQUEST['productname']."', productdescription='".$_REQUEST['productdescription']."', productprice=".$_REQUEST['productprice'].", productqty=".$_REQUEST['productqty'].", productdprice=".$_REQUEST['productdprice'].", productimagepath='".$targetDir.$_REQUEST['imagepath']."' where pid=".$_REQUEST['productcode']);
+          if (!$try_to_update_product) {
+            $statusMsg .= "Product update failed at index.php page.";
+          } else {
+            $statusMsg .= "Product successfully updated.";
+          }
+        }
+        alert_message($statusMsg);
+      }
       $query = $connect->query("select * from producttable");
       if(!empty($query->num_rows)){
         while($row = $query->fetch_assoc()){
-          $imageURL = 'images/'.$row["productimagepath"];
-          ?>
-          <form action="index.php" method="get" class="img">
-            <a href="#" target="_blank" >
-              <img src="<?php echo $imageURL; ?>" alt=""/>
-            </a>
-            <div class="desc">
-              <p><?php echo $row['productname'];?><br><?php echo $row['productdescription']; ?><br></p>
-              <?php
-              if (is_null($row['productdprice'])) {
-                echo "<p style=\"float:left\">".$row['productprice']."฿</p>";
-              } else {
-                echo "<p style=\"float:left;text-decoration:line-through;\">".$row['productprice']."฿</p><p style=\"float:left;margin-left:0.5em;\">".$row['productdprice']."฿</p>";
-              }
-              ?>
-              <input type="hidden" name="productcode" value="<?php echo $row['pid']; ?>">
-              <input style="float:right" type="submit" value="buy">
-            </div>
-          </form>
-          <?php
+          if ($session['auth_key_valid'] && isset($_REQUEST['submit']) && $_REQUEST['submit'] === "Edit" && $_REQUEST['productcode'] == $row['pid']) {
+            ?>
+            <form action="index.php" method="post" class="img" enctype="multipart/form-data">
+              <input type="hidden" name="productcode" value="<?php echo $row['pid'];?>">
+              <label for="file">Select Image File to Upload : </label>
+              <input type="file" name="file">
+              <div class="desc">
+                <label for="productname">Product name : </label>
+                <input type="text\" name="productname" value="<?php echo $row['productname'];?>">
+                <label for="productdescription">Description : </label>
+                <textarea name="name" rows="4" cols="40"><?php echo $row['productdescription'];?></textarea>
+                <label for="productprice">Price : </label>
+                <input type="text" name="productprice" value="<?php echo $row['productprice'];?>">
+                <label for="productdprice">Discounted price : </label>
+                <input type="text" name="productdprice" value="<?php echo $row['productdprice'];?>">
+                <label for="imagepath">path : images/</label>
+                <input type="text" name="imagepath" value="<?php echo $row['productimagepath'];?>">
+                <input type="submit" name="submit_edit" value="submit_edit">
+              </div>
+            </form>
+            <?php
+          } else {
+            $imageURL = 'images/'.$row["productimagepath"];
+            ?>
+            <form action="index.php" method="post" class="img">
+              <a href="#" target="_blank" >
+                <img src="<?php echo $imageURL; ?>" alt=""/>
+              </a>
+              <div class="desc">
+                <p><?php echo $row['productname'];?><br><?php echo $row['productdescription']; ?><br></p>
+                <?php
+                if (is_null($row['productdprice'])) {
+                  echo "<p style=\"float:left\">".$row['productprice']."฿</p>";
+                } else {
+                  echo "<p style=\"float:left;text-decoration:line-through;\">".$row['productprice']."฿</p><p style=\"float:left;margin-left:0.5em;\">".$row['productdprice']."฿</p>";
+                }
+                echo "<input type=\"hidden\" name=\"productcode\" value=\"".$row['pid']."\">";
+                if ($session['auth_key_valid']) {
+                  echo "<input style=\"float:right\" type=\"submit\" value=\"Edit\">";
+                } else {
+                  echo "<input style=\"float:right\" type=\"submit\" value=\"Add to cart\">";
+                }
+                ?>
+              </div>
+            </form>
+            <?php
+          }
         }
       }else{
-        ?>
-        <p>No image(s) found...</p>
-        <?php
+        echo "<p>No image(s) found...</p>";
       }
+      unset($session);
       $connect->close();
       ?>
       <!--

@@ -6,28 +6,31 @@ $password = "";
 $database = "";
 $connect = new mysqli($server, $user, $password, $database);
 if ($connect->connect_errno) {
-  printf("Connection timed out : ".$connect->errno);
-  exit();
+  alert_message("Connection timed out for user : ".$user." error code : ".$connect->errno);
+  $connect->close();
 }
 session_start();
 function error_alert(mysqli $connect, $content) {
-  echo "<script>alert(".$content.");</script>";
+  echo "<script>alert(\"".$content."\");</script>";
   $connect->close();
   header("Location: https://worawanbydiistudent.store/index.php");
 }
 function log_alert(mysqli $connect, $content) {
-  echo "<script>alert(".$content.");</script>";
+  echo "<script>alert(\"".$content."\");</script>";
   $connect->close();
 }
 function admin_redirect(mysqli $connect, $content) {
-  echo "<script>alert(".$content.");</script>";
+  echo "<script>alert(\"".$content."\");</script>";
   $connect->close();
   header("Location: https://worawanbydiistudent.store/authorities/product_add.php");
 }
 function login_retry_redirect(mysqli $connect, $content) {
-  echo "<script>alert(".$content.");</script>";
+  echo "<script>alert(\"".$content."\");</script>";
   $connect->close();
   header("Location: https://worawanbydiistudent.store/login/login.php");
+}
+function alert_message($content) {
+  echo "<script>alert(\"".$content."\");</script>";
 }
 function argon2_encrypt($text) {
   return password_hash($text, PASSWORD_ARGON2I);
@@ -78,12 +81,8 @@ function session_restore_result(mysqli $connect, $server_url) {
       setcookie('current_userid', $userid, time() + 3600, '/', $server_url, false, true);
       $hash_key_update_result = $connect->query("update usercredentials set userhashkey='".$decrypted_hash_key."' where userid='".$userid."'");
       if (!$hash_key_update_result) {
-        if (isset($_COOKIE['encrypted_hash_key'])) {
-          setcookie('encrypted_hash_key', NULL, -1, '/', $server_url, false, true);
-        }
-        if (isset($_COOKIE['current_userid'])) {
-          setcookie('current_userid', NULL, -1, '/', $server_url, false, true);
-        }
+        setcookie('encrypted_hash_key', NULL, -1, '/', $server_url, false, true);
+        setcookie('current_userid', NULL, -1, '/', $server_url, false, true);
         error_alert($connect, "Failed to update userhashkey.");
       }
       return [
@@ -92,12 +91,8 @@ function session_restore_result(mysqli $connect, $server_url) {
       ];
     } else {
       $hash_key_update_result = $connect->query("update usercredentials set userhashkey=NULL where userid='".$userid."'");
-      if (isset($_COOKIE['current_userid'])) {
-        setcookie('current_userid', NULL, -1, '/', $server_url, false, true);
-      }
-      if (isset($_COOKIE['encrypted_hash_key'])) {
-        setcookie('encrypted_hash_key', NULL, -1, '/', $server_url, false, true);
-      }
+      setcookie('current_userid', NULL, -1, '/', $server_url, false, true);
+      setcookie('encrypted_hash_key', NULL, -1, '/', $server_url, false, true);
       if (!$hash_key_update_result) {
         error_alert($connect, "Destroy server hashkey failed. userid : '".$userid."' doesn't exists on server. this shouldn't occur as we already checked before.");
       }
@@ -107,12 +102,8 @@ function session_restore_result(mysqli $connect, $server_url) {
       ];
     }
   } else {
-    if (isset($_COOKIE['current_userid'])) {
-      setcookie('current_userid', NULL, -1, '/', $server_url, false, true);
-    }
-    if (isset($_COOKIE['encrypted_hash_key'])) {
-      setcookie('encrypted_hash_key', NULL, -1, '/', $server_url, false, true);
-    }
+    setcookie('current_userid', NULL, -1, '/', $server_url, false, true);
+    setcookie('encrypted_hash_key', NULL, -1, '/', $server_url, false, true);
     return [
       'session_valid' => false,
       'auth_key' => NULL
@@ -135,12 +126,8 @@ function login_result(mysqli $connect, $server_url, $username, $vulnerable_passw
     setcookie('current_userid', $username, time() + 3600, '/', $server_url, false, true);
     $hash_key_update_result = $connect->query("update usercredentials set userhashkey='".$decrypted_hash_key_tmp."' where userid='".$username."'");
     if(!$hash_key_update_result) {
-      if (isset($_COOKIE['encrypted_hash_key'])) {
-        setcookie('encrypted_hash_key', null, -1, '/', $server_url, false, true);
-      }
-      if (isset($_COOKIE['current_userid'])) {
-        setcookie('current_userid', null, -1, '/', $server_url, false, true);
-      }
+      setcookie('encrypted_hash_key', null, -1, '/', $server_url, false, true);
+      setcookie('current_userid', null, -1, '/', $server_url, false, true);
       error_alert($connect, "Process failed during server userhashkey update : ".$username." hashkey : ".$decrypted_hash_key_tmp.".");
     }
     return true;
