@@ -77,11 +77,11 @@
       $query = $connect->query("select * from producttable");
       if(!empty($query->num_rows)){
         while($row = $query->fetch_assoc()){
-          $imageURL = '../images/'.$row["productimagepath"];
+          $imageURL = 'images/'.$row["productimagepath"];
           ?>
           <form action="index.php" method="get" class="img">
             <a href="#" target="_blank" >
-              <img src="<?php echo "pic/".$imageURL; ?>" alt="" />
+              <img src="<?php echo $imageURL; ?>" alt=""/>
             </a>
             <div class="desc">
               <p><?php echo $row['productname'];?><br><?php echo $row['productdescription']; ?><br></p>
