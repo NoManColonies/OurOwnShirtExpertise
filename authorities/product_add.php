@@ -45,7 +45,7 @@
       <label for="productname">name : </label>
       <input type="text" required name="productname" value="">
       <label for="productdescription">description(optional) : </label>
-      <input type="text" name="productdescription" value="">
+      <textarea name="productdescription" rows="8" cols="80"></textarea>
       <label for="productprice">price : </label>
       <input type="text" required name="productprice" value="">
       <label for="productqty">quantity : </label>
