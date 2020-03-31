@@ -74,14 +74,14 @@
       </div>
       <h1><p>Items</p></h1>
       <?php
-      $query = $connect->query("SELECT * FROM producttable");
+      $query = $connect->query("select * from producttable");
       if(!empty($query->num_rows)){
         while($row = $query->fetch_assoc()){
-          $imageURL = '../images/'.$row["productimagepath"];
+          $imageURL = 'images/'.$row["productimagepath"];
           ?>
           <form action="index.php" method="get" class="img">
             <a href="#" target="_blank" >
-              <img src="<?php echo "pic/".$imageURL; ?>" alt="" />
+              <img src="<?php echo $imageURL; ?>" alt=""/>
             </a>
             <div class="desc">
               <p><?php echo $row['productname'];?><br><?php echo $row['productdescription']; ?><br></p>
@@ -89,7 +89,7 @@
               if (is_null($row['productdprice'])) {
                 echo "<p style=\"float:left\">".$row['productprice']."฿</p>";
               } else {
-                echo "<p style=\"float:left;text-decoration:line-through;\">".$row['productprice']."฿</p><p style=\"float:left\">".$row['productdprice']."฿</p>";
+                echo "<p style=\"float:left;text-decoration:line-through;\">".$row['productprice']."฿</p><p style=\"float:left;margin-left:0.5em;\">".$row['productdprice']."฿</p>";
               }
               ?>
               <input type="hidden" name="productcode" value="<?php echo $row['pid']; ?>">

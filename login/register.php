@@ -123,10 +123,10 @@
           </div>
           <div class="form-group">
             <div class="col-sm-2 control-label">
-              <label for="Address2">ที่อยู่2 : </label>
+              <label for="Address2">ที่อยู่เพิ่มเติม : </label>
             </div>
             <div class="col-sm-3">
-              <input type="text" id="Address2" name="Address2" required class="form-control" placeholder="(ไม่จำเป็น)">
+              <input type="text" id="Address2" name="Address2" class="form-control" placeholder="(ไม่จำเป็น)">
             </div>
           </div>
           <div class="form-group">
