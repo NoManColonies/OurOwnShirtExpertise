@@ -79,28 +79,23 @@
         while($row = $query->fetch_assoc()){
           $imageURL = '../images/'.$row["productimagepath"];
           ?>
-          <div class="img">
+          <form action="index.php" method="get" class="img">
             <a href="#" target="_blank" >
               <img src="<?php echo "pic/".$imageURL; ?>" alt="" />
             </a>
             <div class="desc">
               <p><?php echo $row['productname'];?><br><?php echo $row['productdescription']; ?><br></p>
-              <p style="float:left">
-                <?php
-                if (is_null($row['productdprice'])) {
-                  echo $row['productprice'];
-                } else {
-                  echo $row['productdprice'];
-                }
-                ?>
-                ฿
-              </p>
+              <?php
+              if (is_null($row['productdprice'])) {
+                echo "<p style=\"float:left\">".$row['productprice']."฿</p>";
+              } else {
+                echo "<p style=\"float:left;text-decoration:line-through;\">".$row['productprice']."฿</p><p style=\"float:left\">".$row['productdprice']."฿</p>";
+              }
+              ?>
+              <input type="hidden" name="productcode" value="<?php echo $row['pid']; ?>">
               <input style="float:right" type="submit" value="buy">
             </div>
-          </div>
-          <!--
-          <img src="<?php //echo $imageURL; ?>" alt="" />
-        -->
+          </form>
           <?php
         }
       }else{
