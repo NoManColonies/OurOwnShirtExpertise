@@ -5,9 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet"href="../css/master.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin</title>
+    <style>
+      body {
+        font-family: Arial;
+        padding: 5px 5px 50px 5px;
+      }
+
+      input[type=text], select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      input[type=submit] {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      input[type=submit]:hover {
+        background-color: #45a049;
+      }
+
+      div.container {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px 20px 80px 20px;
+      }
+      .buttonload {
+        background-color: #4CAF50;
+        border: 5px 5px 5px 5px;
+        color: white;
+        float: right;
+        margin: 5px 5px 5px 5px;
+        padding: 12px 24px;
+        font-size: 16px;
+      }
+
+
+      .fa {
+        margin-left: -12px;
+        margin-right: 8px;
+      }
+      .form_upload{
+      font-size:50px;
+      font-family:Algerian;
+      }
+    </style>
   </head>
   <body>
     <?php
@@ -42,96 +98,24 @@
       </div>
     </div>
     <form action="upload.php" method="post" enctype="multipart/form-data">
-	
-	<style>
-body {
-  font-family: Arial;
-  padding: 5px 5px 50px 5px;
-}
-
-input[type=text], select {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-input[type=submit] {
-  width: 100%;
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-input[type=submit]:hover {
-  background-color: #45a049;
-}
-
-div.container {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px 20px 80px 20px;
-}
-.buttonload {
-  background-color: #4CAF50; 
-  border: 5px 5px 5px 5px; 
-  color: white; 
-  float: right;
-  margin: 5px 5px 5px 5px;
-  padding: 12px 24px; 
-  font-size: 16px; 
-}
-
-
-.fa {
-  margin-left: -12px;
-  margin-right: 8px;
-}
-.form_upload{
-font-size:50px;
-font-family:Algerian;
-}
-</style>
-<body>
-<div class="form_upload">
-<marquee direction="right">Form to Upload</marquee>
-</div> 
-<div class="container">
-     <label for="file">Select Image File to Upload : </label>
-	 <input type="file" required name="file"><br>
-    <label for="productname">name : </label>
-      <input type="text" required name="productname" value="">
-      <label for="productdescription">description(optional) : </label><br>
-      <textarea name="productdescription" rows="8" cols="80"></textarea><br>
-      <label for="productprice">price : </label>
-      <input type="text" required name="productprice" value="">
-      <label for="productqty">quantity : </label>
-      <input type="text" required name="productqty" value="">
-      <label for="productdprice">discounted price(optional) : </label>
-	  <input type="text" name="productdprice" value="">
-	  
-	  
-	  <button class="buttonload">
-  <i type="submit" name="submit" class="fa fa-refresh fa-spin"></i>Upload</button>
-  
-	
-	
-  </form>
-</div>
-
-</body>
-	
-	
-      
-      
-      
+      <div class="form_upload">
+        <marquee direction="right">Form to Upload</marquee>
+      </div>
+      <div class="container">
+        <label for="file">Select Image File to Upload : </label>
+        <input type="file" required name="file"><br>
+        <label for="productname">name : </label>
+        <input type="text" required name="productname" value="">
+        <label for="productdescription">description(optional) : </label><br>
+        <textarea name="productdescription" rows="8" cols="80"></textarea><br>
+        <label for="productprice">price : </label>
+        <input type="text" required name="productprice" value="">
+        <label for="productqty">quantity : </label>
+        <input type="text" required name="productqty" value="">
+        <label for="productdprice">discounted price(optional) : </label>
+        <input type="text" name="productdprice" value="">
+        <button class="buttonload"><i type="submit" name="submit" class="fa fa-refresh fa-spin"></i>Upload</button>
+      </div>
     </form>
   </body>
   <script src="https://kit.fontawesome.com/115266479a.js" crossorigin="anonymous"></script>
