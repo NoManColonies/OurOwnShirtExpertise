@@ -14,7 +14,7 @@ if (session_auth_check($connect, $server_url)['auth_key_valid']) {
       // Upload file to server
       if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
         // Insert image file name into database
-        $insert = $connect->query("insert into producttable (pid, productname, productdescription, productprice, productqty, productdprice, productimagepath) values(NULL, '".$_REQUEST['productname']."', ".$_REQUEST['productdescription'].", ".$_REQUEST['productprice'].", ".$_REQUEST['productqty'].", ".$_REQUEST['productdprice'].", '".$fileName."')");
+        $insert = $connect->query("insert into producttable (pid, productname, productdescription, productprice, productqty, productdprice, productimagepath) values(NULL, '".$_REQUEST['productname']."', '".$_REQUEST['productdescription']."', ".$_REQUEST['productprice'].", ".$_REQUEST['productqty'].", ".$_REQUEST['productdprice'].", '".$fileName."')");
         if($insert){
           $statusMsg = "The file ".$fileName. " has been uploaded successfully.";
         }else{
