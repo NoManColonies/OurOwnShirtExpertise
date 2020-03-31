@@ -10,8 +10,8 @@
   </head>
   <body>
     <?php
-    require_once('../.confiq/confiq.php');
-    if (session_restore_result($connect, $server_url)) {
+    require_once('../.confiq/auth_confiq.php');
+    if (session_restore_result($connect, $server_url)['session_valid']) {
       $connect->close();
       header("Location: https://worawanbydiistudent.store/index.php");
     }

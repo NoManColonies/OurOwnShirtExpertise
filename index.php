@@ -21,12 +21,15 @@
         <a href="https://www.google.com/webhp?hl=th&sa=X&ved=0ahUKEwiHoOHqmbPoAhUTbn0KHRc2BsIQPAgH"><i class="fas fa-search"></i>ค้นหา</a>
         <?php
         require_once('.confiq/confiq.php');
-        if (session_restore_result($connect, $server_url)) {
-          echo "<div class=\"menu\"><div class=\"menu__btn\"><a href=\"#\"><i class=\"fas fa-user-shield\"></i>บัญชี</a></div><div class=\"smenu\"><a href=\"login/account.php\"><i class=\"fas fa-edit\"></i>แก้ไขข้อมูล</a><a href=\"login/transaction.php\"><i class=\"fas fa-clipboard-list\"></i>ประวัติการซื้อ</a><a href=\"login/logout.php\"><i class=\"fas fa-sign-out-alt\"></i>ออกจากระบบ</a></div></div>";
-          $connect->close();
+        $session = session_auth_check($connect, $server_url);
+        if ($session['session_valid']) {
+          if ($session['auth_key_valid']) {
+            echo "<div class=\"menu\"><div class=\"menu__btn\"><a href=\"#\"><i class=\"fas fa-user-shield\"></i>บัญชี</a></div><div class=\"smenu\"><a href=\"login/account.php\"><i class=\"fas fa-edit\"></i>แก้ไขข้อมูล</a><a href=\"login/transaction.php\"><i class=\"fas fa-clipboard-list\"></i>ประวัติการซื้อ</a><a href=\"../authorities/product_add.php\"><i class=\"fas fa-user-shield\"></i>เพิ่มการสินค้า</a><a href=\"login/logout.php\"><i class=\"fas fa-sign-out-alt\"></i>ออกจากระบบ</a></div></div>";
+          } else {
+            echo "<div class=\"menu\"><div class=\"menu__btn\"><a href=\"#\"><i class=\"fas fa-user-shield\"></i>บัญชี</a></div><div class=\"smenu\"><a href=\"login/account.php\"><i class=\"fas fa-edit\"></i>แก้ไขข้อมูล</a><a href=\"login/transaction.php\"><i class=\"fas fa-clipboard-list\"></i>ประวัติการซื้อ</a><a href=\"login/logout.php\"><i class=\"fas fa-sign-out-alt\"></i>ออกจากระบบ</a></div></div>";
+          }
         } else {
           echo "<a href=\"login/login.php\"><i class=\"fas fa-sign-in-alt\"></i>เข้าสู่ระบบ</a>";
-          $connect->close();
         }
         ?>
         <a href="https://web.facebook.com/don.jirapipat?fref=gs&__tn__=%2CdlC-R-R&eid=ARD4Hn7n7y0YlNmiFkRA4pRC8wT9s0jqzBWc2Ffc5Hr4JDyBq0oFcob2oUzlIG2Per5K2EaVj0spOoBE&hc_ref=ARQT8XqV-z45u9iOFih8e6NeW5FfLPr1_UoW7itb2PfNVQr5SznweAP6t5DFePjomUw&ref=nf_target&dti=2510061589261957&hc_location=group&_rdc=1&_rdr"><i class="fas fa-address-book"></i>ติดต่อเรา</a>
@@ -70,118 +73,157 @@
         </div>
       </div>
       <h1><p>Items</p></h1>
-      <form class="" action="index.html" method="post">
+      <?php
+      $query = $connect->query("SELECT * FROM producttable");
+      if(!empty($query->num_rows)){
+        while($row = $query->fetch_assoc()){
+          $imageURL = '../images/'.$row["productimagelink"];
+          ?>
+          <div class="img">
+            <a href="#" target="_blank" >
+              <img src="<?php echo "pic/".$imageURL; ?>" alt="" />
+            </a>
+            <div class="desc">
+              <p><?php echo $row['productname'];?><br><?php echo $row['productdescription']; ?><br></p>
+              <p style="float:left">
+                <?php
+                if (is_null($row['productdprice'])) {
+                  echo $row['productprice'];
+                } else {
+                  echo $row['productdprice'];
+                }
+                ?>
+                ฿
+              </p>
+              <input style="float:right" type="submit" value="buy">
+            </div>
+          </div>
+          <!--
+          <img src="<?php //echo $imageURL; ?>" alt="" />
+        -->
+          <?php
+        }
+      }else{
+        ?>
+        <p>No image(s) found...</p>
+        <?php
+      }
+      $connect->close();
+      ?>
+      <!--
+      <form class="" action="index.php" method="post">
         <div class="img">
-          <a href="buysh1.html"a target="_blank" >
+          <a href="#" target="_blank" >
             <img src="pic/sh1.jpg" alt="sh1" >
           </a>
           <div class="desc">
             <p>รองเท้าหุ้มส้นสีดำ<br>ผู้ชาย<br></p>
             <p style="float:left">฿450</p>
-            <input style="float:right" type="submit" name="shoes1buy" value="Buy">
+            <input style="float:right" type="submit" value="buy">
           </div>
         </div>
         <div class="img">
-          <a href="buyfem1.html"a target="_blank" >
+          <a href="#" target="_blank" >
             <img src="pic/fem1.jpg" alt="fem1">
           </a>
           <div class="desc">
             <p>เสื้อนักศึกษาแขนสั้น<br>ผู้หญิง<br></p>
             <p style="float:left">฿250</p>
-            <input style="float:right" type="submit" name="shirt1buy" value="Buy">
+            <input style="float:right" type="submit" value="buy">
           </div>
         </div>
         <div class="img">
-          <a href="buyfem2.html"a target="_blank" >
+          <a href="#" target="_blank" >
             <img src="pic/fem2.jpg" alt="fem2">
           </a>
           <div class="desc">
             <p>กระโปรงทรงเอ<br>ผู้หญิง<br></p>
             <p style="float:left">฿200</p>
-            <input style="float:right" type="submit" name="sk1buy" value="Buy">
+            <input style="float:right" type="submit" value="buy">
           </div>
         </div>
         <div class="img">
-          <a href="buymen1.html"a target="_blank" >
+          <a href="#" target="_blank" >
             <img src="pic/men1.jpg" alt="men1">
           </a>
           <div class="desc">
             <p>เสื้อนักศึกษาแขนสั้น<br>ผู้ชาย<br></p>
             <p style="float:left">฿250</p>
-            <input style="float:right" type="submit" name="shirt2buy" value="Buy">
+            <input style="float:right" type="submit" value="buy">
           </div>
         </div>
         <div class="img">
-          <a href="buymen2.html"a target="_blank" >
+          <a href="#" target="_blank" >
             <img src="pic/men2.jpg" alt="men2">
           </a>
           <div class="desc">
             <p>เสื้อนักศึกษาแขนยาว<br>ผู้ชาย<br></p>
             <p style="float:left">฿290</p>
-            <input style="float:right" type="submit" name="shirt3buy" value="Buy">
+            <input style="float:right" type="submit" value="buy">
           </div>
         </div>
         <div class="img">
-          <a href="buymen3.html"a target="_blank" >
+          <a href="#" target="_blank" >
             <img src="pic/men3.jpg" alt="men3" >
           </a>
           <div class="desc">
             <p>กางเกงนักศึกษา<br>ผู้ชาย<br></p>
             <p style="float:left">฿280</p>
-            <input style="float:right" type="submit" name="sk2buy" value="Buy">
+            <input style="float:right" type="submit" value="buy">
           </div>
         </div>
         <div class="img">
-          <a href="buysh2.html"a target="_blank" >
+          <a href="#" target="_blank" >
             <img src="pic/sh2.jpg" alt="sh2" >
           </a>
           <div class="desc">
             <p>รองเท้าผ้าใบสีขาว<br>ชาย/หญิง<br></p>
             <p style="float:left">฿250</p>
-            <input style="float:right" type="submit" name="shoes2buy" value="Buy">
+            <input style="float:right" type="submit" value="buy">
           </div>
         </div>
         <div class="img">
-          <a href="buyfem3.html"a target="_blank" >
+          <a href="#" target="_blank" >
             <img src="pic/fem3.jpg" alt="fem3" >
           </a>
           <div class="desc">
             <p>กระโปรงพลีท<br>ผู้หญิง<br></p>
             <p style="float:left">฿280</p>
-            <input style="float:right" type="submit" name="sk3buy" value="Buy">
+            <input style="float:right" type="submit" value="buy">
           </div>
         </div>
         <div class="img">
-          <a href="buysh3.html"a target="_blank" >
+          <a href="#" target="_blank" >
             <img src="pic/sh3.jpg" alt="sh3" >
           </a>
           <div class="desc">
             <p>รองเท้าคัทชู<br>ผู้หญิง<br></p>
             <p style="float:left">฿290</p>
-            <input style="float:right" type="submit" name="shoes3buy" value="Buy">
+            <input style="float:right" type="submit" value="buy">
           </div>
         </div>
         <div class="img">
-          <a href="buyfem4.html"a target="_blank" >
+          <a href="#" target="_blank" >
             <img src="pic/fem4.jpg" alt="fem4" >
           </a>
           <div class="desc">
             <p>กระโปรงพิธีการ<br>ผู้หญิง<br></p>
             <p style="float:left">฿300</p>
-            <input style="float:right" type="submit" name="sk4buy" value="Buy">
+            <input style="float:right" type="submit" value="buy">
           </div>
         </div>
         <div class="img">
-          <a href="buymen4.html"a target="_blank" >
+          <a href="#" target="_blank" >
             <img src="pic/men4.jpg" alt="men4" >
           </a>
           <div class="desc">
             <p>กางเกงพิธีการ<br>ผู้ชาย<br></p>
             <p style="float:left">฿300</p>
-            <input style="float:right" type="submit" name="sk4buy" value="Buy">
+            <input style="float:right" type="submit" value="buy">
           </div>
         </div>
       </form>
+    -->
     </div>
     <center>
       <footer class="footer" style="margin-top: 50px"></footer>
