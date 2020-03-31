@@ -41,10 +41,15 @@
     <form action="upload.php" method="post" enctype="multipart/form-data">
       <label for="file">Select Image File to Upload : </label>
       <input type="file" required name="file">
+      <label for="productname">name : </label>
       <input type="text" required name="productname" value="">
+      <label for="productdescription">description(optional) : </label>
       <input type="text" name="productdescription" value="">
+      <label for="productprice">price : </label>
       <input type="text" required name="productprice" value="">
+      <label for="productqty">quantity : </label>
       <input type="text" required name="productqty" value="">
+      <label for="productdprice">discounted price(optional) : </label>
       <input type="text" name="productdprice" value="">
       <input type="submit" name="submit" value="Upload">
     </form>

@@ -108,6 +108,7 @@
         <p>No image(s) found...</p>
         <?php
       }
+      $connect->close();
       ?>
       <!--
       <form class="" action="index.php" method="post">
