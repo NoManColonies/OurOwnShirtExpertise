@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet"href="../css/master.css">
-    <title>Home</title>
+    <title>Account</title>
   </head>
   <?php
   require_once('../.confiq/confiq.php');
@@ -33,8 +33,9 @@
             if ($session['auth_key_valid']) {
               echo "<a href=\"../photo/product_add.php\"><i class=\"fas fa-user-shield\"></i>เพิ่มสินค้า</a>";
             } else {
-              echo "<a href=\"account.php\"><i class=\"fas fa-edit\"></i>แก้ไขข้อมูล</a>";
+              echo "<a href=\"usercart.php\"><i class=\"fas fa-shopping-cart\"></i>ตระกร้าสินค้า</a>";
               echo "<a href=\"transaction.php\"><i class=\"fas fa-clipboard-list\"></i>ประวัติการซื้อ</a>";
+              echo "<a href=\"account.php\"><i class=\"fas fa-edit\"></i>แก้ไขข้อมูล</a>";
             }
             ?>
             <a href="logout.php"><i class="fas fa-sign-out-alt"></i>ออกจากระบบ</a>
