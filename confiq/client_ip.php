@@ -4,7 +4,7 @@
  * Takes into account numerous HTTP proxy headers due to variations
  * in how different ISPs handle IP addresses in headers between hops.
  */
-public function get_ip_address() {
+function get_ip_address() {
  // Check for shared internet/ISP IP
  if (!empty($_SERVER['HTTP_CLIENT_IP']) && $this->validate_ip($_SERVER['HTTP_CLIENT_IP']))
   return $_SERVER['HTTP_CLIENT_IP'];
@@ -39,7 +39,7 @@ public function get_ip_address() {
  * @access public
  * @param string $ip
  */
-public function validate_ip($ip) {
+function validate_ip($ip) {
     if (filter_var($ip, FILTER_VALIDATE_IP,
                         FILTER_FLAG_IPV4 |
                         FILTER_FLAG_IPV6 |
