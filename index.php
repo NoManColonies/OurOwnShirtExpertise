@@ -74,7 +74,7 @@
       </div>
       <h1><p>Items</p></h1>
       <?php
-      if (isset($_REQUEST['submit_edit']) && $_REQUEST['submit_edit'] === "submit_edit" && $session['auth_key_valid']) {
+      if (isset($_REQUEST['actioncode']) && $_REQUEST['actioncode'] == 'Upload' && $session['auth_key_valid']) {
         $statusMsg = '';
         $targetDir = "images/";
         $fileName = basename($_FILES["file"]["name"]);
@@ -84,7 +84,7 @@
           $allowTypes = array('jpg', 'png', 'jpeg', 'gif', 'pdf', 'jfif');
           if(in_array($fileType, $allowTypes)){
             if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
-              $try_to_update_product = $connect->query("update producttable set productname='".$_REQUEST['productname']."', productdescription='".$_REQUEST['productdescription']."', productprice=".$_REQUEST['productprice'].", productqty=".$_REQUEST['productqty'].", productdprice=".$_REQUEST['productdprice'].", productimagepath='".$fileName."' where pid=".$_REQUEST['productcode']);
+              $try_to_update_product = $connect->query("update producttable set productname='".$_REQUEST['productname']."', productdescription='".$_REQUEST['productdescription']."', productprice=".$_REQUEST['productprice'].", productqty=".$_REQUEST['productqty'].", productdprice=".$_REQUEST['productdprice'].", productimagepath='".$fileName."' where productcode='".$_REQUEST['productcode']."'");
               if ($try_to_update_product) {
                 $statusMsg = "The file ".$fileName. " has been uploaded successfully.";
               } else {
@@ -110,10 +110,13 @@
       $query = $connect->query("select * from producttable");
       if(!empty($query->num_rows)){
         while($row = $query->fetch_assoc()){
-          if ($session['auth_key_valid'] && isset($_REQUEST['submit']) && $_REQUEST['submit'] === "Edit" && $_REQUEST['productcode'] == $row['productcode']) {
+          if ($session['auth_key_valid'] && isset($_REQUEST['actioncode']) && $_REQUEST['actioncode'] == 'Edit' && $_REQUEST['productcode'] == $row['productcode']) {
             ?>
             <form action="index.php" method="post" class="img" enctype="multipart/form-data">
-              <input type="hidden" name="productcode" value="<?php echo $row['pid'];?>">
+              <input type="hidden" name="productcode" value="<?php echo $row['productcode'];?>">
+              <!--
+              <input type="hidden" name="actioncode" value="Upload">
+            -->
               <label for="file">Select Image File to Upload : </label>
               <input type="file" name="file">
               <div class="desc">
@@ -127,7 +130,7 @@
                 <input type="text" name="productdprice" value="<?php echo $row['productdprice'];?>">
                 <label for="imagepath">path : images/</label>
                 <input type="text" name="imagepath" value="<?php echo $row['productimagepath'];?>">
-                <input type="submit" name="submit_edit" value="submit_edit">
+                <input type="submit" name="actioncode" value="Upload">
               </div>
             </form>
             <?php
@@ -148,9 +151,11 @@
                 }
                 echo "<input type=\"hidden\" name=\"productcode\" value=\"".$row['productcode']."\">";
                 if ($session['auth_key_valid']) {
-                  echo "<input style=\"float:right\" type=\"submit\" value=\"Edit\">";
+                  //echo "<input type=\"hidden\" name=\"actioncode\" value=\"Edit\">";
+                  echo "<input style=\"float:right\" type=\"submit\" name=\"actioncode\" value=\"Edit\">";
                 } else {
-                  echo "<input style=\"float:right\" type=\"submit\" value=\"Add to cart\">";
+                  //echo "<input type=\"hidden\" name=\"actioncode\" value=\"Add\">";
+                  echo "<input style=\"float:right\" type=\"submit\" name=\"actioncode\" value=\"Add to cart\">";
                 }
                 ?>
               </div>
