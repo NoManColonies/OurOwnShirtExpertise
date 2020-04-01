@@ -62,7 +62,7 @@ function add_to_cart(mysqli $connect, mysqli $listmanager, $server_url, $product
     error_alert($connect, "Product does not exists.");
   }
   $product_row = $retrieve_product_result->fetch_assoc();
-  if ($product_row['itemqty'] < $amount) {
+  if ($product_row['productqty'] < $amount) {
     $listmanager->close();
     error_alert($connect, "Order amount is higher than quatity in stock.");
   }
