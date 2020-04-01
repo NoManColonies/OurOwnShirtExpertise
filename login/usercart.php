@@ -64,9 +64,9 @@ if (!$session['session_valid']) {
             $counter++;
             $product_array = array_merge($product_array, [
               'productname'.$counter => $row['productname'],
-              ((is_null($row['productdprice']))?
-              'productprice'.$counter => $row['productprice'] :
-              'productprice'.$counter => $row['productdprice']),
+              (is_null($row['productdprice']))?
+              ('productprice'.$counter => $row['productprice']) :
+              ('productprice'.$counter => $row['productdprice']),
               'productimagepath'.$counter => $row['productimagelink'],
               $counter => $row['productcode']
             ]);
@@ -87,9 +87,9 @@ if (!$session['session_valid']) {
             $counter++;
             $product_array = array_merge($product_array, [
               'productname'.$counter => $row['productname'],
-              ((is_null($row['productdprice']))?
-              'productprice'.$counter => $row['productprice'] :
-              'productprice'.$counter => $row['productdprice']),
+              (is_null($row['productdprice']))?
+              ('productprice'.$counter => $row['productprice']) :
+              ('productprice'.$counter => $row['productdprice']),
               'productimagepath'.$counter => $row['productimagelink'],
               $counter => $row['productcode']
             ]);
