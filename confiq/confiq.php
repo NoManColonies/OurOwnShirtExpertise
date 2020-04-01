@@ -104,9 +104,9 @@ function session_restore_result(mysqli $connect, $server_url) {
         if (!$hash_key_update_result) {
           alert_message("Failed to secure backup hashkey. error code : ".$connect->errno);
         } else {
-          $client_ip = validate_ip(get_ip_address());
-          $encrypted_ip = argon2_encrypt($client_ip);
-          $_SESSION['encrypted_ip'];
+          $client_ip = new Getip();
+          $encrypted_ip = argon2_encrypt($client_ip->get_ip_address());
+          $_SESSION['encrypted_ip'] = $encrypted_ip;
           $session_ip_update_result = $connect->query("update usercredentials set usersessionip='".$client_ip."' where userid='".$userid."'");
           if (!$session_ip_update_result) {
             alert_message("Failed to secure user ipaddress. backup hashkey are no longer accessible until next successful restore. error code : ".$connect->errno);
@@ -217,9 +217,9 @@ function login_result(mysqli $connect, $server_url, $username, $vulnerable_passw
         if (!$hash_key_update_result) {
           alert_message("Failed to secure backup hashkey. error code : ".$connect->errno);
         } else {
-          $client_ip = validate_ip(get_ip_address());
-          $encrypted_ip = argon2_encrypt($client_ip);
-          $_SESSION['encrypted_ip'];
+          $client_ip = new Getip();
+          $encrypted_ip = argon2_encrypt($client_ip->get_ip_address());
+          $_SESSION['encrypted_ip'] = $encrypted_ip;
           $session_ip_update_result = $connect->query("update usercredentials set usersessionip='".$client_ip."' where userid='".$userid."'");
           if (!$session_ip_update_result) {
             alert_message("Failed to secure user ipaddress. backup hashkey are no longer accessible until next successful restore. error code : ".$connect->errno);
