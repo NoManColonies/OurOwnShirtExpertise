@@ -109,7 +109,7 @@
       } else if (isset($_REQUEST['actioncode']) && $_REQUEST['actioncode'] == 'Add' && !$session['session_valid']) {
         $product_code = $_REQUEST['productcode'];
         if (isset($_COOKIE['guestcart'])) {
-          $tmp_array = $_COOKIE['guestcart'];
+          $tmp_array = json_decode($_COOKIE['guestcart']);
           if (array_key_exists($product_code, $tmp_array)) {
             $tmp_array[$product_code] += 1;
           } else {

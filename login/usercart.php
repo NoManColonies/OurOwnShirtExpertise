@@ -60,19 +60,19 @@ if ($session['auth_key_valid']) {
             $product_array = array_merge($product_array, (is_null($row['productdprice']))? [
               'productname'.$counter => $row['productname'],
               'productprice'.$counter => $row['productprice'],
-              'productimagepath'.$counter => $row['productimagelink'],
+              'productimagepath'.$counter => $row['productimagepath'],
               $counter => $row['productcode']
             ] : [
               'productname'.$counter => $row['productname'],
               'productprice'.$counter => $row['productdprice'],
-              'productimagepath'.$counter => $row['productimagelink'],
+              'productimagepath'.$counter => $row['productimagepath'],
               $counter => $row['productcode']
             ]);
           }
-          echo "<table>";
+          echo "<table><tr><th>Product name</th><th>Price</th><th>Quantity</th><th>Link</th></tr>";
           while ($cart_row = $retrieve_cart_list->fetch_assoc()) {
             $product_index = array_search($cart_row['itemcode'], $product_array, false);
-            echo "<tr><td>".$product_array['productname'.$product_index]."</td><td>".$product_array['productprice'.$product_index]."</td><td>".$cart_row['itemqty']."</td></tr>";
+            echo "<tr><td>".$product_array['productname'.$product_index]."</td><td>".$product_array['productprice'.$product_index]."</td><td>".$cart_row['itemqty']."</td><td>".$product_array['productimagepath'.$counter]."</td></tr>";
           }
           echo "</table>";
         }
@@ -86,20 +86,20 @@ if ($session['auth_key_valid']) {
             $product_array = array_merge($product_array, (is_null($row['productdprice']))? [
               'productname'.$counter => $row['productname'],
               'productprice'.$counter => $row['productprice'],
-              'productimagepath'.$counter => $row['productimagelink'],
+              'productimagepath'.$counter => $row['productimagepath'],
               $counter => $row['productcode']
             ] : [
               'productname'.$counter => $row['productname'],
               'productprice'.$counter => $row['productdprice'],
-              'productimagepath'.$counter => $row['productimagelink'],
+              'productimagepath'.$counter => $row['productimagepath'],
               $counter => $row['productcode']
             ]);
           }
           $guest_cart = json_decode($_COOKIE['guestcart']);
-          echo "<table>";
+          echo "<table><tr><th>Product name</th><th>Price</th><th>Quantity</th><th>Link</th></tr>";
           foreach ($guest_cart as $key => $value) {
             $product_index = array_search($key, $product_array, false);
-            echo "<tr><td>".$product_array['productname'.$product_index]."</td><td>".$product_array['productprice'.$product_index]."</td><td>".$value."</td></tr>";
+            echo "<tr><td>".$product_array['productname'.$product_index]."</td><td>".$product_array['productprice'.$product_index]."</td><td>".$value."</td><td>".$product_array['productimagepath'.$counter]."</td></tr>";
           }
           echo "</table>";
         } else {
