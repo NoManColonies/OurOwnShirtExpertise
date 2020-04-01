@@ -116,6 +116,9 @@
             $tmp_array = array_merge($tmp_array, [$product_code => 1]);
           }
           setcookie('guestcart', $tmp_array, time() + 3600, '/', $server_url, false, true);
+        } else {
+          $tmp_array = [$product_code => 1];
+          setcookie('guestcart', $tmp_array, time() + 3600, '/', $server_url, false, true);
         }
       } else if (isset($_REQUEST['actioncode']) && $_REQUEST['actioncode'] == 'Add' && $session['session_valid']) {
         if (add_to_cart($connect, $listmanager, $server_url, $_REQUEST['productcode'], 1)) {
