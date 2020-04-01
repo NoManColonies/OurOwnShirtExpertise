@@ -82,13 +82,14 @@
   <body>
     <?php
       require_once('../.confiq/confiq.php');
-      if (session_restore_result($connect, $server_url)['session_valid']) {
+      $session = session_restore_result($connect, $server_url);
+      if ($session['session_valid']) {
         $connect->close();
         header("Location: https://worawanbydiistudent.store/index.php");
       }
-      if ((!is_null($_REQUEST['Username']) || !is_null($_REQUEST['Password'])) && !isset($_COOKIE['current_userid']) && !isset($_COOKIE['encrypted_hash_key'])) {
+      if ((!is_null($_REQUEST['Username']) || !is_null($_REQUEST['Password'])) && !isset($_COOKIE['current_userid']) && !isset($_COOKIE['encrypted_hash_key1'])) {
         if (!login_result($connect, $server_url, $_REQUEST['Username'], $_REQUEST['Password'])) {
-          login_retry_redirect($connect, "Username or password does not match.");
+          login_retry_redirect($connect, "Incorrect username or password.");
         } else {
           $connect->close();
           header("Location: https://worawanbydiistudent.store/index.php");
