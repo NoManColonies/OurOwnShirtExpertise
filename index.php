@@ -24,7 +24,7 @@
         $session = session_auth_check($connect, $server_url);
         if ($session['session_valid']) {
           if ($session['auth_key_valid']) {
-            echo "<div class=\"menu\"><div class=\"menu__btn\"><a href=\"#\"><i class=\"fas fa-user-shield\"></i>บัญชี</a></div><div class=\"smenu\"><a href=\"login/account.php\"><i class=\"fas fa-edit\"></i>แก้ไขข้อมูล</a><a href=\"login/transaction.php\"><i class=\"fas fa-clipboard-list\"></i>ประวัติการซื้อ</a><a href=\"../authorities/product_add.php\"><i class=\"fas fa-user-shield\"></i>เพิ่มสินค้า</a><a href=\"login/logout.php\"><i class=\"fas fa-sign-out-alt\"></i>ออกจากระบบ</a></div></div>";
+            echo "<div class=\"menu\"><div class=\"menu__btn\"><a href=\"#\"><i class=\"fas fa-user-shield\"></i>บัญชี</a></div><div class=\"smenu\"><a href=\"../authorities/product_add.php\"><i class=\"fas fa-user-shield\"></i>เพิ่มสินค้า</a><a href=\"login/logout.php\"><i class=\"fas fa-sign-out-alt\"></i>ออกจากระบบ</a></div></div>";
           } else {
             echo "<div class=\"menu\"><div class=\"menu__btn\"><a href=\"#\"><i class=\"fas fa-user-shield\"></i>บัญชี</a></div><div class=\"smenu\"><a href=\"login/account.php\"><i class=\"fas fa-edit\"></i>แก้ไขข้อมูล</a><a href=\"login/transaction.php\"><i class=\"fas fa-clipboard-list\"></i>ประวัติการซื้อ</a><a href=\"login/logout.php\"><i class=\"fas fa-sign-out-alt\"></i>ออกจากระบบ</a></div></div>";
           }
@@ -80,7 +80,7 @@
         $fileName = basename($_FILES["file"]["name"]);
         $targetFilePath = $targetDir.$fileName;
         $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
-        if(isset($_POST["submit"]) && !empty($_FILES["file"]["name"])){
+        if(!empty($_FILES["file"]["name"])){
           $allowTypes = array('jpg', 'png', 'jpeg', 'gif', 'pdf', 'jfif');
           if(in_array($fileType, $allowTypes)){
             if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
@@ -98,7 +98,7 @@
           }
         } else {
           $statusMsg = 'No file detected. proceeding... ';
-          $try_to_update_product = $connect->query("update producttable set productname='".$_REQUEST['productname']."', productdescription='".$_REQUEST['productdescription']."', productprice=".$_REQUEST['productprice'].", productdprice=".$_REQUEST['productdprice'].", productimagepath='".$targetDir.$_REQUEST['imagepath']."' where productcode='".$_REQUEST['productcode']."'");
+          $try_to_update_product = $connect->query("update producttable set productname='".$_REQUEST['productname']."', productdescription='".$_REQUEST['productdescription']."', productprice=".$_REQUEST['productprice'].", productdprice=".$_REQUEST['productdprice'].", productimagepath='".$_REQUEST['imagepath']."' where productcode='".$_REQUEST['productcode']."'");
           if (!$try_to_update_product) {
             $statusMsg .= "Product update failed at index.php page error code : ".$connect->errno;
           } else {
@@ -114,16 +114,13 @@
             ?>
             <form action="index.php" method="post" class="img" enctype="multipart/form-data">
               <input type="hidden" name="productcode" value="<?php echo $row['productcode'];?>">
-              <!--
-              <input type="hidden" name="actioncode" value="Upload">
-            -->
               <label for="file">Select Image File to Upload : </label>
               <input type="file" name="file">
               <div class="desc">
                 <label for="productname">Product name : </label>
                 <input type="text\" name="productname" value="<?php echo $row['productname'];?>">
                 <label for="productdescription">Description : </label>
-                <textarea name="name" rows="4" cols="40"><?php echo $row['productdescription'];?></textarea>
+                <textarea name="productdescription" rows="4" cols="40"><?php echo $row['productdescription'];?></textarea>
                 <label for="productprice">Price : </label>
                 <input type="text" name="productprice" value="<?php echo $row['productprice'];?>">
                 <label for="productdprice">Discounted price : </label>
@@ -151,10 +148,8 @@
                 }
                 echo "<input type=\"hidden\" name=\"productcode\" value=\"".$row['productcode']."\">";
                 if ($session['auth_key_valid']) {
-                  //echo "<input type=\"hidden\" name=\"actioncode\" value=\"Edit\">";
                   echo "<input style=\"float:right\" type=\"submit\" name=\"actioncode\" value=\"Edit\">";
                 } else {
-                  //echo "<input type=\"hidden\" name=\"actioncode\" value=\"Add\">";
                   echo "<input style=\"float:right\" type=\"submit\" name=\"actioncode\" value=\"Add to cart\">";
                 }
                 ?>

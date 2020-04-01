@@ -88,8 +88,6 @@
         <div class="menu">
           <div class="menu__btn"><a href="#"><i class="fas fa-user-shield"></i>บัญชี</a></div>
           <div class="smenu">
-            <a href="account.php"><i class="fas fa-edit"></i>แก้ไขข้อมูล</a>
-            <a href="transaction.php"><i class="fas fa-clipboard-list"></i>ประวัติการซื้อ</a>
             <a href="product_add.php"><i class="fas fa-user-shield"></i>เพิ่มสินค้า</a>
             <a href="logout.php"><i class="fas fa-sign-out-alt"></i>ออกจากระบบ</a>
           </div>
@@ -114,7 +112,7 @@
         <input type="text" required name="productqty" value="">
         <label for="productdprice">discounted price(optional) : </label>
         <input type="text" name="productdprice" value="">
-        <button type="submit" name="submit" class="buttonload"><i type="submit" name="submit" class="fa fa-refresh fa-spin"></i>Upload</button>
+        <button type="submit" name="submit" class="buttonload"><i class="fa fa-refresh fa-spin"></i>Upload</button>
       </div>
     </form>
   </body>

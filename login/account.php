@@ -29,11 +29,12 @@
         <div class="menu">
           <div class="menu__btn"><a href="#"><i class="fas fa-user-shield"></i>บัญชี</a></div>
           <div class="smenu">
-            <a href="account.php"><i class="fas fa-edit"></i>แก้ไขข้อมูล</a>
-            <a href="transaction.php"><i class="fas fa-clipboard-list"></i>ประวัติการซื้อ</a>
             <?php
             if ($session['auth_key_valid']) {
               echo "<a href=\"../photo/product_add.php\"><i class=\"fas fa-user-shield\"></i>เพิ่มสินค้า</a>";
+            } else {
+              echo "<a href=\"account.php\"><i class=\"fas fa-edit\"></i>แก้ไขข้อมูล</a>";
+              echo "<a href=\"transaction.php\"><i class=\"fas fa-clipboard-list\"></i>ประวัติการซื้อ</a>";
             }
             ?>
             <a href="logout.php"><i class="fas fa-sign-out-alt"></i>ออกจากระบบ</a>
