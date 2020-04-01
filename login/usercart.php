@@ -95,7 +95,7 @@ if ($session['auth_key_valid']) {
               $counter => $row['productcode']
             ]);
           }
-          $guest_cart = $_COOKIE['guestcart'];
+          $guest_cart = json_decode($_COOKIE['guestcart']);
           echo "<table>";
           foreach ($guest_cart as $key => $value) {
             $product_index = array_search($key, $product_array, false);
