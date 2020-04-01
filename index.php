@@ -20,16 +20,16 @@
       <div class="flex__container__right">
         <a href="https://www.google.com/webhp?hl=th&sa=X&ved=0ahUKEwiHoOHqmbPoAhUTbn0KHRc2BsIQPAgH"><i class="fas fa-search"></i>ค้นหา</a>
         <?php
-        require_once('.confiq/confiq.php');
+        require_once('.confiq/auth_confiq.php');
         $session = session_auth_check($connect, $server_url);
         if ($session['session_valid']) {
           if ($session['auth_key_valid']) {
             echo "<div class=\"menu\"><div class=\"menu__btn\"><a href=\"#\"><i class=\"fas fa-user-shield\"></i>บัญชี</a></div><div class=\"smenu\"><a href=\"../authorities/product_add.php\"><i class=\"fas fa-user-shield\"></i>เพิ่มสินค้า</a><a href=\"login/logout.php\"><i class=\"fas fa-sign-out-alt\"></i>ออกจากระบบ</a></div></div>";
           } else {
-            echo "<div class=\"menu\"><div class=\"menu__btn\"><a href=\"#\"><i class=\"fas fa-user-shield\"></i>บัญชี</a></div><div class=\"smenu\"><a href=\"login/account.php\"><i class=\"fas fa-edit\"></i>แก้ไขข้อมูล</a><a href=\"login/transaction.php\"><i class=\"fas fa-clipboard-list\"></i>ประวัติการซื้อ</a><a href=\"login/logout.php\"><i class=\"fas fa-sign-out-alt\"></i>ออกจากระบบ</a></div></div>";
+            echo "<div class=\"menu\"><div class=\"menu__btn\"><a href=\"#\"><i class=\"fas fa-user-shield\"></i>บัญชี</a></div><div class=\"smenu\"><a href=\"login/usercart.php\"><i class=\"fas fa-shopping-cart\"></i>ตระกร้าสินค้า</a><a href=\"login/account.php\"><i class=\"fas fa-edit\"></i>แก้ไขข้อมูล</a><a href=\"login/transaction.php\"><i class=\"fas fa-clipboard-list\"></i>ประวัติการซื้อ</a><a href=\"login/logout.php\"><i class=\"fas fa-sign-out-alt\"></i>ออกจากระบบ</a></div></div>";
           }
         } else {
-          echo "<a href=\"login/login.php\"><i class=\"fas fa-sign-in-alt\"></i>เข้าสู่ระบบ</a>";
+          echo "<a href=\"login/usercart.php\"><i class=\"fas fa-shopping-cart\"></i>ตระกร้าสินค้า</a><a href=\"login/login.php\"><i class=\"fas fa-sign-in-alt\"></i>เข้าสู่ระบบ</a>";
         }
         ?>
         <a href="https://web.facebook.com/don.jirapipat?fref=gs&__tn__=%2CdlC-R-R&eid=ARD4Hn7n7y0YlNmiFkRA4pRC8wT9s0jqzBWc2Ffc5Hr4JDyBq0oFcob2oUzlIG2Per5K2EaVj0spOoBE&hc_ref=ARQT8XqV-z45u9iOFih8e6NeW5FfLPr1_UoW7itb2PfNVQr5SznweAP6t5DFePjomUw&ref=nf_target&dti=2510061589261957&hc_location=group&_rdc=1&_rdr"><i class="fas fa-address-book"></i>ติดต่อเรา</a>
@@ -86,7 +86,7 @@
             if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
               $try_to_update_product = $connect->query("update producttable set productname='".$_REQUEST['productname']."', productdescription='".$_REQUEST['productdescription']."', productprice=".$_REQUEST['productprice'].", productdprice=".$_REQUEST['productdprice'].", productimagepath='".$fileName."' where productcode='".$_REQUEST['productcode']."'");
               if ($try_to_update_product) {
-                $statusMsg = "The file ".$fileName. " has been uploaded successfully.";
+                $statusMsg = "The file ".$fileName." has been uploaded successfully.";
               } else {
                 $statusMsg = "File upload failed, please try again.".$connect->errno." : ".$fileName;
               }
@@ -106,6 +106,23 @@
           }
         }
         alert_message($statusMsg);
+      } else if (isset($_REQUEST['actioncode']) && $_REQUEST['actioncode'] == 'Add' && !$session['session_valid']) {
+        $product_code = $_REQUEST['productcode'];
+        if (isset($_COOKIE['guestcart'])) {
+          $tmp_array = $_COOKIE['guestcart'];
+          if (array_key_exists($product_code, $tmp_array)) {
+            $tmp_array[$product_code] += 1;
+          } else {
+            $tmp_array = array_merge($tmp_array, [$product_code => 1]);
+          }
+          setcookie('guestcart', $tmp_array, time() + 3600, '/', $server_url, false, true);
+        }
+      } else if (isset($_REQUEST['actioncode']) && $_REQUEST['actioncode'] == 'Add' && $session['session_valid']) {
+        if (add_to_cart($connect, $listmanager, $server_url, $_REQUEST['productcode'], 1)) {
+          alert_message("Successfully added product to your cart.");
+        } else {
+          alert_message("Failed to add the product to your cart list.");
+        }
       }
       $query = $connect->query("select * from producttable");
       if(!empty($query->num_rows)){
@@ -150,7 +167,8 @@
                 if ($session['auth_key_valid']) {
                   echo "<input style=\"float:right\" type=\"submit\" name=\"actioncode\" value=\"Edit\">";
                 } else {
-                  echo "<input style=\"float:right\" type=\"submit\" name=\"actioncode\" value=\"Add to cart\">";
+                  echo "<input type=\"hidden\" name=\"actioncode\" value=\"Add\">";
+                  echo "<input style=\"float:right\" type=\"submit\"value=\"Add to cart\">";
                 }
                 ?>
               </div>
@@ -162,6 +180,7 @@
         echo "<p>No image(s) found...</p>";
       }
       unset($session);
+      $listmanager->close();
       $connect->close();
       ?>
       <!--

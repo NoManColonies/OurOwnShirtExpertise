@@ -42,7 +42,7 @@ function register_result(mysqli $connect, mysqli $listmanager, $username, $vulne
     $listmanager->close();
     error_alert($connect, "failed to register basic data : ".$connect->errno);
   }
-  $try_to_add_cartlist_result = $listmanager->query("create table ".$username."_cartlist (cid int(5) not null auto_increment primary key,itemid int(5) not null,itemqty int(5) not null,status int(1) not null default 1)");
+  $try_to_add_cartlist_result = $listmanager->query("create table ".$username."_cartlist (cid int(5) not null auto_increment primary key,itemcode varchar(10) not null,itemqty int(5) not null,status int(1) not null default 1)");
   if (!$try_to_add_cartlist_result) {
     $listmanager->close();
     error_alert($connect, "Failed to initialize usercartlist table : ".$listmanager->errno);
@@ -55,66 +55,34 @@ function register_result(mysqli $connect, mysqli $listmanager, $username, $vulne
     'email_valid' => true
   ];
 }
-function add_to_cart(mysqli $connect, mysqli $listmanager, $server_url, $product_code) {
-  $retrieve_product_result = $connect->query("select * from producttable where cid=".$product_code);
+function add_to_cart(mysqli $connect, mysqli $listmanager, $server_url, $product_code, $amount) {
+  $retrieve_product_result = $connect->query("select * from producttable where productcode='".$product_code."'");
   if (empty($retrieve_product_result->num_rows)) {
-    //product doesn't seem to exists on database, returning user back to home page.
     $listmanager->close();
     error_alert($connect, "Product does not exists.");
   }
+  $product_row = $retrieve_product_result->fetch_assoc();
+  if ($product_row['itemqty'] < $amount) {
+    $listmanager->close();
+    error_alert($connect, "Order amount is higher than quatity in stock.");
+  }
   if (session_restore_result($connect, $server_url)['session_valid']) {
-    $look_for_existing_product_result = $listmanager->query("select * from ".$_COOKIE['current_userid']."_cartlist where itemid=".$product_code);
+    $look_for_existing_product_result = $listmanager->query("select * from ".$_COOKIE['current_userid']."_cartlist where itemcode='".$product_code."' and status=1");
     if ($look_for_existing_product_result->num_rows == 1) {
       $cart_row = $look_for_existing_product_result->fetch_assoc();
-      if (!empty($cart_row['status'])) {
-        $add_to_cart_result = $listmanager->query("update ".$_COOKIE['current_userid']."_cartlist set itemqty=".($cart_row['itemqty'] + 1)." where itemid='".$product_code."'");
-        if (!$add_to_cart_result) {
-          $listmanager->close();
-          error_alert($connect, "Failed to add to cart at section 1 : ".$listmanager->errno);
-        }
-        $connect->close();
-        $listmanager->close();
-        return true;
-      } else {
-        $add_to_cart_result = $listmanager->query("insert to ".$_COOKIE['current_userid']."_cartlist (cid, itemid, itemqty) values(NULL, ".$product_code.", 1)");
-        if (!$add_to_cart_result) {
-          $listmanager->close();
-          error_alert($connect, "Failed to add to cart at section 2 : ".$listmanager->errno);
-        }
-        $connect->close();
-        $listmanager->close();
-        return true;
-      }
-    } else if ($look_for_existing_product_result->num_rows > 1) {
-      while ($cart_row = $look_for_existing_product_result->fetch_assoc()) {
-        if (!empty($cart_row['status']) && $cart_row['itemid'] == $product_code) {
-          $add_to_cart_result = $listmanager->query("update ".$_COOKIE['current_userid']."_cartlist set itemqty=".($cart_row['itemqty'] + 1)." where itemid=".$product_code.", status=1");
-          if (!$add_to_cart_result) {
-            $listmanager->close();
-            error_alert($connect, "Failed to add to cart at section 3 : ".$listmanager->errno);
-          }
-          $connect->close();
-          $listmanager->close();
-          return true;
-        } else {
-          $procedure_done = false;
-        }
-      }
-      if (!$procedure_done) {
-        $add_to_cart_result = $listmanager->query("insert to ".$_COOKIE['current_userid']."_cartlist (cid, itemid, itemqty) values(NULL, ".$product_code.", 1)");
-        if (!$add_to_cart_result) {
-          $listmanager->close();
-          error_alert($connect, "Failed to add to cart at section 4 : ".$listmanager->errno);
-        }
-        $connect->close();
-        $listmanager->close();
-        return true;
-      }
-    } else {
-      $add_to_cart_result = $listmanager->query("insert to ".$_COOKIE['current_userid']."_cartlist (cid, itemid, itemqty) values(NULL, ".$product_code.", 1)");
+      $add_to_cart_result = $listmanager->query("update ".$_COOKIE['current_userid']."_cartlist set itemqty=".($cart_row['itemqty'] + $amount)." where itemcode='".$product_code."' and status=1");
       if (!$add_to_cart_result) {
         $listmanager->close();
-        error_alert($connect, "Failed to add to cart at section 5 : ".$listmanager->errno);
+        error_alert($connect, "Failed to add to cart at section 1 : ".$listmanager->errno);
+      }
+      $connect->close();
+      $listmanager->close();
+      return true;
+    } else {
+      $add_to_cart_result = $listmanager->query("insert to ".$_COOKIE['current_userid']."_cartlist (cid, itemcode, itemqty) values(NULL, '".$product_code."', ".$amount.")");
+      if (!$add_to_cart_result) {
+        $listmanager->close();
+        error_alert($connect, "Failed to add to cart at section 2 : ".$listmanager->errno);
       }
       $listmanager->close();
       $connect->close();
@@ -126,17 +94,36 @@ function add_to_cart(mysqli $connect, mysqli $listmanager, $server_url, $product
     return false;
   }
 }
-function remove_from_cart(mysqli $connect, mysqli $listmanager, $server_url, $product_code) {
+function remove_from_cart(mysqli $connect, mysqli $listmanager, $server_url, $product_code, $amount) {
   if (session_restore_result($connect, $server_url)['session_valid']) {
-    $deletion_result = $listmanager->query("update ".$_COOKIE['current_userid']."_cartlist set status=0 where itemid=".$product_code.", status=1");
-    if (!$deletion_result) {
+    $retrieve_user_cartlist_result = $listmanager->query("select * from ".$_COOKIE['current_userid']."_cartlist where itemcode='".$product_code."' and status=1");
+    if ($retrieve_user_cartlist_result->num_rows != 1) {
       $listmanager->close();
-      log_alert($connect, "Failed to remove item from your cart : ".$listmanager->errno);
-      return false;
+      error_alert($connect, "Incorrect amount of reported cartitem.");
     }
-    $listmanager->close();
-    log_alert($connect, "Sucessfully remove your cartitem.");
-    return true;
+    $cart_row = $retrieve_user_cartlist_result->fetch_assoc();
+    if ($amount > $cart_row['itemqty']) {
+      $listmanager->close();
+      error_alert($connect, "Removal amount is higher than the one in cartlist.");
+    } else if ($amount == $cart_row['itemqty']) {
+      $deletion_result = $listmanager->query("update ".$_COOKIE['current_userid']."_cartlist set status=0 where itemcode='".$product_code."' and status=1");
+      if (!$deletion_result) {
+        $listmanager->close();
+        error_alert($connect, "Failed to disable cartlist error code : ".$listmanager->errno);
+      }
+      $listmanager->close();
+      log_alert($connect, "Sucessfully remove your cartitem.");
+      return true;
+    } else {
+      $reduction_result = $listmanager->query("update ".$_COOKIE['current_userid']."_cartlist set itemqty=".($cart_row['itemqty'] - $amount)." where itemcode='".$product_code."' and status=1");
+      if (!$reduction_result) {
+        $listmanager->close();
+        error_alert($connect, "Failed to reduce from cartlist.");
+      }
+      $listmanager->close();
+      log_alert($connect, "Sucessfully reduce your cartitem.");
+      return true;
+    }
   } else {
     $listmanager->close();
     log_alert($connect, "Session restore failed at remove_from_cart function.");
