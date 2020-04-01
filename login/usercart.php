@@ -12,7 +12,7 @@ require_once('../.confiq/auth_confiq.php');
 $session = session_auth_check($connect, $server_url);
 if ($session['auth_key_valid']) {
   $listmanager->close();
-  error_alert($connect, "You as an admin tried to access client only content. terminating...");
+  error_alert($connect, "You as an admin tried to access client only content. Terminating...");
 }
 ?>
   <body>
@@ -30,9 +30,6 @@ if ($session['auth_key_valid']) {
         <?php
         if ($session['session_valid']) {
           echo "<div class=\"menu\"><div class=\"menu__btn\"><a href=\"#\"><i class=\"fas fa-user-shield\"></i>บัญชี</a></div><div class=\"smenu\"><a href=\"../login/usercart.php\"><i class=\"fas fa-shopping-cart\"></i>ตระกร้าสินค้า</a><a href=\"../login/transaction.php\"><i class=\"fas fa-clipboard-list\"></i>ประวัติการซื้อ</a><a href=\"../login/account.php\"><i class=\"fas fa-edit\"></i>แก้ไขข้อมูล</a><a href=\"../login/logout.php\"><i class=\"fas fa-sign-out-alt\"></i>ออกจากระบบ</a></div></div>";
-        } else if ($session['auth_key_valid']) {
-          $listmanager->close();
-          error_alert($connect, "You as an admin tried to access client only content. Terminating...");
         } else {
           echo "<a href=\"../login/usercart.php\"><i class=\"fas fa-shopping-cart\"></i>ตระกร้าสินค้า</a><a href=\"../login/login.php\"><i class=\"fas fa-sign-in-alt\"></i>เข้าสู่ระบบ</a>";
         }
