@@ -98,7 +98,7 @@
           }
         } else {
           $statusMsg = 'No file detected. proceeding... ';
-          $try_to_update_product = $connect->query("update producttable set productname='".$_REQUEST['productname']."', productdescription='".$_REQUEST['productdescription']."', productprice=".$_REQUEST['productprice'].", productqty=".$_REQUEST['productqty'].", productdprice=".$_REQUEST['productdprice'].", productimagepath='".$targetDir.$_REQUEST['imagepath']."' where pid=".$_REQUEST['productcode']);
+          $try_to_update_product = $connect->query("update producttable set productname='".$_REQUEST['productname']."', productdescription='".$_REQUEST['productdescription']."', productprice=".$_REQUEST['productprice'].", productqty=".$_REQUEST['productqty'].", productdprice=".$_REQUEST['productdprice'].", productimagepath='".$targetDir.$_REQUEST['imagepath']."' where productcode='".$_REQUEST['productcode']."'");
           if (!$try_to_update_product) {
             $statusMsg .= "Product update failed at index.php page.";
           } else {
