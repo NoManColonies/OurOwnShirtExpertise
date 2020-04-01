@@ -189,10 +189,15 @@ function login_result(mysqli $connect, $server_url, $username, $vulnerable_passw
   if (is_null($username)) {
     $try_to_get_passkey_tmp_string = ['userpassword' => 'keynotavailable'];
   } else {
-    $try_to_get_passkey_tmp = $connect->query("select userpassword from usercredentials where userid='".$username."'");
-    $try_to_get_passkey_tmp_string = $try_to_get_passkey_tmp->fetch_assoc();
+    $try_to_get_passkey_tmp = $connect->query("select * from usercredentials");
+    while ($try_to_get_passkey_tmp_string = $try_to_get_passkey_tmp->fetch_assoc()) {
+      if ($try_to_get_passkey_tmp_string['userid'] == $username) {
+        $encrypted_password_tmp = $try_to_get_passkey_tmp_string['userpassword'];
+        break;
+      }
+    }
   }
-  if (password_verify($vulnerable_password, $try_to_get_passkey_tmp_string['userpassword']) && !empty($try_to_get_passkey_tmp->num_rows)) {
+  if (password_verify($vulnerable_password, $encrypted_password_tmp) && !empty($try_to_get_passkey_tmp->num_rows)) {
     $decrypted_hash_key_tmp = random_string();
     $encrypted_hash_key_tmp = argon2_encrypt($decrypted_hash_key_tmp);
     $_SESSION['encrypted_hash_key1'] = $encrypted_hash_key_tmp;
