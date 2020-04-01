@@ -64,7 +64,8 @@ function add_to_cart(mysqli $connect, mysqli $listmanager, $server_url, $product
   $product_row = $retrieve_product_result->fetch_assoc();
   if ($product_row['productqty'] < $amount) {
     $listmanager->close();
-    error_alert($connect, "Order amount is higher than quatity in stock.");
+    log_alert($connect, "Order amount is higher than quatity in stock.");
+    return false;
   }
   if (session_restore_result($connect, $server_url)['session_valid']) {
     $look_for_existing_product_result = $listmanager->query("select * from ".$_COOKIE['current_userid']."_cartlist where itemcode='".$product_code."' and status=1");
