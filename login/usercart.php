@@ -105,6 +105,8 @@ if (!$session['session_valid']) {
           echo "<p>Nothing is in your cart :(</p>";
         }
       }
+      $listmanager->close();
+      $connect->close();
       ?>
     </div>
   </body>
