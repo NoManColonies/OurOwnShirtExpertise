@@ -62,11 +62,14 @@ if (!$session['session_valid']) {
           $counter = 0;
           while ($row = $retrieve_product_result->fetch_assoc()) {
             $counter++;
-            $product_array = array_merge($product_array, [
+            $product_array = array_merge($product_array, (is_null($row['productdprice']))? [
               'productname'.$counter => $row['productname'],
-              (is_null($row['productdprice']))?
-              ('productprice'.$counter => $row['productprice']) :
-              ('productprice'.$counter => $row['productdprice']),
+              'productprice'.$counter => $row['productprice'],
+              'productimagepath'.$counter => $row['productimagelink'],
+              $counter => $row['productcode']
+            ] : [
+              'productname'.$counter => $row['productname'],
+              'productprice'.$counter => $row['productdprice'],
               'productimagepath'.$counter => $row['productimagelink'],
               $counter => $row['productcode']
             ]);
@@ -85,11 +88,14 @@ if (!$session['session_valid']) {
           $counter = 0;
           while ($row = $retrieve_product_result->fetch_assoc()) {
             $counter++;
-            $product_array = array_merge($product_array, [
+            $product_array = array_merge($product_array, (is_null($row['productdprice']))? [
               'productname'.$counter => $row['productname'],
-              (is_null($row['productdprice']))?
-              ('productprice'.$counter => $row['productprice']) :
-              ('productprice'.$counter => $row['productdprice']),
+              'productprice'.$counter => $row['productprice'],
+              'productimagepath'.$counter => $row['productimagelink'],
+              $counter => $row['productcode']
+            ] : [
+              'productname'.$counter => $row['productname'],
+              'productprice'.$counter => $row['productdprice'],
               'productimagepath'.$counter => $row['productimagelink'],
               $counter => $row['productcode']
             ]);
