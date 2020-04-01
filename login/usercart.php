@@ -72,7 +72,7 @@ if ($session['auth_key_valid']) {
           echo "<table><tr><th>Product name</th><th>Price</th><th>Quantity</th><th>Link</th></tr>";
           while ($cart_row = $retrieve_cart_list->fetch_assoc()) {
             $product_index = array_search($cart_row['itemcode'], $product_array, false);
-            echo "<tr><td>".$product_array['productname'.$product_index]."</td><td>".$product_array['productprice'.$product_index]."</td><td>".$cart_row['itemqty']."</td><td>".$product_array['productimagepath'.$counter]."</td></tr>";
+            echo "<tr><td>".$product_array['productname'.$product_index]."</td><td>".$product_array['productprice'.$product_index]."</td><td>".$cart_row['itemqty']."</td><td>".$product_array['productimagepath'.$product_index]."</td></tr>";
           }
           echo "</table>";
         }
@@ -99,7 +99,7 @@ if ($session['auth_key_valid']) {
           echo "<table><tr><th>Product name</th><th>Price</th><th>Quantity</th><th>Link</th></tr>";
           foreach ($guest_cart as $key => $value) {
             $product_index = array_search($key, $product_array, false);
-            echo "<tr><td>".$product_array['productname'.$product_index]."</td><td>".$product_array['productprice'.$product_index]."</td><td>".$value."</td><td>".$product_array['productimagepath'.$counter]."</td></tr>";
+            echo "<tr><td>".$product_array['productname'.$product_index]."</td><td>".$product_array['productprice'.$product_index]."</td><td>".$value."</td><td>".$product_array['productimagepath'.$product_index]."</td></tr>";
           }
           echo "</table>";
         } else {
