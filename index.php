@@ -84,7 +84,7 @@
           $allowTypes = array('jpg', 'png', 'jpeg', 'gif', 'pdf', 'jfif');
           if(in_array($fileType, $allowTypes)){
             if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
-              $try_to_update_product = $connect->query("update producttable set productname='".$_REQUEST['productname']."', productdescription='".$_REQUEST['productdescription']."', productprice=".$_REQUEST['productprice'].", productqty=".$_REQUEST['productqty'].", productdprice=".$_REQUEST['productdprice'].", productimagepath='".$fileName."' where productcode='".$_REQUEST['productcode']."'");
+              $try_to_update_product = $connect->query("update producttable set productname='".$_REQUEST['productname']."', productdescription='".$_REQUEST['productdescription']."', productprice=".$_REQUEST['productprice'].", productdprice=".$_REQUEST['productdprice'].", productimagepath='".$fileName."' where productcode='".$_REQUEST['productcode']."'");
               if ($try_to_update_product) {
                 $statusMsg = "The file ".$fileName. " has been uploaded successfully.";
               } else {
@@ -98,9 +98,9 @@
           }
         } else {
           $statusMsg = 'No file detected. proceeding... ';
-          $try_to_update_product = $connect->query("update producttable set productname='".$_REQUEST['productname']."', productdescription='".$_REQUEST['productdescription']."', productprice=".$_REQUEST['productprice'].", productqty=".$_REQUEST['productqty'].", productdprice=".$_REQUEST['productdprice'].", productimagepath='".$targetDir.$_REQUEST['imagepath']."' where productcode='".$_REQUEST['productcode']."'");
+          $try_to_update_product = $connect->query("update producttable set productname='".$_REQUEST['productname']."', productdescription='".$_REQUEST['productdescription']."', productprice=".$_REQUEST['productprice'].", productdprice=".$_REQUEST['productdprice'].", productimagepath='".$targetDir.$_REQUEST['imagepath']."' where productcode='".$_REQUEST['productcode']."'");
           if (!$try_to_update_product) {
-            $statusMsg .= "Product update failed at index.php page.";
+            $statusMsg .= "Product update failed at index.php page error code : ".$connect->errno;
           } else {
             $statusMsg .= "Product successfully updated.";
           }
@@ -128,7 +128,7 @@
                 <input type="text" name="productprice" value="<?php echo $row['productprice'];?>">
                 <label for="productdprice">Discounted price : </label>
                 <input type="text" name="productdprice" value="<?php echo $row['productdprice'];?>">
-                <label for="imagepath">path : images/</label>
+                <label for="imagepath">path(will be ignored if file was provided) : images/</label>
                 <input type="text" name="imagepath" value="<?php echo $row['productimagepath'];?>">
                 <input type="submit" name="actioncode" value="Upload">
               </div>
