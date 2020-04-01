@@ -67,7 +67,8 @@ function add_to_cart(mysqli $connect, mysqli $listmanager, $server_url, $product
     log_alert($connect, "Order amount is higher than quatity in stock.");
     return false;
   }
-  if (session_restore_result($connect, $server_url)['session_valid']) {
+  $session = session_restore_result($connect, $server_url);
+  if ($session['session_valid']) {
     $look_for_existing_product_result = $listmanager->query("select * from ".$_COOKIE['current_userid']."_cartlist where itemcode='".$product_code."' and status=1");
     if ($look_for_existing_product_result->num_rows == 1) {
       $cart_row = $look_for_existing_product_result->fetch_assoc();
@@ -96,7 +97,8 @@ function add_to_cart(mysqli $connect, mysqli $listmanager, $server_url, $product
   }
 }
 function remove_from_cart(mysqli $connect, mysqli $listmanager, $server_url, $product_code, $amount) {
-  if (session_restore_result($connect, $server_url)['session_valid']) {
+  $session = session_restore_result($connect, $server_url);
+  if ($session['session_valid']) {
     $retrieve_user_cartlist_result = $listmanager->query("select * from ".$_COOKIE['current_userid']."_cartlist where itemcode='".$product_code."' and status=1");
     if ($retrieve_user_cartlist_result->num_rows != 1) {
       $listmanager->close();
