@@ -10,12 +10,9 @@
 <?php
 require_once('../.confiq/auth_confiq.php');
 $session = session_auth_check($connect, $server_url);
-if (!$session['session_valid']) {
+if ($session['auth_key_valid']) {
   $listmanager->close();
-  login_retry_redirect($connect, "Session expired at usercart.php page.");
-} else if ($session['auth_key_valid']) {
-  $listmanager->close();
-  error_alert($connect, "You as an admin tried to access client only content. terminating...");
+  error_alert($connect, "You as an admin tried to access client only content. Terminating...");
 }
 ?>
   <body>
@@ -30,15 +27,13 @@ if (!$session['session_valid']) {
       </div>
       <div class="flex__container__right">
         <a href="https://www.google.com/webhp?hl=th&sa=X&ved=0ahUKEwiHoOHqmbPoAhUTbn0KHRc2BsIQPAgH"><i class="fas fa-search"></i>ค้นหา</a>
-        <div class="menu">
-          <div class="menu__btn"><a href="#"><i class="fas fa-user-shield"></i>บัญชี</a></div>
-          <div class="smenu">
-            <a href="usercart.php"><i class="fas fa-shopping-cart"></i>ตระกร้าสินค้า</a>
-            <a href="transaction.php"><i class="fas fa-clipboard-list"></i>ประวัติการซื้อ</a>
-            <a href="account.php"><i class="fas fa-edit"></i>แก้ไขข้อมูล</a>
-            <a href="logout.php"><i class="fas fa-sign-out-alt"></i>ออกจากระบบ</a>
-          </div>
-        </div>
+        <?php
+        if ($session['session_valid']) {
+          echo "<div class=\"menu\"><div class=\"menu__btn\"><a href=\"#\"><i class=\"fas fa-user-shield\"></i>บัญชี</a></div><div class=\"smenu\"><a href=\"../login/usercart.php\"><i class=\"fas fa-shopping-cart\"></i>ตระกร้าสินค้า</a><a href=\"../login/transaction.php\"><i class=\"fas fa-clipboard-list\"></i>ประวัติการซื้อ</a><a href=\"../login/account.php\"><i class=\"fas fa-edit\"></i>แก้ไขข้อมูล</a><a href=\"../login/logout.php\"><i class=\"fas fa-sign-out-alt\"></i>ออกจากระบบ</a></div></div>";
+        } else {
+          echo "<a href=\"../login/usercart.php\"><i class=\"fas fa-shopping-cart\"></i>ตระกร้าสินค้า</a><a href=\"../login/login.php\"><i class=\"fas fa-sign-in-alt\"></i>เข้าสู่ระบบ</a>";
+        }
+        ?>
         <a href="https://web.facebook.com/don.jirapipat?fref=gs&__tn__=%2CdlC-R-R&eid=ARD4Hn7n7y0YlNmiFkRA4pRC8wT9s0jqzBWc2Ffc5Hr4JDyBq0oFcob2oUzlIG2Per5K2EaVj0spOoBE&hc_ref=ARQT8XqV-z45u9iOFih8e6NeW5FfLPr1_UoW7itb2PfNVQr5SznweAP6t5DFePjomUw&ref=nf_target&dti=2510061589261957&hc_location=group&_rdc=1&_rdr"><i class="fas fa-address-book"></i>ติดต่อเรา</a>
       </div>
     </div>
