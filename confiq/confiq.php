@@ -191,7 +191,7 @@ function login_result(mysqli $connect, $server_url, $username, $vulnerable_passw
   } else {
     $try_to_get_passkey_tmp = $connect->query("select * from usercredentials");
     if (empty($try_to_get_passkey_tmp)) {
-      error_alert($connect, "Something is wrong with this.");
+      error_alert($connect, "Something is wrong with this. error code : ".$connect->errno);
     }
     while ($try_to_get_passkey_tmp_string = $try_to_get_passkey_tmp->fetch_assoc()) {
       if ($try_to_get_passkey_tmp_string['userid'] == $username) {
