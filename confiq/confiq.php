@@ -95,7 +95,7 @@ function session_restore_result(mysqli $connect, $server_url) {
       $_SESSION['encrypted_hash_key2'] = $encrypted_hash_key;
       $hash_key_update_result = $connect->query("update usercredentials set usersecondhashkey='".$decrypted_hash_key."' where userid='".$userid."'");
       if (!$hash_key_update_result) {
-        alert_message("Failed to secure second hashkey. error code : "$connect->errno);
+        alert_message("Failed to secure second hashkey. error code : ".$connect->errno);
       } else {
         $decrypted_hash_key = random_string();
         $encrypted_hash_key = argon2_encrypt($decrypted_hash_key);
@@ -128,7 +128,7 @@ function session_restore_result(mysqli $connect, $server_url) {
       if (!$hash_key_update_result) {
         session_unset();
         session_destroy();
-        log_alert($connect, "Failed to update userhashkey. error code : "$connect->errno);
+        log_alert($connect, "Failed to update userhashkey. error code : ".$connect->errno);
         return [
           'session_valid' => false,
           'auth_key' => NULL
