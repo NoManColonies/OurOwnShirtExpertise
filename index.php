@@ -111,9 +111,9 @@
         if (isset($_COOKIE['guestcart']) && !is_null($_COOKIE['guestcart'])) {
           $tmp_array = json_decode($_COOKIE['guestcart']);
           if (array_key_exists($product_code, $tmp_array)) {
-            $tmp_array[$product_code] += 1;
+            alert_message("Item was already added to your cart.");
           } else {
-            $tmp_array = array_merge($tmp_array, [$product_code => 1]);
+            array_push($tmp_array, [$product_code => 1]);
           }
           setcookie('guestcart', json_encode($tmp_array), time() + 3600, '/', $server_url, true, true);
         } else {
