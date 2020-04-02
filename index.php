@@ -111,7 +111,7 @@
         if (isset($_COOKIE['guestcart']) && !is_null($_COOKIE['guestcart'])) {
           $tmp_array = json_decode($_COOKIE['guestcart']);
           if (array_key_exists($product_code, $tmp_array)) {
-            $tmp_array[$product_code] += 1;
+            $tmp_array = array_merge($tmp_array, [$product_code => $tmp_array[$product_code] + 1]);
           } else {
             $tmp_array = array_merge($tmp_array, [$product_code => 1]);
           }
