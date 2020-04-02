@@ -114,7 +114,7 @@
             alert_message("Item was already added to your cart.");
           } else {
             $input = [$product_code => 1];
-            $tmp_array[$product_code] = $input[$product_code];
+            $tmp_array["'".$product_code."'"] = $input[$product_code];
           }
           setcookie('guestcart', json_encode($tmp_array), time() + 3600, '/', $server_url, true, true);
         } else {
