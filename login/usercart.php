@@ -56,7 +56,6 @@ if ($session['auth_key_valid']) {
           $product_array = [];
           $counter = 0;
           while ($row = $retrieve_product_result->fetch_assoc()) {
-            $counter++;
             $product_array = array_merge($product_array, (is_null($row['productdprice']))? [
               'productname'.$counter => $row['productname'],
               'productprice'.$counter => $row['productprice'],
@@ -68,6 +67,7 @@ if ($session['auth_key_valid']) {
               'productimagepath'.$counter => $row['productimagepath'],
               $counter => $row['productcode']
             ]);
+            $counter++;
           }
           echo "<table><tr><th>Product name</th><th>Price</th><th>Quantity</th><th>Link</th></tr>";
           while ($cart_row = $retrieve_cart_list->fetch_assoc()) {
