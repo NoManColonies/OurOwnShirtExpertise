@@ -199,7 +199,7 @@ function login_result(mysqli $connect, $server_url, $username, $vulnerable_passw
     }
   }
   $row = $try_to_get_passkey_tmp->fetch_assoc();
-  if (password_verify($vulnerable_password, $row['userpassword']) && !empty($try_to_get_passkey_tmp->num_rows)) {
+  if (password_verify($vulnerable_password, $row['userpassword'])) {
     $decrypted_hash_key_tmp = random_string();
     $encrypted_hash_key_tmp = argon2_encrypt($decrypted_hash_key_tmp);
     $_SESSION['encrypted_hash_key1'] = $encrypted_hash_key_tmp;
