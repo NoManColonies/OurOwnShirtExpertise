@@ -12,6 +12,9 @@
   $session = session_auth_check($connect, $server_url);
   if (!$session['session_valid']) {
     login_retry_redirect($connect, "Session expired at acount.php page.");
+  } else if ($session['auth_key_valid']) {
+    header("Location: https://worawanbydiistudent.store/index.php");
+    exit();
   }
   ?>
   <body>
@@ -29,15 +32,9 @@
         <div class="menu">
           <div class="menu__btn"><a href="#"><i class="fas fa-user-shield"></i>บัญชี</a></div>
           <div class="smenu">
-            <?php
-            if ($session['auth_key_valid']) {
-              echo "<a href=\"../photo/product_add.php\"><i class=\"fas fa-user-shield\"></i>เพิ่มสินค้า</a>";
-            } else {
-              echo "<a href=\"usercart.php\"><i class=\"fas fa-shopping-cart\"></i>ตระกร้าสินค้า</a>";
-              echo "<a href=\"transaction.php\"><i class=\"fas fa-clipboard-list\"></i>ประวัติการซื้อ</a>";
-              echo "<a href=\"account.php\"><i class=\"fas fa-edit\"></i>แก้ไขข้อมูล</a>";
-            }
-            ?>
+            <a href="usercart.php"><i class="fas fa-shopping-cart"></i>ตระกร้าสินค้า</a>
+            <a href="transaction.php"><i class="fas fa-clipboard-list"></i>ประวัติการซื้อ</a>
+            <a href="account.php"><i class="fas fa-edit"></i>แก้ไขข้อมูล</a>
             <a href="logout.php"><i class="fas fa-sign-out-alt"></i>ออกจากระบบ</a>
           </div>
         </div>
