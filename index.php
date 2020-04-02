@@ -113,7 +113,8 @@
           if (array_key_exists($product_code, $tmp_array)) {
             alert_message("Item was already added to your cart.");
           } else {
-            array_push($tmp_array, [$product_code => 1]);
+            $input = [$product_code => 1];
+            $tmp_array[$product_code] = $input[$product_code];
           }
           setcookie('guestcart', json_encode($tmp_array), time() + 3600, '/', $server_url, true, true);
         } else {
