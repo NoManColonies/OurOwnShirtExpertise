@@ -88,24 +88,11 @@
         header("Location: https://worawanbydiistudent.store/index.php");
       }
       if ((!is_null($_REQUEST['Username']) || !is_null($_REQUEST['Password'])) && !isset($_SESSION['current_userid']) && !isset($_SESSION['encrypted_hash_key1'])) {
-        $query = $connect->query("select * from usercredentials where userid='".$_REQUEST['Username']."'");
-        if (empty($query->num_rows)) {
-          error_alert($connect, "Error 3")
-        }
-        $row = $query->fetch_assoc();
-        if (password_verify($_REQUEST['Password'], $row['userpassword'])) {
-          $decrypted_hash_key = random_string();
-          $encrypted_hash_key = argon2_encrypt($decrypted_hash_key);
-          $_SESSION['current_userid'] = $_REQUEST['Username'];
-          $_SESSION['encrypted_hash_key1'] = $encrypted_hash_key;
-          $result = $connect->query("update usercredentials set userhashkey='".$encrypted_hash_key."' where userid='".$_REQUEST['Username']."'");
-          if (!$result) {
-            error_alert($connect, "Error 1");
-          } else {
-            header("Location: index.php");
-          }
+        if (!login_result($connect, $server_url, $_REQUEST['Username'], $_REQUEST['Password'])) {
+          login_retry_redirect($connect, "Incorrect username or password.");
         } else {
-          error_alert($connect, "Error 2");
+          $connect->close();
+          header("Location: https://worawanbydiistudent.store/index.php");
         }
       } else {
         $connect->close();
