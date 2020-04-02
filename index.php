@@ -110,16 +110,20 @@
         $product_code = $_REQUEST['productcode'];
         if (isset($_COOKIE['guestcart']) && !is_null($_COOKIE['guestcart'])) {
           $tmp_array = json_decode($_COOKIE['guestcart']);
-          if (array_key_exists($product_code, $tmp_array)) {
+          $tmp_index = json_decode($_COOKIE['guestindex']);
+          if (!empty(array_search($product_code, $tmp_array))) {
             alert_message("Item was already added to your cart.");
           } else {
-            $input = [$product_code => 1];
-            $tmp_array["'".$product_code."'"] = $input[$product_code];
+            array_push($tmp_array, $product_code);
+            array_push($tmp_index, 1);
           }
           setcookie('guestcart', json_encode($tmp_array), time() + 3600, '/', $server_url, true, true);
+          setcookie('guestindex', json_encode($tmp_index), time() + 3600, '/', $server_url, true, true);
         } else {
-          $tmp_array = [$product_code => 1];
+          $tmp_array = array($product_code);
+          $tmp_index = array(1);
           setcookie('guestcart', json_encode($tmp_array), time() + 3600, '/', $server_url, true, true);
+          setcookie('guestindex', json_encode($tmp_index), time() + 3600, '/', $server_url, true, true);
         }
       } else if (isset($_REQUEST['actioncode']) && $_REQUEST['actioncode'] == 'Add' && $session['session_valid']) {
         if (add_to_cart($connect, $listmanager, $server_url, $_REQUEST['productcode'], 1)) {

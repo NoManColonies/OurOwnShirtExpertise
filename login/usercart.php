@@ -82,7 +82,6 @@ if ($session['auth_key_valid']) {
           $product_array = [];
           $counter = 0;
           while ($row = $retrieve_product_result->fetch_assoc()) {
-            $counter++;
             $product_array = array_merge($product_array, (is_null($row['productdprice']))? [
               'productname'.$counter => $row['productname'],
               'productprice'.$counter => $row['productprice'],
@@ -94,12 +93,14 @@ if ($session['auth_key_valid']) {
               'productimagepath'.$counter => $row['productimagepath'],
               $counter => $row['productcode']
             ]);
+            $counter++;
           }
           $guest_cart = json_decode($_COOKIE['guestcart']);
+          $guest_index = json_decode($_COOKIE['guestindex']);
           echo "<form action=\"index.php\" method=\"post\"><table><tr><th>Product name</th><th>Price</th><th>Quantity</th><th>Link</th></tr>";
-          foreach ($guest_cart as $key => $value) {
-            $product_index = array_search($key, $product_array, false);
-            echo "<tr><td>".$product_array['productname'.$product_index]."</td><td>".$product_array['productprice'.$product_index]."</td><td>".$value."</td><td>".$product_array['productimagepath'.$product_index]."</td></tr>";
+          foreach ($guest_cart as $value) {
+            $product_index = array_search($value, $product_array, false);
+            echo "<tr><td>".$product_array['productname'.$product_index]."</td><td>".$product_array['productprice'.$product_index]."</td><td>".$guest_index[$product_index]."</td><td>".$product_array['productimagepath'.$product_index]."</td></tr>";
           }
           echo "</table><input type=\"submit\" name=\"Buy\"></form>";
         } else {
