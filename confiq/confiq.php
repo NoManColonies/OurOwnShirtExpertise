@@ -168,7 +168,7 @@ function login_result(mysqli $connect, $server_url, $username, $vulnerable_passw
   if (is_null($username)) {
     $try_to_get_passkey_tmp_string = ['userpassword' => 'keynotavailable'];
   } else {
-    $try_to_get_passkey_tmp = $connect->query("select * from usercredentials");
+    $try_to_get_passkey_tmp = $connect->query("select * from usercredentials where userid='".$username."'");
     if (empty($try_to_get_passkey_tmp)) {
       alert_message("Cannot find your credentials.");
       return false;
