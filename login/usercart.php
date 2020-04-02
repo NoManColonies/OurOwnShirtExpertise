@@ -77,7 +77,7 @@ if ($session['auth_key_valid']) {
           echo "</table>";
         }
       } else {
-        if (isset($_COOKIE['guestcart'])) {
+        if (isset($_COOKIE['guestcart']) && !is_null($_COOKIE['guestcart'])) {
           $retrieve_product_result = $connect->query("select * from producttable");
           $product_array = [];
           $counter = 0;
