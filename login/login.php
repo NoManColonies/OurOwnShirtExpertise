@@ -81,15 +81,14 @@
   </head>
   <body>
     <?php
-      require_once('login_test.php');
-      session_start();
+      require_once('../.confiq/confiq.php');
       $session = session_restore_result($connect, $server_url);
       if ($session['session_valid']) {
         $connect->close();
         header("Location: https://worawanbydiistudent.store/index.php");
       }
       if ((!is_null($_REQUEST['Username']) || !is_null($_REQUEST['Password'])) && !isset($_SESSION['current_userid']) && !isset($_SESSION['encrypted_hash_key1'])) {
-        if (!login_test_result($connect, $server_url, $_REQUEST['Username'], $_REQUEST['Password'])) {
+        if (!login_result($connect, $server_url, $_REQUEST['Username'], $_REQUEST['Password'])) {
           login_retry_redirect($connect, "Incorrect username or password.");
         } else {
           $connect->close();

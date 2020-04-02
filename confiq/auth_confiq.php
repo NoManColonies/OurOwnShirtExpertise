@@ -59,13 +59,12 @@ function register_result(mysqli $connect, mysqli $listmanager, $username, $vulne
 function add_to_cart(mysqli $connect, mysqli $listmanager, $server_url, $product_code, $amount) {
   $retrieve_product_result = $connect->query("select * from producttable where productcode='".$product_code."'");
   if (empty($retrieve_product_result->num_rows)) {
-    $listmanager->close();
-    error_alert($connect, "Product does not exists.");
+    alert_message("Product does not exists.");
+    return false;
   }
   $product_row = $retrieve_product_result->fetch_assoc();
   if ($product_row['productqty'] < $amount) {
-    $listmanager->close();
-    log_alert($connect, "Order amount is higher than quatity in stock.");
+    alert_message("Order amount is higher than quatity in stock.");
     return false;
   }
   $session = session_restore_result($connect, $server_url);
@@ -75,25 +74,19 @@ function add_to_cart(mysqli $connect, mysqli $listmanager, $server_url, $product
       $cart_row = $look_for_existing_product_result->fetch_assoc();
       $add_to_cart_result = $listmanager->query("update ".$_SESSION['current_userid']."_cartlist set itemqty=".($cart_row['itemqty'] + $amount)." where itemcode='".$product_code."' and status=1");
       if (!$add_to_cart_result) {
-        $listmanager->close();
-        error_alert($connect, "Failed to add to cart at section 1. error code : ".$listmanager->errno);
+        alert_message("Failed to add to cart at section 1. error code : ".$listmanager->errno);
+        return false;
       }
-      $connect->close();
-      $listmanager->close();
       return true;
     } else {
       $add_to_cart_result = $listmanager->query("insert to ".$_SESSION['current_userid']."_cartlist (cid, itemcode, itemqty) values(NULL, '".$product_code."', ".$amount.")");
       if (!$add_to_cart_result) {
-        $listmanager->close();
-        error_alert($connect, "Failed to add to cart at section 2. error code : ".$listmanager->errno);
+        alert_message("Failed to add to cart at section 2. error code : ".$listmanager->errno);
       }
-      $listmanager->close();
-      $connect->close();
       return true;
     }
   } else {
-    $listmanager->close();
-    log_alert($connect, "Session restore failed at add_to_cart function.");
+    alert_message("Session restore failed at add_to_cart function.");
     return false;
   }
 }
@@ -102,35 +95,32 @@ function remove_from_cart(mysqli $connect, mysqli $listmanager, $server_url, $pr
   if ($session['session_valid']) {
     $retrieve_user_cartlist_result = $listmanager->query("select * from ".$_SESSION['current_userid']."_cartlist where itemcode='".$product_code."' and status=1");
     if ($retrieve_user_cartlist_result->num_rows != 1) {
-      $listmanager->close();
-      error_alert($connect, "Incorrect amount of reported cartitem. found : ".$retrieve_user_cartlist_result->num_rows);
+      alert_message("Incorrect amount of reported cartitem. found : ".$retrieve_user_cartlist_result->num_rows);
+      return false;
     }
     $cart_row = $retrieve_user_cartlist_result->fetch_assoc();
     if ($amount > $cart_row['itemqty']) {
-      $listmanager->close();
-      error_alert($connect, "Removal amount is higher than the one in cartlist.");
+      alert_message("Removal amount is higher than the one in cartlist.");
+      return false;
     } else if ($amount == $cart_row['itemqty']) {
       $deletion_result = $listmanager->query("update ".$_SESSION['current_userid']."_cartlist set status=0 where itemcode='".$product_code."' and status=1");
       if (!$deletion_result) {
-        $listmanager->close();
-        error_alert($connect, "Failed to disable cartlist. error code : ".$listmanager->errno);
+        alert_message("Failed to disable cartlist. error code : ".$listmanager->errno);
+        return false;
       }
-      $listmanager->close();
-      log_alert($connect, "Sucessfully remove your cartitem.");
+      alert_message("Sucessfully remove your cartitem.");
       return true;
     } else {
       $reduction_result = $listmanager->query("update ".$_SESSION['current_userid']."_cartlist set itemqty=".($cart_row['itemqty'] - $amount)." where itemcode='".$product_code."' and status=1");
       if (!$reduction_result) {
-        $listmanager->close();
-        error_alert($connect, "Failed to reduce from cartlist. error code : ".$listmanager->errno);
+        alert_message("Failed to reduce from cartlist. error code : ".$listmanager->errno);
+        return false;
       }
-      $listmanager->close();
-      log_alert($connect, "Sucessfully reduce your cartitem.");
+      alert_message("Sucessfully reduce your cartitem.");
       return true;
     }
   } else {
-    $listmanager->close();
-    log_alert($connect, "Session restore failed at remove_from_cart function.");
+    alert_message("Session restore failed at remove_from_cart function.");
     return false;
   }
 }
