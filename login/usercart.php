@@ -48,7 +48,7 @@ if ($session['auth_key_valid']) {
       </div>
       <?php
       if ($session['session_valid']) {
-        $retrieve_cart_list = $listmanager->query("select * from ".$_COOKIE['current_userid']."_cartlist where status=1");
+        $retrieve_cart_list = $listmanager->query("select * from ".$_SESSION['current_userid']."_cartlist where status=1");
         if (empty($retrieve_cart_list->num_rows)) {
           echo "<p>Nothing is in your cart :(</p>";
         } else {
