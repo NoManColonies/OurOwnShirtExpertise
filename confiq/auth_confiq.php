@@ -8,7 +8,6 @@ if (!$listmanager) {
   alert_message("Connection timed out for user : ".$cartuser." error code : ".$listmanager->errno);
   exit();
 }
-session_start();
 function register_result(mysqli $connect, mysqli $listmanager, $username, $vulnerable_password, $vulnerable_password_retype, $name, $lastname, $primary_address, $secondary_address, $city, $state, $provice, $postcode, $phonenumber, $emailaddress) {
   $server_userid_check = $connect->query("select * from usercredentials");
   while($row = $server_userid_check->fetch_assoc()) {

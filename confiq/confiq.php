@@ -10,7 +10,6 @@ if ($connect->connect_errno) {
   exit();
 }
 session_start();
-require_once('client_ip.php');
 function error_alert(mysqli $connect, $content) {
   echo "<script>alert(\"".$content."\");</script>";
   $connect->close();
@@ -109,26 +108,18 @@ function session_restore_result(mysqli $connect, $server_url) {
         $hash_key_update_result = $connect->query("update usercredentials set userbackuphashkey='".$decrypted_hash_key."' where userid='".$userid."'");
         if (!$hash_key_update_result) {
           alert_message("Failed to secure backup hashkey. error code : ".$connect->errno);
-        } else {
-          $client_ip = new Getip();
-          $encrypted_ip = argon2_encrypt($client_ip->get_ip_address());
-          $_SESSION['encrypted_ip'] = $encrypted_ip;
-          $session_ip_update_result = $connect->query("update usercredentials set usersessionip='".$client_ip."' where userid='".$userid."'");
-          if (!$session_ip_update_result) {
-            alert_message("Failed to secure user ipaddress. backup hashkey are no longer accessible until next successful restore. error code : ".$connect->errno);
-          }
         }
       }
       return [
         'session_valid' => true,
         'auth_key' => $row['useraccesskey']
       ];
-    } else if (password_verify($row['usersecondhashkey'], $_SESSION['encrypted_hash_key2'])) {
+    } else if (password_verify($row['usersecondhashkey'], $_SESSION['encrypted_hash_key2']) && !is_null($_SESSION['encrypted_hash_key2'])) {
       $decrypted_hash_key = random_string();
       $encrypted_hash_key = argon2_encrypt($decrypted_hash_key);
       $_SESSION['encrypted_hash_key1'] = $encrypted_hash_key;
       $_SESSION['current_userid'] = $userid;
-      $_SESSION['encrypted_hash_key2'] = random_string();
+      $_SESSION['encrypted_hash_key2'] = null;
       $hash_key_update_result = $connect->query("update usercredentials set userhashkey='".$decrypted_hash_key."', usersecondhashkey=NULL where userid='".$userid."'");
       if (!$hash_key_update_result) {
         session_unset();
@@ -143,14 +134,13 @@ function session_restore_result(mysqli $connect, $server_url) {
         'session_valid' => true,
         'auth_key' => $row['useraccesskey']
       ];
-    } else if (password_verify($row['usersessionip'], $_SESSION['encrypted_ip']) && password_verify($row['userbackuphashkey'], $_SESSION['encrypted_hash_key3'])) {
+    } else if (password_verify($row['userbackuphashkey'], $_SESSION['encrypted_hash_key3']) && !is_null($_SESSION['encrypted_hash_key3'])) {
       $decrypted_hash_key = random_string();
       $encrypted_hash_key = argon2_encrypt($decrypted_hash_key);
       $_SESSION['encrypted_hash_key1'] = $encrypted_hash_key;
       $_SESSION['current_userid'] = $userid;
-      $_SESSION['encrypted_hash_key2'] = random_string();
-      $_SESSION['encrypted_hash_key3'] = random_string();
-      $_SESSION['encrypted_ip'] = random_string();
+      $_SESSION['encrypted_hash_key2'] = null;
+      $_SESSION['encrypted_hash_key3'] = null;
       $hash_key_update_result = $connect->query("update usercredentials set userhashkey='".$decrypted_hash_key."', usersecondhashkey=NULL, userbackuphashkey=NULL, usersessionip=NULL where userid='".$userid."'");
       if (!$hash_key_update_result) {
         session_unset();
@@ -166,7 +156,7 @@ function session_restore_result(mysqli $connect, $server_url) {
         'auth_key' => $row['useraccesskey']
       ];
     } else {
-      $hash_key_update_result = $connect->query("update usercredentials set userhashkey=NULL, usersecondhashkey=NULL, userbackuphashkey=NULL, usersessionip=NULL where userid='".$userid."'");
+      $hash_key_update_result = $connect->query("update usercredentials set userhashkey=NULL, usersecondhashkey=NULL, userbackuphashkey=NULL where userid='".$userid."'");
       session_unset();
       session_destroy();
       if (!$hash_key_update_result) {
@@ -223,14 +213,6 @@ function login_result(mysqli $connect, $server_url, $username, $vulnerable_passw
         $hash_key_update_result = $connect->query("update usercredentials set userbackuphashkey='".$decrypted_hash_key_tmp."' where userid='".$username."'");
         if (!$hash_key_update_result) {
           alert_message("Failed to secure backup hashkey. error code : ".$connect->errno);
-        } else {
-          $client_ip = new Getip();
-          $encrypted_ip = argon2_encrypt($client_ip->get_ip_address());
-          $_SESSION['encrypted_ip'] = $encrypted_ip;
-          $session_ip_update_result = $connect->query("update usercredentials set usersessionip='".$client_ip."' where userid='".$userid."'");
-          if (!$session_ip_update_result) {
-            alert_message("Failed to secure user ipaddress. backup hashkey are no longer accessible until next successful restore. error code : ".$connect->errno);
-          }
         }
       }
     }

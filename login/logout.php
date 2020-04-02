@@ -1,6 +1,5 @@
 <?php
   require_once("../.confiq/confiq.php");
-  session_start();
   if (isset($_SESSION['current_userid']) && !is_null($_SESSION['current_userid']) && isset($_SESSION['encrypted_hash_key1']) && !is_null($_SESSION['encrypted_hash_key1'])) {
     $userid = $_SESSION['current_userid'];
     $logout_result = $connect->query("update usercredentials set userhashkey=NULL, usersecondhashkey=NULL, userbackuphashkey=NULL, usersessionip=NULL where userid='".$userid."'");
