@@ -72,7 +72,13 @@ function session_restore_result(mysqli $connect, $server_url) {
     $userid = $_SESSION['current_userid'];
     $server_decrypted_hash_key = $connect->query("select * from usercredentials where userid='".$userid."'");
     if ($server_decrypted_hash_key->num_rows == 0) {
-      error_alert($connect, "Could not detect user account from session. this shouldn't happen and should be checked before. error code : ".$connect->errno);
+      alert_message("Could not detect user account from session. this shouldn't happen and should be checked before. error code : ".$connect->errno);
+      session_unset();
+      session_destroy();
+      return [
+        'session_valid' => false,
+        'auth_key' => NULL
+      ];
     }
     $row = $server_decrypted_hash_key->fetch_assoc();
     if (password_verify($row['userhashkey'], $_SESSION['encrypted_hash_key1'])) {
@@ -84,7 +90,7 @@ function session_restore_result(mysqli $connect, $server_url) {
       if (!$hash_key_update_result) {
         session_unset();
         session_destroy();
-        log_alert($connect, "Failed to secure userhashkey. error code : ".$connect->errno);
+        alert_message("Failed to secure userhashkey. error code : ".$connect->errno);
         return [
           'session_valid' => false,
           'auth_key' => NULL
@@ -113,7 +119,6 @@ function session_restore_result(mysqli $connect, $server_url) {
           }
         }
       }
-      $connect->close();
       return [
         'session_valid' => true,
         'auth_key' => $row['useraccesskey']
@@ -128,13 +133,12 @@ function session_restore_result(mysqli $connect, $server_url) {
       if (!$hash_key_update_result) {
         session_unset();
         session_destroy();
-        log_alert($connect, "Failed to update userhashkey. error code : ".$connect->errno);
+        alert_message("Failed to update userhashkey. error code : ".$connect->errno);
         return [
           'session_valid' => false,
           'auth_key' => NULL
         ];
       }
-      $connect->close();
       return [
         'session_valid' => true,
         'auth_key' => $row['useraccesskey']
@@ -151,13 +155,12 @@ function session_restore_result(mysqli $connect, $server_url) {
       if (!$hash_key_update_result) {
         session_unset();
         session_destroy();
-        log_alert($connect, "Failed to update userhashkey. error code : ".$connect->errno);
+        alert_message("Failed to update userhashkey. error code : ".$connect->errno);
         return [
           'session_valid' => false,
           'auth_key' => NULL
         ];
       }
-      $connect->close();
       return [
         'session_valid' => true,
         'auth_key' => $row['useraccesskey']
@@ -167,9 +170,8 @@ function session_restore_result(mysqli $connect, $server_url) {
       session_unset();
       session_destroy();
       if (!$hash_key_update_result) {
-        log_alert($connect, "Destroy server hashkey failed. userid : '".$userid."' doesn't exists on server. this shouldn't occur as we already checked before. error code : ".$connect->errno);
+        alert_message("Destroy server hashkey failed. userid : '".$userid."' doesn't exists on server. this shouldn't occur as we already checked before. error code : ".$connect->errno);
       }
-      $connect->close();
       return [
         'session_valid' => false,
         'auth_key' => NULL
@@ -178,7 +180,6 @@ function session_restore_result(mysqli $connect, $server_url) {
   } else {
     session_unset();
     session_destroy();
-    $connect->close();
     return [
       'session_valid' => false,
       'auth_key' => NULL
@@ -191,16 +192,14 @@ function login_result(mysqli $connect, $server_url, $username, $vulnerable_passw
   } else {
     $try_to_get_passkey_tmp = $connect->query("select * from usercredentials");
     if (empty($try_to_get_passkey_tmp)) {
-      error_alert($connect, "Something is wrong with this. error code : ".$connect->errno);
-    }
-    while ($try_to_get_passkey_tmp_string = $try_to_get_passkey_tmp->fetch_assoc()) {
-      if ($try_to_get_passkey_tmp_string['userid'] == $username) {
-        $encrypted_password_tmp = $try_to_get_passkey_tmp_string['userpassword'];
-        break;
-      }
+      session_unset();
+      session_destroy();
+      alert_message("Cannot find your credentials.");
+      return false;
     }
   }
-  if (password_verify($vulnerable_password, $encrypted_password_tmp) && !empty($try_to_get_passkey_tmp->num_rows)) {
+  $row = $try_to_get_passkey_tmp->fetch_assoc();
+  if (password_verify($vulnerable_password, $row['userpassword'])) {
     $decrypted_hash_key_tmp = random_string();
     $encrypted_hash_key_tmp = argon2_encrypt($decrypted_hash_key_tmp);
     $_SESSION['encrypted_hash_key1'] = $encrypted_hash_key_tmp;
@@ -235,10 +234,8 @@ function login_result(mysqli $connect, $server_url, $username, $vulnerable_passw
         }
       }
     }
-    $connect->close();
     return true;
   }
-  $connect->close();
   return false;
 }
 ?>
