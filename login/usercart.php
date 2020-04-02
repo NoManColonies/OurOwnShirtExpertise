@@ -13,6 +13,7 @@ $session = session_auth_check($connect, $server_url);
 if ($session['auth_key_valid']) {
   $listmanager->close();
   error_alert($connect, "You as an admin tried to access client only content. Terminating...");
+  exit();
 }
 ?>
   <body>
