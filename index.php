@@ -111,8 +111,9 @@
         if (isset($_COOKIE['guestcart']) && !is_null($_COOKIE['guestcart'])) {
           $tmp_array = json_decode($_COOKIE['guestcart']);
           $tmp_index = json_decode($_COOKIE['guestindex']);
-          if (!is_null(array_search($product_code, $tmp_array))) {
-            alert_message("Item was already added to your cart.");
+          $key = array_search($product_code, $tmp_array);
+          if (!is_null($key)) {
+            $tmp_index[$key] += 1;
           } else {
             array_push($tmp_array, $product_code);
             array_push($tmp_index, 1);
