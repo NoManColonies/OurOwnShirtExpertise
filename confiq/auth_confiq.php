@@ -78,7 +78,7 @@ function add_to_cart(mysqli $connect, mysqli $listmanager, $server_url, $product
       }
       return true;
     } else {
-      $add_to_cart_result = $listmanager->query("insert to ".$_SESSION['current_userid']."_cartlist (cid, itemcode, itemqty) values(NULL, '".$product_code."', ".$amount.")");
+      $add_to_cart_result = $listmanager->query("insert into ".$_SESSION['current_userid']."_cartlist (cid, itemcode, itemqty) values(NULL, '".$product_code."', ".$amount.")");
       if (!$add_to_cart_result) {
         alert_message("Failed to add to cart at section 2. error code : ".$listmanager->errno);
       }
