@@ -72,8 +72,6 @@ function session_restore_result(mysqli $connect, $server_url) {
     $server_decrypted_hash_key = $connect->query("select * from usercredentials where userid='".$userid."'");
     if ($server_decrypted_hash_key->num_rows == 0) {
       alert_message("Could not detect user account from session. this shouldn't happen and should be checked before. error code : ".$connect->errno);
-      session_unset();
-      session_destroy();
       return [
         'session_valid' => false,
         'auth_key' => NULL
@@ -87,8 +85,6 @@ function session_restore_result(mysqli $connect, $server_url) {
       $_SESSION['current_userid'] = $userid;
       $hash_key_update_result = $connect->query("update usercredentials set userhashkey='".$decrypted_hash_key."' where userid='".$userid."'");
       if (!$hash_key_update_result) {
-        session_unset();
-        session_destroy();
         alert_message("Failed to secure userhashkey. error code : ".$connect->errno);
         return [
           'session_valid' => false,
@@ -122,8 +118,6 @@ function session_restore_result(mysqli $connect, $server_url) {
       $_SESSION['encrypted_hash_key2'] = null;
       $hash_key_update_result = $connect->query("update usercredentials set userhashkey='".$decrypted_hash_key."', usersecondhashkey=NULL where userid='".$userid."'");
       if (!$hash_key_update_result) {
-        session_unset();
-        session_destroy();
         alert_message("Failed to update userhashkey. error code : ".$connect->errno);
         return [
           'session_valid' => false,
@@ -143,8 +137,6 @@ function session_restore_result(mysqli $connect, $server_url) {
       $_SESSION['encrypted_hash_key3'] = null;
       $hash_key_update_result = $connect->query("update usercredentials set userhashkey='".$decrypted_hash_key."', usersecondhashkey=NULL, userbackuphashkey=NULL, usersessionip=NULL where userid='".$userid."'");
       if (!$hash_key_update_result) {
-        session_unset();
-        session_destroy();
         alert_message("Failed to update userhashkey. error code : ".$connect->errno);
         return [
           'session_valid' => false,
@@ -157,8 +149,6 @@ function session_restore_result(mysqli $connect, $server_url) {
       ];
     } else {
       $hash_key_update_result = $connect->query("update usercredentials set userhashkey=NULL, usersecondhashkey=NULL, userbackuphashkey=NULL where userid='".$userid."'");
-      session_unset();
-      session_destroy();
       if (!$hash_key_update_result) {
         alert_message("Destroy server hashkey failed. userid : '".$userid."' doesn't exists on server. this shouldn't occur as we already checked before. error code : ".$connect->errno);
       }
@@ -168,8 +158,6 @@ function session_restore_result(mysqli $connect, $server_url) {
       ];
     }
   } else {
-    session_unset();
-    session_destroy();
     return [
       'session_valid' => false,
       'auth_key' => NULL
@@ -182,8 +170,6 @@ function login_result(mysqli $connect, $server_url, $username, $vulnerable_passw
   } else {
     $try_to_get_passkey_tmp = $connect->query("select * from usercredentials");
     if (empty($try_to_get_passkey_tmp)) {
-      session_unset();
-      session_destroy();
       alert_message("Cannot find your credentials.");
       return false;
     }
@@ -196,8 +182,6 @@ function login_result(mysqli $connect, $server_url, $username, $vulnerable_passw
     $_SESSION['current_userid'] = $username;
     $hash_key_update_result = $connect->query("update usercredentials set userhashkey='".$decrypted_hash_key_tmp."' where userid='".$username."'");
     if(!$hash_key_update_result) {
-      session_unset();
-      session_destroy();
       alert_message("Process failed during server userhashkey update : ".$username.". hashkey : ".$decrypted_hash_key_tmp.". error code : ".$connect->errno.". logging out...");
     } else {
       $decrypted_hash_key_tmp = random_string();
