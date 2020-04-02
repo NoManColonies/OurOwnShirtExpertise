@@ -58,7 +58,7 @@
       } else {
         switch ($_REQUEST['basicdata']) {
           case 'true':
-          $get_did_code = $connect->query("select uid from usercredentials where userid='".$_COOKIE['current_userid']."'");
+          $get_did_code = $connect->query("select uid from usercredentials where userid='".$_SESSION['current_userid']."'");
           if (empty($get_did_code->num_rows)) {
             error_alert($connect, "Returned UID was NULL after first condition check has passed.");
           }
@@ -77,7 +77,7 @@
           echo "<input type=\"hidden\" name=\"basicdata\" value=\"false\"><input type=\"submit\" value=\"Submit\"></form>";
           break;
           case 'false':
-          $get_did_code = $connect->query("select uid from usercredentials where userid='".$_COOKIE['current_userid']."'");
+          $get_did_code = $connect->query("select uid from usercredentials where userid='".$_SESSION['current_userid']."'");
           if (empty($get_did_code->num_rows)) {
             error_alert($connect, "Returned UID was NULL after second condition check has passed.");
           }
@@ -88,7 +88,7 @@
           }
           default:
           if (isset($_REQUEST['passchange'])) {
-            $check_password_result = $connect->query("select userpassword from usercredentials where userid='".$_COOKIE['current_userid']."'");
+            $check_password_result = $connect->query("select userpassword from usercredentials where userid='".$_SESSION['current_userid']."'");
             if (empty($check_password_result->num_rows)) {
               error_alert($connect, "Failed to match userid when try to change password.");
             }
@@ -101,17 +101,17 @@
               log_alert($connect, "Two of your new passwords do not seem to be the same.");
               header("Location: https://worawanbydiistudent.store/login/account.php?passchange=true");
             }
-            $try_to_update_password = $connect->query("update usercredentials set userpassword='".argon2_encrypt($_REQUEST['Newpass'])."' where userid='".$_COOKIE['current_userid']."'");
+            $try_to_update_password = $connect->query("update usercredentials set userpassword='".argon2_encrypt($_REQUEST['Newpass'])."' where userid='".$_SESSION['current_userid']."'");
             if (!$try_to_update_password) {
-              error_alert($connect, "Failed to update password at userid : ".$_COOKIE['current_userid'].".");
+              error_alert($connect, "Failed to update password at userid : ".$_SESSION['current_userid'].".");
             }
           }
           if (is_null($get_did_code)) {
-            $get_did_code = $connect->query("select uid from usercredentials where userid='".$_COOKIE['current_userid']."'");
+            $get_did_code = $connect->query("select uid from usercredentials where userid='".$_SESSION['current_userid']."'");
             $did_code = $get_did_code->fetch_assoc();
           }
           if (empty($get_did_code->num_rows)) {
-            error_alert($connect, "Returned UID was NULL after edit_state was assigned to ".$_COOKIE['edit_state'].".");
+            error_alert($connect, "Returned UID was NULL after edit_state was assigned to ".$_REQUEST['basicdata'].".");
           }
           $user_basic_data = $connect->query("select * from userbasicdata where did='".$did_code['uid']."'");
           if (empty($user_basic_data->num_rows)) {
@@ -121,7 +121,7 @@
           echo "<form action=\"account.php\" method=\"get\"><input type=\"hidden\" name=\"basicdata\" value=\"true\"><input type=\"submit\" value=\"Edit data\"></form>";
           echo "<form action=\"account.php\" method=\"get\"><input type=\"hidden\" name=\"passchange\" value=\"true\"><input type=\"submit\" value=\"Change password\"></from>";
           echo "<table>";
-          echo "<tr><td>ที่อยู่ : </td><td>".$row['primaryaddress']."</td></tr><tr><td>ที่อยู่เพิ่มเติม(ไม่จำเป็น) : </td><td>".$row['secondaryaddress']."</td></tr><tr><td>อำเภอ : </td><td>".$row['city']."</td></tr><tr><td>ตำบล : </td><td>".$row['state']."</td></tr><tr><td>จังหวัด : </td><td>".$row['province']."</td></tr><tr><td>เลขที่ไปรษณีย์ : </td><td>".$row['postnum']."</td></tr><tr><td>อีเมล : </td><td>".$row['emailaddress']."</td></tr><tr><td>เบอร์โทรศัพท์ : </td><td>".$row['phonenumber']."</td></tr>";
+          echo "<tr><td>ที่อยู่ : </td><td>".$row['primaryaddress']."</td></tr><tr><td>ที่อยู่เพิ่มเติม : </td><td>".$row['secondaryaddress']."</td></tr><tr><td>อำเภอ : </td><td>".$row['city']."</td></tr><tr><td>ตำบล : </td><td>".$row['state']."</td></tr><tr><td>จังหวัด : </td><td>".$row['province']."</td></tr><tr><td>เลขที่ไปรษณีย์ : </td><td>".$row['postnum']."</td></tr><tr><td>อีเมล : </td><td>".$row['emailaddress']."</td></tr><tr><td>เบอร์โทรศัพท์ : </td><td>".$row['phonenumber']."</td></tr>";
           echo "</table>";
           break;
         }
