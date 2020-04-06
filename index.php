@@ -63,7 +63,7 @@
       <a href="#" onclick="toggleSideMenu()">about us</a>
     </div>
     <div class="login__menu">
-      <form class="" action="index.html" method="post">
+      <form class="" action="index.php" method="post">
         <div class="field__center username">
           <div class="input__icon">
             <input type="text" class="input__glow" required name="username" value="" placeholder="Your username">
