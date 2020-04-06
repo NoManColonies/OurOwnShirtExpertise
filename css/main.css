@@ -701,8 +701,8 @@ slide p {
 .product__container {
 	height: 40vh;
 	display: grid;
-	grid-template-columns: repeat(2, 240px);
-	grid-row: 70% 30%;
+	grid-template-columns: repeat(2, 238px);
+	grid-template-rows: 70% 30%;
 	margin-left: 1em;
 	margin-bottom: 1em;
 	-webkit-box-shadow: 0 0 5px black;
