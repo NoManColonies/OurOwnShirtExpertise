@@ -19,7 +19,7 @@
       <a href="index.php" onclick="toggleSideMenu()">home</a>
       <button class="button" name="button" onclick="searchPreparePage();toggleSideMenu();">product</button>
       <?php
-      if ($session['session_valid']) {
+      if (!$session['session_valid']) {
         ?>
         <button class="button" name="button" onclick="toggleSideMenu();toggleLoginMenu();">login</button>
         <a href="#" onclick="toggleSideMenu()">register</a>
