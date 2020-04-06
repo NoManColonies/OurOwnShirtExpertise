@@ -222,7 +222,7 @@
       </button>
       <a class="anchor" href="#">home</a>
       <button type="button" class="search" onclick="searchPreparePage()" name="search">product</button>
-      <button type="button" class="button" onclick="aboutPage()">about us</button>
+      <button type="button" class="search" onclick="aboutPage()">about us</button>
       <div class="login verticle__center">
         <form class="search__group" action="product.php" method="post">
           <input type="text" class="search__field" name="find" placeholder="Search for product">
