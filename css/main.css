@@ -8,6 +8,11 @@
 body {
 	width: 100vw;
 	overflow-x: hidden;
+	-ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 .dark__transparent__background {
