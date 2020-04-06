@@ -34,10 +34,10 @@
       <a href="#" onclick="toggleSideMenu()">about us</a>
     </div>
     <div class="login__menu">
-      <form class="" action="index.html" method="post">
+      <form class="" action="index.php" method="post">
         <div class="field__center username">
           <div class="input__icon">
-            <input type="text" class="input__glow" name="username" value="" placeholder="Your username">
+            <input type="text" class="input__glow" required name="username" value="" placeholder="Your username">
             <div class="icon__snap__field">
               <div class="icon__snap__field__relative">
                 <i class="fas fa-user-shield fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -47,7 +47,7 @@
         </div>
         <div class="field__center password">
           <div class="input__icon">
-            <input type="password" class="input__glow" name="password" value="" placeholder="*****">
+            <input type="password" class="input__glow" required name="password" value="" placeholder="*****">
             <div class="icon__snap__field">
               <div class="icon__snap__field__relative">
                 <i class="fas fa-key fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -65,7 +65,7 @@
     <form action="index.php" class="register__menu" method="post">
       <div class="register__left" style="margin-top: 3em">
         <div class="input__icon">
-          <input type="text" class="input__glow" name="username" placeholder="Your username">
+          <input type="text" class="input__glow" required name="username" placeholder="Your username">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-user-shield fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -73,7 +73,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <input type="password" class="input__glow" name="password" placeholder="Your password">
+          <input type="password" class="input__glow" required name="password" placeholder="Your password">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-key fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -81,7 +81,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <input type="password" class="input__glow" name="repassword" placeholder="Confirm your password">
+          <input type="password" class="input__glow" required name="repassword" placeholder="Confirm your password">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-key fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -89,7 +89,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <input type="password" class="input__glow" name="name" placeholder="Your full name">
+          <input type="text" class="input__glow" required name="name" placeholder="Your full name">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-user-alt fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -97,7 +97,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <input type="password" class="input__glow" name="lastname" placeholder="Your lastname">
+          <input type="text" class="input__glow" required name="lastname" placeholder="Your lastname">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-users fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -105,7 +105,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <input type="text" class="input__glow" name="email" placeholder="Your email address">
+          <input type="email" class="input__glow" required name="email" placeholder="Your email address">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-envelope fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -113,7 +113,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <input type="text" class="input__glow" name="phonenumber" placeholder="Your phone number">
+          <input type="text" class="input__glow" required name="phonenumber" placeholder="Your phone number">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-phone-alt fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -123,7 +123,7 @@
       </div>
       <div class="register__right">
         <div class="input__icon" style="margin-top: 3em">
-          <input type="text" class="input__glow" name="address1" placeholder="Your home address">
+          <input type="text" class="input__glow" required name="address1" placeholder="Your home address">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-house-user fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -139,7 +139,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <input type="text" class="input__glow" name="city" placeholder="City you lived in">
+          <input type="text" class="input__glow" required name="city" placeholder="City you lived in">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-building fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -147,7 +147,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <input type="text" class="input__glow" name="state" placeholder="State you lived in">
+          <input type="text" class="input__glow" required name="state" placeholder="State you lived in">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-city fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -155,7 +155,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <input type="text" class="input__glow" name="province" placeholder="Province you lived in">
+          <input type="text" class="input__glow" required name="province" placeholder="Province you lived in">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-city fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -163,7 +163,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <input type="text" class="input__glow" name="postcode" placeholder="Your postcode">
+          <input type="text" class="input__glow" required name="postcode" placeholder="Your postcode">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-shipping-fast fa-lg fa-fw input__snap" aria-hidden="true"></i>
