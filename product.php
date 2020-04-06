@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="webfontkit/stylesheet.css">
     <title>Product</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="script.js" charset="utf-8"></script>
   </head>
   <body>
     <?php
@@ -31,7 +33,7 @@
         <?php
       }
       ?>
-      <a href="#" onclick="toggleSideMenu()">about us</a>
+      <a href="index.php?q=about" onclick="toggleSideMenu()">about us</a>
     </div>
     <div class="login__menu">
       <form class="" action="index.php" method="post">
@@ -288,7 +290,5 @@
       </div>
     </section>
   </body>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="script.js" charset="utf-8"></script>
   <script src="https://kit.fontawesome.com/115266479a.js" crossorigin="anonymous"></script>
 </html>
