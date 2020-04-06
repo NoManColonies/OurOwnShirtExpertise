@@ -186,7 +186,7 @@
       </button>
       <a class="anchor" href="index.php">home</a>
       <button type="button" class="search" onclick="searchPreparePage()" name="search">product</button>
-      <a class="anchor" href="#">about us</a>
+      <a class="anchor" href="index.php?q=about">about us</a>
       <div class="login verticle__center">
         <div class="search__group">
           <input type="text" class="search__field" name="find" placeholder="Search for product">
