@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="webfontkit/stylesheet.css">
     <title>Product</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="script.js" charset="utf-8"></script>
   </head>
   <body>
     <?php
@@ -288,7 +290,5 @@
       </div>
     </section>
   </body>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="script.js" charset="utf-8"></script>
   <script src="https://kit.fontawesome.com/115266479a.js" crossorigin="anonymous"></script>
 </html>
