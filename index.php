@@ -30,7 +30,7 @@
       <a href="#" onclick="toggleSideMenu()">home</a>
       <button class="button" name="button" onclick="searchPreparePage();toggleSideMenu();">product</button>
       <?php
-      if ($session['session_valid']) {
+      if (!$session['session_valid']) {
         ?>
         <button class="button" name="button" onclick="toggleSideMenu();toggleLoginMenu();">login</button>
         <a href="#" onclick="toggleSideMenu()">register</a>
@@ -99,16 +99,12 @@
     <div class="slider__container">
       <slider>
         <slide>
-          <p>Slide 1</p>
         </slide>
         <slide>
-          <p>Slide 2</p>
         </slide>
         <slide>
-          <p>Slide 3</p>
         </slide>
         <slide>
-          <p>Slide 4</p>
         </slide>
       </slider>
     </div>
