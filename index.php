@@ -8,21 +8,39 @@
   </head>
   <body>
     <?php
-    require_once('.confiq/confiq.php');
+    require_once('.confiq/auth_confiq.php');
     $session = session_restore_result($connect, $server_url);
     if ($session['auth_key_valid']) {
       $connect->close();
+      $listmanager->close();
       header("Location: http://worawanbydiistudent.store/admin.php");
       exit();
     } else if (isset($_REQUEST['login'])) {
       if ((!is_null($_REQUEST['username']) || !is_null($_REQUEST['password'])) && !isset($_SESSION['current_userid']) && !isset($_SESSION['encrypted_hash_key1'])) {
         if (!login_result($connect, $server_url, $_REQUEST['username'], $_REQUEST['password'])) {
-          login_retry_redirect($connect, "Incorrect username or password.");
+          //login_retry_redirect($connect, "Incorrect username or password.");
+          alert_message("Incorret username or password.");
         } else {
           $connect->close();
+          $listmanager->close();
           header("Location: https://worawanbydiistudent.store/index.php");
           exit();
         }
+      }
+    } else if (!is_null($_REQUEST['username']) && !is_null($_REQUEST['password'])) {
+      $array_of_error_code = register_result($connect, $listmanager, $_REQUEST['username'], $_REQUEST['password'], $_REQUEST['repassword'], $_REQUEST['name'], $_REQUEST['lastname'], $_REQUEST['address1'], $_REQUEST['address2'], $_REQUEST['city'], $_REQUEST['state'], $_REQUEST['province'], $_REQUEST[postcode'], $_REQUEST['phonenumber'], $_REQUEST['email']);
+      if (!$array_of_error_code['username_valid']) {
+        $listmanager->close();
+        log_alert($connect, "Your username was already taken.");
+        header("Location: https://worawanbydiistudent.store/login/register.php");
+        exit();
+      } else if (!$array_of_error_code['password_valid']) {
+        log_alert($connect, "Password did not match or was null.");
+      } else {
+        $listmanager->close();
+        $connect->close();
+        header("Location: https://worawanbydiistudent.store/index.php");
+        exit();
       }
     }
     ?>
@@ -33,7 +51,7 @@
       if (!$session['session_valid']) {
         ?>
         <button class="button" name="button" onclick="toggleSideMenu();toggleLoginMenu();">login</button>
-        <a href="#" onclick="toggleSideMenu()">register</a>
+        <a href="#" onclick="toggleSideMenu();toggleRegisterMenu();">register</a>
         <?php
       } else {
         ?>
@@ -45,29 +63,149 @@
       <a href="#" onclick="toggleSideMenu()">about us</a>
     </div>
     <div class="login__menu">
-      <i class="fas fa-times" onclick="toggleLoginMenu()"></i>
       <form class="" action="index.php" method="post">
         <div class="field__center username">
           <div class="input__icon">
             <input type="text" class="input__glow" name="username" value="" placeholder="Your username">
-            <i class="fa fa-user fa-lg fa-fw input__snap" aria-hidden="true"></i>
+            <div class="icon__snap__field">
+              <div class="icon__snap__field__relative">
+                <i class="fas fa-user-shield fa-lg fa-fw input__snap" aria-hidden="true"></i>
+              </div>
+            </div>
           </div>
         </div>
         <div class="field__center password">
           <div class="input__icon">
             <input type="password" class="input__glow" name="password" value="" placeholder="*****">
-            <i class="fas fa-key fa-lg fa-fw input__snap" aria-hidden="true"></i>
+            <div class="icon__snap__field">
+              <div class="icon__snap__field__relative">
+                <i class="fas fa-key fa-lg fa-fw input__snap" aria-hidden="true"></i>
+              </div>
+            </div>
           </div>
         </div>
         <div class="field__center login__button__field">
-          <button type="button" class="button__icon button__green" name="register"><i class="fas fa-file-contract"></i>register</button>
+          <button type="button" class="button__icon button__green" name="register" onclick="toggleLoginMenu();toggleRegisterMenu();"><i class="fas fa-file-contract"></i>register</button>
           <button type="submit" class="button__icon button__blue" name="login"><i class="fas fa-sign-in-alt"></i>login</button>
         </div>
       </form>
+      <i class="fas fa-times close__icon" onclick="toggleLoginMenu()"></i>
     </div>
+    <form action="index.php" class="register__menu" method="post">
+      <div class="register__left" style="margin-top: 3em">
+        <div class="input__icon">
+          <input type="text" class="input__glow" name="username" placeholder="Your username">
+          <div class="icon__snap__field">
+            <div class="icon__snap__field__relative">
+              <i class="fas fa-user-shield fa-lg fa-fw input__snap" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="input__icon">
+          <input type="password" class="input__glow" name="password" placeholder="Your password">
+          <div class="icon__snap__field">
+            <div class="icon__snap__field__relative">
+              <i class="fas fa-key fa-lg fa-fw input__snap" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="input__icon">
+          <input type="password" class="input__glow" name="repassword" placeholder="Confirm your password">
+          <div class="icon__snap__field">
+            <div class="icon__snap__field__relative">
+              <i class="fas fa-key fa-lg fa-fw input__snap" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="input__icon">
+          <input type="password" class="input__glow" name="name" placeholder="Your full name">
+          <div class="icon__snap__field">
+            <div class="icon__snap__field__relative">
+              <i class="fas fa-user-alt fa-lg fa-fw input__snap" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="input__icon">
+          <input type="password" class="input__glow" name="lastname" placeholder="Your lastname">
+          <div class="icon__snap__field">
+            <div class="icon__snap__field__relative">
+              <i class="fas fa-users fa-lg fa-fw input__snap" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="input__icon">
+          <input type="text" class="input__glow" name="email" placeholder="Your email address">
+          <div class="icon__snap__field">
+            <div class="icon__snap__field__relative">
+              <i class="fas fa-envelope fa-lg fa-fw input__snap" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="input__icon">
+          <input type="text" class="input__glow" name="phonenumber" placeholder="Your phone number">
+          <div class="icon__snap__field">
+            <div class="icon__snap__field__relative">
+              <i class="fas fa-phone-alt fa-lg fa-fw input__snap" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="register__right">
+        <div class="input__icon" style="margin-top: 3em">
+          <input type="text" class="input__glow" name="address1" placeholder="Your home address">
+          <div class="icon__snap__field">
+            <div class="icon__snap__field__relative">
+              <i class="fas fa-house-user fa-lg fa-fw input__snap" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="input__icon">
+          <input type="text" class="input__glow" name="address2" placeholder="Optional home address">
+          <div class="icon__snap__field">
+            <div class="icon__snap__field__relative">
+              <i class="fas fa-house-user fa-lg fa-fw input__snap" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="input__icon">
+          <input type="text" class="input__glow" name="city" placeholder="City you lived in">
+          <div class="icon__snap__field">
+            <div class="icon__snap__field__relative">
+              <i class="fas fa-building fa-lg fa-fw input__snap" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="input__icon">
+          <input type="text" class="input__glow" name="state" placeholder="State you lived in">
+          <div class="icon__snap__field">
+            <div class="icon__snap__field__relative">
+              <i class="fas fa-city fa-lg fa-fw input__snap" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="input__icon">
+          <input type="text" class="input__glow" name="province" placeholder="Province you lived in">
+          <div class="icon__snap__field">
+            <div class="icon__snap__field__relative">
+              <i class="fas fa-city fa-lg fa-fw input__snap" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="input__icon">
+          <input type="text" class="input__glow" name="postcode" placeholder="Your postcode">
+          <div class="icon__snap__field">
+            <div class="icon__snap__field__relative">
+              <i class="fas fa-shipping-fast fa-lg fa-fw input__snap" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <i class="fas fa-times close__icon" onclick="toggleRegisterMenu()"></i>
+      <button type="submit" name="button" class="button__icon button__green field__center" style="bottom: 20%"><i class="fas fa-file-contract"></i>register</button>
+    </form>
     <span class="dark__transparent__background" id="dark1" onclick="toggleSideMenu()"></span>
     <span class="dark__transparent__background" id="dark2" onclick="toggleLoginMenu()"></span>
-    <span class="dark__transparent__background" id="dark3" onclick=""></span>
+    <span class="dark__transparent__background" id="dark3" onclick="toggleRegisterMenu()"></span>
     <header>DII Samorasriworawan Shop</header>
     <nav class="floating">
       <button class="menu verticle__center" onclick="toggleSideMenu()">
@@ -108,7 +246,7 @@
         </slide>
       </slider>
     </div>
-    <div class="header">
+    <div class="header" id="product">
       <p>Our Items</p>
     </div>
     <section class="product">
@@ -203,6 +341,7 @@
 
     </section>
   </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="script.js" charset="utf-8"></script>
   <script src="https://kit.fontawesome.com/115266479a.js" crossorigin="anonymous"></script>
 </html>
