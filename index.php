@@ -43,6 +43,13 @@
         exit();
       }
     }
+    if (isset($_REQUEST['q']) && $_REQUEST['q'] === "about") {
+      ?>
+      <script type="text/javascript">
+        aboutPage();
+      </script>
+      <?php
+    }
     ?>
     <div class="side__menu">
       <a href="#" onclick="toggleSideMenu()">home</a>
@@ -60,7 +67,7 @@
         <?php
       }
       ?>
-      <a href="#" onclick="toggleSideMenu()">about us</a>
+      <a href="#" onclick="toggleSideMenu();aboutPage();">about us</a>
     </div>
     <div class="login__menu">
       <form class="" action="index.php" method="post">
@@ -334,7 +341,7 @@
     <div class="header header__hide">
       <button type="button" class="button__icon button__blue" onclick="productPage()"><i class="fas fa-eye"></i>show more</button>
     </div>
-    <div class="header header__top">
+    <div class="header header__top" id="about">
       <p>About Us</p>
     </div>
     <section class="page">

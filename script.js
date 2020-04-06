@@ -38,6 +38,11 @@ const searchPreparePage = () => {
   productHeader.scrollIntoView(true);
 };
 
+const aboutPage = () => {
+  const aboutHeader = document.querySelector('#about');
+  aboutHeader.scrollIntoView(true);
+};
+
 const toggleSideMenu = () => {
   const target = document.querySelector('.side__menu');
   const background = document.querySelector('#dark1');

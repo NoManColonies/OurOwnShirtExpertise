@@ -31,7 +31,7 @@
         <?php
       }
       ?>
-      <a href="#" onclick="toggleSideMenu()">about us</a>
+      <a href="index.php?q=about" onclick="toggleSideMenu()">about us</a>
     </div>
     <div class="login__menu">
       <form class="" action="index.php" method="post">
