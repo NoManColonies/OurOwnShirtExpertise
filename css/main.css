@@ -609,7 +609,7 @@ slide:nth-child(1) {
 	left: 0%;
 	-webkit-animation-delay: -1s;
 	animation-delay: -1s;
-	background-image: url(../pic/head1.png);
+	background-image: url(../pic/head.png);
 	-webkit-background-size: cover;
 	background-size: cover;
 	background-position: center;
@@ -618,7 +618,7 @@ slide:nth-child(1) {
 slide:nth-child(2) {
 	-webkit-animation-delay: 2s;
 	animation-delay: 2s;
-	background-image: url(../pic/head2.png);
+	background-image: url(../pic/head1.png);
 	-webkit-background-size: cover;
 	background-size: cover;
 	background-position: center;
@@ -627,7 +627,7 @@ slide:nth-child(2) {
 slide:nth-child(3) {
 	-webkit-animation-delay: 5s;
 	animation-delay: 5s;
-	background-image: url(../pic/head3.png);
+	background-image: url(../pic/head2.png);
 	-webkit-background-size: cover;
 	background-size: cover;
 	background-position: center;
@@ -636,7 +636,7 @@ slide:nth-child(3) {
 slide:nth-child(4) {
 	-webkit-animation-delay: 8s;
 	animation-delay: 8s;
-	background-image: url(../pic/head4.png);
+	background-image: url(../pic/head3.png);
 	-webkit-background-size: cover;
 	background-size: cover;
 	background-position: center;
