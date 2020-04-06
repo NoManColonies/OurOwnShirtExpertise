@@ -45,7 +45,7 @@
         exit();
       }
     }
-    if (isset($_REQUEST['q']) && $_REQUEST['q'] === "about") {
+    if (isset($_REQUEST['q']) && $_REQUEST['q'] == "about") {
       ?>
       <script type="text/javascript">
         aboutPage();
@@ -69,7 +69,7 @@
         <?php
       }
       ?>
-      <a href="#" onclick="toggleSideMenu();aboutPage();">about us</a>
+      <button type="button" class="button" name="button" onclick="toggleSideMenu();aboutPage();">about us</button>
     </div>
     <div class="login__menu">
       <form class="" action="index.php" method="post">
@@ -222,7 +222,7 @@
       </button>
       <a class="anchor" href="#">home</a>
       <button type="button" class="search" onclick="searchPreparePage()" name="search">product</button>
-      <a class="anchor" href="#">about us</a>
+      <button type="button" class="button" onclick="aboutPage()">about us</button>
       <div class="login verticle__center">
         <form class="search__group" action="product.php" method="post">
           <input type="text" class="search__field" name="find" placeholder="Search for product">

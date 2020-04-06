@@ -570,6 +570,10 @@ nav > .anchor:hover::after {
 	transform-origin: left;
 }
 
+nav .button + .button {
+	margin-left: 1.5em;
+}
+
 nav a ~ a {
 	margin-left: 1.5em;
 }
