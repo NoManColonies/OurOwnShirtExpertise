@@ -163,7 +163,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <input type="text" class="input__glow" required name="postcode" placeholder="Your postcode">
+          <input type="number" class="input__glow" required name="postcode" placeholder="Your postcode">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-shipping-fast fa-lg fa-fw input__snap" aria-hidden="true"></i>
