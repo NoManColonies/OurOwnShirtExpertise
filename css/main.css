@@ -276,11 +276,7 @@ input.input__glow:focus {
 	margin-top: 16em;
 }
 
-.input__icon > input[type=text].input__glow {
-	padding-left: 55px;
-}
-
-.input__icon > input[type=password].input__glow {
+.input__icon > .input__glow {
 	padding-left: 55px;
 }
 
