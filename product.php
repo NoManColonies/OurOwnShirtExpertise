@@ -4,30 +4,19 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="webfontkit/stylesheet.css">
-    <title>Home</title>
+    <title>Product</title>
   </head>
   <body>
     <?php
     require_once('.confiq/confiq.php');
     $session = session_restore_result($connect, $server_url);
     if ($session['auth_key_valid']) {
-      $connect->close();
-      header("Location: http://worawanbydiistudent.store/admin.php");
+      header("Location: https://worawanbydiistudent.store/admin.php");
       exit();
-    } else if (isset($_REQUEST['login'])) {
-      if ((!is_null($_REQUEST['username']) || !is_null($_REQUEST['password'])) && !isset($_SESSION['current_userid']) && !isset($_SESSION['encrypted_hash_key1'])) {
-        if (!login_result($connect, $server_url, $_REQUEST['username'], $_REQUEST['password'])) {
-          login_retry_redirect($connect, "Incorrect username or password.");
-        } else {
-          $connect->close();
-          header("Location: https://worawanbydiistudent.store/index.php");
-          exit();
-        }
-      }
     }
     ?>
     <div class="side__menu">
-      <a href="#" onclick="toggleSideMenu()">home</a>
+      <a href="index.php" onclick="toggleSideMenu()">home</a>
       <button class="button" name="button" onclick="searchPreparePage();toggleSideMenu();">product</button>
       <?php
       if ($session['session_valid']) {
@@ -46,7 +35,7 @@
     </div>
     <div class="login__menu">
       <i class="fas fa-times" onclick="toggleLoginMenu()"></i>
-      <form class="" action="index.php" method="post">
+      <form class="" action="index.html" method="post">
         <div class="field__center username">
           <div class="input__icon">
             <input type="text" class="input__glow" name="username" value="" placeholder="Your username">
@@ -73,16 +62,16 @@
       <button class="menu verticle__center" onclick="toggleSideMenu()">
         <i class="fas fa-bars"></i>
       </button>
-      <a class="anchor" href="#">home</a>
+      <a class="anchor" href="index.php">home</a>
       <button type="button" class="search" onclick="searchPreparePage()" name="search">product</button>
       <a class="anchor" href="#">about us</a>
       <div class="login verticle__center">
-        <form class="search__group" action="product.php" method="post">
+        <div class="search__group">
           <input type="text" class="search__field" name="find" placeholder="Search for product">
-          <button type="submit" name="search" class="search__button">
+          <button type="button" name="search" class="search__button" onclick="">
             <i class="fas fa-search search__icon"></i>
           </button>
-        </form>
+        </div>
         <?php
         if ($session['session_valid']) {
           ?>
@@ -96,26 +85,7 @@
         ?>
       </div>
     </nav>
-    <div class="slider__container">
-      <slider>
-        <slide>
-          <p>Slide 1</p>
-        </slide>
-        <slide>
-          <p>Slide 2</p>
-        </slide>
-        <slide>
-          <p>Slide 3</p>
-        </slide>
-        <slide>
-          <p>Slide 4</p>
-        </slide>
-      </slider>
-    </div>
-    <div class="header">
-      <p>Our Items</p>
-    </div>
-    <section class="product">
+    <section class="product" style="margin-top: 5rem">
       <div class="product__container">
         <img src="pic/fem1.jpg" alt="">
         <div class="desc">
@@ -196,15 +166,6 @@
           <button type="button" class="add__to__cart" name="add"><i class="fas fa-cart-arrow-down"></i>add to cart</button>
         </div>
       </div>
-    </section>
-    <div class="header header__hide">
-      <button type="button" class="button__icon button__blue" onclick="productPage()"><i class="fas fa-eye"></i>show more</button>
-    </div>
-    <div class="header header__top">
-      <p>About Us</p>
-    </div>
-    <section class="page">
-
     </section>
   </body>
   <script src="script.js" charset="utf-8"></script>
