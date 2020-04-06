@@ -595,7 +595,7 @@ nav a ~ a {
 
 .slider__container {
 	width: 100vw;
-	min-height: 50vh;
+	min-height: 40vh;
 	position: relative;
 }
 
@@ -607,7 +607,7 @@ slider {
 	-ms-transform: translateX(-50%);
 	transform: translateX(-50%);
 	width: 80%;
-	min-height: 50vh;
+	min-height: 40vh;
 	background-color: #1f1f1f;
 	overflow: hidden;
 	position: absolute;
