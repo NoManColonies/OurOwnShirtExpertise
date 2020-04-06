@@ -28,7 +28,7 @@
         }
       }
     } else if (!is_null($_REQUEST['username']) && !is_null($_REQUEST['password'])) {
-      $array_of_error_code = register_result($connect, $listmanager, $_REQUEST['username'], $_REQUEST['password'], $_REQUEST['repassword'], $_REQUEST['name'], $_REQUEST['lastname'], $_REQUEST['address1'], $_REQUEST['address2'], $_REQUEST['city'], $_REQUEST['state'], $_REQUEST['province'], $_REQUEST[postcode'], $_REQUEST['phonenumber'], $_REQUEST['email']);
+      $array_of_error_code = register_result($connect, $listmanager, $_REQUEST['username'], $_REQUEST['password'], $_REQUEST['repassword'], $_REQUEST['name'], $_REQUEST['lastname'], $_REQUEST['address1'], $_REQUEST['address2'], $_REQUEST['city'], $_REQUEST['state'], $_REQUEST['province'], $_REQUEST['postcode'], $_REQUEST['phonenumber'], $_REQUEST['email']);
       if (!$array_of_error_code['username_valid']) {
         $listmanager->close();
         log_alert($connect, "Your username was already taken.");
