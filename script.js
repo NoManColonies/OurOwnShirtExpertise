@@ -27,19 +27,56 @@ $(document).ready(function() {
     } else {
       xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
-    $(this).html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>add to cart");
     var tempEntity = $(this);
+    tempEntity.html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>add to cart");
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         if (this.responseText == "") {
           alert("Failed to add product to your cart.");
         } else {
-          alert("Success!");
           tempEntity.html("<i class=\"fas fa-cart-arrow-down\"></i>add to cart");
         }
       }
     };
-    xmlhttp.open("GET", "user/add_to_cart.php?q=" + $(this).data("valueq"), true);
+    xmlhttp.open("GET", "user/add_to_cart.php?q=" + tempEntity.data("valueq"), true);
+    xmlhttp.send();
+  });
+
+  $(".button__cart__remove").click(function() {
+    if (window.XMLHttpRequest) {
+      xmlhttp = new XMLHttpRequest();
+    } else {
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    var tempEntity = $(this);
+    tempEntity.html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>remove");
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        if (this.responseText == "") {
+          alert("Failed to remove product from your cart.");
+        } else {
+          if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+          } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+          }
+          var cartRow = document.querySelector('.menu__cart__group');
+          cartRow.innerHTML = "<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>";
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              if (this.responseText == "") {
+                window.location = "index.php";
+              } else {
+                cartRow.innerHTML = this.responseText;
+              }
+            }
+          };
+          xmlhttp.open("GET", ".confiq/cartlist.php", true);
+          xmlhttp.send();
+        }
+      }
+    };
+    xmlhttp.open("GET", "user/remove_from_cart.php?q=" + tempEntity.data("valueq") + "&a=" + tempEntity.data("valuea"), true);
     xmlhttp.send();
   });
 
