@@ -7,7 +7,7 @@
   <body>
     <?php
     require_once('../.confiq/auth_confiq.php');
-    if (add_to_cart($connect, $listmanager, $_REQUEST['q'], 1)) {
+    if (add_to_cart($connect, $listmanager, $_REQUEST['q'], 1, true)) {
       echo "q";
     } else {
       echo "";

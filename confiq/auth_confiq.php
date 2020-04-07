@@ -55,7 +55,7 @@ function register_result(mysqli $connect, mysqli $listmanager, $username, $vulne
     'email_valid' => true
   ];
 }
-function add_to_cart(mysqli $connect, mysqli $listmanager, $product_code, $amount) {
+function add_to_cart(mysqli $connect, mysqli $listmanager, $product_code, $amount, $update) {
   $retrieve_product_result = $connect->query("select * from producttable where productcode='".$product_code."'");
   if (empty($retrieve_product_result->num_rows)) {
     alert_message("Product does not exists.");
@@ -71,7 +71,11 @@ function add_to_cart(mysqli $connect, mysqli $listmanager, $product_code, $amoun
     $look_for_existing_product_result = $listmanager->query("select * from ".$_SESSION['current_userid']."_cartlist where itemcode='".$product_code."' and status=1");
     if ($look_for_existing_product_result->num_rows == 1) {
       $cart_row = $look_for_existing_product_result->fetch_assoc();
-      $add_to_cart_result = $listmanager->query("update ".$_SESSION['current_userid']."_cartlist set itemqty=".$amount." where itemcode='".$product_code."' and status=1");
+      if ($update) {
+        $add_to_cart_result = $listmanager->query("update ".$_SESSION['current_userid']."_cartlist set itemqty=".($cart_row['itemqty'] + $amount)." where itemcode='".$product_code."' and status=1");
+      } else {
+        $add_to_cart_result = $listmanager->query("update ".$_SESSION['current_userid']."_cartlist set itemqty=".$amount." where itemcode='".$product_code."' and status=1");
+      }
       if (!$add_to_cart_result) {
         alert_message("Failed to add to cart at section 1. error code : ".$listmanager->errno);
         return false;

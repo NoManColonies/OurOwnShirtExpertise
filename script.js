@@ -121,22 +121,22 @@ const toggleCartMenu = () => {
   }
 };
 
-const addToCart = (value) => {
+const addToCart = (valueQ) => {
   if (window.XMLHttpRequest) {
     xmlhttp = new XMLHttpRequest();
   } else {
     xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
   }
-  $(this).html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>add to cart");
+  $("[value=valueQ]").html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>add to cart");
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       if (this.responseText == "") {
         alert("Failed to add product to your cart.");
       } else {
-        $(this).html("<i class=\"fas fa-cart-arrow-down\"></i>add to cart");
+        $("[value=valueQ]").html("<i class=\"fas fa-cart-arrow-down\"></i>add to cart");
       }
     }
   };
-  xmlhttp.open("GET", "user/add_to_cart.php?q=" + value, true);
+  xmlhttp.open("GET", "user/add_to_cart.php?q=" + valueQ, true);
   xmlhttp.send();
 };
