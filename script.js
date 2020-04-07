@@ -43,6 +43,7 @@ $(document).ready(function() {
   });
 
   $(".button__cart__remove").click(function() {
+    alert("Clicked!");
     if (window.XMLHttpRequest) {
       xmlhttp = new XMLHttpRequest();
     } else {
