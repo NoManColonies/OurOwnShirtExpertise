@@ -264,9 +264,9 @@
       <button type="button" class="menu verticle__center" onclick="toggleSideMenu()">
         <i class="fas fa-bars fa-lg fa-fw menu__icon" aria-hidden="true"></i>
       </button>
-      <a class="anchor scroll" href="#home">home</a>
+      <a class="anchor scroll" href="index.php#home">home</a>
       <a class="anchor scroll" href="#product">product</a>
-      <a class="anchor scroll" href="#about">about us</a>
+      <a class="anchor scroll" href="index.php#about">about us</a>
       <div class="login verticle__center">
         <form class="search__group" action="product.php" method="post">
           <input type="text" class="search__field" name="find" placeholder="Search for product">
