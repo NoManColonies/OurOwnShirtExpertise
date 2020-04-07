@@ -9,15 +9,15 @@
   <body>
     <?php
     require_once('.confiq/auth_confiq.php');
-    $session = session_restore_result($connect, $server_url);
+    $session = session_auth_check($connect);
     if ($session['auth_key_valid']) {
       $connect->close();
       $listmanager->close();
       header("Location: http://worawanbydiistudent.store/admin.php");
       exit();
     } else if (isset($_REQUEST['login'])) {
-      if ((!is_null($_REQUEST['username']) || !is_null($_REQUEST['password'])) && !isset($_SESSION['current_userid']) && !isset($_SESSION['encrypted_hash_key1'])) {
-        if (!login_result($connect, $server_url, $_REQUEST['username'], $_REQUEST['password'])) {
+      if ((!is_null($_REQUEST['username']) || !is_null($_REQUEST['password'])) && !isset($_SESSION['current_userid']) && !isset($_SESSION['encrypted_hash_key'])) {
+        if (!login_result($connect, $_REQUEST['username'], $_REQUEST['password'])) {
           //login_retry_redirect($connect, "Incorrect username or password.");
           alert_message("Incorret username or password.");
         } else {
@@ -212,71 +212,11 @@
         <div class="menu__cart__header">
           <span class="cart__header">Your cart items</span>
           <p class="menu__cart__product__name">Name</p>
-          <p class="menu__cart__product__qty">Quantity</p>
           <p class="menu__cart__product__price">Price</p>
+          <p class="menu__cart__product__qty">Quantity</p>
           <p class="menu__cart__product__action">Action</p>
         </div>
         <div class="menu__cart__group">
-          <div class="menu__cart__field">
-            <p class="menu__cart__product__name">Example1</p>
-            <p class="menu__cart__product__qty">Example1</p>
-            <p class="menu__cart__product__price">Example1</p>
-            <div class="menu__cart__product__action">
-              <div class="menu__cart__action">
-                <button class="button__icon button__green"><i class="fas fa-cloud-upload-alt"></i>Update</button>
-                <button class="button__icon button__blue"><i class="fas fa-eye"></i>View</button>
-                <button class="button__icon button__red"><i class="fas fa-trash-alt"></i>Remove</button>
-              </div>
-            </div>
-          </div>
-          <div class="menu__cart__field">
-            <p class="menu__cart__product__name">Example2</p>
-            <p class="menu__cart__product__qty">Example2</p>
-            <p class="menu__cart__product__price">Example2</p>
-            <div class="menu__cart__product__action">
-              <div class="menu__cart__action">
-                <button class="button__icon button__green"><i class="fas fa-cloud-upload-alt"></i>Update</button>
-                <button class="button__icon button__blue"><i class="fas fa-eye"></i>View</button>
-                <button class="button__icon button__red"><i class="fas fa-trash-alt"></i>Remove</button>
-              </div>
-            </div>
-          </div>
-          <div class="menu__cart__field">
-            <p class="menu__cart__product__name">Example3</p>
-            <p class="menu__cart__product__qty">Example3</p>
-            <p class="menu__cart__product__price">Example3</p>
-            <div class="menu__cart__product__action">
-              <div class="menu__cart__action">
-                <button class="button__icon button__green"><i class="fas fa-cloud-upload-alt"></i>Update</button>
-                <button class="button__icon button__blue"><i class="fas fa-eye"></i>View</button>
-                <button class="button__icon button__red"><i class="fas fa-trash-alt"></i>Remove</button>
-              </div>
-            </div>
-          </div>
-          <div class="menu__cart__field">
-            <p class="menu__cart__product__name">Example4</p>
-            <p class="menu__cart__product__qty">Example4</p>
-            <p class="menu__cart__product__price">Example4</p>
-            <div class="menu__cart__product__action">
-              <div class="menu__cart__action">
-                <button class="button__icon button__green"><i class="fas fa-cloud-upload-alt"></i>Update</button>
-                <button class="button__icon button__blue"><i class="fas fa-eye"></i>View</button>
-                <button class="button__icon button__red"><i class="fas fa-trash-alt"></i>Remove</button>
-              </div>
-            </div>
-          </div>
-          <div class="menu__cart__field">
-            <p class="menu__cart__product__name">Example5</p>
-            <p class="menu__cart__product__qty">Example5</p>
-            <p class="menu__cart__product__price">Example5</p>
-            <div class="menu__cart__product__action">
-              <div class="menu__cart__action">
-                <button class="button__icon button__green"><i class="fas fa-cloud-upload-alt"></i>Update</button>
-                <button class="button__icon button__blue"><i class="fas fa-eye"></i>View</button>
-                <button class="button__icon button__red"><i class="fas fa-trash-alt"></i>Remove</button>
-              </div>
-            </div>
-          </div>
         </div>
         <i class="fas fa-times close__icon" onclick="toggleCartMenu()"></i>
       </div>

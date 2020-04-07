@@ -45,8 +45,8 @@ function random_string() {
   }
   return $random_string;
 }
-function session_auth_check(mysqli $connect, $server_url) {
-  $session = session_restore_result($connect, $server_url);
+function session_auth_check(mysqli $connect) {
+  $session = session_restore_result($connect);
   if ($session['session_valid']) {
     if (password_verify('', $session['auth_key'])) {
       return [
@@ -66,8 +66,8 @@ function session_auth_check(mysqli $connect, $server_url) {
     ];
   }
 }
-function session_restore_result(mysqli $connect, $server_url) {
-  if(isset($_SESSION['current_userid']) && !is_null($_SESSION['current_userid']) && isset($_SESSION['encrypted_hash_key1']) && !is_null($_SESSION['encrypted_hash_key1'])) {
+function session_restore_result(mysqli $connect) {
+  if(isset($_SESSION['current_userid']) && !is_null($_SESSION['current_userid']) && isset($_SESSION['encrypted_hash_key']) && !is_null($_SESSION['encrypted_hash_key'])) {
     $userid = $_SESSION['current_userid'];
     $server_decrypted_hash_key = $connect->query("select * from usercredentials where userid='".$userid."'");
     if ($server_decrypted_hash_key->num_rows == 0) {
@@ -79,10 +79,10 @@ function session_restore_result(mysqli $connect, $server_url) {
       ];
     }
     $row = $server_decrypted_hash_key->fetch_assoc();
-    if (password_verify($row['userhashkey'], $_SESSION['encrypted_hash_key1'])) {
+    if (password_verify($row['userhashkey'], $_SESSION['encrypted_hash_key'])) {
       $decrypted_hash_key = random_string();
       $encrypted_hash_key = argon2_encrypt($decrypted_hash_key);
-      $_SESSION['encrypted_hash_key1'] = $encrypted_hash_key;
+      $_SESSION['encrypted_hash_key'] = $encrypted_hash_key;
       $_SESSION['current_userid'] = $userid;
       $hash_key_update_result = $connect->query("update usercredentials set userhashkey='".$decrypted_hash_key."' where userid='".$userid."'");
       if (!$hash_key_update_result) {
@@ -93,75 +93,16 @@ function session_restore_result(mysqli $connect, $server_url) {
           'auth_key' => NULL
         ];
       }
-      $decrypted_hash_key = random_string();
-      $encrypted_hash_key = argon2_encrypt($decrypted_hash_key);
-      $_SESSION['encrypted_hash_key2'] = $encrypted_hash_key;
-      $hash_key_update_result = $connect->query("update usercredentials set usersecondhashkey='".$decrypted_hash_key."' where userid='".$userid."'");
-      if (!$hash_key_update_result) {
-        alert_message("Failed to secure second hashkey. error code : ".$connect->errno);
-      } else {
-        $decrypted_hash_key = random_string();
-        $encrypted_hash_key = argon2_encrypt($decrypted_hash_key);
-        $_SESSION['encrypted_hash_key3'] = $encrypted_hash_key;
-        $hash_key_update_result = $connect->query("update usercredentials set userbackuphashkey='".$decrypted_hash_key."' where userid='".$userid."'");
-        if (!$hash_key_update_result) {
-          alert_message("Failed to secure backup hashkey. error code : ".$connect->errno);
-        }
-      }
       return [
         'session_valid' => true,
         'auth_key' => $row['useraccesskey']
-      ];
-    } else if (password_verify($row['usersecondhashkey'], $_SESSION['encrypted_hash_key2']) && !is_null($_SESSION['encrypted_hash_key2'])) {
-      $decrypted_hash_key = random_string();
-      $encrypted_hash_key = argon2_encrypt($decrypted_hash_key);
-      $_SESSION['encrypted_hash_key1'] = $encrypted_hash_key;
-      $_SESSION['current_userid'] = $userid;
-      $_SESSION['encrypted_hash_key2'] = null;
-      $hash_key_update_result = $connect->query("update usercredentials set userhashkey='".$decrypted_hash_key."', usersecondhashkey=NULL where userid='".$userid."'");
-      if (!$hash_key_update_result) {
-        alert_message("Failed to update userhashkey. error code : ".$connect->errno);
-        session_unset();
-        return [
-          'session_valid' => false,
-          'auth_key' => NULL
-        ];
-      }
-      return [
-        'session_valid' => true,
-        'auth_key' => $row['useraccesskey']
-      ];
-    } else if (password_verify($row['userbackuphashkey'], $_SESSION['encrypted_hash_key3']) && !is_null($_SESSION['encrypted_hash_key3'])) {
-      $decrypted_hash_key = random_string();
-      $encrypted_hash_key = argon2_encrypt($decrypted_hash_key);
-      $_SESSION['encrypted_hash_key1'] = $encrypted_hash_key;
-      $_SESSION['current_userid'] = $userid;
-      $_SESSION['encrypted_hash_key2'] = null;
-      $_SESSION['encrypted_hash_key3'] = null;
-      $hash_key_update_result = $connect->query("update usercredentials set userhashkey='".$decrypted_hash_key."', usersecondhashkey=NULL, userbackuphashkey=NULL, usersessionip=NULL where userid='".$userid."'");
-      if (!$hash_key_update_result) {
-        alert_message("Failed to update userhashkey. error code : ".$connect->errno);
-        session_unset();
-        return [
-          'session_valid' => false,
-          'auth_key' => NULL
-        ];
-      }
-      return [
-        'session_valid' => true,
-        'auth_key' => $row['useraccesskey']
-      ];
-    } else {
-      $hash_key_update_result = $connect->query("update usercredentials set userhashkey=NULL, usersecondhashkey=NULL, userbackuphashkey=NULL where userid='".$userid."'");
-      if (!$hash_key_update_result) {
-        alert_message("Destroy server hashkey failed. userid : '".$userid."' doesn't exists on server. this shouldn't occur as we already checked before. error code : ".$connect->errno);
-      }
-      session_unset();
-      return [
-        'session_valid' => false,
-        'auth_key' => NULL
       ];
     }
+    session_unset();
+    return [
+      'session_valid' => false,
+      'auth_key' => NULL
+    ];
   } else {
     session_unset();
     return [
@@ -170,7 +111,7 @@ function session_restore_result(mysqli $connect, $server_url) {
     ];
   }
 }
-function login_result(mysqli $connect, $server_url, $username, $vulnerable_password) {
+function login_result(mysqli $connect, $username, $vulnerable_password) {
   if (is_null($username)) {
     $try_to_get_passkey_tmp_string = ['userpassword' => 'keynotavailable'];
   } else {
@@ -184,27 +125,12 @@ function login_result(mysqli $connect, $server_url, $username, $vulnerable_passw
   if (password_verify($vulnerable_password, $row['userpassword'])) {
     $decrypted_hash_key_tmp = random_string();
     $encrypted_hash_key_tmp = argon2_encrypt($decrypted_hash_key_tmp);
-    $_SESSION['encrypted_hash_key1'] = $encrypted_hash_key_tmp;
+    $_SESSION['encrypted_hash_key'] = $encrypted_hash_key_tmp;
     $_SESSION['current_userid'] = $username;
     $hash_key_update_result = $connect->query("update usercredentials set userhashkey='".$decrypted_hash_key_tmp."' where userid='".$username."'");
     if(!$hash_key_update_result) {
       alert_message("Process failed during server userhashkey update : ".$username.". hashkey : ".$decrypted_hash_key_tmp.". error code : ".$connect->errno.". logging out...");
-    } else {
-      $decrypted_hash_key_tmp = random_string();
-      $encrypted_hash_key_tmp = argon2_encrypt($decrypted_hash_key_tmp);
-      $_SESSION['encrypted_hash_key2'] = $encrypted_hash_key_tmp;
-      $hash_key_update_result = $connect->query("update usercredentials set usersecondhashkey='".$decrypted_hash_key_tmp."' where userid='".$username."'");
-      if (!$hash_key_update_result) {
-        alert_message("Failed to secure second hashkey. error code : ".$connect->errno);
-      } else {
-        $decrypted_hash_key_tmp = random_string();
-        $encrypted_hash_key_tmp = argon2_encrypt($decrypted_hash_key_tmp);
-        $_SESSION['encrypted_hash_key3'] = $encrypted_hash_key_tmp;
-        $hash_key_update_result = $connect->query("update usercredentials set userbackuphashkey='".$decrypted_hash_key_tmp."' where userid='".$username."'");
-        if (!$hash_key_update_result) {
-          alert_message("Failed to secure backup hashkey. error code : ".$connect->errno);
-        }
-      }
+      return false;
     }
     return true;
   }
