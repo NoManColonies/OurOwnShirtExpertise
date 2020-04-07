@@ -105,9 +105,10 @@ const toggleCartMenu = () => {
     } else {
       xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
+    var cartRow = document.querySelector('.menu__cart__group');
+    cartRow.innerHTML = "<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" aria-hidden=\"true\"></i>Loading please wait.</p>";
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        var cartRow = document.querySelector('.menu__cart__group');
         if (this.responseText == "") {
           window.location = "index.php";
         } else {
