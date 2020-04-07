@@ -246,7 +246,7 @@
         <?php
         if ($session['session_valid']) {
           ?>
-          <button class="login__button" onclick="toggleCartMenu()">cart</button>
+          <button class="login__button" onclick="toggleCartMenu()"><i class="fas fa-shopping-basket"></i>cart</button>
           <?php
         } else {
           ?>
