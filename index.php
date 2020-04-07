@@ -293,8 +293,8 @@
                   <?php
                 } else {
                   ?>
-                  <p class="product__price discounted"><?php echo $product_row['productprice']; ?></p>
-                  <p class="product__discounted__price"><?php echo $product_row['productdprice']; ?></p>
+                  <p class="product__price discounted"><?php echo $product_row['productprice']; ?>฿</p>
+                  <p class="product__discounted__price"><?php echo $product_row['productdprice']; ?>฿</p>
                   <?php
                 }
                 ?>
