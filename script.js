@@ -106,7 +106,7 @@ const toggleCartMenu = () => {
       xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     var cartRow = document.querySelector('.menu__cart__group');
-    cartRow.innerHTML = "<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" aria-hidden=\"true\"></i>Loading please wait.</p>";
+    cartRow.innerHTML = "<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>";
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         if (this.responseText == "") {
