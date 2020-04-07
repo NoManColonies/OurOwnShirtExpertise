@@ -652,6 +652,10 @@ nav.floating {
 	border-radius: 30px;
 }
 
+.login__button > i {
+	margin-right: .5em;
+}
+
 nav a {
 	font-family: 'gidoleregular';
 	text-decoration: none;
