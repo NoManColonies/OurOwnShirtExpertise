@@ -161,6 +161,44 @@ const toggleCartMenu = () => {
                         window.location = "index.php";
                       } else {
                         cartRow.innerHTML = this.responseText;
+                        $(".button__cart__remove").click(function() {
+                          alert("Clicked!");
+                          if (window.XMLHttpRequest) {
+                            xmlhttp = new XMLHttpRequest();
+                          } else {
+                            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                          }
+                          var tempEntity = $(this);
+                          tempEntity.html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>remove");
+                          xmlhttp.onreadystatechange = function() {
+                            if (this.readyState == 4 && this.status == 200) {
+                              if (this.responseText == "") {
+                                alert("Failed to remove product from your cart.");
+                              } else {
+                                if (window.XMLHttpRequest) {
+                                  xmlhttp = new XMLHttpRequest();
+                                } else {
+                                  xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                                }
+                                var cartRow = document.querySelector('.menu__cart__group');
+                                cartRow.innerHTML = "<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>";
+                                xmlhttp.onreadystatechange = function() {
+                                  if (this.readyState == 4 && this.status == 200) {
+                                    if (this.responseText == "") {
+                                      window.location = "index.php";
+                                    } else {
+                                      cartRow.innerHTML = this.responseText;
+                                    }
+                                  }
+                                };
+                                xmlhttp.open("GET", ".confiq/cartlist.php", true);
+                                xmlhttp.send();
+                              }
+                            }
+                          };
+                          xmlhttp.open("GET", "user/remove_from_cart.php?q=" + tempEntity.data("valueq") + "&a=" + tempEntity.data("valuea"), true);
+                          xmlhttp.send();
+                        });
                       }
                     }
                   };
