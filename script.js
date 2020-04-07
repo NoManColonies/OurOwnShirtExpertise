@@ -28,13 +28,14 @@ $(document).ready(function() {
       xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     $(this).html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>add to cart");
+    var tempEntity = $(this);
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         if (this.responseText == "") {
           alert("Failed to add product to your cart.");
         } else {
           alert("Success!");
-          $(this).html("<i class=\"fas fa-cart-arrow-down\"></i>add to cart");
+          tempEntity.html("<i class=\"fas fa-cart-arrow-down\"></i>add to cart");
         }
       }
     };
