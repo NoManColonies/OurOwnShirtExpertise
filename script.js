@@ -127,13 +127,13 @@ const addToCart = (valueQ) => {
   } else {
     xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
   }
-  $("[value=valueQ]").html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>add to cart");
+  $("[valueQ]").html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>add to cart");
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       if (this.responseText == "") {
         alert("Failed to add product to your cart.");
       } else {
-        $("[value=valueQ]").html("<i class=\"fas fa-cart-arrow-down\"></i>add to cart");
+        $("[valueQ]").html("<i class=\"fas fa-cart-arrow-down\"></i>add to cart");
       }
     }
   };
