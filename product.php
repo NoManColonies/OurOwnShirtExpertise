@@ -272,7 +272,8 @@
                   ?>
                 </div>
               <?php
-              } else if (!is_null($product_row['productlength'])) {
+              }
+              if (!is_null($product_row['productlength'])) {
                 ?>
                 <div class="product__spec">
                   <p class="product__size__tag">length :</p>
@@ -284,6 +285,14 @@
                     <?php
                   }
                   ?>
+                </div>
+                <?php
+              }
+              if (!is_null($product_row['productgender'])) {
+                ?>
+                <div class="product__gender__group">
+                  <p class="product__gender__tag">gender :</p>
+                  <p class="product__gender"><?php echo $product_row['productgender']; ?></p>
                 </div>
                 <?php
               }
