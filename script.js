@@ -103,7 +103,7 @@ const toggleCartMenu = () => {
         }
       }
     };
-    xmlhttp.open("GET","cartlist.php",true);
+    xmlhttp.open("GET",".confiq/cartlist.php",true);
     xmlhttp.send();
   }
 };
