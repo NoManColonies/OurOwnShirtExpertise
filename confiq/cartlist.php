@@ -28,7 +28,7 @@
           ]);
           $counter++;
         }
-        while ($cart_row = $retrieve_cart_list->fetch_assoc()) {
+        while ($cart_row = $cart_list->fetch_assoc()) {
           $product_index = array_search($cart_row['itemcode'], $product_array, false);
           echo "<div class=\"menu__cart__field\"><p class=\"menu__cart__product__name\">".$product_array['productname'.$product_index]."</p><p class=\"menu__cart__product__price\">".$product_array['productprice'.$product_index]."</p><p class=\"menu__cart__product__qty\">".$cart_row['itemqty']."</p><div class=\"menu__cart__product__action\"><div class=\"menu__cart__action\"><button class=\"button__icon button__green\"><i class=\"fas fa-cloud-upload-alt\"></i>Update</button><button class=\"button__icon button__blue\"><i class=\"fas fa-eye\"></i>View</button><button class=\"button__icon button__red\"><i class=\"fas fa-trash-alt\"></i>Remove</button></div></div></div>";
         }
