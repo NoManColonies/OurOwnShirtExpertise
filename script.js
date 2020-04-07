@@ -9,6 +9,9 @@ $(document).ready(function() {
 
   var scrollTeleport = $('.scroll');
   scrollTeleport.click(function(e) {
+    if (document.querySelector('#about') == null || document.querySelector('#home') == null) {
+      return;
+    }
     e.preventDefault();
     $('body,html').animate({
       scrollTop: $(this.hash).offset().top
