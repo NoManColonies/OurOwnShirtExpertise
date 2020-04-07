@@ -7,6 +7,25 @@ $(document).ready(function() {
     $(this).siblings('.icon__snap__field').removeClass('focus');
   });
 
+  var scrollTeleport = $('.scroll');
+  scrollTeleport.click(function(e) {
+    e.preventDefault();
+    $('body,html').animate({
+      scrollTop: $(this.hash).offset().top
+    }, 500);
+  });
+
+  $(window).scroll(function() {
+    var scrollbarLocation = $(this).scrollTop();
+    scrollTeleport.each(function() {
+      var sectionOffset = $(this.hash).offset().top - 100;
+      if (sectionOffset <= scrollbarLocation) {
+        $(this).addClass('active');
+        $(this).siblings().removeClass('active');
+      }
+    });
+  });
+
   const trigger = document.querySelector('header');
   const navBar = document.querySelector('nav');
   const menu = document.querySelector('.menu');
@@ -33,16 +52,6 @@ $(document).ready(function() {
   navBarObserver.observe(trigger);
 });
 
-const searchPreparePage = () => {
-  const productHeader = document.querySelector('#product');
-  productHeader.scrollIntoView(true);
-};
-
-const aboutPage = () => {
-  const aboutHeader = document.querySelector('#about');
-  aboutHeader.scrollIntoView(true);
-};
-
 const toggleSideMenu = () => {
   const target = document.querySelector('.side__menu');
   const background = document.querySelector('#dark1');
@@ -65,5 +74,12 @@ const toggleRegisterMenu = () => {
   const target = document.querySelector('.register__menu');
   const background = document.querySelector('#dark3');
   target.classList.toggle('activeRegisterMenu');
+  background.classList.toggle('activeDarkenBackground');
+};
+
+const toggleCartMenu = () => {
+  const target = document.querySelector('.menu__cart');
+  const background = document.querySelector('#dark4');
+  target.classList.toggle('activeCartMenu');
   background.classList.toggle('activeDarkenBackground');
 };
