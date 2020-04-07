@@ -5,8 +5,6 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="webfontkit/stylesheet.css">
     <title>Home</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="script.js" charset="utf-8"></script>
   </head>
   <body>
     <?php
@@ -45,31 +43,26 @@
         exit();
       }
     }
-    if (isset($_REQUEST['q']) && $_REQUEST['q'] == "about") {
-      ?>
-      <script type="text/javascript">
-        aboutPage();
-      </script>
-      <?php
-    }
     ?>
     <div class="side__menu">
-      <a href="#" onclick="toggleSideMenu()">home</a>
-      <button class="button" name="button" onclick="searchPreparePage();toggleSideMenu();">product</button>
-      <?php
-      if (!$session['session_valid']) {
-        ?>
-        <button class="button" name="button" onclick="toggleSideMenu();toggleLoginMenu();">login</button>
-        <a href="#" onclick="toggleSideMenu();toggleRegisterMenu();">register</a>
+      <div class="side__menu__group">
+        <a href="#home" class="scroll" onclick="toggleSideMenu()">home</a>
+        <a href="#product" class="scroll" onclick="toggleSideMenu()">product</a>
         <?php
-      } else {
+        if (!$session['session_valid']) {
+          ?>
+          <button class="button" name="button" onclick="toggleSideMenu();toggleLoginMenu();">login</button>
+          <button class="button" name="button" onclick="toggleSideMenu();toggleRegisterMenu();">register</button>
+          <?php
+        } else {
+          ?>
+          <button class="button" name="button" onclick="toggleSideMenu();toggleCartMenu();">your cart</button>
+          <a href="user/logout.php" onclick="toggleSideMenu()">logout</a>
+          <?php
+        }
         ?>
-        <button class="button" name="button" onclick="toggleSideMenu()">your cart</button>
-        <a href="user/logout.php" onclick="toggleSideMenu()">logout</a>
-        <?php
-      }
-      ?>
-      <button type="button" class="button" name="button" onclick="toggleSideMenu();aboutPage();">about us</button>
+        <a href="#about" class="scroll" onclick="toggleSideMenu();">about us</a>
+      </div>
     </div>
     <div class="login__menu">
       <form class="" action="index.php" method="post">
@@ -212,28 +205,108 @@
       <i class="fas fa-times close__icon" onclick="toggleRegisterMenu()"></i>
       <button type="submit" name="button" class="button__icon button__green field__center" style="bottom: 20%"><i class="fas fa-file-contract"></i>register</button>
     </form>
+    <?php
+    if ($session['session_valid']) {
+      ?>
+      <div class="menu__cart">
+        <div class="menu__cart__header">
+          <span class="cart__header">Your cart items</span>
+          <p class="menu__cart__product__name">Name</p>
+          <p class="menu__cart__product__qty">Quantity</p>
+          <p class="menu__cart__product__price">Price</p>
+          <p class="menu__cart__product__action">Action</p>
+        </div>
+        <div class="menu__cart__group">
+          <div class="menu__cart__field">
+            <p class="menu__cart__product__name">Example1</p>
+            <p class="menu__cart__product__qty">Example1</p>
+            <p class="menu__cart__product__price">Example1</p>
+            <div class="menu__cart__product__action">
+              <div class="menu__cart__action">
+                <button class="button__icon button__green"><i class="fas fa-cloud-upload-alt"></i>Update</button>
+                <button class="button__icon button__blue"><i class="fas fa-eye"></i>View</button>
+                <button class="button__icon button__red"><i class="fas fa-trash-alt"></i>Remove</button>
+              </div>
+            </div>
+          </div>
+          <div class="menu__cart__field">
+            <p class="menu__cart__product__name">Example2</p>
+            <p class="menu__cart__product__qty">Example2</p>
+            <p class="menu__cart__product__price">Example2</p>
+            <div class="menu__cart__product__action">
+              <div class="menu__cart__action">
+                <button class="button__icon button__green"><i class="fas fa-cloud-upload-alt"></i>Update</button>
+                <button class="button__icon button__blue"><i class="fas fa-eye"></i>View</button>
+                <button class="button__icon button__red"><i class="fas fa-trash-alt"></i>Remove</button>
+              </div>
+            </div>
+          </div>
+          <div class="menu__cart__field">
+            <p class="menu__cart__product__name">Example3</p>
+            <p class="menu__cart__product__qty">Example3</p>
+            <p class="menu__cart__product__price">Example3</p>
+            <div class="menu__cart__product__action">
+              <div class="menu__cart__action">
+                <button class="button__icon button__green"><i class="fas fa-cloud-upload-alt"></i>Update</button>
+                <button class="button__icon button__blue"><i class="fas fa-eye"></i>View</button>
+                <button class="button__icon button__red"><i class="fas fa-trash-alt"></i>Remove</button>
+              </div>
+            </div>
+          </div>
+          <div class="menu__cart__field">
+            <p class="menu__cart__product__name">Example4</p>
+            <p class="menu__cart__product__qty">Example4</p>
+            <p class="menu__cart__product__price">Example4</p>
+            <div class="menu__cart__product__action">
+              <div class="menu__cart__action">
+                <button class="button__icon button__green"><i class="fas fa-cloud-upload-alt"></i>Update</button>
+                <button class="button__icon button__blue"><i class="fas fa-eye"></i>View</button>
+                <button class="button__icon button__red"><i class="fas fa-trash-alt"></i>Remove</button>
+              </div>
+            </div>
+          </div>
+          <div class="menu__cart__field">
+            <p class="menu__cart__product__name">Example5</p>
+            <p class="menu__cart__product__qty">Example5</p>
+            <p class="menu__cart__product__price">Example5</p>
+            <div class="menu__cart__product__action">
+              <div class="menu__cart__action">
+                <button class="button__icon button__green"><i class="fas fa-cloud-upload-alt"></i>Update</button>
+                <button class="button__icon button__blue"><i class="fas fa-eye"></i>View</button>
+                <button class="button__icon button__red"><i class="fas fa-trash-alt"></i>Remove</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <i class="fas fa-times close__icon" onclick="toggleCartMenu()"></i>
+      </div>
+      <?php
+    }
+    ?>
     <span class="dark__transparent__background" id="dark1" onclick="toggleSideMenu()"></span>
     <span class="dark__transparent__background" id="dark2" onclick="toggleLoginMenu()"></span>
     <span class="dark__transparent__background" id="dark3" onclick="toggleRegisterMenu()"></span>
+    <span class="dark__transparent__background" id="dark4" onclick="toggleCartMenu()"></span>
+    <span id="home"></span>
     <header>DII Samorasriworawan Shop</header>
     <nav class="floating">
-      <button class="menu verticle__center" onclick="toggleSideMenu()">
-        <i class="fas fa-bars"></i>
+      <button type="button" class="menu verticle__center" onclick="toggleSideMenu()">
+        <i class="fas fa-bars fa-lg fa-fw menu__icon" aria-hidden="true"></i>
       </button>
-      <a class="anchor" href="#">home</a>
-      <button type="button" class="search" onclick="searchPreparePage()" name="search">product</button>
-      <button type="button" class="search" onclick="aboutPage()">about us</button>
+      <a class="anchor scroll" href="#home">home</a>
+      <a class="anchor scroll" href="#product">product</a>
+      <a class="anchor scroll" href="#about">about us</a>
       <div class="login verticle__center">
         <form class="search__group" action="product.php" method="post">
           <input type="text" class="search__field" name="find" placeholder="Search for product">
           <button type="submit" name="search" class="search__button">
-            <i class="fas fa-search search__icon"></i>
+            <i class="fas fa-search fa-lg fa-fw search__icon" aria-hidden="true"></i>
           </button>
         </form>
         <?php
         if ($session['session_valid']) {
           ?>
-          <button class="login__button" onclick="">cart</button>
+          <button class="login__button" onclick="toggleCartMenu()">cart</button>
           <?php
         } else {
           ?>
@@ -255,7 +328,8 @@
         </slide>
       </slider>
     </div>
-    <div class="header" id="product">
+    <span id="product"></span>
+    <div class="header">
       <p>Our Items</p>
     </div>
     <section class="product">
@@ -339,11 +413,52 @@
           <button type="button" class="add__to__cart" name="add"><i class="fas fa-cart-arrow-down"></i>add to cart</button>
         </div>
       </div>
+      <div class="product__container">
+        <img src="pic/fem4.jpg" alt="">
+        <div class="desc">
+          <p class="product__name">Fem4</p>
+          <p class="product__detail">an ordinary female skirt.</p>
+        </div>
+        <div class="spec">
+          <div class="product__spec">
+            <p class="product__size__tag">size :</p>
+            <p class="product__size">s</p>
+            <p class="product__size">m</p>
+            <p class="product__size">l</p>
+          </div>
+          <div class="product__price__group">
+            <p class="product__price__tag">price :</p>
+            <p class="product__price">300฿</p>
+          </div>
+          <button type="button" class="add__to__cart" name="add"><i class="fas fa-cart-arrow-down"></i>add to cart</button>
+        </div>
+      </div>
+      <div class="product__container">
+        <img src="pic/fem4.jpg" alt="">
+        <div class="desc">
+          <p class="product__name">Fem4</p>
+          <p class="product__detail">an ordinary female skirt.</p>
+        </div>
+        <div class="spec">
+          <div class="product__spec">
+            <p class="product__size__tag">size :</p>
+            <p class="product__size">s</p>
+            <p class="product__size">m</p>
+            <p class="product__size">l</p>
+          </div>
+          <div class="product__price__group">
+            <p class="product__price__tag">price :</p>
+            <p class="product__price">300฿</p>
+          </div>
+          <button type="button" class="add__to__cart" name="add"><i class="fas fa-cart-arrow-down"></i>add to cart</button>
+        </div>
+      </div>
     </section>
     <div class="header header__hide">
       <button type="button" class="button__icon button__blue" onclick="productPage()"><i class="fas fa-eye"></i>show more</button>
     </div>
-    <div class="header header__top" id="about">
+    <span id="about"></span>
+    <div class="header header__top">
       <p>About Us</p>
     </div>
     <section class="page">
@@ -351,4 +466,6 @@
     </section>
   </body>
   <script src="https://kit.fontawesome.com/115266479a.js" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="script.js" charset="utf-8"></script>
 </html>
