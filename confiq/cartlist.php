@@ -35,12 +35,12 @@
         $listmanager->close();
         $connect->close();
       } else {
-        echo "nothing";
+        echo "<p class=\"cart__no__result\">Nothing was found in your cart.</p>";
         $listmanager->close();
         $connect->close();
       }
     } else {
-      echo "notvalid";
+      echo "";
       $listmanager->close();
       $connect->close();
     }

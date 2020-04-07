@@ -7,6 +7,20 @@ $(document).ready(function() {
     $(this).siblings('.icon__snap__field').removeClass('focus');
   });
 
+  $('.button__hover__expand').hover(function() {
+    $(this).css({"margin-right": ".7em"});
+    $(this).html("<i class=\"fas fa-external-link-alt\" aria-hidden=\"true\"></i>more info");
+    $(this).children().css({"margin-right": "1.25em"});
+    $(this).siblings().html("<i class=\"fas fa-cart-arrow-down\"></i>");
+    $(this).siblings().children().css({"margin-right": "0"});
+  }, function() {
+    $(this).css({"margin-right": "0"});
+    $(this).html("<i class=\"fas fa-external-link-alt\" aria-hidden=\"true\"></i>");
+    $(this).children().css({"margin-right": "0"});
+    $(this).siblings().html("<i class=\"fas fa-cart-arrow-down\"></i>add to cart");
+    $(this).siblings().children().css({"margin-right": "1em"});
+  });
+
   var scrollTeleport = $('.scroll');
   scrollTeleport.click(function(e) {
     if (document.querySelector('#about') == null || document.querySelector('#home') == null) {
@@ -94,16 +108,14 @@ const toggleCartMenu = () => {
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         var cartRow = document.querySelector('.menu__cart__group');
-        if (this.responseText == "nothing") {
-          cartRow.innerHTML = "<p class=\"cart__no__result\">Nothing was found in your cart.</p>"
-        } else if (this.responseText == "notvalid") {
+        if (this.responseText == "") {
           window.location = "index.php";
         } else {
           cartRow.innerHTML = this.responseText;
         }
       }
     };
-    xmlhttp.open("GET",".confiq/cartlist.php",true);
+    xmlhttp.open("GET", ".confiq/cartlist.php", true);
     xmlhttp.send();
   }
 };

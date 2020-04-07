@@ -208,7 +208,7 @@
       <a class="anchor scroll" href="#product">product</a>
       <a class="anchor scroll" href="index.php#about">about us</a>
       <div class="login verticle__center">
-        <form class="search__group" action="product.php" method="post">
+        <form class="search__group" action="" method="post">
           <input type="text" class="search__field" name="find" placeholder="Search for product">
           <button type="submit" name="search" class="search__button">
             <i class="fas fa-search fa-lg fa-fw search__icon" aria-hidden="true"></i>
@@ -229,126 +229,88 @@
     </nav>
     <span id="product"></span>
     <section class="product">
-      <div class="product__container">
-        <img src="pic/fem1.jpg" alt="">
-        <div class="desc">
-          <p class="product__name">Fem1</p>
-          <p class="product__detail">an ordinary female t-shirt.</p>
-        </div>
-        <div class="spec">
-          <div class="product__spec">
-            <p class="product__size__tag">size :</p>
-            <p class="product__size">s</p>
-            <p class="product__size">m</p>
-            <p class="product__size">l</p>
+      <?php
+      $retreive_product_result = $connect->query("select * from producttable");
+      if (!empty($retreive_product_result->num_rows)) {
+        $counter = 0;
+        while ($product_row = $retreive_product_result->fetch_assoc()) {
+          ?>
+          <div class="product__container">
+            <img src="<?php echo "images/".$product_row['productimagepath']; ?>" alt="">
+            <div class="desc">
+              <p class="product__name"><?php echo $product_row['productname']; ?></p>
+              <p class="product__detail"><?php echo $product_row['producttitle']; ?></p>
+              <div class="product__price__group">
+                <p class="product__price__tag">price :</p>
+                <?php
+                if (is_null($product_row['productdprice'])) {
+                  ?>
+                  <p class="product__price"><?php echo $product_row['productprice']; ?>฿</p>
+                  <?php
+                } else {
+                  ?>
+                  <p class="product__price discounted"><?php echo $product_row['productprice']; ?></p>
+                  <p class="product__discounted__price"><?php echo $product_row['productdprice']; ?></p>
+                  <?php
+                }
+                ?>
+              </div>
+            </div>
+            <div class="spec">
+              <?php
+              if (!is_null($product_row['productsize'])) {
+                ?>
+                <div class="product__spec">
+                  <p class="product__size__tag">size :</p>
+                  <?php
+                  $length = strlen($product_row['productsize']);
+                  for ($i = 0; $i < $length; $i++) {
+                    ?>
+                    <p class="product__size"><?php echo $product_row['productsize'][$i]; ?></p>
+                    <?php
+                  }
+                  ?>
+                </div>
+              <?php
+              }
+              if (!is_null($product_row['productlength'])) {
+                ?>
+                <div class="product__spec">
+                  <p class="product__size__tag">length :</p>
+                  <?php
+                  $length = strlen($product_row['productlength']);
+                  for ($i = 0; $i < $length; $i++) {
+                    ?>
+                    <p class="product__size"><?php echo $product_row['productlength'][$i]; ?></p>
+                    <?php
+                  }
+                  ?>
+                </div>
+                <?php
+              }
+              if (!is_null($product_row['productgender'])) {
+                ?>
+                <div class="product__gender__group">
+                  <p class="product__gender__tag">gender :</p>
+                  <p class="product__gender"><?php echo $product_row['productgender']; ?></p>
+                </div>
+                <?php
+              }
+              ?>
+              <div class="product__button__group">
+                <button type="button" class="inspect__item button__green button__hover__expand"><i class="fas fa-external-link-alt" aria-hidden="true"></i></button>
+                <button type="button" class="add__to__cart button__blue" name="add"><i class="fas fa-cart-arrow-down" aria-hidden="true"></i>add to cart</button>
+              </div>
+            </div>
           </div>
-          <div class="product__price__group">
-            <p class="product__price__tag">price :</p>
-            <p class="product__price">300฿</p>
-          </div>
-          <button type="button" class="add__to__cart" name="add"><i class="fas fa-cart-arrow-down"></i>add to cart</button>
-        </div>
-      </div>
-      <div class="product__container">
-        <img src="pic/fem2.jpg" alt="">
-        <div class="desc">
-          <p class="product__name">Fem2</p>
-          <p class="product__detail">an ordinary female skirt.</p>
-        </div>
-        <div class="spec">
-          <div class="product__spec">
-            <p class="product__size__tag">size :</p>
-            <p class="product__size">s</p>
-            <p class="product__size">m</p>
-            <p class="product__size">l</p>
-          </div>
-          <div class="product__price__group">
-            <p class="product__price__tag">price :</p>
-            <p class="product__price">300฿</p>
-          </div>
-          <button type="button" class="add__to__cart" name="add"><i class="fas fa-cart-arrow-down"></i>add to cart</button>
-        </div>
-      </div>
-      <div class="product__container">
-        <img src="pic/fem3.jpg" alt="">
-        <div class="desc">
-          <p class="product__name">Fem3</p>
-          <p class="product__detail">an ordinary female skirt.</p>
-        </div>
-        <div class="spec">
-          <div class="product__spec">
-            <p class="product__size__tag">size :</p>
-            <p class="product__size">s</p>
-            <p class="product__size">m</p>
-            <p class="product__size">l</p>
-          </div>
-          <div class="product__price__group">
-            <p class="product__price__tag">price :</p>
-            <p class="product__price">300฿</p>
-          </div>
-          <button type="button" class="add__to__cart" name="add"><i class="fas fa-cart-arrow-down"></i>add to cart</button>
-        </div>
-      </div>
-      <div class="product__container">
-        <img src="pic/fem4.jpg" alt="">
-        <div class="desc">
-          <p class="product__name">Fem4</p>
-          <p class="product__detail">an ordinary female skirt.</p>
-        </div>
-        <div class="spec">
-          <div class="product__spec">
-            <p class="product__size__tag">size :</p>
-            <p class="product__size">s</p>
-            <p class="product__size">m</p>
-            <p class="product__size">l</p>
-          </div>
-          <div class="product__price__group">
-            <p class="product__price__tag">price :</p>
-            <p class="product__price">300฿</p>
-          </div>
-          <button type="button" class="add__to__cart" name="add"><i class="fas fa-cart-arrow-down"></i>add to cart</button>
-        </div>
-      </div>
-      <div class="product__container">
-        <img src="pic/fem4.jpg" alt="">
-        <div class="desc">
-          <p class="product__name">Fem4</p>
-          <p class="product__detail">an ordinary female skirt.</p>
-        </div>
-        <div class="spec">
-          <div class="product__spec">
-            <p class="product__size__tag">size :</p>
-            <p class="product__size">s</p>
-            <p class="product__size">m</p>
-            <p class="product__size">l</p>
-          </div>
-          <div class="product__price__group">
-            <p class="product__price__tag">price :</p>
-            <p class="product__price">300฿</p>
-          </div>
-          <button type="button" class="add__to__cart" name="add"><i class="fas fa-cart-arrow-down"></i>add to cart</button>
-        </div>
-      </div>
-      <div class="product__container">
-        <img src="pic/fem4.jpg" alt="">
-        <div class="desc">
-          <p class="product__name">Fem4</p>
-          <p class="product__detail">an ordinary female skirt.</p>
-        </div>
-        <div class="spec">
-          <div class="product__spec">
-            <p class="product__size__tag">size :</p>
-            <p class="product__size">s</p>
-            <p class="product__size">m</p>
-            <p class="product__size">l</p>
-          </div>
-          <div class="product__price__group">
-            <p class="product__price__tag">price :</p>
-            <p class="product__price">300฿</p>
-          </div>
-          <button type="button" class="add__to__cart" name="add"><i class="fas fa-cart-arrow-down"></i>add to cart</button>
-        </div>
-      </div>
+          <?php
+          $counter++;
+          if ($counter > 5) {
+            break;
+          }
+        }
+      }
+      ?>
     </section>
   </body>
   <script src="https://kit.fontawesome.com/115266479a.js" crossorigin="anonymous"></script>
