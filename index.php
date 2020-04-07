@@ -342,8 +342,8 @@
               }
               ?>
               <div class="product__button__group">
-                <button type="button" class="inspect__item button__green button__hover__expand"><i class="fas fa-external-link-alt" aria-hidden="true"></i></button>
-                <button type="button" class="add__to__cart button__blue" name="add"><i class="fas fa-cart-arrow-down" aria-hidden="true"></i>add to cart</button>
+                <button type="button" class="inspect__item button__green button__hover__expand" value="<?php echo $product_row['productcode']; ?>" onclick=""><i class="fas fa-external-link-alt" aria-hidden="true"></i></button>
+                <button type="button" class="add__to__cart button__blue" value="<?php echo $product_row['productcode']; ?>" onclick="addToCart(this.value)" name="add"><i class="fas fa-cart-arrow-down" aria-hidden="true"></i>add to cart</button>
               </div>
             </div>
           </div>
