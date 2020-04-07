@@ -21,6 +21,26 @@ $(document).ready(function() {
     $(this).siblings().children().css({"margin-right": "1em"});
   });
 
+  $(".buy__loggedin").click(function() {
+    if (window.XMLHttpRequest) {
+      xmlhttp = new XMLHttpRequest();
+    } else {
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    $(this).html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>add to cart");
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        if (this.responseText == "") {
+          alert("Failed to add product to your cart.");
+        } else {
+          $(this).html("<i class=\"fas fa-cart-arrow-down\"></i>add to cart");
+        }
+      }
+    };
+    xmlhttp.open("GET", "user/add_to_cart.php?q=" + $(this).data("valueq"), true);
+    xmlhttp.send();
+  });
+
   var scrollTeleport = $('.scroll');
   scrollTeleport.click(function(e) {
     if (document.querySelector('#about') == null || document.querySelector('#home') == null) {
@@ -127,13 +147,13 @@ const addToCart = (valueQ) => {
   } else {
     xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
   }
-  $("[value=valueQ]").html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>add to cart");
+  $("[valueQ]").html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>add to cart");
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       if (this.responseText == "") {
         alert("Failed to add product to your cart.");
       } else {
-        $("[value=valueQ]").html("<i class=\"fas fa-cart-arrow-down\"></i>add to cart");
+        $("[valueQ]").html("<i class=\"fas fa-cart-arrow-down\"></i>add to cart");
       }
     }
   };
