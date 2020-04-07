@@ -85,4 +85,25 @@ const toggleCartMenu = () => {
   const background = document.querySelector('#dark4');
   target.classList.toggle('activeCartMenu');
   background.classList.toggle('activeDarkenBackground');
+  if (target.classList.contains('activeCartMenu')) {
+    if (window.XMLHttpRequest) {
+      xmlhttp = new XMLHttpRequest();
+    } else {
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var cartRow = document.querySelector('.menu__cart__group');
+        if (this.responseText == "nothing") {
+          cartRow.innerHTML = "<p class=\"cart__no__result\">Nothing was found in your cart.</p>"
+        } else if (this.responseText == "notvalid") {
+          window.location = "index.php";
+        } else {
+          cartRow.innerHTML = this.responseText;
+        }
+      }
+    };
+    xmlhttp.open("GET","cartlist.php",true);
+    xmlhttp.send();
+  }
 };
