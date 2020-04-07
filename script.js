@@ -145,7 +145,9 @@ const toggleCartMenu = () => {
 
 const selfReplicatingRemoveCart = () => {
   $(".button__cart__remove").click(function() {
-    alert("Clicked!");
+    if (!confirm("Remove this item?")) {
+      return;
+    }
     if (window.XMLHttpRequest) {
       xmlhttp = new XMLHttpRequest();
     } else {
