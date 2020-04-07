@@ -6,7 +6,7 @@
   </head>
   <body>
     <?php
-    require_once('.auth_confiq.php');
+    require_once('auth_confiq.php');
     $session = session_restore_result($connect);
     if ($session['session_valid']) {
       $cart_list = $listmanager->query("select * from ".$_SESSION['current_userid']."_cartlist where status=1");
