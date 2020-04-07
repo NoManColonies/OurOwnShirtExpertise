@@ -403,7 +403,10 @@ body::-webkit-scrollbar {
 	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 	min-width: 85%;
+}
 
+.menu__cart__action button + button {
+	margin-left: .5rem;
 }
 
 .menu__cart.activeCartMenu {
