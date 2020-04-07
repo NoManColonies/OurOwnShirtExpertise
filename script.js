@@ -127,7 +127,7 @@ const addToCart = (value) => {
   } else {
     xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
   }
-  $(this).html("<i class=\"fas fa-sync fa-spin\"></i>add to cart");
+  $(this).html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>add to cart");
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       if (this.responseText == "") {
