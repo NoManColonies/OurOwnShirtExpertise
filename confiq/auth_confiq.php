@@ -62,18 +62,22 @@ function add_to_cart(mysqli $connect, mysqli $listmanager, $product_code, $amoun
     return false;
   }
   $product_row = $retrieve_product_result->fetch_assoc();
-  if ($product_row['productqty'] < $amount) {
-    alert_message("Order amount is higher than quatity in stock.");
-    return false;
-  }
   $session = session_restore_result($connect);
   if ($session['session_valid']) {
     $look_for_existing_product_result = $listmanager->query("select * from ".$_SESSION['current_userid']."_cartlist where itemcode='".$product_code."' and status=1");
     if ($look_for_existing_product_result->num_rows == 1) {
       $cart_row = $look_for_existing_product_result->fetch_assoc();
       if ($update) {
+        if ($product_row['productqty'] < $amount + $cart_row['itemqty']) {
+          alert_message("Order amount is higher than quatity in stock.");
+          return false;
+        }
         $add_to_cart_result = $listmanager->query("update ".$_SESSION['current_userid']."_cartlist set itemqty=".($cart_row['itemqty'] + $amount)." where itemcode='".$product_code."' and status=1");
       } else {
+        if ($product_row['productqty'] < $amount) {
+          alert_message("Order amount is higher than quatity in stock.");
+          return false;
+        }
         $add_to_cart_result = $listmanager->query("update ".$_SESSION['current_userid']."_cartlist set itemqty=".$amount." where itemcode='".$product_code."' and status=1");
       }
       if (!$add_to_cart_result) {
@@ -82,6 +86,10 @@ function add_to_cart(mysqli $connect, mysqli $listmanager, $product_code, $amoun
       }
       return true;
     } else {
+      if ($product_row['productqty'] < $amount) {
+        alert_message("Order amount is higher than quatity in stock.");
+        return false;
+      }
       $add_to_cart_result = $listmanager->query("insert into ".$_SESSION['current_userid']."_cartlist (cid, itemcode, itemqty) values(NULL, '".$product_code."', ".$amount.")");
       if (!$add_to_cart_result) {
         alert_message("Failed to add to cart at section 2. error code : ".$listmanager->errno);
