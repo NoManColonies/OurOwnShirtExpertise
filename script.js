@@ -158,11 +158,6 @@ const toggleCartMenu = () => {
 };
 
 const selfReplicatingRemoveCart = () => {
-  var targets = document.querySelectorAll('.button__cart__upload');
-  targets.forEach(target => {
-    target.disabled = true;
-  });
-
   $(".menu__cart__product__qty__field").change(function() {
     $("[data-valueq=" + $(this).attr("name") + "]").prop('disabled', false);
   });
