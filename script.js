@@ -7,7 +7,7 @@ $(document).ready(function() {
     $(this).siblings('.icon__snap__field').removeClass('focus');
   });
 
-  $('.button__hover__expand').hover(function() {
+  $('.button__hover__expand__loggedin').hover(function() {
     $(this).css({"margin-right": ".7em"});
     $(this).html("<i class=\"fas fa-external-link-alt\" aria-hidden=\"true\"></i>more info");
     $(this).children().css({"margin-right": "1.25em"});
@@ -18,6 +18,20 @@ $(document).ready(function() {
     $(this).html("<i class=\"fas fa-external-link-alt\" aria-hidden=\"true\"></i>");
     $(this).children().css({"margin-right": "0"});
     $(this).siblings().html("<i class=\"fas fa-cart-arrow-down\"></i>add to cart");
+    $(this).siblings().children().css({"margin-right": "1em"});
+  });
+
+  $('.button__hover__expand__not__loggedin').hover(function() {
+    $(this).css({"margin-right": ".7em"});
+    $(this).html("<i class=\"fas fa-external-link-alt\" aria-hidden=\"true\"></i>more info");
+    $(this).children().css({"margin-right": "1.25em"});
+    $(this).siblings().html("<i class=\"fas fa-shopping-bag\"></i>");
+    $(this).siblings().children().css({"margin-right": "0"});
+  }, function() {
+    $(this).css({"margin-right": "0"});
+    $(this).html("<i class=\"fas fa-external-link-alt\" aria-hidden=\"true\"></i>");
+    $(this).children().css({"margin-right": "0"});
+    $(this).siblings().html("<i class=\"fas fa-shopping-bag\"></i>buy it now");
     $(this).siblings().children().css({"margin-right": "1em"});
   });
 
@@ -144,6 +158,15 @@ const toggleCartMenu = () => {
 };
 
 const selfReplicatingRemoveCart = () => {
+  var targets = document.querySelectorAll('.button__cart__upload');
+  targets.forEach(target => {
+    target.disabled = true;
+  });
+
+  $(".menu__cart__product__qty__field").change(function() {
+    $("[data-valueq=" + $(this).attr("name") + "]").prop('disabled', false);
+  });
+
   $(".button__cart__remove").click(function() {
     if (!confirm("Remove this item?")) {
       return;
@@ -185,6 +208,7 @@ const selfReplicatingRemoveCart = () => {
     xmlhttp.open("GET", "user/remove_from_cart.php?q=" + tempEntity.data("valueq") + "&a=" + tempEntity.data("valuea"), true);
     xmlhttp.send();
   });
+
   $(".button__cart__upload").click(function() {
     if (!confirm("Confirm change?")) {
       return;
