@@ -319,7 +319,7 @@ body::-webkit-scrollbar {
 	-webkit-box-shadow: 0 0 5px black;
 	box-shadow: 0 0 5px black;
 	position: relative;
-	z-index: 14;
+	z-index: 15;
 }
 
 .menu__cart__group {
@@ -369,10 +369,41 @@ body::-webkit-scrollbar {
 	text-align: center;
 	font-family: 'gidoleregular';
 	font-size: 26px;
+	position: relative;
+}
+
+.menu__cart__product__name > p {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	font-family: 'gidoleregular';
+	font-size: 26px;
 }
 
 .menu__cart__product__price {
 	grid-column: 2;
+	text-align: center;
+	font-family: 'gidoleregular';
+	font-size: 26px;
+	position: relative;
+}
+
+.menu__cart__product__price > p {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	font-family: 'gidoleregular';
+	font-size: 26px;
+}
+
+.menu__cart__product__qty__header {
+	grid-column: 3;
 	text-align: center;
 	font-family: 'gidoleregular';
 	font-size: 26px;
@@ -383,9 +414,35 @@ body::-webkit-scrollbar {
 	text-align: center;
 	font-family: 'gidoleregular';
 	font-size: 26px;
+	position: relative;
+}
+
+.menu__cart__product__qty::after {
+	content: '';
+	position: absolute;
+	width: 70%;
+	height: 2px;
+	background-color: black;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	transform: translateX(-50%);
+	bottom: 30%;
+}
+
+.menu__cart__product__qty__field {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 70%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	text-align: center;
+	font-family: 'gidoleregular';
+	font-size: 26px;
 	border: none;
-	width: 50%;
-	border-bottom: 2px solid black;
+	z-index: 14;
 }
 
 .menu__cart__product__action {
@@ -405,11 +462,11 @@ body::-webkit-scrollbar {
 	-webkit-transform: translate(-50%, -50%);
 	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
-	min-width: 85%;
+	min-width: 90%;
 }
 
 .menu__cart__action button + button {
-	margin-left: .5rem;
+	margin-left: .3rem;
 }
 
 .menu__cart.activeCartMenu {

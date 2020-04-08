@@ -184,7 +184,7 @@
           <span class="cart__header">Your cart items</span>
           <p class="menu__cart__product__name">Name</p>
           <p class="menu__cart__product__price">Price</p>
-          <p class="menu__cart__product__qty">Quantity</p>
+          <p class="menu__cart__product__qty__header">Quantity</p>
           <p class="menu__cart__product__action">Action</p>
         </div>
         <div class="menu__cart__group">
