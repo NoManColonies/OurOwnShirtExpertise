@@ -383,6 +383,9 @@ body::-webkit-scrollbar {
 	text-align: center;
 	font-family: 'gidoleregular';
 	font-size: 26px;
+	border: none;
+	width: 50%;
+	border-bottom: 2px solid black;
 }
 
 .menu__cart__product__action {
