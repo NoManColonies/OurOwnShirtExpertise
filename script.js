@@ -160,7 +160,11 @@ const toggleCartMenu = () => {
 const selfReplicatingRemoveCart = () => {
   $(".menu__cart__product__qty__field").change(function() {
     if ($(this).val() != $(this).data("ovalue")) {
-      $("[data-nameq=" + $(this).attr("name") + "]").prop('disabled', false);
+      if (parseInt($(this).attr('max')) >= parseInt($(this).val())) {
+        $("[data-nameq=" + $(this).attr("name") + "]").prop('disabled', false);
+      } else {
+        $("[data-nameq=" + $(this).attr("name") + "]").prop('disabled', true);
+      }
     } else {
       $("[data-nameq=" + $(this).attr("name") + "]").prop('disabled', true);
     }
