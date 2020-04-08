@@ -1,0 +1,212 @@
+$(document).ready(function() {
+  $(".input__glow")
+  .focus(function() {
+    $(this).siblings('.icon__snap__field').addClass('focus');
+  })
+  .focusout(function() {
+    $(this).siblings('.icon__snap__field').removeClass('focus');
+  });
+
+  $('.button__hover__expand__admin').hover(function() {
+    $(this).css({"margin-right": ".7em"});
+    $(this).html("<i class=\"fas fa-server\" aria-hidden=\"true\"></i>update stock");
+    $(this).children().css({"margin-right": "1.25em"});
+    $(this).siblings().html("<i class=\"fas fa-edit\"></i>");
+    $(this).siblings().children().css({"margin-right": "0"});
+  }, function() {
+    $(this).css({"margin-right": "0"});
+    $(this).html("<i class=\"fas fa-server\" aria-hidden=\"true\"></i>");
+    $(this).children().css({"margin-right": "0"});
+    $(this).siblings().html("<i class=\"fas fa-edit\"></i>modify product");
+    $(this).siblings().children().css({"margin-right": "1em"});
+  });
+
+  $(".button__add__product").click(function() {
+    var fd = new FormData();
+    var files = $('#file')[0].files[0];
+    var name = $("[name='productname']")[0];
+    var title = $("[name='producttitle']")[0];
+    var description = $("[name='productdescription']")[0];
+    var price = $("[name='productprice']")[0];
+    var size = $("[name='productsize']")[0];
+    var gender = $("[name='productgender']")[0];
+    var length = $("[name='productlength']")[0];
+    var dprice = $("[name='productdprice']")[0];
+    var imagepath = $("[name='productimagepath']")[0];
+    fd.append('file', files);
+    fd.append('productname', name);
+    fd.append('producttitle', title);
+    fd.append('productdescription', description);
+    fd.append('productprice', price);
+    fd.append('productsize', size);
+    fd.append('productgender', gender);
+    fd.append('productlength', length);
+    fd.append('productdprice', dprice);
+    fd.append('productimagepath', imagepath);
+    var tempEntity = $(this);
+    tempEntity.html("<i class=\"fas fa-sync fa-lg fa-fw fa-spin\"></i>add product");
+    $.ajax({
+        url: 'user/add_new_product.php',
+        type: 'post',
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            if (response != "") {
+                alert(response);
+                tempEntity.html("<i class=\"fas fa-cloud-upload-alt\"></i>add product");
+            } else {
+              tempEntity.html("<i class=\"fas fa-cloud-upload-alt\"></i>add product");
+              window.location = "admin.php";
+            }
+        },
+    });
+  });
+
+  var scrollTeleport = $('.scroll');
+  scrollTeleport.click(function(e) {
+    e.preventDefault();
+    $('body,html').animate({
+      scrollTop: $(this.hash).offset().top
+    }, 500);
+  });
+
+  var scrollTeleport = $('.anchor');
+  $(window).scroll(function() {
+    var scrollbarLocation = $(this).scrollTop();
+    scrollTeleport.each(function() {
+      var sectionOffset = $(this.hash).offset().top - 200;
+      if (sectionOffset <= scrollbarLocation) {
+        $(this).addClass('active');
+        $(this).siblings().removeClass('active');
+      }
+    });
+  });
+
+  const trigger = document.querySelector('header');
+  const navBar = document.querySelector('nav');
+  const menu = document.querySelector('.menu');
+  const login = document.querySelector('.login');
+
+  const navBarOptions = {
+    rootMargin: "50px 0px 0px 0px"
+  };
+
+  const navBarObserver = new IntersectionObserver((entries, navBarObserver) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navBar.classList.add('floating');
+        navBar.classList.remove('fixed');
+        trigger.classList.remove('fixed');
+      } else {
+        navBar.classList.add('fixed');
+        navBar.classList.remove('floating');
+        trigger.classList.add('fixed');
+      }
+    });
+  }, navBarOptions);
+
+  navBarObserver.observe(trigger);
+});
+
+const toggleSideMenu = () => {
+  const target = document.querySelector('.side__menu');
+  const background = document.querySelector('#dark1');
+  target.classList.toggle('activeSideMenu');
+  background.classList.toggle('activeDarkenBackground');
+};
+
+const refreshModifiable = () => {
+  var target = document.querySelector(".product");
+  if (window.XMLHttpRequest) {
+    xmlhttp = new XMLHttpRequest();
+  } else {
+    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  target.innerHTML = "<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>";
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      target.innerHTML = this.responseText;
+      reloadModifiableMenu();
+    }
+  };
+  xmlhttp.open("GET", "user/show_modifiable_product.php", true);
+  xmlhttp.send();
+};
+
+const reloadModifiableMenu = () => {
+  $(".modify__popup").click(function() {
+    var target = document.querySelector('.modify__product__menu');
+    var background = document.querySelector('#dark2');
+    target.classList.toggle('active__modify__menu');
+    background.classList.toggle('activeDarkenBackground');
+    if (target.classList.contains('active__modify__menu')) {
+      var target = document.querySelector('.modify__container');
+      if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+      } else {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      target.innerHTML = "<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>";
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          target.innerHTML = this.responseText;
+          $(document).on('submit', '#modify__popup', function() {
+            var fd = new FormData();
+            var files = $('#file')[0].files[0];
+            var name = $("[name='productname']")[0];
+            var title = $("[name='producttitle']")[0];
+            var description = $("[name='productdescription']")[0];
+            var price = $("[name='productprice']")[0];
+            var size = $("[name='productsize']")[0];
+            var gender = $("[name='productgender']")[0];
+            var length = $("[name='productlength']")[0];
+            var dprice = $("[name='productdprice']")[0];
+            var imagepath = $("[name='productimagepath']")[0];
+            fd.append('file', files);
+            fd.append('productname', name);
+            fd.append('producttitle', title);
+            fd.append('productdescription', description);
+            fd.append('productprice', price);
+            fd.append('productsize', size);
+            fd.append('productgender', gender);
+            fd.append('productlength', length);
+            fd.append('productdprice', dprice);
+            fd.append('productimagepath', imagepath);
+            $(this).html("<i class=\"fas fa-sync fa-lg fa-fw fa-spin\"></i>modify");
+            $.ajax({
+                url: 'user/update_existing_product.php',
+                type: 'post',
+                data: fd,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    if (response != "") {
+                        alert(response);
+                        var tempEntity = document.querySelector('.modify__product__menu');
+                        var background = document.querySelector('#dark2');
+                        if (tempEntity.classList.contains('active__modify__menu')) {
+                          tempEntity.classList.remove('active__modify__menu');
+                          background.classList.remove('activeDarkenBackground');
+                        }
+                        refreshModifiable();
+                    } else {
+                      var tempEntity = document.querySelector('.modify__product__menu');
+                      var background = document.querySelector('#dark2');
+                      if (tempEntity.classList.contains('active__modify__menu')) {
+                        tempEntity.classList.remove('active__modify__menu');
+                        background.classList.remove('activeDarkenBackground');
+                      }
+                      refreshModifiable();
+                    }
+                },
+            });
+            return false;
+          });
+        }
+      };
+      xmlhttp.open("GET", "user/show_modifiable_menu.php?q=" + $(this).data("code"), true);
+      xmlhttp.send();
+    }
+  });
+};
