@@ -952,12 +952,6 @@ slide p {
 	transition: all ease 150ms;
 }
 
-.button__icon:disabled,
-.button__icon[disabled] {
-	background-color: #aaa;
-	color: black;
-}
-
 .button__blue {
 	background-color: #4d82d6;
 }
@@ -988,6 +982,12 @@ slide p {
 
 .button__icon > i {
 	margin-right: .5em;
+}
+
+.button__icon:disabled,
+.button__icon[disabled] {
+	background-color: #aaa;
+	color: black;
 }
 
 .product {
