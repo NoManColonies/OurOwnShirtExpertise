@@ -159,7 +159,9 @@ const toggleCartMenu = () => {
 
 const selfReplicatingRemoveCart = () => {
   $(".menu__cart__product__qty__field").change(function() {
-    $("[data-valueq=" + $(this).attr("name") + "]").prop('disabled', false);
+    if ($(this).val() != $(this).data("ovalue")) {
+      $("[data-valueq=" + $(this).attr("name") + "]").prop('disabled', false);
+    }
   });
 
   $(".button__cart__remove").click(function() {
