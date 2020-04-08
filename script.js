@@ -31,7 +31,7 @@ $(document).ready(function() {
     $(this).css({"margin-right": "0"});
     $(this).html("<i class=\"fas fa-external-link-alt\" aria-hidden=\"true\"></i>");
     $(this).children().css({"margin-right": "0"});
-    $(this).siblings().html("<i class=\"fas fa-shopping-bag\"></i>buy it now");
+    $(this).siblings().html("<i class=\"fas fa-edit\"></i>buy it now");
     $(this).siblings().children().css({"margin-right": "1em"});
   });
 
@@ -155,6 +155,13 @@ const toggleCartMenu = () => {
     xmlhttp.open("GET", ".confiq/cartlist.php", true);
     xmlhttp.send();
   }
+};
+
+const toggleModifyMenu = () => {
+  var target = document.querySelector('.modify__product__menu');
+  var background = document.querySelector('#dark5');
+  target.classList.toggle('active__modify__menu');
+  background.classList.toggle('activeDarkenBackground');
 };
 
 const selfReplicatingRemoveCart = () => {
