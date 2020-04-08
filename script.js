@@ -46,7 +46,7 @@ $(document).ready(function() {
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         if (this.responseText == "") {
-          alert("Failed to add product to your cart.");
+          alert("Your order amount is higher than stock quatity.");
         } else {
           tempEntity.html("<i class=\"fas fa-cart-arrow-down\"></i>add to cart");
         }
