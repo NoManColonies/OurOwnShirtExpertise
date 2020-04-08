@@ -160,9 +160,9 @@ const toggleCartMenu = () => {
 const selfReplicatingRemoveCart = () => {
   $(".menu__cart__product__qty__field").change(function() {
     if ($(this).val() != $(this).data("ovalue")) {
-      $("[data-valueq=" + $(this).attr("name") + "]").prop('disabled', false);
+      $("[data-nameq=" + $(this).attr("name") + "]").prop('disabled', false);
     } else {
-      $("[data-valueq=" + $(this).attr("name") + "]").prop('disabled', true);
+      $("[data-nameq=" + $(this).attr("name") + "]").prop('disabled', true);
     }
   });
 
@@ -246,7 +246,7 @@ const selfReplicatingRemoveCart = () => {
         }
       }
     };
-    xmlhttp.open("GET", "user/update_into_cart.php?q=" + tempEntity.data("valueq") + "&a=" + $("[name=" + tempEntity.data("valueq") + "]").val(), true);
+    xmlhttp.open("GET", "user/update_into_cart.php?q=" + tempEntity.data("nameq") + "&a=" + $("[name=" + tempEntity.data("nameq") + "]").val(), true);
     xmlhttp.send();
   });
 };

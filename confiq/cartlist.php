@@ -34,7 +34,7 @@
           $product_index = array_search($cart_row['itemcode'], $product_array, false);
           echo "<div class=\"menu__cart__field\"><span class=\"menu__cart__product__name\"><p>".$product_array['productname'.$product_index]."</p></span><span class=\"menu__cart__product__price\"><p>".$product_array['productprice'.$product_index]."฿</p></span>";
           echo "<span class=\"menu__cart__product__qty\"><input type=\"number\" class=\"menu__cart__product__qty__field\" name=\"".$cart_row['itemcode']."\" value=\"".$cart_row['itemqty']."\" data-ovalue=\"".$cart_row['itemqty']."\" min=\"1\" max=\"".$product_array['productqty'.$product_index]."\">";
-          echo "</span><div class=\"menu__cart__product__action\"><div class=\"menu__cart__action\"><button type=\"button\" disabled class=\"button__icon button__green button__cart__upload\" data-valueq=\"".$cart_row['itemcode']."\"><i class=\"fas fa-cloud-upload-alt\"></i>Update</button>";
+          echo "</span><div class=\"menu__cart__product__action\"><div class=\"menu__cart__action\"><button type=\"button\" disabled class=\"button__icon button__green button__cart__upload\" data-nameq=\"".$cart_row['itemcode']."\"><i class=\"fas fa-cloud-upload-alt\"></i>Update</button>";
           echo "<button class=\"button__icon button__blue\"><i class=\"fas fa-eye\"></i>View</button><button type=\"button\" class=\"button__icon button__red button__cart__remove\" data-valueq=\"".$cart_row['itemcode']."\" data-valuea=\"".$cart_row['itemqty']."\" onclick=\"\">";
           echo "<i class=\"fas fa-trash-alt\"></i>Remove</button></div></div></div>";
         }
