@@ -161,6 +161,8 @@ const selfReplicatingRemoveCart = () => {
   $(".menu__cart__product__qty__field").change(function() {
     if ($(this).val() != $(this).data("ovalue")) {
       $("[data-valueq=" + $(this).attr("name") + "]").prop('disabled', false);
+    } else {
+      $("[data-valueq=" + $(this).attr("name") + "]").prop('disabled', true);
     }
   });
 
