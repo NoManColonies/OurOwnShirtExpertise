@@ -115,7 +115,7 @@
           </div>
         </div>
       </div>";
-      echo "<div class=\"add__product__group\">
+      echo "<div class=\"modify__group\">
         <label class=\"file\">
           <input type=\"file\" id=\"file\" aria-label=\"File browser example\">
           <span class=\"file-custom\"></span>

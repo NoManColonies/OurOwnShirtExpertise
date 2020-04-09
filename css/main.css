@@ -515,7 +515,7 @@ body::-webkit-scrollbar {
 	position: absolute;
 	bottom: -25%;
 	left: 50%;
-	min-width: 50%;
+	min-width: 60%;
 	-webkit-transform: translateX(-50%);
 	-ms-transform: translateX(-50%);
 	transform: translateX(-50%);
