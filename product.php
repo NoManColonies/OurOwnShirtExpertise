@@ -11,6 +11,8 @@
     require_once('.confiq/auth_confiq.php');
     $session = session_auth_check($connect);
     if ($session['auth_key_valid']) {
+      $listmanager->close();
+      $connect->close();
       header("Location: https://worawanbydiistudent.store/admin.php");
       exit();
     }
