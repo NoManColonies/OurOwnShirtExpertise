@@ -6,7 +6,7 @@ if (session_auth_check($connect)['auth_key_valid']) {
   $fileName = basename($_FILES["file"]["name"]);
   $targetFilePath = $targetDir.$fileName;
   $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
-  if (isset($_POST["submit"]) && !empty($_FILES["file"]["name"])) {
+  if (!empty($_FILES["file"]["name"])) {
     $allowTypes = array('jpg', 'png', 'jpeg', 'gif', 'pdf', 'jfif');
     if (in_array($fileType, $allowTypes)) {
       if (move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)) {
