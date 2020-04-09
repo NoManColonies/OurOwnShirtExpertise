@@ -57,7 +57,7 @@
     <div class="add__product__container__group">
       <form class="add__product__container" action="" method="post" enctype="multipart/form-data">
         <div class="input__icon">
-          <input type="text" required name="productname" class="input__glow" value="" placeholder="Item name">
+          <input type="text" required name="productaddname" class="input__glow" value="" placeholder="Item name">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-shopping-bag fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -65,7 +65,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <input type="text" required name="producttitle" class="input__glow" value="" placeholder="Item display title/search keyword">
+          <input type="text" required name="productaddtitle" class="input__glow" value="" placeholder="Item display title/search keyword">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fab fa-slack-hash fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -73,7 +73,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <textarea name="productdescription" rows="4" cols="80" class="input__glow">Some descriptions</textarea><br>
+          <textarea name="productadddescription" rows="4" cols="80" class="input__glow">Some descriptions</textarea><br>
           <div class="icon__snap__field full__size">
             <div class="icon__snap__field__relative">
               <i class="fas fa-book-reader fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -81,7 +81,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <input type="text" required name="productprice" class="input__glow" value="" placeholder="Item price">
+          <input type="text" required name="productaddprice" class="input__glow" value="" placeholder="Item price">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-tag fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -89,7 +89,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <input type="text" name="productsize" value="" class="input__glow" placeholder="Size of the item (Optional)">
+          <input type="text" name="productaddsize" value="" class="input__glow" placeholder="Size of the item (Optional)">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-ruler-combined fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -97,7 +97,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <input type="text" name="productgender" value="" class="input__glow" placeholder="Gender this item is for (Optional)">
+          <input type="text" name="productaddgender" value="" class="input__glow" placeholder="Gender this item is for (Optional)">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-venus-double fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -105,7 +105,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <input type="text" name="productlength" value="" class="input__glow" placeholder="length of the item (Optional)">
+          <input type="text" name="productaddlength" value="" class="input__glow" placeholder="length of the item (Optional)">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-pencil-ruler fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -113,7 +113,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <input type="text" name="productdprice" value="" class="input__glow" placeholder="Discounted price (Optional)">
+          <input type="text" name="productadddprice" value="" class="input__glow" placeholder="Discounted price (Optional)">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-percentage fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -121,7 +121,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <input type="text" name="productimagepath" value="" class="input__glow" placeholder="File path in case of image was already uploaded (Optional)">
+          <input type="text" name="productaddimagepath" value="" class="input__glow" placeholder="File path in case of image was already uploaded (Optional)">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-file-signature fa-lg fa-fw input__snap" aria-hidden="true"></i>
@@ -142,7 +142,6 @@
       <p>Modify product</p>
     </div>
     <section class="product">
-
     </section>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

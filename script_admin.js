@@ -26,15 +26,15 @@ $(document).ready(function() {
   $(".button__add__product").click(function() {
     var fd = new FormData();
     var files = $('#file')[0].files[0];
-    var name = $("[name='productname']")[0];
-    var title = $("[name='producttitle']")[0];
-    var description = $("[name='productdescription']")[0];
-    var price = $("[name='productprice']")[0];
-    var size = $("[name='productsize']")[0];
-    var gender = $("[name='productgender']")[0];
-    var length = $("[name='productlength']")[0];
-    var dprice = $("[name='productdprice']")[0];
-    var imagepath = $("[name='productimagepath']")[0];
+    var name = $("[name='productaddname']").val();
+    var title = $("[name='productaddtitle']").val();
+    var description = $("[name='productadddescription']").val();
+    var price = $("[name='productaddprice']").val();
+    var size = $("[name='productaddsize']").val();
+    var gender = $("[name='productaddgender']").val();
+    var length = $("[name='productaddlength']").val();
+    var dprice = $("[name='productadddprice']").val();
+    var imagepath = $("[name='productaddimagepath']").val();
     fd.append('file', files);
     fd.append('productname', name);
     fd.append('producttitle', title);
@@ -167,7 +167,6 @@ const reloadModifiableMenu = () => {
             var dprice = $("[name='productdprice']").val();
             var imagepath = $("[name='productimagepath']").val();
             var code = $("[name='code']").val();
-            console.log(name);
             fd.append('file', files);
             fd.append('productname', name);
             fd.append('producttitle', title);
