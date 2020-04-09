@@ -130,7 +130,7 @@
         </div>
         <div class="add__product__group">
           <label class="file">
-            <input type="file" id="file" aria-label="File browser example">
+            <input type="file" id="fileAdd" aria-label="File browser example">
             <span class="file-custom"></span>
           </label>
           <button type="submit" name="submit" class="button__icon button__blue button__add__product" style="margin-left: 1em"><i class="fas fa-cloud-upload-alt"></i>add product</button>
