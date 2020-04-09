@@ -29,9 +29,10 @@
         }
       } else {
         $statusMsg = 'No file detected. proceeding... ';
-        $try_to_update_product = $connect->query("update producttable set productname='".$_REQUEST['productname']."', producttitle='".$_REQUEST['producttitle']."', productdescription='".$_REQUEST['productdescription']."', productprice=".$_REQUEST['productprice'].", productsize='".$_REQUEST['productsize']."', productlength='".((is_null($_REQUEST['productlength']))? "NULL" : "'".$_REQUEST['productlength']."'")."', productgender='".((is_null($_REQUEST['productgender']))? "NULL" : "'".$_REQUEST['productgender']."'")."', productdprice=".((is_null($_REQUEST['productdprice']))? "NULL" : $_REQUEST['productdprice']).", productimagepath='".$_REQUEST['productimagepath']."' where productcode='".$_REQUEST['productcode']."'");
+        $query = "update producttable set productname='".$_REQUEST['productname']."', producttitle='".$_REQUEST['producttitle']."', productdescription='".$_REQUEST['productdescription']."', productprice=".$_REQUEST['productprice'].", productsize='".$_REQUEST['productsize']."', productlength='".((is_null($_REQUEST['productlength']))? "NULL" : "'".$_REQUEST['productlength']."'")."', productgender='".((is_null($_REQUEST['productgender']))? "NULL" : "'".$_REQUEST['productgender']."'")."', productdprice=".((is_null($_REQUEST['productdprice']))? "NULL" : $_REQUEST['productdprice']).", productimagepath='".$_REQUEST['productimagepath']."' where productcode='".$_REQUEST['productcode']."'";
+        $try_to_update_product = $connect->query($query);
         if (!$try_to_update_product) {
-          $statusMsg .= "Product update failed at index.php page error code : ".$connect->errno;
+          $statusMsg .= "Product update failed at index.php page error code : ".$connect->errno." query : ".$query;
         }
       }
       echo $statusMsg;
