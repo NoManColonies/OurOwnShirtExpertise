@@ -91,7 +91,7 @@
           <option selected>Please select the length</option>";
           $check_bit = false;
           foreach ($length_array as $value) {
-            if ($value != "") {
+            if ($value != "" && $value != "u") {
               echo "<option value=\"".$value."\">".$value."</option>";
             } else if (!$check_bit) {
               $check_bit = true;
