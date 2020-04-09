@@ -494,7 +494,7 @@ body::-webkit-scrollbar {
 
 .modify__container {
 	position: absolute;
-	top: 25%;
+	top: 0;
 	left: 50%;
 	-webkit-transform: translateX(-50%);
 	-ms-transform: translateX(-50%);
