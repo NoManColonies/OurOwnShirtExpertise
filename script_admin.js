@@ -1,6 +1,13 @@
 $(document).ready(function() {
   refreshModifiable();
 
+  $(".close__modify__popup").click(function() {
+    var tempEntity = document.querySelector('.modify__product__menu');
+    var background = document.querySelector('#dark2');
+    tempEntity.classList.toggle('active__modify__menu');
+    background.classList.toggle('activeDarkenBackground');
+  });
+
   $(".input__glow")
   .focus(function() {
     $(this).siblings('.icon__snap__field').addClass('focus');
