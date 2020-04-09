@@ -133,7 +133,7 @@
             <input type="file" id="fileAdd" aria-label="File browser example">
             <span class="file-custom"></span>
           </label>
-          <button type="submit" name="submit" class="button__icon button__blue" style="margin-left: 1em"><i class="fas fa-cloud-upload-alt"></i>add product</button>
+          <button type="submit" name="submit" class="button__icon button__blue button__add__product" style="margin-left: 1em"><i class="fas fa-cloud-upload-alt"></i>add product</button>
         </div>
       </form>
     </div>

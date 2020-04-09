@@ -45,7 +45,7 @@ $(document).ready(function() {
     fd.append('productlength', length);
     fd.append('productdprice', dprice);
     fd.append('productimagepath', imagepath);
-    var tempEntity = $(this);
+    var tempEntity = $(".button__add__product");
     tempEntity.html("<i class=\"fas fa-sync fa-lg fa-fw fa-spin\"></i>add product");
     $.ajax({
         url: 'user/add_new_product.php',
