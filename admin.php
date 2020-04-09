@@ -22,7 +22,7 @@
         <button class="button" name="button" onclick="toggleSideMenu()">notification</button>
         <button class="button" name="button" onclick="toggleSideMenu()">view images album</button>
         <button class="button" name="button" onclick="toggleSideMenu()">update stock</button>
-        <a href="user/logout.php" class="scroll" onclick="toggleSideMenu()">log out</a>
+        <a href="user/logout.php" data-a="logout" class="scroll" onclick="toggleSideMenu()">log out</a>
       </div>
     </div>
     <div class="modify__product__menu">
