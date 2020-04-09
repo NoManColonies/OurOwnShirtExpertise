@@ -12,7 +12,8 @@
     require_once('.confiq/confiq.php');
     $session = session_auth_check($connect);
     if (!$session['session_valid'] || !$session['auth_key_valid']) {
-      alert_message("Invalid authentication key.");
+      $connect->close();
+      header("Location: https://worawanbydiistudent.store/index.php");
       exit();
     }
     ?>
