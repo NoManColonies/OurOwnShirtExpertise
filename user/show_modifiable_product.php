@@ -15,7 +15,6 @@
           $price_array = [];
           $size_array = [];
           $length_array = [];
-          $gender_array = [];
           $dprice_array = [];
           $code_array = [];
           $product_name = "";
@@ -26,7 +25,7 @@
           while ($product_row = $retreive_all_product_result->fetch_assoc()) {
             $price_array = array_merge($size_array, array($product_row['productprice']));
             $size_array = array_merge($size_array, array($product_row['productsize']));
-            $length_array = array_merge($product_array, array($product_row['productlength']));
+            $length_array = array_merge($length_array, array($product_row['productlength']));
             $dprice_array = array_merge($dprice_array, array($product_row['productdprice']));
             $code_array = array_merge($code_array, array($product_row['productcode']));
             if (empty($product_name)) {
