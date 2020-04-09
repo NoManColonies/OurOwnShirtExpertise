@@ -19,7 +19,7 @@
         </div>
       </div>";
       echo "<div class=\"input__icon\">
-        <input type=\"text\" required name=\"producttitle\" class=\"input__glow\" value=\"".$product_row['producttitle']."\" placeholder=\"Item display title/search keyword\">
+        <input type=\"text\" name=\"producttitle\" class=\"input__glow\" value=\"".$product_row['producttitle']."\" placeholder=\"Item display title/search keyword\">
         <div class=\"icon__snap__field\">
           <div class=\"icon__snap__field__relative\">
             <i class=\"fab fa-slack-hash fa-lg fa-fw input__snap\" aria-hidden=\"true\"></i>
