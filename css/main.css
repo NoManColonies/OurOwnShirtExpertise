@@ -1369,7 +1369,7 @@ slide p {
 
 .product__price__group > .product__price {
 	font-size: 24px;
-	margin-left: 4rem;
+	margin-left: 1rem;
 }
 
 .product__price__group > .product__price.discounted {
