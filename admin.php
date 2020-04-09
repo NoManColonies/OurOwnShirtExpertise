@@ -29,10 +29,10 @@
       <form class="modify__container" action="" method="post" enctype="multipart/form-data" id="modify__popup">
       </form>
       <p class="modify__header">Modify item</p>
-      <i class="fas fa-times close__icon modify__popup" onclick=""></i>
+      <i class="fas fa-times close__icon close__modify__popup" onclick=""></i>
     </div>
     <span class="dark__transparent__background" id="dark1" onclick="toggleSideMenu()"></span>
-    <span class="dark__transparent__background modify__popup" id="dark2" onclick=""></span>
+    <span class="dark__transparent__background close__modify__popup" id="dark2" onclick=""></span>
     <span id="home"></span>
     <header>DII Samorasriworawan Shop</header>
     <nav class="floating">
