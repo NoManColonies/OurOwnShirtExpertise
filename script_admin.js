@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  refreshModifiable();
+
   $(".input__glow")
   .focus(function() {
     $(this).siblings('.icon__snap__field').addClass('focus');
@@ -55,9 +57,10 @@ $(document).ready(function() {
             if (response != "") {
                 alert(response);
                 tempEntity.html("<i class=\"fas fa-cloud-upload-alt\"></i>add product");
+                refreshModifiable();
             } else {
               tempEntity.html("<i class=\"fas fa-cloud-upload-alt\"></i>add product");
-              window.location = "admin.php";
+              refreshModifiable();
             }
         },
     });
@@ -136,21 +139,21 @@ const refreshModifiable = () => {
 
 const reloadModifiableMenu = () => {
   $(".modify__popup").click(function() {
-    var target = document.querySelector('.modify__product__menu');
+    var tempEntity = document.querySelector('.modify__product__menu');
     var background = document.querySelector('#dark2');
-    target.classList.toggle('active__modify__menu');
+    tempEntity.classList.toggle('active__modify__menu');
     background.classList.toggle('activeDarkenBackground');
     if (target.classList.contains('active__modify__menu')) {
-      var target = document.querySelector('.modify__container');
+      var container = document.querySelector('.modify__container');
       if (window.XMLHttpRequest) {
         xmlhttp = new XMLHttpRequest();
       } else {
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
       }
-      target.innerHTML = "<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>";
+      container.innerHTML = "<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>";
       xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-          target.innerHTML = this.responseText;
+          container.innerHTML = this.responseText;
           $(document).on('submit', '#modify__popup', function() {
             var fd = new FormData();
             var files = $('#file')[0].files[0];
@@ -163,6 +166,7 @@ const reloadModifiableMenu = () => {
             var length = $("[name='productlength']")[0];
             var dprice = $("[name='productdprice']")[0];
             var imagepath = $("[name='productimagepath']")[0];
+            var code = $("[name='code']")[0];
             fd.append('file', files);
             fd.append('productname', name);
             fd.append('producttitle', title);
@@ -173,6 +177,7 @@ const reloadModifiableMenu = () => {
             fd.append('productlength', length);
             fd.append('productdprice', dprice);
             fd.append('productimagepath', imagepath);
+            fd.append('productcode', code);
             $(this).html("<i class=\"fas fa-sync fa-lg fa-fw fa-spin\"></i>modify");
             $.ajax({
                 url: 'user/update_existing_product.php',
@@ -183,16 +188,12 @@ const reloadModifiableMenu = () => {
                 success: function(response) {
                     if (response != "") {
                         alert(response);
-                        var tempEntity = document.querySelector('.modify__product__menu');
-                        var background = document.querySelector('#dark2');
                         if (tempEntity.classList.contains('active__modify__menu')) {
                           tempEntity.classList.remove('active__modify__menu');
                           background.classList.remove('activeDarkenBackground');
                         }
                         refreshModifiable();
                     } else {
-                      var tempEntity = document.querySelector('.modify__product__menu');
-                      var background = document.querySelector('#dark2');
                       if (tempEntity.classList.contains('active__modify__menu')) {
                         tempEntity.classList.remove('active__modify__menu');
                         background.classList.remove('activeDarkenBackground');
