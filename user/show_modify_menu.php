@@ -67,6 +67,14 @@
           </div>
         </div>
       </div>";
+      echo "<div class=\"input__icon\">
+        <input type=\"text\" name=\"productgender\" value=\"\" class=\"input__glow\" placeholder=\"Gender this item is for (Optional)\">
+        <div class=\"icon__snap__field\">
+          <div class=\"icon__snap__field__relative\">
+            <i class=\"fas fa-venus-double fa-lg fa-fw input__snap\" aria-hidden=\"true\"></i>
+          </div>
+        </div>
+      </div>";
       echo "<div class=\"select\">
         <select aria-label=\"Select menu example\" name=\"productsize\">
           <option selected>Please select the size</option>";
@@ -78,14 +86,6 @@
             }
           }
       echo "</select></div>";
-      echo "<div class=\"input__icon\">
-        <input type=\"text\" name=\"productgender\" value=\"\" class=\"input__glow\" placeholder=\"Gender this item is for (Optional)\">
-        <div class=\"icon__snap__field\">
-          <div class=\"icon__snap__field__relative\">
-            <i class=\"fas fa-venus-double fa-lg fa-fw input__snap\" aria-hidden=\"true\"></i>
-          </div>
-        </div>
-      </div>";
       echo "<div class=\"select\">
         <select aria-label=\"Select menu example\" name=\"productlength\">
           <option selected>Please select the length</option>";

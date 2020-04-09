@@ -109,7 +109,7 @@
           if (!empty($length_array.count())) {
             $check_bit = false;
             foreach ($length_array as $value) {
-              if ($value != "") {
+              if ($value != "" && $value != "u") {
                 if (!$check_bit) {
                   echo "<div class=\"product__spec\">";
                   echo "<p class=\"product__size__tag\" style=\"margin-right: 0\">length :</p>";
