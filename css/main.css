@@ -1372,6 +1372,11 @@ slide p {
 	margin-left: 1rem;
 }
 
+.product__price__group > .product__price__specific {
+	font-size: 24px;
+	margin-left: 4rem;
+}
+
 .product__price__group > .product__price.discounted {
 	text-decoration: line-through;
 }

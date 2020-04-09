@@ -64,15 +64,15 @@
             $min = ($price_array[$key] < $min)? $price_array[$key] : $min;
           }
           if ($mind > $min) {
-            echo "<p class=\"product__price\">".$min."</p>";
+            echo "<p class=\"product__price\">".$min."฿</p>";
           } else {
-            echo "<p class=\"product__price\">".$mind."</p>";
+            echo "<p class=\"product__price\">".$mind."฿</p>";
           }
           echo "<p class=\"product__price\">~</p>";
           if ($maxd > $max) {
-            echo "<p class=\"product__price\">".$maxd."</p>";
+            echo "<p class=\"product__price\">".$maxd."฿</p>";
           } else {
-            echo "<p class=\"product__price\">".$max."</p>";
+            echo "<p class=\"product__price\">".$max."฿</p>";
           }
           echo "</div></div>";
           echo "<div class=\"spec\">";
@@ -85,14 +85,20 @@
           }
           echo "</div>";
           if (!empty($length_array.count())) {
-            echo "<div class=\"product__spec\">";
-            echo "<p class=\"product__size__tag\" style=\"margin-right: 0\">length :</p>";
+            $check_bit = false;
             foreach ($length_array as $value) {
               if ($value != "") {
+                if (!$check_bit) {
+                  echo "<div class=\"product__spec\">";
+                  echo "<p class=\"product__size__tag\" style=\"margin-right: 0\">length :</p>";
+                  $check_bit = true;
+                }
                 echo "<p class=\"product__size\">".$value."</option>";
               }
             }
-            echo "</div>";
+            if ($check_bit) {
+              echo "</div>";
+            }
           }
           if ($product_gender != "u") {
             echo "<div class=\"product__gender__group\">";
