@@ -195,7 +195,7 @@ const reloadModifiableMenu = () => {
             fd.append('productdprice', dprice);
             fd.append('productimagepath', imagepath);
             fd.append('productcode', code);
-            $(this).html("<i class=\"fas fa-sync fa-lg fa-fw fa-spin\"></i>modify");
+            $(this).html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\"></i>Submitting request...</p>");
             $.ajax({
                 url: 'user/update_existing_product.php',
                 type: 'post',
