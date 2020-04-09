@@ -16,7 +16,7 @@ if (session_auth_check($connect)['auth_key_valid']) {
         $gender = (empty($_REQUEST['productgender']))? "u" : $_REQUEST['productgender'];
         $try_to_update_product = $connect->query("update producttable set productname='".$_REQUEST['productname']."', producttitle='".$_REQUEST['producttitle']."', productdescription='".$_REQUEST['productdescription']."', productprice=".$_REQUEST['productprice'].", productsize='".$_REQUEST['productsize']."', productlength='".((is_null($_REQUEST['productlength']))? "NULL" : "'".$_REQUEST['productlength']."'")."', productgender='".((is_null($_REQUEST['productgender']))? "NULL" : "'".$_REQUEST['productgender']."'")."', productdprice=".((is_null($_REQUEST['productdprice']))? "NULL" : $_REQUEST['productdprice']).", productimagepath='".$fileName."' where productcode='".$_REQUEST['productcode']."'");
         if (!$try_to_update_product) {
-          $statusMsg = "File upload failed, please try again.".$connect->errno." : ".$fileName;
+          $statusMsg = "Product update failed at index.php page error code : ".$connect->errno." query : ".$query;
         }
       } else {
         $statusMsg = "Sorry, there was an error uploading your file.".$_FILES['file']['error'];
