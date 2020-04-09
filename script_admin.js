@@ -117,14 +117,6 @@ const refreshModifiable = () => {
 };
 
 const reloadModifiableMenu = () => {
-  $(".input__glow")
-  .focus(function() {
-    $(this).siblings('.icon__snap__field').addClass('focus');
-  })
-  .focusout(function() {
-    $(this).siblings('.icon__snap__field').removeClass('focus');
-  });
-
   $('.button__hover__expand__admin').hover(function() {
     $(this).css({"margin-right": ".7em"});
     $(this).html("<i class=\"fas fa-server\" aria-hidden=\"true\"></i>update stock");
@@ -138,7 +130,7 @@ const reloadModifiableMenu = () => {
     $(this).siblings().html("<i class=\"fas fa-edit\"></i>modify product");
     $(this).siblings().children().css({"margin-right": "1em"});
   });
-  
+
   $(".modify__popup").click(function() {
     var tempEntity = document.querySelector('.modify__product__menu');
     var background = document.querySelector('#dark2');
@@ -155,6 +147,15 @@ const reloadModifiableMenu = () => {
       xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           container.innerHTML = this.responseText;
+          
+          $(".input__glow")
+          .focus(function() {
+            $(this).siblings('.icon__snap__field').addClass('focus');
+          })
+          .focusout(function() {
+            $(this).siblings('.icon__snap__field').removeClass('focus');
+          });
+
           $(document).on('submit', '#modify__popup', function() {
             var fd = new FormData();
             var files = $('#file')[0].files[0];
