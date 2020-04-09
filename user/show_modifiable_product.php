@@ -38,7 +38,7 @@
               $product_desc = $product_row['productdescription'];
             }
             if (empty($product_gender) && isset($product_row['productgender'])) {
-              $product_gender = $product_gender['productgender'];
+              $product_gender = $product_row['productgender'];
             }
             if (empty($product_imagepath)) {
               $product_imagepath = $product_row['productimagepath'];
