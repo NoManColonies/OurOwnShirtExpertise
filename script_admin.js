@@ -1,6 +1,14 @@
 $(document).ready(function() {
   refreshModifiable();
 
+  $(".input__glow")
+  .focus(function() {
+    $(this).siblings('.icon__snap__field').addClass('focus');
+  })
+  .focusout(function() {
+    $(this).siblings('.icon__snap__field').removeClass('focus');
+  });
+
   $(document).on('submit', '.add__product__container', function() {
     var fd = new FormData();
     var files = $('#fileAdd')[0].files[0];
@@ -147,7 +155,7 @@ const reloadModifiableMenu = () => {
       xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           container.innerHTML = this.responseText;
-          
+
           $(".input__glow")
           .focus(function() {
             $(this).siblings('.icon__snap__field').addClass('focus');
