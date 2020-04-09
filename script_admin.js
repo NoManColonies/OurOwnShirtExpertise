@@ -25,7 +25,7 @@ $(document).ready(function() {
 
   $(document).on('submit', '.add__product__container', function() {
     var fd = new FormData();
-    var files = $('#fileAdd')[0].files[0];
+    var files = $('#fileAdd').files[0];
     var name = $("[name='productaddname']").val();
     var title = $("[name='productaddtitle']").val();
     var description = $("[name='productadddescription']").val();
@@ -157,7 +157,7 @@ const reloadModifiableMenu = () => {
           container.innerHTML = this.responseText;
           $(document).on('submit', '#modify__popup', function() {
             var fd = new FormData();
-            var files = $('#file')[0].files[0];
+            var files = $('#file').files[0];
             var name = $("[name='productname']").val();
             var title = $("[name='producttitle']").val();
             var description = $("[name='productdescription']").val();
