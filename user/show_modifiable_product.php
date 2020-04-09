@@ -53,26 +53,48 @@
           echo "<p class=\"product__price__tag\">price :</p>";
           sort($price_array);
           sort($dprice_array);
-          $max = $price_array[0];
-          $maxd = $dprice_array[0];
-          $min = $price_array[0];
-          $mind = $dprice_array[0];
+          if (!is_null($price_array[0])) {
+            $max = $price_array[0];
+            $min = $price_array[0];
+          } else {
+            $max = 0;
+            $min = 0;
+          }
+          if (!is_null($dprice_array[0])) {
+            $maxd = $dprice_array[0];
+            $mind = $dprice_array[0];
+          } else {
+            $maxd = 0;
+            $mind = 0;
+          }
           foreach (array_keys($price_array) as $key) {
             $maxd = ($dprice_array[$key] > $maxd)? $dprice_array[$key] : $maxd;
             $max = ($price_array[$key] > $max)? $price_array[$key] : $max;
             $mind = ($dprice_array[$key] < $mind)? $dprice_array[$key] : $mind;
             $min = ($price_array[$key] < $min)? $price_array[$key] : $min;
           }
+          $check_bit = false;
           if ($mind > $min) {
             echo "<p class=\"product__price\">".$min."฿</p>";
-          } else {
+            echo "<p class=\"product__price\">~</p>";
+            $check_bit = true;
+          } else if ($mind != $min) {
             echo "<p class=\"product__price\">".$mind."฿</p>";
+            echo "<p class=\"product__price\">~</p>";
+            $check_bit = true;
           }
-          echo "<p class=\"product__price\">~</p>";
           if ($maxd > $max) {
-            echo "<p class=\"product__price\">".$maxd."฿</p>";
-          } else {
-            echo "<p class=\"product__price\">".$max."฿</p>";
+            if (!$check_bit) {
+              echo "<p class=\"product__price__specific\">".$maxd."฿</p>";
+            } else {
+              echo "<p class=\"product__price\">".$maxd."฿</p>";
+            }
+          } else if ($maxd != $max) {
+            if (!$check_bit) {
+              echo "<p class=\"product__price__specific\">".$max."฿</p>";
+            } else {
+              echo "<p class=\"product__price\">".$max."฿</p>";
+            }
           }
           echo "</div></div>";
           echo "<div class=\"spec\">";
