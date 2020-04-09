@@ -7,11 +7,35 @@
   <body>
     <?php
     require_once('../.confiq/confiq.php');
-    $retrieve_product_result = $connect->query("select * from producttable where productcode='".$_REQUEST['q']."'");
+    $product_name = $_REQUEST['q'];
+    $retrieve_product_result = $connect->query("select * from producttable where productname='".$product_name."'");
     if (!empty($retrieve_product_result->num_rows)) {
-      $product_row = $retrieve_product_result->fetch_assoc();
+      $size_array = [];
+      $length_array = [];
+      $product_title = NULL;
+      $product_desc = NULL;
+      $product_gender = NULL;
+      $product_imagepath = NULL;
+      echo "<input type=\"hidden\" name=\"selected\" value=\"\">";
+      while ($product_row = $retrieve_product_result->fetch_assoc()) {
+        echo "<input type=\"hidden\" name=\"product\" value=\"".$product_name."\" data-size=\"".$product_row['productsize']."\" data-length=\"".$product_row['productlength']."\" data-price=\"".$product_row['productprice']."\" data-dprice=\"".$product_row['productdprice']."\" data-code=\"".$product_row['productcode']."\">";
+        if (is_null($product_title)) {
+          $product_title = $product_row['producttitle'];
+        }
+        if (is_null($product_desc)) {
+          $product_desc = $product_row['productdescription'];
+        }
+        if (is_null($product_gender)) {
+          $product_gender = $product_row['productgender'];
+        }
+        if (is_null($product_imagepath)) {
+          $product_imagepath = $product_row['productimagepath'];
+        }
+        $size_array = array_merge($size_array, array($product_row['productsize']));
+        $length_array = array_merge($length_array, array($product_row['productlength']));
+      }
       echo "<div class=\"input__icon\">
-        <input type=\"text\" required name=\"productname\" class=\"input__glow\" value=\"".$product_row['productname']."\" placeholder=\"Item name\">
+        <input type=\"text\" required name=\"productname\" class=\"input__glow\" value=\"".$product_name."\" placeholder=\"Item name\">
         <div class=\"icon__snap__field\">
           <div class=\"icon__snap__field__relative\">
             <i class=\"fas fa-shopping-bag fa-lg fa-fw input__snap\" aria-hidden=\"true\"></i>
@@ -19,7 +43,7 @@
         </div>
       </div>";
       echo "<div class=\"input__icon\">
-        <input type=\"text\" name=\"producttitle\" class=\"input__glow\" value=\"".$product_row['producttitle']."\" placeholder=\"Item display title/search keyword\">
+        <input type=\"text\" name=\"producttitle\" class=\"input__glow\" value=\"".$product_title."\" placeholder=\"Item display title/search keyword\">
         <div class=\"icon__snap__field\">
           <div class=\"icon__snap__field__relative\">
             <i class=\"fab fa-slack-hash fa-lg fa-fw input__snap\" aria-hidden=\"true\"></i>
@@ -27,7 +51,7 @@
         </div>
       </div>";
       echo "<div class=\"input__icon\">
-        <textarea name=\"productdescription\" rows=\"4\" cols=\"80\" class=\"input__glow\">".$product_row['productdescription']."</textarea><br>
+        <textarea name=\"productdescription\" rows=\"4\" cols=\"80\" class=\"input__glow\">".$product_desc."</textarea><br>
         <div class=\"icon__snap__field full__size\">
           <div class=\"icon__snap__field__relative\">
             <i class=\"fas fa-book-reader fa-lg fa-fw input__snap\" aria-hidden=\"true\"></i>
@@ -35,21 +59,24 @@
         </div>
       </div>";
       echo "<div class=\"input__icon\">
-        <input type=\"number\" required name=\"productprice\" class=\"input__glow\" value=\"".$product_row['productprice']."\" placeholder=\"Item price\">
+        <input type=\"number\" required name=\"productprice\" class=\"input__glow\" value=\"\" placeholder=\"Item price\">
         <div class=\"icon__snap__field\">
           <div class=\"icon__snap__field__relative\">
             <i class=\"fas fa-tag fa-lg fa-fw input__snap\" aria-hidden=\"true\"></i>
           </div>
         </div>
       </div>";
-      echo "<div class=\"input__icon\">
-        <input type=\"text\" name=\"productsize\" value=\"".$product_row['productsize']."\" class=\"input__glow\" placeholder=\"Size of the item (Optional)\">
-        <div class=\"icon__snap__field\">
-          <div class=\"icon__snap__field__relative\">
-            <i class=\"fas fa-ruler-combined fa-lg fa-fw input__snap\" aria-hidden=\"true\"></i>
-          </div>
-        </div>
-      </div>";
+      echo "<div class=\"select\">
+        <select aria-label=\"Select menu example\" name=\"productsize\">
+          <option selected>Please select the size</option>";
+          foreach ($size_array as $value) {
+            if ($value != "u") {
+              echo "<option value=\"".$value."\">".$value."</option>";
+            } else {
+              echo "<option value=\"u\">Default</option>";
+            }
+          }
+      echo "</select></div>";
       echo "<div class=\"input__icon\">
         <input type=\"text\" name=\"productgender\" value=\"\" class=\"input__glow\" placeholder=\"Gender this item is for (Optional)\">
         <div class=\"icon__snap__field\">
@@ -58,16 +85,22 @@
           </div>
         </div>
       </div>";
+      echo "<div class=\"select\">
+        <select aria-label=\"Select menu example\" name=\"productlength\">
+          <option selected>Please select the length</option>";
+          $check_bit = false;
+          foreach ($length_array as $value) {
+            if ($value != "") {
+              $check_bit = true;
+              echo "<option value=\"".$value."\">".$value."</option>";
+            }
+            if ($check_bit) {
+              echo "<option value=\"u\">Default</option>";
+            }
+          }
+      echo "</select></div>";
       echo "<div class=\"input__icon\">
-        <input type=\"text\" name=\"productlength\" value=\"".$product_row['productlength']."\" class=\"input__glow\" placeholder=\"length of the item (Optional)\">
-        <div class=\"icon__snap__field\">
-          <div class=\"icon__snap__field__relative\">
-            <i class=\"fas fa-pencil-ruler fa-lg fa-fw input__snap\" aria-hidden=\"true\"></i>
-          </div>
-        </div>
-      </div>";
-      echo "<div class=\"input__icon\">
-        <input type=\"text\" name=\"productdprice\" value=\"".$product_row['productdprice']."\" class=\"input__glow\" placeholder=\"Discounted price (Optional)\">
+        <input type=\"number\" name=\"productdprice\" value=\"\" class=\"input__glow\" placeholder=\"Discounted price (Optional)\">
         <div class=\"icon__snap__field\">
           <div class=\"icon__snap__field__relative\">
             <i class=\"fas fa-percentage fa-lg fa-fw input__snap\" aria-hidden=\"true\"></i>
@@ -75,7 +108,7 @@
         </div>
       </div>";
       echo "<div class=\"input__icon\">
-        <input type=\"text\" name=\"productimagepath\" value=\"".$product_row['productimagepath']."\" class=\"input__glow\" placeholder=\"File path in case of image was already uploaded (Optional)\">
+        <input type=\"text\" name=\"productimagepath\" value=\"".$product_imagepath."\" class=\"input__glow\" placeholder=\"File path in case of image was already uploaded (Optional)\">
         <div class=\"icon__snap__field\">
           <div class=\"icon__snap__field__relative\">
             <i class=\"fas fa-file-signature fa-lg fa-fw input__snap\" aria-hidden=\"true\"></i>
@@ -87,8 +120,8 @@
           <input type=\"file\" id=\"file\" aria-label=\"File browser example\">
           <span class=\"file-custom\"></span>
         </label>
-        <input type=\"hidden\" name=\"code\" value=\"".$_REQUEST['q']."\">
-        <button type=\"submit\" name=\"submit\" class=\"button__icon button__blue button__modify__menu\" onclick=\"\" style=\"margin-left: 1em\"><i class=\"fas fa-edit\"></i>modify</button>
+        <input type=\"hidden\" name=\"code\" value=\"".$product_name."\">
+        <button type=\"submit\" disabled name=\"submit\" class=\"button__icon button__blue button__modify__menu\" onclick=\"\" style=\"margin-left: 1em\"><i class=\"fas fa-edit\"></i>modify</button>
       </div>";
     } else {
       echo "<p class=\"cart__no__result\">Oops! Can't find what you are looking for.</p>";

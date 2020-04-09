@@ -190,27 +190,34 @@ const reloadModifiableMenu = () => {
             $(this).siblings('.icon__snap__field').removeClass('focus');
           });
 
+          $("[name='productsize']").change(function() {
+            var sizeEntity = $(this);
+            var lengthEntity = $("[name='productlength']")
+            $("[name='product']").each(function() {
+              if ($(this).data("size") == sizeEntity.val() && $(this).data("length") == lengthEntity.val()) {
+                $("[name='selected']").val($(this).data("code"));
+                $(".button__modify__menu").prop("disabled", false);
+                return;
+              } else {
+                $("[name='selected']").val("");
+                $(".button__modify__menu").prop("disabled", true);
+              }
+            });
+          });
+
           $(document).on('submit', '#modify__popup', function() {
             var fd = new FormData();
             var files = $('#file')[0].files[0];
-            var name = $("[name='productname']").val();
             var title = $("[name='producttitle']").val();
             var description = $("[name='productdescription']").val();
             var price = $("[name='productprice']").val();
-            var size = $("[name='productsize']").val();
-            var gender = $("[name='productgender']").val();
-            var length = $("[name='productlength']").val();
             var dprice = $("[name='productdprice']").val();
             var imagepath = $("[name='productimagepath']").val();
-            var code = $("[name='code']").val();
+            var code = $("[name='selected']").val();
             fd.append('file', files);
-            fd.append('productname', name);
             fd.append('producttitle', title);
             fd.append('productdescription', description);
             fd.append('productprice', price);
-            fd.append('productsize', size);
-            fd.append('productgender', gender);
-            fd.append('productlength', length);
             fd.append('productdprice', dprice);
             fd.append('productimagepath', imagepath);
             fd.append('productcode', code);
@@ -242,7 +249,7 @@ const reloadModifiableMenu = () => {
           });
         }
       };
-      xmlhttp.open("GET", "user/show_modify_menu.php?q=" + $(this).data("code"), true);
+      xmlhttp.open("GET", "user/show_modify_menu.php?q=" + $(this).data("name"), true);
       xmlhttp.send();
     }
   });

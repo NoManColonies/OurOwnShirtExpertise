@@ -89,7 +89,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <input type="text" name="productaddsize" value="" class="input__glow" placeholder="Size of the item (Optional)">
+          <input type="text" name="productaddsize" value="" class="input__glow" placeholder="Size of the item">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-ruler-combined fa-lg fa-fw input__snap" aria-hidden="true"></i>
