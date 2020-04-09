@@ -500,7 +500,8 @@ body::-webkit-scrollbar {
 	-webkit-flex-wrap: wrap;
 	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
-	min-width: 85%;
+	min-width: 80%;
+	max-width: 90%;
 	justify-content: center;
 }
 
