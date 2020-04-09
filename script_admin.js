@@ -23,7 +23,7 @@ $(document).ready(function() {
     $(this).siblings().children().css({"margin-right": "1em"});
   });
 
-  $(".button__add__product").click(function() {
+  $(document).on('submit', '.add__product__container', function() {
     var fd = new FormData();
     var files = $('#fileAdd')[0].files[0];
     var name = $("[name='productaddname']").val();
