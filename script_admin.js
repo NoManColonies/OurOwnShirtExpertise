@@ -64,6 +64,7 @@ $(document).ready(function() {
             }
         },
     });
+    return false;
   });
 
   var scrollTeleport = $('.scroll');
