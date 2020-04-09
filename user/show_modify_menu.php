@@ -18,7 +18,7 @@
       $product_imagepath = NULL;
       echo "<input type=\"hidden\" name=\"selected\" value=\"\">";
       while ($product_row = $retrieve_product_result->fetch_assoc()) {
-        echo "<input type=\"hidden\" name=\"product\" value=\"".$product_name."\" data-size=\"".$product_row['productsize']."\" data-length=\"".$product_row['productlength']."\" data-price=\"".$product_row['productprice']."\" data-dprice=\"".$product_row['productdprice']."\" data-code=\"".$product_row['productcode']."\">";
+        echo "<input type=\"hidden\" name=\"product\" data-size=\"".$product_row['productsize']."\" data-length=\"".$product_row['productlength']."\" data-price=\"".$product_row['productprice']."\" data-dprice=\"".$product_row['productdprice']."\" data-code=\"".$product_row['productcode']."\">";
         if (is_null($product_title)) {
           $product_title = $product_row['producttitle'];
         }

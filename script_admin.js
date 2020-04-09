@@ -192,12 +192,31 @@ const reloadModifiableMenu = () => {
 
           $("[name='productsize']").change(function() {
             var sizeEntity = $(this);
-            var lengthEntity = $("[name='productlength']")
+            var lengthEntity = $("[name='productlength']");
             $("[name='product']").each(function() {
               if ($(this).data("size") == sizeEntity.val() && $(this).data("length") == lengthEntity.val()) {
+                $("[name='productprice']").val($(this).data("price"));
+                $("[name='productdprice']").val($(this).data("dprice"));
                 $("[name='selected']").val($(this).data("code"));
                 $(".button__modify__menu").prop("disabled", false);
-                return;
+                return false;
+              } else {
+                $("[name='selected']").val("");
+                $(".button__modify__menu").prop("disabled", true);
+              }
+            });
+          });
+
+          $("[name='productlength']").change(function() {
+            var sizeEntity = $("[name='productsize']");
+            var lengthEntity = $(this);
+            $("[name='product']").each(function() {
+              if ($(this).data("size") == sizeEntity.val() && $(this).data("length") == lengthEntity.val()) {
+                $("[name='productprice']").val($(this).data("price"));
+                $("[name='productdprice']").val($(this).data("dprice"));
+                $("[name='selected']").val($(this).data("code"));
+                $(".button__modify__menu").prop("disabled", false);
+                return false;
               } else {
                 $("[name='selected']").val("");
                 $(".button__modify__menu").prop("disabled", true);
@@ -208,17 +227,25 @@ const reloadModifiableMenu = () => {
           $(document).on('submit', '#modify__popup', function() {
             var fd = new FormData();
             var files = $('#file')[0].files[0];
+            var name = $("[name='productname']").val();
             var title = $("[name='producttitle']").val();
             var description = $("[name='productdescription']").val();
             var price = $("[name='productprice']").val();
             var dprice = $("[name='productdprice']").val();
+            var size = $("[name='productname']").val();
+            var gender = $("[name='productgender']").val();
+            var length = $("[name='productlength']").val();
             var imagepath = $("[name='productimagepath']").val();
             var code = $("[name='selected']").val();
             fd.append('file', files);
+            fd.append('productname', name);
             fd.append('producttitle', title);
             fd.append('productdescription', description);
             fd.append('productprice', price);
             fd.append('productdprice', dprice);
+            fd.append('productsize', size);
+            fd.append('productgender', gender);
+            fd.append('productlength', length);
             fd.append('productimagepath', imagepath);
             fd.append('productcode', code);
             $(this).html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\"></i>Submitting request...</p>");
