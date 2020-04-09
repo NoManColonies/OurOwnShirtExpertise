@@ -167,6 +167,7 @@ const reloadModifiableMenu = () => {
             var dprice = $("[name='productdprice']")[0];
             var imagepath = $("[name='productimagepath']")[0];
             var code = $("[name='code']")[0];
+            console.log(name);
             fd.append('file', files);
             fd.append('productname', name);
             fd.append('producttitle', title);
