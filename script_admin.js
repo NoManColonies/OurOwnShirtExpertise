@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  //refreshModifiable();
+  refreshModifiable();
 
   $("#stock_label").change(function() {
     if ($(this).val() != "" && $("[name='productqty']").val() >= $("[name='productqty']").attr("min")) {
