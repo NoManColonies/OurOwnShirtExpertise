@@ -51,12 +51,12 @@
           echo "<p class=\"product__detail\">".$product_title."</p>";
           echo "<div class=\"product__price__group\">";
           echo "<p class=\"product__price__tag\">price :</p>";
-          for ($i = 0; $i < count($price_array); $i++) {
-            if (is_null($dprice_array[$i])) {
-              echo "<p class=\"product__price\">".$price_array[$i]."฿</p>";
+          foreach (array_keys($price_array) as $key) {
+            if (is_null($dprice_array[$key])) {
+              echo "<p class=\"product__price\">".$price_array[$key]."฿</p>";
             } else {
-              echo "<p class=\"product__price discounted\">".$price_array[$i]."฿</p>";
-              echo "<p class=\"product__discounted__price\">".$dprice_array[$i]."฿</p>";
+              echo "<p class=\"product__price discounted\">".$price_array[$key]."฿</p>";
+              echo "<p class=\"product__discounted__price\">".$dprice_array[$key]."฿</p>";
             }
           }
           echo "</div></div>";
@@ -73,7 +73,7 @@
             }
           }
           echo "</select></div></div>";
-          if (!is_null($product_row['productlength'])) {
+          if (!empty($length_array.count())) {
             echo "<div class=\"product__spec\">";
             echo "<p class=\"product__size__tag\">length :</p>";
             echo "<div class=\"select product__size\"><select aria-label=\"Select menu example\" name='".$product_name."' id='length'>";
