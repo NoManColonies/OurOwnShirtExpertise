@@ -574,6 +574,155 @@ body::-webkit-scrollbar {
 	text-align: center;
 }
 
+.stock_update_menu {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%) scale(0);
+	-ms-transform: translate(-50%, -50%) scale(0);
+	transform: translate(-50%, -50%) scale(0);
+	background-color: white;
+	width: 600px;
+	height: 400px;
+	z-index: 13;
+	border-radius: 10px;
+	display: -webkit-flex;
+	display: -ms-flex;
+	display: flex;
+	justify-content: center;
+}
+
+.stock_update_container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	min-width: 90%;
+	display: -webkit-flex;
+	display: -ms-flex;
+	display: flex;
+}
+
+.stock_select_product {
+	margin-top: .5em;
+}
+
+.stock_update_button {
+	position: absolute;
+	left: 50%;
+	bottom: -150%;
+	-webkit-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	transform: translateX(-50%);
+}
+
+.stock_update_menu.active_stock_menu {
+	-webkit-transform: translate(-50%, -50%) scale(1);
+	-ms-transform: translate(-50%, -50%) scale(1);
+	transform: translate(-50%, -50%) scale(1);
+}
+
+.view__album__popup {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 800px;
+	height: 600px;
+	-webkit-transform: translate(-50%, -50%) scale(0);
+	-ms-transform: translate(-50%, -50%) scale(0);
+	transform: translate(-50%, -50%) scale(0);
+	z-index: 13;
+	border-radius: 10px;
+	background-color: white;
+	overflow: hidden;
+}
+
+.album__container {
+	display: -webkit-flex;
+	display: -ms-flex;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	margin-top: 10%;
+	width: 100%;
+	max-height: 85%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	-webkit-box-shadow: inset 5px 0 5px black;
+	box-shadow: inset 0 0 10px -5px black;
+}
+
+.album__popup__header {
+	position: absolute;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	transform: translateX(-50%);
+	top: 3%;
+	font-family: 'gidoleregular';
+	font-size: 40px;
+	color: black;
+}
+
+.album__img__container {
+	position: relative;
+	width: 150px;
+	margin-left: 1.5em;
+	margin-top: 1.5em;
+	-webkit-box-shadow: 0 0 5px black;
+	box-shadow: 0 0 5px black;
+}
+
+.album__img__container > img {
+	width: 100%;
+}
+
+.album__img__container > span {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background-color: black;
+	opacity: 0;
+	-webkit-transition: opacity ease 300ms;
+	-o-transition: opacity ease 300ms;
+	transition: opacity ease 300ms;
+}
+
+.album__img__container > p {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	font-family: 'gidoleregular';
+	font-size: 38px;
+	color: white;
+	opacity: 0;
+	-webkit-transition: opacity ease 300ms;
+	-o-transition: opacity ease 300ms;
+	transition: opacity ease 300ms;
+}
+
+.album__img__container:hover > span {
+	opacity: .6;
+}
+
+.album__img__container:hover > p {
+	opacity: 1;
+}
+
+.view__album__popup.active__album__popup {
+	-webkit-transform: translate(-50%, -50%) scaleX(1);
+	-ms-transform: translate(-50%, -50%) scaleX(1);
+	transform: translate(-50%, -50%) scaleX(1);
+}
+
 input.input__glow {
 	border-radius: 4px;
 	font-size: 22px;
@@ -1107,7 +1256,7 @@ slide p {
 
 
 .product__container {
-	height: 40vh;
+	height: 300px;
 	display: grid;
 	grid-template-columns: repeat(2, 238px);
 	grid-template-rows: 70% 30%;
