@@ -206,7 +206,7 @@ const reloadModifiableMenu = () => {
           });
         }
       };
-      xmlhttp.open("GET", "user/show_modifiable_menu.php?q=" + $(this).data("code"), true);
+      xmlhttp.open("GET", "user/show_modify_menu.php?q=" + $(this).data("code"), true);
       xmlhttp.send();
     }
   });
