@@ -58,7 +58,7 @@
               echo "<option value=\"u\">Default</option>";
             }
           }
-          echo "</select></div>";
+          echo "</select></div></div>";
           if (!is_null($product_row['productlength'])) {
             echo "<div class=\"product__spec\">";
             echo "<p class=\"product__size__tag\">length :</p>";
@@ -71,7 +71,7 @@
                 echo "<option value=\"u\">Default</option>";
               }
             }
-            echo "</select></div>";
+            echo "</select></div></div>";
           }
           if ($product_gender != "u") {
             echo "<div class=\"product__gender__group\">";
