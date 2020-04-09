@@ -18,26 +18,31 @@
           $gender_array = [];
           $dprice_array = [];
           $code_array = [];
+          $product_name = "";
+          $product_title = "";
+          $product_desc = "";
+          $product_gender = "";
+          $product_imagepath = "";
           while ($product_row = $retreive_all_product_result->fetch_assoc()) {
             $price_array = array_merge($size_array, array($product_row['productprice']));
             $size_array = array_merge($size_array, array($product_row['productsize']));
             $length_array = array_merge($product_array, array($product_row['productlength']));
             $dprice_array = array_merge($dprice_array, array($product_row['productdprice']));
             $code_array = array_merge($code_array, array($product_row['productcode']));
-            if (!isset($product_name)) {
+            if (empty($product_name)) {
               $product_name = $product_row['productname'];
             }
-            if (!isset($product_title)) {
+            if (empty($product_title)) {
               $product_title = $product_row['producttitle'];
             }
-            if (!isset($product_desc)) {
+            if (empty($product_desc)) {
               $product_desc = $product_row['productdescription'];
             }
-            if (!isset($product_gender)) {
+            if (empty($product_gender)) {
               $product_gender = $product_gender['productgender'];
             }
-            if (!isset($product_imagepath)) {
-              $product_name = $product_row['productname'];
+            if (empty($product_imagepath)) {
+              $product_imagepath = $product_row['productimagepath'];
             }
           }
           echo "<div class=\"product__container\">";
@@ -92,11 +97,6 @@
           echo "<button type=\"button\" class=\"inspect__item button__green button__hover__expand__admin\"><i class=\"fas fa-server\" aria-hidden=\"true\"></i></button>";
           echo "<button type=\"button\" class=\"add__to__cart button__blue modify__popup\" name=\"\" data-code=\"".$product_name."\" onclick=\"\"><i class=\"fas fa-edit\" aria-hidden=\"true\"></i>modify product</button>";
           echo "</div></div></div></div>";
-          unset($product_name);
-          unset($product_title);
-          unset($product_desc);
-          unset($product_gender);
-          unset($product_imagepath);
         }
       }
     }
