@@ -24,11 +24,21 @@
             $length_array = array_merge($product_array, array($product_row['productlength']));
             $dprice_array = array_merge($dprice_array, array($product_row['productdprice']));
             $code_array = array_merge($code_array, array($product_row['productcode']));
-            $product_name = $product_row['productname'];
-            $product_title = $product_row['producttitle'];
-            $product_desc = $product_row['productdescription'];
-            $product_gender = $product_gender['productgender'];
-            $product_imagepath = $product_row['productimagepath'];
+            if (!isset($product_name)) {
+              $product_name = $product_row['productname'];
+            }
+            if (!isset($product_title)) {
+              $product_title = $product_row['producttitle'];
+            }
+            if (!isset($product_desc)) {
+              $product_desc = $product_row['productdescription'];
+            }
+            if (!isset($product_gender)) {
+              $product_gender = $product_gender['productgender'];
+            }
+            if (!isset($product_imagepath)) {
+              $product_name = $product_row['productname'];
+            }
           }
           echo "<div class=\"product__container\">";
           echo "<img src=\"images/".$product_imagepath."\">";
@@ -82,6 +92,11 @@
           echo "<button type=\"button\" class=\"inspect__item button__green button__hover__expand__admin\"><i class=\"fas fa-server\" aria-hidden=\"true\"></i></button>";
           echo "<button type=\"button\" class=\"add__to__cart button__blue modify__popup\" name=\"\" data-code=\"".$product_name."\" onclick=\"\"><i class=\"fas fa-edit\" aria-hidden=\"true\"></i>modify product</button>";
           echo "</div></div></div></div>";
+          unset($product_name);
+          unset($product_title);
+          unset($product_desc);
+          unset($product_gender);
+          unset($product_imagepath);
         }
       }
     }
