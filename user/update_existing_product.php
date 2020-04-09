@@ -21,7 +21,7 @@ if (session_auth_check($connect)['auth_key_valid']) {
           $retreive_all_product_result = $connect->query("select productcode from producttable where productname='".$product_row['productname']."'");
           if (!empty($retreive_all_product_result->num_rows)) {
             while ($row = $retreive_all_product_result->fetch_assoc()) {
-              $query = "update producttable where productname='".$_REQUEST['productname']."', producttitle='".$title."', productdescription='".$_REQUEST['productdescription']."', productgender='".$gender."', productimagepath='".$fileName."' where productcode='".$row['productcode']."'";
+              $query = "update producttable set productname='".$_REQUEST['productname']."', producttitle='".$title."', productdescription='".$_REQUEST['productdescription']."', productgender='".$gender."', productimagepath='".$fileName."' where productcode='".$row['productcode']."'";
               $result = $connect->query($query);
               if (!$result) {
                 $statusMsg .= "Failed to update all distinct product error code : ".$connect->errno." query : ".$query;
@@ -54,7 +54,7 @@ if (session_auth_check($connect)['auth_key_valid']) {
       $retreive_all_product_result = $connect->query("select productcode from producttable where productname='".$product_row['productname']."'");
       if (!empty($retreive_all_product_result->num_rows)) {
         while ($row = $retreive_all_product_result->fetch_assoc()) {
-          $query = "update producttable where productname='".$_REQUEST['productname']."', producttitle='".$title."', productdescription='".$_REQUEST['productdescription']."', productgender='".$gender."', productimagepath='".$_REQUEST['productimagepath']."' where productcode='".$row['productcode']."'";
+          $query = "update producttable set productname='".$_REQUEST['productname']."', producttitle='".$title."', productdescription='".$_REQUEST['productdescription']."', productgender='".$gender."', productimagepath='".$_REQUEST['productimagepath']."' where productcode='".$row['productcode']."'";
           $result = $connect->query($query);
           if (!$result) {
             $statusMsg .= "Failed to update all distinct product error code : ".$connect->errno." query : ".$query;
