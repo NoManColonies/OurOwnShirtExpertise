@@ -7,7 +7,7 @@
   <body>
     <?php
     require_once('../.confiq/confiq.php');
-    $retreive_product_result = $connect->query("select * from producttable where productcode='".$_REQUEST['q']."'");
+    $retrieve_product_result = $connect->query("select * from producttable where productcode='".$_REQUEST['q']."'");
     if (!empty($retrieve_product_result->num_rows)) {
       $product_row = $retreive_product_result->fetch_assoc();
       echo "<div class=\"input__icon\">
