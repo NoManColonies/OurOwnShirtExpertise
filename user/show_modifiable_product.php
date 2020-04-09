@@ -23,7 +23,7 @@
           $product_gender = "";
           $product_imagepath = "";
           while ($product_row = $retreive_all_product_result->fetch_assoc()) {
-            $price_array = array_merge($size_array, array($product_row['productprice']));
+            $price_array = array_merge($price_array, array($product_row['productprice']));
             $size_array = array_merge($size_array, array($product_row['productsize']));
             $length_array = array_merge($length_array, array($product_row['productlength']));
             $dprice_array = array_merge($dprice_array, array($product_row['productdprice']));
@@ -37,7 +37,7 @@
             if (empty($product_desc) && isset($product_row['productdescription'])) {
               $product_desc = $product_row['productdescription'];
             }
-            if (empty($product_gender) && isset($product_row['productgender'])) {
+            if (empty($product_gender) && isset($product_row['productgender']) && !empty($product_row['productgender'])) {
               $product_gender = $product_row['productgender'];
             }
             if (empty($product_imagepath)) {
@@ -51,41 +51,48 @@
           echo "<p class=\"product__detail\">".$product_title."</p>";
           echo "<div class=\"product__price__group\">";
           echo "<p class=\"product__price__tag\">price :</p>";
+          sort($price_array);
+          sort($dprice_array);
+          $max = $price_array[0];
+          $maxd = $dprice_array[0];
+          $min = $price_array[0];
+          $mind = $dprice_array[0];
           foreach (array_keys($price_array) as $key) {
-            if (is_null($dprice_array[$key])) {
-              echo "<p class=\"product__price\">".$price_array[$key]."฿</p>";
-            } else {
-              echo "<p class=\"product__price discounted\">".$price_array[$key]."฿</p>";
-              echo "<p class=\"product__discounted__price\">".$dprice_array[$key]."฿</p>";
-            }
+            $maxd = ($dprice_array[$key] > $maxd)? $dprice_array[$key] : $maxd;
+            $max = ($price_array[$key] > $max)? $price_array[$key] : $max;
+            $mind = ($dprice_array[$key] < $mind)? $dprice_array[$key] : $mind;
+            $min = ($price_array[$key] < $min)? $price_array[$key] : $min;
+          }
+          if ($mind > $min) {
+            echo "<p class=\"product__price\">".$min."</p>";
+          } else {
+            echo "<p class=\"product__price\">".$mind."</p>";
+          }
+          echo "<p class=\"product__price\">~</p>";
+          if ($maxd > $max) {
+            echo "<p class=\"product__price\">".$maxd."</p>";
+          } else {
+            echo "<p class=\"product__price\">".$max."</p>";
           }
           echo "</div></div>";
           echo "<div class=\"spec\">";
           echo "<div class=\"product__spec\">";
           echo "<p class=\"product__size__tag\">size :</p>";
-          echo "<div class=\"select product__size\"><select aria-label=\"Select menu example\" name='".$product_name."' id='size'>";
-          echo "<option selected value=\"\">please select the size</option>";
           foreach ($size_array as $value) {
             if ($value != "u") {
-              echo "<option value=\"".$value."\">".$value."</option>";
-            } else {
-              echo "<option value=\"u\">Default</option>";
+              echo "<p class=\"product__size\">".$value."</option>";
             }
           }
-          echo "</select></div></div>";
+          echo "</div>";
           if (!empty($length_array.count())) {
             echo "<div class=\"product__spec\">";
-            echo "<p class=\"product__size__tag\">length :</p>";
-            echo "<div class=\"select product__size\"><select aria-label=\"Select menu example\" name='".$product_name."' id='length'>";
-            echo "<option selected value=\"\">please select the length</option>";
+            echo "<p class=\"product__size__tag\" style=\"margin-right: 0\">length :</p>";
             foreach ($length_array as $value) {
               if ($value != "") {
-                echo "<option value=\"".$value."\">".$value."</option>";
-              } else {
-                echo "<option value=\"u\">Default</option>";
+                echo "<p class=\"product__size\">".$value."</option>";
               }
             }
-            echo "</select></div></div>";
+            echo "</div>";
           }
           if ($product_gender != "u") {
             echo "<div class=\"product__gender__group\">";
