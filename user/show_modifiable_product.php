@@ -18,7 +18,7 @@
           $gender_array = [];
           $dprice_array = [];
           $code_array = [];
-          while ($product_row = $retreive_all_product_result->fetch_assoc();) {
+          while ($product_row = $retreive_all_product_result->fetch_assoc()) {
             $price_array = array_merge($size_array, array($product_row['productprice']));
             $size_array = array_merge($size_array, array($product_row['productsize']));
             $length_array = array_merge($product_array, array($product_row['productlength']));
