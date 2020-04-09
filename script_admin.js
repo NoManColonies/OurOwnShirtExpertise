@@ -232,7 +232,7 @@ const reloadModifiableMenu = () => {
             var description = $("[name='productdescription']").val();
             var price = $("[name='productprice']").val();
             var dprice = $("[name='productdprice']").val();
-            var size = $("[name='productname']").val();
+            var size = $("[name='productsize']").val();
             var gender = $("[name='productgender']").val();
             var length = $("[name='productlength']").val();
             var imagepath = $("[name='productimagepath']").val();

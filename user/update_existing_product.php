@@ -11,7 +11,6 @@ if (session_auth_check($connect)['auth_key_valid']) {
     if(in_array($fileType, $allowTypes)){
       if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
         $title = (empty($_REQUEST['producttitle']))? "NULL" : "'".$_REQUEST['producttitle']."'";
-        $size = (empty($_REQUEST['productsize']))? "'u'" : "'".$_REQUEST['productsize']."'";
         $length = (empty($_REQUEST['productlength']))? "NULL" : "'".$_REQUEST['productlength']."'";
         $gender = (empty($_REQUEST['productgender']))? "'u'" : "'".$_REQUEST['productgender']."'";
         $dprice = (empty($_REQUEST['productdprice']))? "NULL" : $_REQUEST['productdprice'];
@@ -27,7 +26,7 @@ if (session_auth_check($connect)['auth_key_valid']) {
                 $statusMsg .= "Failed to update all distinct product error code : ".$connect->errno." query : ".$query;
               }
             }
-            $query = "update producttable set productprice=".$_REQUEST['productprice'].", productdprice=".$dprice.", productsize=".$size.", productlength=".$length." where productcode='".$_REQUEST['productcode']."'";
+            $query = "update producttable set productprice=".$_REQUEST['productprice'].", productdprice=".$dprice.", productsize=".$_REQUEST['productsize'].", productlength=".$length." where productcode='".$_REQUEST['productcode']."'";
             $try_to_update_product = $connect->query($query);
             if (!$try_to_update_product) {
               $statusMsg .= "Product update failed at index.php page error code : ".$connect->errno." query : ".$query;
@@ -44,7 +43,6 @@ if (session_auth_check($connect)['auth_key_valid']) {
     }
   } else {
     $title = (empty($_REQUEST['producttitle']))? "NULL" : "'".$_REQUEST['producttitle']."'";
-    $size = (empty($_REQUEST['productsize']))? "'u'" : "'".$_REQUEST['productsize']."'";
     $length = (empty($_REQUEST['productlength']))? "NULL" : "'".$_REQUEST['productlength']."'";
     $gender = (empty($_REQUEST['productgender']))? "'u'" : "'".$_REQUEST['productgender']."'";
     $dprice = (empty($_REQUEST['productdprice']))? "NULL" : $_REQUEST['productdprice'];
@@ -60,7 +58,7 @@ if (session_auth_check($connect)['auth_key_valid']) {
             $statusMsg .= "Failed to update all distinct product error code : ".$connect->errno." query : ".$query;
           }
         }
-        $query = "update producttable set productprice=".$_REQUEST['productprice'].", productdprice=".$dprice.", productsize=".$size.", productlength=".$length." where productcode='".$_REQUEST['productcode']."'";
+        $query = "update producttable set productprice=".$_REQUEST['productprice'].", productdprice=".$dprice.", productsize=".$_REQUEST['productsize'].", productlength=".$length." where productcode='".$_REQUEST['productcode']."'";
         $try_to_update_product = $connect->query($query);
         if (!$try_to_update_product) {
           $statusMsg .= "Product update failed at index.php page error code : ".$connect->errno." query : ".$query;
