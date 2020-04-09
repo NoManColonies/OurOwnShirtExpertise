@@ -493,6 +493,12 @@ body::-webkit-scrollbar {
 }
 
 .modify__container {
+	position: absolute;
+	top: 25%;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	transform: translateX(-50%);
 	margin-top: 7rem;
 	display: -webkit-flex;
 	display: -ms-flex;
