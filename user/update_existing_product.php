@@ -10,11 +10,13 @@ if (session_auth_check($connect)['auth_key_valid']) {
     $allowTypes = array('jpg', 'png', 'jpeg', 'gif', 'pdf', 'jfif');
     if(in_array($fileType, $allowTypes)){
       if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
-        $title = (empty($_REQUEST['producttitle']))? NULL : $_REQUEST['producttitle'];
-        $size = (empty($_REQUEST['productsize']))? "u" : $_REQUEST['productsize'];
-        $length = (empty($_REQUEST['productlength']))? NULL : $_REQUEST['productlength'];
-        $gender = (empty($_REQUEST['productgender']))? "u" : $_REQUEST['productgender'];
-        $try_to_update_product = $connect->query("update producttable set productname='".$_REQUEST['productname']."', producttitle='".$_REQUEST['producttitle']."', productdescription='".$_REQUEST['productdescription']."', productprice=".$_REQUEST['productprice'].", productsize='".$_REQUEST['productsize']."', productlength='".((is_null($_REQUEST['productlength']))? "NULL" : "'".$_REQUEST['productlength']."'")."', productgender='".((is_null($_REQUEST['productgender']))? "NULL" : "'".$_REQUEST['productgender']."'")."', productdprice=".((is_null($_REQUEST['productdprice']))? "NULL" : $_REQUEST['productdprice']).", productimagepath='".$fileName."' where productcode='".$_REQUEST['productcode']."'");
+        $title = (empty($_REQUEST['producttitle']))? "NULL" : "'".$_REQUEST['producttitle']."'";
+        $size = (empty($_REQUEST['productsize']))? "'u'" : "'".$_REQUEST['productsize']."'";
+        $length = (empty($_REQUEST['productlength']))? "NULL" : "'".$_REQUEST['productlength']."'";
+        $gender = (empty($_REQUEST['productgender']))? "'u'" : "'".$_REQUEST['productgender']."'";
+        $dprice = (empty($_REQUEST['productdprice']))? "NULL" : $_REQUEST['productdprice'];
+        $query = "update producttable set productname='".$_REQUEST['productname']."', producttitle=".$title.", productdescription='".$_REQUEST['productdescription']."', productprice=".$_REQUEST['productprice'].", productsize=".$size.", productlength=".$length.", productgender=".$gender.", productdprice=".$dprice.", productimagepath='".$fileName."' where productcode='".$_REQUEST['productcode']."'";
+        $try_to_update_product = $connect->query($query);
         if (!$try_to_update_product) {
           $statusMsg = "Product update failed at index.php page error code : ".$connect->errno." query : ".$query;
         }
