@@ -18,7 +18,8 @@
       $product_imagepath = NULL;
       echo "<input type=\"hidden\" name=\"selected\" value=\"\">";
       while ($product_row = $retrieve_product_result->fetch_assoc()) {
-        echo "<input type=\"hidden\" name=\"product\" data-size=\"".$product_row['productsize']."\" data-length=\"".$product_row['productlength']."\" data-price=\"".$product_row['productprice']."\" data-dprice=\"".$product_row['productdprice']."\" data-code=\"".$product_row['productcode']."\">";
+        var $length = (empty($product_row['productlength']))? "u" : $product_row['productlength'];
+        echo "<input type=\"hidden\" name=\"product\" data-size=\"".$product_row['productsize']."\" data-length=\"".$length."\" data-price=\"".$product_row['productprice']."\" data-dprice=\"".$product_row['productdprice']."\" data-code=\"".$product_row['productcode']."\">";
         if (is_null($product_title)) {
           $product_title = $product_row['producttitle'];
         }
@@ -91,10 +92,9 @@
           $check_bit = false;
           foreach ($length_array as $value) {
             if ($value != "") {
-              $check_bit = true;
               echo "<option value=\"".$value."\">".$value."</option>";
-            }
-            if ($check_bit) {
+            } else if (!$check_bit) {
+              $check_bit = true;
               echo "<option value=\"u\">Default</option>";
             }
           }
