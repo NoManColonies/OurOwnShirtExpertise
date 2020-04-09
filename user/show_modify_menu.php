@@ -9,7 +9,7 @@
     require_once('../.confiq/confiq.php');
     $retrieve_product_result = $connect->query("select * from producttable where productcode='".$_REQUEST['q']."'");
     if (!empty($retrieve_product_result->num_rows)) {
-      $product_row = $retreive_product_result->fetch_assoc();
+      $product_row = $retrieve_product_result->fetch_assoc();
       echo "<div class=\"input__icon\">
         <input type=\"text\" required name=\"productname\" class=\"input__glow\" value=\"".$product_row['productname']."\" placeholder=\"Item name\">
         <div class=\"icon__snap__field\">
