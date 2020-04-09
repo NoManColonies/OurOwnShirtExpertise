@@ -78,7 +78,7 @@
             echo "<p class=\"product__price\">".$min."฿</p>";
             echo "<p class=\"product__price\">~</p>";
             $check_bit = true;
-          } else if ($mind != $min) {
+          } else if ($mind != $min && $mind != 0) {
             echo "<p class=\"product__price\">".$mind."฿</p>";
             echo "<p class=\"product__price\">~</p>";
             $check_bit = true;
