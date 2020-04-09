@@ -157,16 +157,16 @@ const reloadModifiableMenu = () => {
           $(document).on('submit', '#modify__popup', function() {
             var fd = new FormData();
             var files = $('#file')[0].files[0];
-            var name = $("[name='productname']")[0];
-            var title = $("[name='producttitle']")[0];
-            var description = $("[name='productdescription']")[0];
-            var price = $("[name='productprice']")[0];
-            var size = $("[name='productsize']")[0];
-            var gender = $("[name='productgender']")[0];
-            var length = $("[name='productlength']")[0];
-            var dprice = $("[name='productdprice']")[0];
-            var imagepath = $("[name='productimagepath']")[0];
-            var code = $("[name='code']")[0];
+            var name = $("[name='productname']")[0].val();
+            var title = $("[name='producttitle']")[0].val();
+            var description = $("[name='productdescription']")[0].val();
+            var price = $("[name='productprice']")[0].val();
+            var size = $("[name='productsize']")[0].val();
+            var gender = $("[name='productgender']")[0].val();
+            var length = $("[name='productlength']")[0].val();
+            var dprice = $("[name='productdprice']")[0].val();
+            var imagepath = $("[name='productimagepath']")[0].val();
+            var code = $("[name='code']")[0].val();
             console.log(name);
             fd.append('file', files);
             fd.append('productname', name);
