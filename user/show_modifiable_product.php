@@ -31,13 +31,13 @@
             if (empty($product_name)) {
               $product_name = $product_row['productname'];
             }
-            if (empty($product_title)) {
+            if (empty($product_title) && isset($product_row['producttitle'])) {
               $product_title = $product_row['producttitle'];
             }
-            if (empty($product_desc)) {
+            if (empty($product_desc) && isset($product_row['productdescription'])) {
               $product_desc = $product_row['productdescription'];
             }
-            if (empty($product_gender)) {
+            if (empty($product_gender) && isset($product_row['productgender'])) {
               $product_gender = $product_gender['productgender'];
             }
             if (empty($product_imagepath)) {
