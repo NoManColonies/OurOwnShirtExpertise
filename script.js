@@ -157,13 +157,6 @@ const toggleCartMenu = () => {
   }
 };
 
-const toggleModifyMenu = () => {
-  var target = document.querySelector('.modify__product__menu');
-  var background = document.querySelector('#dark5');
-  target.classList.toggle('active__modify__menu');
-  background.classList.toggle('activeDarkenBackground');
-};
-
 const selfReplicatingRemoveCart = () => {
   $(".menu__cart__product__qty__field").change(function() {
     if ($(this).val() != $(this).data("ovalue")) {
