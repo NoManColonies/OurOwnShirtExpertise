@@ -25,7 +25,7 @@ $(document).ready(function() {
 
   $(".button__add__product").click(function() {
     var fd = new FormData();
-    var files = $('#file')[0].files[0];
+    var files = $('#fileAdd')[0].files[0];
     var name = $("[name='productaddname']").val();
     var title = $("[name='productaddtitle']").val();
     var description = $("[name='productadddescription']").val();
