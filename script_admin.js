@@ -1,5 +1,21 @@
 $(document).ready(function() {
-  refreshModifiable();
+  //refreshModifiable();
+
+  $("#stock_label").change(function() {
+    if ($(this).val() != "" && $("[name='productqty']").val() >= $("[name='productqty']").attr("min")) {
+      $(".stock_update_button").prop("disabled", false);
+    } else {
+      $(".stock_update_button").prop("disabled", true);
+    }
+  });
+
+  $("[name='productqty']").keyup(function() {
+    if ($(this).val() >= $(this).attr("min")) {
+      $(".stock_update_button").prop("disabled", false);
+    } else {
+      $(".stock_update_button").prop("disabled", true);
+    }
+  });
 
   $(".close__modify__popup").click(function() {
     var tempEntity = document.querySelector('.modify__product__menu');
@@ -62,6 +78,9 @@ $(document).ready(function() {
 
   var scrollTeleport = $('.scroll');
   scrollTeleport.click(function(e) {
+    if ($(this).data("a") == "logout") {
+      return;
+    }
     e.preventDefault();
     $('body,html').animate({
       scrollTop: $(this.hash).offset().top
@@ -227,4 +246,18 @@ const reloadModifiableMenu = () => {
       xmlhttp.send();
     }
   });
+};
+
+const toggleStockUpdateMenu = () => {
+  var target = document.querySelector(".stock_update_menu");
+  var background = document.querySelector("#dark3");
+  target.classList.toggle("active_stock_menu");
+  background.classList.toggle("activeDarkenBackground");
+};
+
+const toggleAlbumMenu = () => {
+  var target = document.querySelector(".view__album__popup");
+  var background = document.querySelector("#dark4");
+  target.classList.toggle("active__album__popup");
+  background.classList.toggle("activeDarkenBackground");
 };
