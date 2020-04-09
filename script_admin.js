@@ -143,7 +143,7 @@ const reloadModifiableMenu = () => {
     var background = document.querySelector('#dark2');
     tempEntity.classList.toggle('active__modify__menu');
     background.classList.toggle('activeDarkenBackground');
-    if (target.classList.contains('active__modify__menu')) {
+    if (tempEntity.classList.contains('active__modify__menu')) {
       var container = document.querySelector('.modify__container');
       if (window.XMLHttpRequest) {
         xmlhttp = new XMLHttpRequest();
