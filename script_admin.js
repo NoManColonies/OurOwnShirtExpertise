@@ -226,41 +226,48 @@ const refreshStockOption = () => {
   });
 
   $(".stock_update_button").click(function() {
-    if (window.XMLHttpRequest) {
-      xmlhttp = new XMLHttpRequest();
-    } else {
-      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
+    var fd = new FormData();
+    var qty = $("[name='productqty']").val();
+    var name = $("#stock_label_name").val();
+    var size = $("#stock_label_size").val();
+    var length = $("#stock_label_length").val();
+    fd.append('q', qty);
+    fd.append('a', name);
+    fd.append('s', size);
+    fd.append('l', length);
     var tempEntity = $(this);
     tempEntity.html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>Update stock");
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        if (this.responseText == "") {
-          var target = document.querySelector(".stock_update_container");
-          if (window.XMLHttpRequest) {
-            xmlhttp = new XMLHttpRequest();
-          } else {
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-          }
-          target.innerHTML = "<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>";
-          xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-              target.innerHTML = this.responseText;
-              refreshStockOption();
-              refreshModifiable();
+    $.ajax({
+        url: 'user/try_stock_update.php',
+        type: 'post',
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+          if (response == "") {
+            var target = $(".stock_update_container");
+            if (window.XMLHttpRequest) {
+              xmlhttp = new XMLHttpRequest();
+            } else {
+              xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
             }
-          };
-          xmlhttp.open("GET", "user/show_stock_updatable_name.php?q=", true);
-          xmlhttp.send();
-        } else {
-          alert(this.responseText);
-          tempEntity.html("<i class=\"fas fa-cubes\"></i>Update stock");
-          refreshStockOption();
-        }
-      }
-    };
-    xmlhttp.open("GET", "user/try_stock_update.php?q=" + $("[name='productqty']").val() + "&a=" + $("#stock_label_name").val() + "&s=" + $("#stock_label_size").val() + "&l=" + $("#stock_label_length").val(), true);
-    xmlhttp.send();
+            target.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>");
+            xmlhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                target.innerHTML = this.responseText;
+                refreshStockOption();
+                refreshModifiable();
+              }
+            };
+            xmlhttp.open("GET", "user/show_stock_updatable_name.php?q=", true);
+            xmlhttp.send();
+          } else {
+            alert(response);
+            tempEntity.html("<i class=\"fas fa-cubes\"></i>Update stock");
+            refreshStockOption();
+          }
+        },
+    });
   });
 };
 
