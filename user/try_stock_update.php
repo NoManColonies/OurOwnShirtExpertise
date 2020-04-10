@@ -1,6 +1,7 @@
 <?php
 require_once('../.confiq/confiq.php');
-$query = "select * from producttable where productname='".$_REQUEST['a']."' and productsize='".$_REQUEST['s']."' and productlength='".$_REQUEST['l']."'";
+$length = ($_REQUEST['l'] == "u")? "NULL" : "'".$_REQUEST['l']."'";
+$query = "select * from producttable where productname='".$_REQUEST['a']."' and productsize='".$_REQUEST['s']."' and productlength=".$length;
 $retreive_product_result = $connect->query($query);
 if (!empty($retreive_product_result->num_rows)) {
   $product_row = $retreive_product_result->fetch_assoc();
