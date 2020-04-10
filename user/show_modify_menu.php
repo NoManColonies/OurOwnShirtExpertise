@@ -73,7 +73,7 @@
         </div>
       </div>";
       echo "<div class=\"input__icon\">
-        <input type=\"text\" name=\"productgender\" value=\".$product_gender.\" class=\"input__glow\" placeholder=\"Gender this item is for (Optional)\">
+        <input type=\"text\" name=\"productgender\" value=\"".$product_gender."\" class=\"input__glow\" placeholder=\"Gender this item is for (Optional)\">
         <div class=\"icon__snap__field\">
           <div class=\"icon__snap__field__relative\">
             <i class=\"fas fa-venus-double fa-lg fa-fw input__snap\" aria-hidden=\"true\"></i>
@@ -84,7 +84,7 @@
         <input type=\"text\" name=\"productsizeedit\" value=\"\" class=\"input__glow\" placeholder=\"Item size\">
         <div class=\"icon__snap__field\">
           <div class=\"icon__snap__field__relative\">
-            <i class=\"fas fa-venus-double fa-lg fa-fw input__snap\" aria-hidden=\"true\"></i>
+            <i class=\"fas fa-ruler-combined fa-lg fa-fw input__snap\" aria-hidden=\"true\"></i>
           </div>
         </div>
       </div>";
@@ -92,7 +92,7 @@
         <input type=\"text\" name=\"productlengthedit\" value=\"\" class=\"input__glow\" placeholder=\"Item length(Optional)\">
         <div class=\"icon__snap__field\">
           <div class=\"icon__snap__field__relative\">
-            <i class=\"fas fa-venus-double fa-lg fa-fw input__snap\" aria-hidden=\"true\"></i>
+            <i class=\"fas fa-pencil-ruler fa-lg fa-fw input__snap\" aria-hidden=\"true\"></i>
           </div>
         </div>
       </div>";

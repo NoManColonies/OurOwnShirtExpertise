@@ -130,6 +130,7 @@ const refreshModifiable = () => {
       reloadModifiableMenu();
 
       $(".stock_update_trigger").click(function() {
+        document.querySelector(".stock_update_menu").classList.toggle("active_stock_menu");
         var target = document.querySelector(".stock_update_container");
         if (window.XMLHttpRequest) {
           xmlhttp = new XMLHttpRequest();
