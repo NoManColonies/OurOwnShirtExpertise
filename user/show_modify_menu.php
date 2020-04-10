@@ -11,7 +11,6 @@
     $retrieve_product_result = $connect->query("select * from producttable where productname='".$product_name."'");
     if (!empty($retrieve_product_result->num_rows)) {
       $size_array = [];
-      $length_array = [];
       $product_title = NULL;
       $product_desc = NULL;
       $product_gender = NULL;
@@ -32,8 +31,14 @@
         if (is_null($product_imagepath)) {
           $product_imagepath = $product_row['productimagepath'];
         }
-        $size_array = array_merge($size_array, array($product_row['productsize']));
-        $length_array = array_merge($length_array, array($product_row['productlength']));
+      }
+      $retreive_distinct_product_result = $connect->query("select distinct productsize from producttable where productname='".$product_name."'");
+      if (!empty($retreive_distinct_product_result->num_rows)) {
+        while ($row = $retreive_distinct_product_result->fetch_assoc()) {
+          $size_array = array_merge($size_array, array($row['productsize']));
+        }
+      } else {
+        $size_array = array("u");
       }
       echo "<div class=\"input__icon\">
         <input type=\"text\" required name=\"productname\" class=\"input__glow\" value=\"".$product_name."\" placeholder=\"Item name\">
@@ -68,7 +73,23 @@
         </div>
       </div>";
       echo "<div class=\"input__icon\">
-        <input type=\"text\" name=\"productgender\" value=\"\" class=\"input__glow\" placeholder=\"Gender this item is for (Optional)\">
+        <input type=\"text\" name=\"productgender\" value=\".$product_gender.\" class=\"input__glow\" placeholder=\"Gender this item is for (Optional)\">
+        <div class=\"icon__snap__field\">
+          <div class=\"icon__snap__field__relative\">
+            <i class=\"fas fa-venus-double fa-lg fa-fw input__snap\" aria-hidden=\"true\"></i>
+          </div>
+        </div>
+      </div>";
+      echo "<div class=\"input__icon\">
+        <input type=\"text\" name=\"productsizeedit\" value=\"\" class=\"input__glow\" placeholder=\"Item size\">
+        <div class=\"icon__snap__field\">
+          <div class=\"icon__snap__field__relative\">
+            <i class=\"fas fa-venus-double fa-lg fa-fw input__snap\" aria-hidden=\"true\"></i>
+          </div>
+        </div>
+      </div>";
+      echo "<div class=\"input__icon\">
+        <input type=\"text\" name=\"productlengthedit\" value=\"\" class=\"input__glow\" placeholder=\"Item length(Optional)\">
         <div class=\"icon__snap__field\">
           <div class=\"icon__snap__field__relative\">
             <i class=\"fas fa-venus-double fa-lg fa-fw input__snap\" aria-hidden=\"true\"></i>
@@ -78,10 +99,12 @@
       echo "<div class=\"select\">
         <select aria-label=\"Select menu example\" name=\"productsize\">
           <option selected>Please select the size</option>";
+          $check_bit = false;
           foreach ($size_array as $value) {
             if ($value != "u") {
               echo "<option value=\"".$value."\">".$value."</option>";
-            } else {
+            } else if (!$check_bit) {
+              $check_bit = true;
               echo "<option value=\"u\">Default</option>";
             }
           }
@@ -89,6 +112,7 @@
       echo "<div class=\"select\">
         <select aria-label=\"Select menu example\" name=\"productlength\">
           <option selected>Please select the length</option>";
+          /*
           $check_bit = false;
           foreach ($length_array as $value) {
             if ($value != "" && $value != "u") {
@@ -98,6 +122,7 @@
               echo "<option value=\"u\">Default</option>";
             }
           }
+          */
       echo "</select></div>";
       echo "<div class=\"input__icon\">
         <input type=\"number\" name=\"productdprice\" value=\"\" class=\"input__glow\" placeholder=\"Discounted price (Optional)\">

@@ -22,7 +22,7 @@
         <a href="#addproduct" class="scroll" onclick="toggleSideMenu()">add product</a>
         <button class="button" name="button" onclick="toggleSideMenu()">notification</button>
         <button class="button" name="button" onclick="toggleSideMenu()">view images album</button>
-        <button class="button" name="button" onclick="toggleSideMenu()">update stock</button>
+        <button class="button stock_update_trigger" name="button" onclick="toggleSideMenu()">update stock</button>
         <a href="user/logout.php" data-a="logout" class="scroll" onclick="toggleSideMenu()">log out</a>
       </div>
     </div>
@@ -32,8 +32,21 @@
       <p class="modify__header">Modify item</p>
       <i class="fas fa-times close__icon close__modify__popup" onclick=""></i>
     </div>
+    <div class="stock_update_menu">
+      <div class="stock_update_container">
+      </div>
+      <i class="fas fa-times close__icon" onclick="toggleStockUpdateMenu()"></i>
+    </div>
+    <div class="view__album__popup">
+      <p class="album__popup__header">Images album</p>
+      <div class="album__container">
+      </div>
+      <i class="fas fa-times close__icon" onclick="toggleAlbumMenu()"></i>
+    </div>
     <span class="dark__transparent__background" id="dark1" onclick="toggleSideMenu()"></span>
-    <span class="dark__transparent__background close__modify__popup" id="dark2" onclick=""></span>
+    <span class="dark__transparent__background close__modify__popup" id="dark2"></span>
+    <span class="dark__transparent__background" id="dark3" onclick="toggleStockUpdateMenu()"></span>
+    <span class="dark__transparent__background" id="dark4" onclick="toggleAlbumMenu()"></span>
     <span id="home"></span>
     <header>DII Samorasriworawan Shop</header>
     <nav class="floating">

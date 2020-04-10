@@ -608,10 +608,14 @@ body::-webkit-scrollbar {
 	-webkit-transform: translate(-50%, -50%);
 	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
-	min-width: 90%;
+	min-width: 45%;
 	display: -webkit-flex;
 	display: -ms-flex;
 	display: flex;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .stock_select_product {
@@ -620,8 +624,9 @@ body::-webkit-scrollbar {
 
 .stock_update_button {
 	position: absolute;
+	min-width: 160px;
 	left: 50%;
-	bottom: -150%;
+	bottom: -35%;
 	-webkit-transform: translateX(-50%);
 	-ms-transform: translateX(-50%);
 	transform: translateX(-50%);

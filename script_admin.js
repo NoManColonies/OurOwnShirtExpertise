@@ -1,12 +1,14 @@
 $(document).ready(function() {
   refreshModifiable();
 
-  $("#stock_label").change(function() {
-    if ($(this).val() != "" && $("[name='productqty']").val() >= $("[name='productqty']").attr("min")) {
-      $(".stock_update_button").prop("disabled", false);
-    } else {
-      $(".stock_update_button").prop("disabled", true);
-    }
+  $(".stock_label").each(function() {
+    $(this).change(function() {
+      if ($(this).val() != "" && $("[name='productqty']").val() >= $("[name='productqty']").attr("min")) {
+        $(".stock_update_button").prop("disabled", false);
+      } else {
+        $(".stock_update_button").prop("disabled", true);
+      }
+    });
   });
 
   $("[name='productqty']").keyup(function() {
@@ -144,10 +146,112 @@ const refreshModifiable = () => {
     if (this.readyState == 4 && this.status == 200) {
       target.innerHTML = this.responseText;
       reloadModifiableMenu();
+
+      $(".stock_update_trigger").click(function() {
+        var target = document.querySelector(".stock_update_container");
+        if (window.XMLHttpRequest) {
+          xmlhttp = new XMLHttpRequest();
+        } else {
+          xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        target.innerHTML = "<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>";
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            target.innerHTML = this.responseText;
+            refreshStockOption();
+          }
+        };
+        xmlhttp.open("GET", "user/show_stock_updatable_name.php?q=", true);
+        xmlhttp.send();
+      });
     }
   };
   xmlhttp.open("GET", "user/show_modifiable_product.php", true);
   xmlhttp.send();
+};
+
+const refreshStockOption = () => {
+  $("#stock_label_name").change(function() {
+    if (window.XMLHttpRequest) {
+      xmlhttp = new XMLHttpRequest();
+    } else {
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    var tempEntity = $("#stock_label_size");
+    tempEntity.html("");
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        if (this.responseText == "") {
+          alert("An error ocurred when try to retreive product size.");
+        } else {
+          tempEntity.html(this.responseText);
+          refreshStockOption();
+        }
+      }
+    };
+    xmlhttp.open("GET", "user/show_stock_updatable_size.php?q=" + $(this).val(), true);
+    xmlhttp.send();
+  });
+
+  $("#stock_label_size").change(function() {
+    if (window.XMLHttpRequest) {
+      xmlhttp = new XMLHttpRequest();
+    } else {
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    var tempEntity = $("#stock_label_length");
+    tempEntity.html("");
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        if (this.responseText == "") {
+          alert("An error ocurred when try to retreive product length.");
+        } else {
+          tempEntity.html(this.responseText);
+          refreshStockOption();
+        }
+      }
+    };
+    xmlhttp.open("GET", "user/show_stock_updatable_length.php?q=" + $("#stock_label_name").val() + "&s=" + $(this).val(), true);
+    xmlhttp.send();
+  });
+
+  $(".stock_update_button").click(function() {
+    if (window.XMLHttpRequest) {
+      xmlhttp = new XMLHttpRequest();
+    } else {
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    var tempEntity = $(this);
+    tempEntity.html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>Update stock");
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        if (this.responseText == "") {
+          var target = document.querySelector(".stock_update_container");
+          if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+          } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+          }
+          target.innerHTML = "<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>";
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              target.innerHTML = this.responseText;
+              refreshStockOption();
+              refreshModifiable();
+            }
+          };
+          xmlhttp.open("GET", "user/show_stock_updatable_name.php?q=", true);
+          xmlhttp.send();
+        } else {
+          alert(this.responseText);
+          tempEntity.html("<i class=\"fas fa-cubes\"></i>Update stock");
+          refreshStockOption();
+        }
+      }
+    };
+    xmlhttp.open("GET", "user/try_stock_update.php?q=" + $("[name='productqty']").val() + "&a=" + $("#stock_label_name").val() + "&s=" + $("#stock_label_size").val() + "&l=" + $("#stock_label_length").val(), true);
+    xmlhttp.send();
+  });
 };
 
 const reloadModifiableMenu = () => {
@@ -191,37 +295,53 @@ const reloadModifiableMenu = () => {
           });
 
           $("[name='productsize']").change(function() {
-            var sizeEntity = $(this);
             var lengthEntity = $("[name='productlength']");
-            $("[name='product']").each(function() {
-              if ($(this).data("size") == sizeEntity.val() && $(this).data("length") == lengthEntity.val()) {
-                $("[name='productprice']").val($(this).data("price"));
-                $("[name='productdprice']").val($(this).data("dprice"));
-                $("[name='selected']").val($(this).data("code"));
-                $(".button__modify__menu").prop("disabled", false);
-                return false;
-              } else {
-                $("[name='selected']").val("");
-                $(".button__modify__menu").prop("disabled", true);
-              }
-            });
-          });
+            var sizeEntity = $(this);
+            if (window.XMLHttpRequest) {
+              xmlhttp = new XMLHttpRequest();
+            } else {
+              xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            lengthEntity.html("<option selected>Please select the length</option>");
+            $("[name='productsizeedit']").val((sizeEntity.val() == "u")? "Default" : sizeEntity.val());
+            xmlhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                lengthEntity.html(this.responseText);
 
-          $("[name='productlength']").change(function() {
-            var sizeEntity = $("[name='productsize']");
-            var lengthEntity = $(this);
-            $("[name='product']").each(function() {
-              if ($(this).data("size") == sizeEntity.val() && $(this).data("length") == lengthEntity.val()) {
-                $("[name='productprice']").val($(this).data("price"));
-                $("[name='productdprice']").val($(this).data("dprice"));
-                $("[name='selected']").val($(this).data("code"));
-                $(".button__modify__menu").prop("disabled", false);
-                return false;
-              } else {
-                $("[name='selected']").val("");
-                $(".button__modify__menu").prop("disabled", true);
+                $("[name='product']").each(function() {
+                  if ($(this).data("size") == sizeEntity.val() && $(this).data("length") == lengthEntity.val()) {
+                    $("[name='productprice']").val($(this).data("price"));
+                    $("[name='productdprice']").val($(this).data("dprice"));
+                    $("[name='selected']").val($(this).data("code"));
+                    $(".button__modify__menu").prop("disabled", false);
+                    return false;
+                  } else {
+                    $("[name='selected']").val("");
+                    $(".button__modify__menu").prop("disabled", true);
+                  }
+                });
+
+                $("[name='productlength']").change(function() {
+                  var sizeEntity = $("[name='productsize']");
+                  var lengthEntity = $(this);
+                  $("[name='productlengthedit']").val((lengthEntity.val() == "u")? "Default" : lengthEntity.val());
+                  $("[name='product']").each(function() {
+                    if ($(this).data("size") == sizeEntity.val() && $(this).data("length") == lengthEntity.val()) {
+                      $("[name='productprice']").val($(this).data("price"));
+                      $("[name='productdprice']").val($(this).data("dprice"));
+                      $("[name='selected']").val($(this).data("code"));
+                      $(".button__modify__menu").prop("disabled", false);
+                      return false;
+                    } else {
+                      $("[name='selected']").val("");
+                      $(".button__modify__menu").prop("disabled", true);
+                    }
+                  });
+                });
               }
-            });
+            };
+            xmlhttp.open("GET", "user/get_product_length.php?q=" + $("[name='code']").val() + "&s=" + sizeEntity.val(), true);
+            xmlhttp.send();
           });
 
           $(document).on('submit', '#modify__popup', function() {
@@ -232,9 +352,9 @@ const reloadModifiableMenu = () => {
             var description = $("[name='productdescription']").val();
             var price = $("[name='productprice']").val();
             var dprice = $("[name='productdprice']").val();
-            var size = $("[name='productsize']").val();
+            var size = $("[name='productsizeedit']").val();
             var gender = $("[name='productgender']").val();
-            var length = $("[name='productlength']").val();
+            var length = $("[name='productlengthedit']").val();
             var imagepath = $("[name='productimagepath']").val();
             var code = $("[name='selected']").val();
             fd.append('file', files);
@@ -243,9 +363,9 @@ const reloadModifiableMenu = () => {
             fd.append('productdescription', description);
             fd.append('productprice', price);
             fd.append('productdprice', dprice);
-            fd.append('productsize', size);
+            fd.append('productsize', (size == "Default")? "" : size);
             fd.append('productgender', gender);
-            fd.append('productlength', length);
+            fd.append('productlength', (length == "Default")? "" : length);
             fd.append('productimagepath', imagepath);
             fd.append('productcode', code);
             $(this).html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\"></i>Submitting request...</p>");
@@ -294,4 +414,20 @@ const toggleAlbumMenu = () => {
   var background = document.querySelector("#dark4");
   target.classList.toggle("active__album__popup");
   background.classList.toggle("activeDarkenBackground");
+  if (target.classList.contains("active__album__popup")) {
+    var target = document.querySelector(".album__container");
+    if (window.XMLHttpRequest) {
+      xmlhttp = new XMLHttpRequest();
+    } else {
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    target.innerHTML = "<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>";
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        target.innerHTML = this.responseText;
+      }
+    };
+    xmlhttp.open("GET", "user/show_album_image.php", true);
+    xmlhttp.send();
+  }
 };
