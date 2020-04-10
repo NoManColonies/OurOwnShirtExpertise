@@ -42,17 +42,17 @@
               $product_imagepath = $product_row['productimagepath'];
             }
           }
-          $retreive_distinct_product_result = $connect->query("select distinct productsize from producttable where productname='".$product_name."'");
-          if (!empty($retreive_distinct_product_result->num_rows)) {
-            while ($row = $retreive_distinct_product_result->fetch_assoc()) {
+          $retreive_product_result = $connect->query("select distinct productsize from producttable where productname='".$product_name."'");
+          if (!empty($retreive_product_result->num_rows)) {
+            while ($row = $retreive_product_result->fetch_assoc()) {
               $size_array = array_merge($size_array, array($row['productsize']));
             }
           } else {
             $size_array = array("u");
           }
-          $retreive_distinct_product_result = $connect->query("select distinct productlength from producttable where productname='".$product_name."'");
-          if (!empty($retreive_distinct_product_result->num_rows)) {
-            while ($row = $retreive_distinct_product_result->fetch_assoc()) {
+          $retreive_product_result = $connect->query("select distinct productlength from producttable where productname='".$product_name."'");
+          if (!empty($retreive_product_result->num_rows)) {
+            while ($row = $retreive_product_result->fetch_assoc()) {
               $length_array = array_merge($length_array, array($row['productlength']));
             }
           } else {
