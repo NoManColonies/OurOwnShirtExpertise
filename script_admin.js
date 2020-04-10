@@ -281,16 +281,18 @@ const reloadModifiableMenu = () => {
     tempEntity.classList.toggle('active__modify__menu');
     background.classList.toggle('activeDarkenBackground');
     if (tempEntity.classList.contains('active__modify__menu')) {
-      var container = document.querySelector('.modify__container');
+      var container = $('.modify__container');
       if (window.XMLHttpRequest) {
         xmlhttp = new XMLHttpRequest();
       } else {
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
       }
-      container.innerHTML = "<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>";
+      container.css({'min-height': '90%'});
+      container.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>");
       xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-          container.innerHTML = this.responseText;
+          container.css({'min-height': '0'});
+          container.html(this.responseText);
 
           $(".input__glow")
           .focus(function() {
