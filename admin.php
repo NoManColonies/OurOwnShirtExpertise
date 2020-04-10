@@ -21,7 +21,7 @@
       <div class="side__menu__group">
         <a href="#addproduct" class="scroll" onclick="toggleSideMenu()">add product</a>
         <button class="button" name="button" onclick="toggleSideMenu()">notification</button>
-        <button class="button" name="button" onclick="toggleSideMenu()">view images album</button>
+        <button class="button" name="button" onclick="toggleSideMenu();toggleAlbumMenu();">view images album</button>
         <button class="button stock_update_trigger" name="button" onclick="toggleSideMenu()">update stock</button>
         <a href="user/logout.php" data-a="logout" class="scroll" onclick="toggleSideMenu()">log out</a>
       </div>
