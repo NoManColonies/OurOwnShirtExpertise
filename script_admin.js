@@ -177,7 +177,7 @@ const refreshModifiable = () => {
 const stockTrigger = () => {
   $(".stock_update_trigger").click(function() {
     var fd = new FormData();
-    fd.append('q', "");
+    fd.append('q', $(this).data("pname"));
     document.querySelector(".stock_update_menu").classList.toggle("active_stock_menu");
     document.querySelector("#dark3").classList.toggle("activeDarkenBackground");
     var target = $(".stock_update_container");

@@ -133,7 +133,7 @@ if (!empty($retreive_distinct_product_result->num_rows)) {
         echo "<p class=\"product__gender\">".$product_gender."</p></div>";
       }
       echo "<div class=\"product__button__group\">";
-      echo "<button type=\"button\" class=\"inspect__item button__green button__hover__expand__admin stock_update_trigger\"><i class=\"fas fa-server\" aria-hidden=\"true\"></i></button>";
+      echo "<button type=\"button\" class=\"inspect__item button__green button__hover__expand__admin stock_update_trigger\" data-pname=\"".$product_name."\"><i class=\"fas fa-server\" aria-hidden=\"true\"></i></button>";
       echo "<button type=\"button\" class=\"add__to__cart button__blue modify__popup\" name=\"\" data-name=\"".$product_name."\" onclick=\"\"><i class=\"fas fa-edit\" aria-hidden=\"true\"></i>modify product</button>";
       echo "</div></div></div></div>";
     }
