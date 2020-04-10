@@ -18,10 +18,15 @@ if (session_auth_check($connect)['auth_key_valid']) {
         $length = (empty($_REQUEST['productlength']))? "NULL" : "'".$_REQUEST['productlength']."'";
         $gender = (empty($_REQUEST['productgender']))? "'u'" : "'".$_REQUEST['productgender']."'";
         $dprice = (empty($_REQUEST['productdprice']))? "NULL" : $_REQUEST['productdprice'];
-        $query = "insert into producttable (pid, productname, producttitle, productdescription, productprice, productsize, productlength, productgender, productqty, productdprice, productimagepath, productcode) values(NULL, '".$_REQUEST['productname']."', ".$title.", '".$_REQUEST['productdescription']."', ".$_REQUEST['productprice'].", ".$size.", ".$length.", ".$gender.", 0, ".$dprice.", '".$fileName."', '".$product_code.($line_count + 1)."')";
-        $insert = $connect->query($query);
-        if (!$insert) {
-          $statusMsg = "File upload failed, please try again.".$connect->errno." : ".$fileName." query : ".$query;
+        $get_existing_product = $connect->query("select * from producttable where productname='".$_REQUEST['productname']."' and productsize='".$size."' and productgender='".$gender."' and productlength='".$length."'");
+        if (empty($get_existing_product->num_rows)) {
+          $query = "insert into producttable (pid, productname, producttitle, productdescription, productprice, productsize, productlength, productgender, productqty, productdprice, productimagepath, productcode) values(NULL, '".$_REQUEST['productname']."', ".$title.", '".$_REQUEST['productdescription']."', ".$_REQUEST['productprice'].", ".$size.", ".$length.", ".$gender.", 0, ".$dprice.", '".$fileName."', '".$product_code.($line_count + 1)."')";
+          $insert = $connect->query($query);
+          if (!$insert) {
+            $statusMsg = "File upload failed, please try again.".$connect->errno." : ".$fileName." query : ".$query;
+          }
+        } else {
+          $statusMsg = "Product already existed.";
         }
       } else {
         $statusMsg = "Sorry, there was an error uploading your file.".$_FILES['file']['error'];
@@ -38,10 +43,15 @@ if (session_auth_check($connect)['auth_key_valid']) {
     $length = (empty($_REQUEST['productlength']))? "NULL" : "'".$_REQUEST['productlength']."'";
     $gender = (empty($_REQUEST['productgender']))? "'u'" : "'".$_REQUEST['productgender']."'";
     $dprice = (empty($_REQUEST['productdprice']))? "NULL" : $_REQUEST['productdprice'];
-    $query = "insert into producttable (pid, productname, producttitle, productdescription, productprice, productsize, productlength, productgender, productqty, productdprice, productimagepath, productcode) values(NULL, '".$_REQUEST['productname']."', ".$title.", '".$_REQUEST['productdescription']."', ".$_REQUEST['productprice'].", ".$size.", ".$length.", ".$gender.", 0, ".$dprice.", '".$_REQUEST['productimagepath']."', '".$product_code.($line_count + 1)."')";
-    $insert = $connect->query($query);
-    if (!$insert) {
-      $statusMsg = "Failed to upload product error code : ".$connect->errno." query : ".$query;
+    $get_existing_product = $connect->query("select * from producttable where productname='".$_REQUEST['productname']."' and productsize='".$size."' and productgender='".$gender."' and productlength='".$length."'");
+    if (empty($get_existing_product->num_rows)) {
+      $query = "insert into producttable (pid, productname, producttitle, productdescription, productprice, productsize, productlength, productgender, productqty, productdprice, productimagepath, productcode) values(NULL, '".$_REQUEST['productname']."', ".$title.", '".$_REQUEST['productdescription']."', ".$_REQUEST['productprice'].", ".$size.", ".$length.", ".$gender.", 0, ".$dprice.", '".$_REQUEST['productimagepath']."', '".$product_code.($line_count + 1)."')";
+      $insert = $connect->query($query);
+      if (!$insert) {
+        $statusMsg = "Failed to upload product error code : ".$connect->errno." query : ".$query;
+      }
+    } else {
+      $statusMsg = "Product already existed.";
     }
   }
   echo $statusMsg;

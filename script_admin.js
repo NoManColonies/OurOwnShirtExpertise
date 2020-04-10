@@ -16,6 +16,26 @@ $(document).ready(function() {
     $(this).siblings('.icon__snap__field').removeClass('focus');
   });
 
+  $("[name='productaddname']").change(function() {
+    var fd = new FormData();
+    var name = $(this).val();
+    fd.append('q', name);
+    $.ajax({
+        url: 'user/autofill_existing_product.php',
+        type: 'post',
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            var value = response.split(',');
+            $("[name='productaddtitle']").val(value[0]);
+            $("[name='productadddescription']").val(value[1]);
+            $("[name='productaddgender']").val(value[2]);
+            $("[name='productaddimagepath']").val(value[3]);
+        },
+    });
+  });
+
   $(document).on('submit', '.add__product__container', function() {
     var fd = new FormData();
     var files = $('#fileAdd')[0].files[0];
@@ -117,22 +137,21 @@ const toggleSideMenu = () => {
 };
 
 const refreshModifiable = () => {
-  var target = document.querySelector(".product");
-  if (window.XMLHttpRequest) {
-    xmlhttp = new XMLHttpRequest();
-  } else {
-    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-  }
-  target.innerHTML = "<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>";
-  xmlhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      target.innerHTML = this.responseText;
-      reloadModifiableMenu();
-      stockTrigger();
-    }
-  };
-  xmlhttp.open("GET", "user/show_modifiable_product.php", true);
-  xmlhttp.send();
+  var fd = new FormData();
+  var target = $(".product");
+  target.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>");
+  $.ajax({
+      url: 'user/show_modifiable_product.php',
+      type: 'post',
+      data: fd,
+      contentType: false,
+      processData: false,
+      success: function(response) {
+        target.html(response);
+        reloadModifiableMenu();
+        stockTrigger();
+      },
+  });
 };
 
 const stockTrigger = () => {
