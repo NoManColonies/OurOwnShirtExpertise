@@ -131,6 +131,7 @@ const refreshModifiable = () => {
 
       $(".stock_update_trigger").click(function() {
         document.querySelector(".stock_update_menu").classList.toggle("active_stock_menu");
+        document.querySelector("#dark3").classList.toggle("activeDarkenBackground");
         var target = document.querySelector(".stock_update_container");
         if (window.XMLHttpRequest) {
           xmlhttp = new XMLHttpRequest();
