@@ -198,7 +198,6 @@ const refreshStockOption = () => {
           alert("An error ocurred when try to retreive product size.");
         } else {
           tempEntity.html(this.responseText);
-          refreshStockOption();
         }
       }
     };
@@ -220,7 +219,6 @@ const refreshStockOption = () => {
           alert("An error ocurred when try to retreive product length.");
         } else {
           tempEntity.html(this.responseText);
-          refreshStockOption();
         }
       }
     };
@@ -252,8 +250,8 @@ const refreshStockOption = () => {
             refreshModifiable();
           } else {
             alert(response);
+            toggleStockUpdateMenu();
             tempEntity.html("<i class=\"fas fa-cubes\"></i>Update stock");
-            refreshStockOption();
           }
         },
     });
