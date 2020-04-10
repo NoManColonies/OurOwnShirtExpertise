@@ -142,6 +142,7 @@ const stockTrigger = () => {
     document.querySelector(".stock_update_menu").classList.toggle("active_stock_menu");
     document.querySelector("#dark3").classList.toggle("activeDarkenBackground");
     var target = $(".stock_update_container");
+    target.css({'min-width': '90%'});
     target.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>");
     $.ajax({
         url: 'user/show_stock_updatable_name.php',
@@ -150,6 +151,7 @@ const stockTrigger = () => {
         contentType: false,
         processData: false,
         success: function(response) {
+          target.css({'min-width': '45%'});
           target.html(response);
           refreshStockOption();
         },
