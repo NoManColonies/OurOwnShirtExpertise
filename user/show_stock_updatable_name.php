@@ -33,7 +33,7 @@
         <select aria-label=\"Select menu example\" class=\"stock_label\" id=\"stock_label_size\">
         <option selected value=\"\">please select the size</option>";
         if ($check_bit) {
-          $retreive_product_result = $connect->query("select distinct productsize where productname='".$product_row['productname']."'");
+          $retreive_product_result = $connect->query("select distinct productsize from producttable where productname='".$product_row['productname']."'");
           if (!empty($retreive_product_result->num_rows)) {
             while ($row = $retreive_product_result->fetch_assoc()) {
               echo "<option value=\"".$row['productsize']."\">".$row['productsize']."</option>";
@@ -46,7 +46,7 @@
         <select aria-label=\"Select menu example\" class=\"stock_label\" id=\"stock_label_length\">
         <option selected value=\"\">please select the length</option>";
         if ($check_bit) {
-          $retreive_product_result = $connect->query("select distinct productlength where productname='".$product_row['productname']."'");
+          $retreive_product_result = $connect->query("select distinct productlength from producttable where productname='".$product_row['productname']."'");
           if (!empty($retreive_product_result->num_rows)) {
             while ($row = $retreive_product_result->fetch_assoc()) {
               echo "<option value=\"".$row['productlength']."\">".$row['productlength']."\"</option>";
