@@ -128,7 +128,7 @@
                 echo "<p class=\"product__size__tag\" style=\"margin-right: 0\">length :</p>";
                 $check_bit = true;
               }
-              echo "<p class=\"product__size\">".$value."</option>";
+              echo "<p class=\"product__size\">".$value."\"</option>";
             }
           }
           if ($check_bit) {
