@@ -36,6 +36,26 @@ $(document).ready(function() {
     });
   });
 
+  $("[name='productaddname']").focusout(function() {
+    var fd = new FormData();
+    var name = $(this).val();
+    fd.append('q', name);
+    $.ajax({
+        url: 'user/autofill_existing_product.php',
+        type: 'post',
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            var value = response.split(',');
+            $("[name='productaddtitle']").val(value[0]);
+            $("[name='productadddescription']").val(value[1]);
+            $("[name='productaddgender']").val(value[2]);
+            $("[name='productaddimagepath']").val(value[3]);
+        },
+    });
+  });
+
   $(document).on('submit', '.add__product__container', function() {
     var fd = new FormData();
     var files = $('#fileAdd')[0].files[0];
