@@ -234,7 +234,6 @@
       <?php
       $retreive_product_result = $connect->query("select * from producttable");
       if (!empty($retreive_product_result->num_rows)) {
-        $counter = 0;
         while ($product_row = $retreive_product_result->fetch_assoc()) {
           ?>
           <div class="product__container">
@@ -317,10 +316,6 @@
             </div>
           </div>
           <?php
-          $counter++;
-          if ($counter > 5) {
-            break;
-          }
         }
       }
       ?>
