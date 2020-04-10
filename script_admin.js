@@ -1,24 +1,6 @@
 $(document).ready(function() {
   refreshModifiable();
 
-  $(".stock_label").each(function() {
-    $(this).change(function() {
-      if ($(this).val() != "" && $("[name='productqty']").val() >= $("[name='productqty']").attr("min")) {
-        $(".stock_update_button").prop("disabled", false);
-      } else {
-        $(".stock_update_button").prop("disabled", true);
-      }
-    });
-  });
-
-  $("[name='productqty']").keyup(function() {
-    if ($(this).val() >= $(this).attr("min")) {
-      $(".stock_update_button").prop("disabled", false);
-    } else {
-      $(".stock_update_button").prop("disabled", true);
-    }
-  });
-
   $(".close__modify__popup").click(function() {
     var tempEntity = document.querySelector('.modify__product__menu');
     var background = document.querySelector('#dark2');
@@ -171,6 +153,24 @@ const refreshModifiable = () => {
 };
 
 const refreshStockOption = () => {
+  $(".stock_label").each(function() {
+    $(this).change(function() {
+      if ($(this).val() != "" && $("[name='productqty']").val() >= $("[name='productqty']").attr("min")) {
+        $(".stock_update_button").prop("disabled", false);
+      } else {
+        $(".stock_update_button").prop("disabled", true);
+      }
+    });
+  });
+
+  $("[name='productqty']").keyup(function() {
+    if ($(this).val() >= $(this).attr("min")) {
+      $(".stock_update_button").prop("disabled", false);
+    } else {
+      $(".stock_update_button").prop("disabled", true);
+    }
+  });
+
   $("#stock_label_name").change(function() {
     if (window.XMLHttpRequest) {
       xmlhttp = new XMLHttpRequest();
