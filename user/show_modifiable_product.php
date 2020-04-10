@@ -24,8 +24,6 @@
           $product_imagepath = "";
           while ($product_row = $retreive_all_product_result->fetch_assoc()) {
             $price_array = array_merge($price_array, array($product_row['productprice']));
-            $size_array = array_merge($size_array, array($product_row['productsize']));
-            $length_array = array_merge($length_array, array($product_row['productlength']));
             $dprice_array = array_merge($dprice_array, array($product_row['productdprice']));
             $code_array = array_merge($code_array, array($product_row['productcode']));
             if (empty($product_name)) {
@@ -43,6 +41,22 @@
             if (empty($product_imagepath)) {
               $product_imagepath = $product_row['productimagepath'];
             }
+          }
+          $retreive_distinct_product_result = $connect->query("select distinct productsize from producttable where productname='".$product_name."'");
+          if (!empty($retreive_distinct_product_result->num_rows)) {
+            while ($row = $retreive_distinct_product_result->fetch_assoc()) {
+              $size_array = array_merge($size_array, array($row['productsize']));
+            }
+          } else {
+            $size_array = array("u");
+          }
+          $retreive_distinct_product_result = $connect->query("select distinct productlength from producttable where productname='".$product_name."'");
+          if (!empty($retreive_distinct_product_result->num_rows)) {
+            while ($row = $retreive_distinct_product_result->fetch_assoc()) {
+              $length_array = array_merge($length_array, array($row['productlength']));
+            }
+          } else {
+            $length_array = array("u");
           }
           echo "<div class=\"product__container\">";
           echo "<img src=\"images/".$product_imagepath."\">";
