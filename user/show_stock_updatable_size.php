@@ -10,6 +10,7 @@
     $retreive_product_result = $connect->query("select distinct productsize from producttable where productname='".$_REQUEST['q']."'");
     if (!empty($retreive_product_result->num_rows)) {
       $check_bit = false;
+      echo "<option selected value=\"\">please select the size</option>";
       while ($product_row = $retreive_product_result->fetch_assoc()) {
         if ($product_row['productsize'] != "u") {
           echo "<option value=\"".$product_row['productsize']."\">".$product_row['productsize']."</option>";

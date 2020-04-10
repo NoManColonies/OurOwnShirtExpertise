@@ -179,7 +179,7 @@ const refreshStockOption = () => {
       xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     var tempEntity = $("#stock_label_size");
-    tempEntity.html("");
+    tempEntity.html("<option selected value=\"\">please select the size</option>");
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         if (this.responseText == "") {
@@ -201,7 +201,7 @@ const refreshStockOption = () => {
       xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     var tempEntity = $("#stock_label_length");
-    tempEntity.html("");
+    tempEntity.html("<option selected value=\"\">please select the length</option>");
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         if (this.responseText == "") {
