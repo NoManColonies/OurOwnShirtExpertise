@@ -7,7 +7,8 @@
   <body>
     <?php
     require_once('../.confiq/confiq.php');
-    $retreive_product_result = $connect->query("select * from producttable where productname='".$_REQUEST['a']."' and productsize='".$_REQUEST['s']."' and productlength='".$_REQUEST['l']."'");
+    $query = "select * from producttable where productname='".$_REQUEST['a']."' and productsize='".$_REQUEST['s']."' and productlength='".$_REQUEST['l']."'";
+    $retreive_product_result = $connect->query($query);
     if (!empty($retreive_product_result->num_rows)) {
       $product_row = $retreive_product_result->fetch_assoc();
       $query = "update producttable set productqty=".$_REQUEST['q']." where productcode='".$product_row['productcode']."'";
@@ -18,7 +19,7 @@
         echo "";
       }
     } else {
-      echo "Failed to retreive product";
+      echo "Failed to retreive product query : ".$query;
     }
     $connect->close();
     ?>

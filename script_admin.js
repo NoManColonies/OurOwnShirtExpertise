@@ -155,6 +155,14 @@ const refreshModifiable = () => {
 };
 
 const refreshStockOption = () => {
+  $(".input__glow")
+  .focus(function() {
+    $(this).siblings('.icon__snap__field').addClass('focus');
+  })
+  .focusout(function() {
+    $(this).siblings('.icon__snap__field').removeClass('focus');
+  });
+
   $(".stock_label").each(function() {
     $(this).change(function() {
       if ($(this).val() != "" && $("[name='productqty']").val() >= $("[name='productqty']").attr("min")) {
