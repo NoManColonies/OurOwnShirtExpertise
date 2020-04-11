@@ -320,8 +320,8 @@ const refreshStockOption = () => {
     });
 
     if (searchBox) {
-      searchBox.removeEventListener("keyup", stockSearchEvent);
-      searchBox.addEventListener("keyup", stockSearchEvent);
+      searchBox.removeEventListener("keyup", filterList);
+      searchBox.addEventListener("keyup", filterList);
     }
 
     const filterList = (e) => {
