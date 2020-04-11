@@ -93,6 +93,7 @@
 
 .drop__down__stock .grid__group__left {
   grid-column: 1;
+  position: relative;
 }
 
 .drop__down__stock .grid__group__right {
