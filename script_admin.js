@@ -320,12 +320,13 @@ const refreshStockOption = () => {
     });
 
     if (searchBox) {
-      searchBox.removeEventListener("keyup", filterList);
-      searchBox.addEventListener("keyup", filterList);
+      searchBox.addEventListener("keyup", (e) => {
+        filterList(e.target.value);
+      });
     }
 
-    const filterList = (e) => {
-      searchTerm = e.target.value.toLowerCase();
+    const filterList = searchTerm => {
+      searchTerm = searchTerm.toLowerCase();
       optionsList.forEach(option => {
         let label = option.firstElementChild.nextElementSibling.innerText.toLowerCase();
         if (label.indexOf(searchTerm) != -1) {
@@ -339,7 +340,7 @@ const refreshStockOption = () => {
     if (searchBox) {
       searchBox.focus();
       searchBox.value = "";
-      //filterList("");
+      filterList("");
     }
   });
 };
