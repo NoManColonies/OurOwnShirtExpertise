@@ -311,19 +311,8 @@ const refreshStockOption = () => {
     const optionsList = optionsContainer.querySelectorAll(".option");
     const searchBox = selected.nextElementSibling;
 
-    selected.addEventListener("click", () => {
-      console.log(searchBox);
-
-      if (optionsContainer.classList.contains("active")) {
-        optionsContainer.classList.remove("active");
-      } else {
-        let currentActive = document.querySelector(".options__container.active");
-        if (currentActive) {
-          currentActive.classList.remove("active");
-        }
-        optionsContainer.classList.add("active");
-      }
-    });
+    selected.removeEventListener("click", updateOpenTrigger);
+    selected.addEventListener("click", updateOpenTrigger);
 
     optionsList.forEach(option => {
       option.removeEventListener("click", updateOptionList);
@@ -331,9 +320,8 @@ const refreshStockOption = () => {
     });
 
     if (searchBox) {
-      searchBox.addEventListener("keyup", (e) => {
-        filterList(e.target.value);
-      });
+      searchBox.removeEventListener("keyup", stockSearchEvent);
+      searchBox.addEventListener("keyup", stockSearchEvent);
     }
 
     const filterList = searchTerm => {
@@ -354,6 +342,23 @@ const refreshStockOption = () => {
       filterList("");
     }
   });
+};
+
+const stockSearchEvent = (e) => {
+  filterList(e.target.value);
+};
+
+const updateOpenTrigger = (e) => {
+  var optionsContainer = e.currentTarget.previousElementSibling;
+  if (optionsContainer.classList.contains("active")) {
+    optionsContainer.classList.remove("active");
+  } else {
+    let currentActive = document.querySelector(".options__container.active");
+    if (currentActive) {
+      currentActive.classList.remove("active");
+    }
+    optionsContainer.classList.add("active");
+  }
 };
 
 const updateOptionList = (e) => {
