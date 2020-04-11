@@ -324,26 +324,27 @@ const refreshStockOption = () => {
       searchBox.addEventListener("keyup", stockSearchEvent);
     }
 
-    const filterList = searchTerm => {
-      searchTerm = searchTerm.toLowerCase();
-      optionsList.forEach(option => {
-        let label = option.firstElementChild.nextElementSibling.innerText.toLowerCase();
-        if (label.indexOf(searchTerm) != -1) {
-          option.style.display = "block";
-        } else {
-          option.style.display = "none";
-        }
-      });
-    };
-
-    const stockSearchEvent = (e) => {
-      filterList(e.target.value);
-    };
-
     if (searchBox) {
       searchBox.focus();
       searchBox.value = "";
       filterList("");
+    }
+  });
+};
+
+const stockSearchEvent = (e) => {
+  filterList(e.target);
+};
+
+const filterList = (e) => {
+  var optionsList = e.parentNode.querySelector(".options__container").querySelectorAll(".option");
+  var searchTerm = e.value.toLowerCase();
+  optionsList.forEach(option => {
+    let label = option.firstElementChild.nextElementSibling.innerText.toLowerCase();
+    if (label.indexOf(searchTerm) != -1) {
+      option.style.display = "block";
+    } else {
+      option.style.display = "none";
     }
   });
 };
