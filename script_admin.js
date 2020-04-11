@@ -333,7 +333,7 @@ const refreshStockOption = () => {
 };
 
 const stockSearchEvent = (e) => {
-  filterList(e.target);
+  filterList(e.currentTarget);
 };
 
 const filterList = (e) => {
