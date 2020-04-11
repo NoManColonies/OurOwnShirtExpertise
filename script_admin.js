@@ -324,10 +324,6 @@ const refreshStockOption = () => {
       searchBox.addEventListener("keyup", stockSearchEvent);
     }
 
-    const stockSearchEvent = (e) => {
-      filterList(e.target.value);
-    };
-
     const filterList = searchTerm => {
       searchTerm = searchTerm.toLowerCase();
       optionsList.forEach(option => {
@@ -338,6 +334,10 @@ const refreshStockOption = () => {
           option.style.display = "none";
         }
       });
+    };
+
+    const stockSearchEvent = (e) => {
+      filterList(e.target.value);
     };
 
     if (searchBox) {
