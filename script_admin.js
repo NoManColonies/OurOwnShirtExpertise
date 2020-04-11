@@ -1,5 +1,66 @@
 $(document).ready(function() {
   refreshModifiable();
+  stockTrigger();
+
+  var stockQtyInput = $("[name='productqty']");
+
+  stockQtyInput.val("");
+
+  stockQtyInput
+  .keyup(function() {
+    const label = $(".input__underbar label");
+    const input = $(".input__underbar input");
+    const button = $("#stock__update");
+    if (input.val() != "" && !input.hasClass("active")) {
+      $(this).addClass("active");
+      label.addClass("active");
+      if (input.val() >= input.attr("min")) {
+        button.prop('disabled', false);
+      }
+    } else if (input.val() < input.attr("min") && input.hasClass("active")) {
+      input.removeClass("active");
+      label.removeClass("active");
+      button.prop('disabled', true);
+    } else if (input.val() < input.attr("min")) {
+      button.prop('disabled', true);
+    }
+  })
+  .change(function() {
+    const label = $(".input__underbar label");
+    const input = $(".input__underbar input");
+    const button = $("#stock__update");
+    if (input.val() != "" && !input.hasClass("active")) {
+      $(this).addClass("active");
+      label.addClass("active");
+      if (input.val() >= input.attr("min")) {
+        button.prop('disabled', false);
+      }
+    } else if (input.val() < input.attr("min") && input.hasClass("active")) {
+      input.removeClass("active");
+      label.removeClass("active");
+      button.prop('disabled', true);
+    } else if (input.val() < input.attr("min")) {
+      button.prop('disabled', true);
+    }
+  })
+  .focusout(function() {
+    const label = $(".input__underbar label");
+    const input = $(".input__underbar input");
+    const button = $("#stock__update");
+    if (input.val() != "" && !input.hasClass("active")) {
+      $(this).addClass("active");
+      label.addClass("active");
+      if (input.val() >= input.attr("min")) {
+        button.prop('disabled', false);
+      }
+    } else if (input.val() < input.attr("min") && input.hasClass("active")) {
+      input.removeClass("active");
+      label.removeClass("active");
+      button.prop('disabled', true);
+    } else if (input.val() < input.attr("min")) {
+      button.prop('disabled', true);
+    }
+  });
 
   $(".close__modify__popup").click(function() {
     var tempEntity = document.querySelector('.modify__product__menu');
@@ -169,116 +230,25 @@ const refreshModifiable = () => {
       success: function(response) {
         target.html(response);
         reloadModifiableMenu();
-        stockTrigger();
       },
   });
 };
 
 const stockTrigger = () => {
-  $(".stock_update_trigger").click(function() {
-    var fd = new FormData();
-    fd.append('q', $(this).data("pname"));
-    document.querySelector(".stock_update_menu").classList.toggle("active_stock_menu");
+  $(".stock__update__trigger").click(function() {
+    document.querySelector(".drop__down__stock").classList.toggle("active");
     document.querySelector("#dark3").classList.toggle("activeDarkenBackground");
-    var target = $(".stock_update_container");
-    target.css({'min-width': '90%'});
-    target.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>");
-    $.ajax({
-        url: 'user/show_stock_updatable_name.php',
-        type: 'post',
-        data: fd,
-        contentType: false,
-        processData: false,
-        success: function(response) {
-          target.css({'min-width': '45%'});
-          target.html(response);
-          refreshStockOption();
-        },
-    });
-  });
-};
-
-const refreshStockOption = () => {
-  $(".input__glow")
-  .focus(function() {
-    $(this).siblings('.icon__snap__field').addClass('focus');
-  })
-  .focusout(function() {
-    $(this).siblings('.icon__snap__field').removeClass('focus');
+    refreshStockPage();
   });
 
-  $(".stock_label").each(function() {
-    $(this).change(function() {
-      if ($(this).val() != "" && $("[name='productqty']").val() >= $("[name='productqty']").attr("min")) {
-        $(".stock_update_button").prop("disabled", false);
-      } else {
-        $(".stock_update_button").prop("disabled", true);
-      }
-    });
-  });
-
-  $("[name='productqty']").keyup(function() {
-    if ($(this).val() >= $(this).attr("min")) {
-      $(".stock_update_button").prop("disabled", false);
-    } else {
-      $(".stock_update_button").prop("disabled", true);
-    }
-  });
-
-  $("#stock_label_name").change(function() {
-    if (window.XMLHttpRequest) {
-      xmlhttp = new XMLHttpRequest();
-    } else {
-      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    var tempEntity = $("#stock_label_size");
-    tempEntity.html("<option selected value=\"\">please select the size</option>");
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        if (this.responseText == "") {
-          alert("An error ocurred when try to retreive product size.");
-        } else {
-          tempEntity.html(this.responseText);
-        }
-      }
-    };
-    xmlhttp.open("GET", "user/show_stock_updatable_size.php?q=" + $(this).val(), true);
-    xmlhttp.send();
-  });
-
-  $("#stock_label_size").change(function() {
-    if (window.XMLHttpRequest) {
-      xmlhttp = new XMLHttpRequest();
-    } else {
-      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    var tempEntity = $("#stock_label_length");
-    tempEntity.html("<option selected value=\"\">please select the length</option>");
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        if (this.responseText == "") {
-          alert("An error ocurred when try to retreive product length.");
-        } else {
-          tempEntity.html(this.responseText);
-        }
-      }
-    };
-    xmlhttp.open("GET", "user/show_stock_updatable_length.php?q=" + $("#stock_label_name").val() + "&s=" + $(this).val(), true);
-    xmlhttp.send();
-  });
-
-  $(".stock_update_button").click(function() {
+  $(document).on('submit', '.group__right__float', function() {
     var fd = new FormData();
-    var qty = $("[name='productqty']").val();
-    var name = $("#stock_label_name").val();
-    var size = $("#stock_label_size").val();
-    var length = $("#stock_label_length").val();
-    fd.append('q', qty);
-    fd.append('a', name);
-    fd.append('s', size);
-    fd.append('l', length);
-    var tempEntity = $(this);
-    tempEntity.html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>Update stock");
+    fd.append('a', $("#name").val());
+    fd.append('s', $("#size").val());
+    fd.append('l', $("#length").val());
+    fd.append('q', $("[name='productstockqty']").val());
+    var tempEntity = $("#stock__update");
+    tempEntity.html("<i class=\"fas fa-sync fa-lg fa-fw fa-spin\"></i>Update stock");
     $.ajax({
         url: 'user/try_stock_update.php',
         type: 'post',
@@ -286,16 +256,148 @@ const refreshStockOption = () => {
         contentType: false,
         processData: false,
         success: function(response) {
-          if (response == "") {
-            toggleStockUpdateMenu();
-            refreshModifiable();
-          } else {
-            alert(response);
-            toggleStockUpdateMenu();
-            tempEntity.html("<i class=\"fas fa-cubes\"></i>Update stock");
-          }
+            if (response != "") {
+                alert(response);
+                tempEntity.html("<i class=\"fas fa-database\"></i>Update stock");
+                refreshStockPage();
+                refreshModifiable();
+            } else {
+              tempEntity.html("<i class=\"fas fa-database\"></i>Update stock");
+              refreshStockPage();
+              refreshModifiable();
+            }
         },
     });
+    return false;
+  });
+};
+
+const refreshStockPage = () => {
+  var fd = new FormData();
+  var stockQtyInput = $("[name='productqty']");
+
+  stockQtyInput.val("");
+
+  var target = $(".drop__down__stock .grid__group__left");
+  target.css({
+    'min-width': '90%',
+    'min-height': '600px'
+  });
+
+  target.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>");
+
+  $.ajax({
+      url: 'user/show_stock_updatable_name.php',
+      type: 'post',
+      data: fd,
+      contentType: false,
+      processData: false,
+      success: function(response) {
+        target.css({
+          'min-width': 'unset',
+          'min-height': 'unset'
+        });
+        target.html(response);
+        refreshStockOption();
+      },
+  });
+}
+
+const refreshStockOption = () => {
+  const selectedAll = document.querySelectorAll(".selected");
+
+  selectedAll.forEach(selected => {
+    const optionsContainer = selected.previousElementSibling;
+    const optionsList = optionsContainer.querySelectorAll(".option");
+    const searchBox = selected.nextElementSibling;
+
+    selected.addEventListener("click", () => {
+      console.log(searchBox);
+
+      if (optionsContainer.classList.contains("active")) {
+        optionsContainer.classList.remove("active");
+      } else {
+        let currentActive = document.querySelector(".options__container.active");
+        if (currentActive) {
+          currentActive.classList.remove("active");
+        }
+        optionsContainer.classList.add("active");
+      }
+    });
+
+    optionsList.forEach(option => {
+      option.addEventListener("click", () => {
+        var fd = new FormData();
+        var url = '';
+        selected.childNodes[1].innerHTML = option.querySelector("label").innerHTML;
+        optionsContainer.classList.remove("active");
+        optionsContainer.parentNode.value = option.querySelector("input").value;
+        var target = optionsContainer.parentNode;
+        var targetId = target.id;
+        alert(targetId + " has changed to " + target.value);
+        if ($("#name").val() != "" && $("#size").val() != "" && $("#length").val() != "" && !$(".grid__group__right").hasClass("active")) {
+          document.querySelector(".grid__group__right").classList.toggle("active");
+        } else {
+          $("#stock__update").prop('disabled', true);
+        }
+        switch (targetId) {
+          case "name":
+            url = 'user/show_stock_updatable_size.php';
+            fd.append('q', $("#name").val());
+            break;
+          case "size":
+            url = 'user/show_stock_updatable_length.php';
+            fd.append('q', $("#name").val());
+            fd.append('s', $("#size").val());
+            break;
+          default:
+            alert("No options were appended.");
+        }
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: fd,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+              switch (targetId) {
+                case "name":
+                  $("#productmodsize").html(response);
+                  break;
+                case "size":
+                  $("#productmodlength").html(response);
+                  break;
+                default:
+                  alert("No options were selected target : " + targetId + " response : " + response);
+              }
+            },
+        });
+      });
+    });
+
+    if (searchBox) {
+      searchBox.addEventListener("keyup", (e) => {
+        filterList(e.target.value);
+      });
+    }
+
+    const filterList = searchTerm => {
+      searchTerm = searchTerm.toLowerCase();
+      optionsList.forEach(option => {
+        let label = option.firstElementChild.nextElementSibling.innerText.toLowerCase();
+        if (label.indexOf(searchTerm) != -1) {
+          option.style.display = "block";
+        } else {
+          option.style.display = "none";
+        }
+      });
+    };
+
+    if (searchBox) {
+      searchBox.focus();
+      searchBox.value = "";
+      filterList("");
+    }
   });
 };
 
@@ -450,31 +552,27 @@ const reloadModifiableMenu = () => {
 };
 
 const toggleStockUpdateMenu = () => {
-  var target = document.querySelector(".stock_update_menu");
-  var background = document.querySelector("#dark3");
-  target.classList.toggle("active_stock_menu");
-  background.classList.toggle("activeDarkenBackground");
+  document.querySelector(".drop__down__stock").classList.toggle("active");
+  document.querySelector("#dark3").classList.toggle("activeDarkenBackground");
 };
 
 const toggleAlbumMenu = () => {
   var target = document.querySelector(".view__album__popup");
-  var background = document.querySelector("#dark4");
+  document.querySelector("#dark4").classList.toggle("activeDarkenBackground");
   target.classList.toggle("active__album__popup");
-  background.classList.toggle("activeDarkenBackground");
   if (target.classList.contains("active__album__popup")) {
-    var target = document.querySelector(".album__container");
-    if (window.XMLHttpRequest) {
-      xmlhttp = new XMLHttpRequest();
-    } else {
-      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    target.innerHTML = "<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>";
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        target.innerHTML = this.responseText;
-      }
-    };
-    xmlhttp.open("GET", "user/show_album_image.php", true);
-    xmlhttp.send();
+    var fd = new FormData();
+    var target = $(".album__container");
+    target.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>");
+    $.ajax({
+      url: 'user/show_album_image.php',
+      type: 'post',
+      data: fd,
+      contentType: false,
+      processData: false,
+      success: function(response) {
+        target.html(response);
+      },
+    });
   }
 };

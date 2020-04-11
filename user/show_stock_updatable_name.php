@@ -1,78 +1,61 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <?php
-    require_once('../.confiq/confiq.php');
-    if (session_auth_check($connect)['auth_key_valid']) {
-      $retreive_product_result = $connect->query("select distinct productname from producttable");
-      if (!empty($retreive_product_result->num_rows)) {
-        echo "<div class=\"stock_select_product\">";
-        echo "<div class=\"select\">";
-        echo "<select aria-label=\"Select menu example\" class=\"stock_label\" id=\"stock_label_name\">";
-        if (isset($_REQUEST['q']) && $_REQUEST['q'] != "") {
-          echo "<option value=\"\">please select the product</option>";
-        } else {
-          echo "<option selected value=\"\">please select the product</option>";
-        }
-        $check_bit = false;
-        while ($product_row = $retreive_product_result->fetch_assoc()) {
-          if ($product_row['productname'] == $_REQUEST['q']) {
-            $check_bit = true;
-            echo "<option selected value=\"".$product_row['productname']."\">".$product_row['productname']."</option>";
-            $product_name = $product_row['productname'];
-          } else {
-            echo "<option value=\"".$product_row['productname']."\">".$product_row['productname']."</option>";
-          }
-        }
-        echo "</select></div></div>";
-        echo "<div class=\"stock_select_product\">
-        <div class=\"select\">
-        <select aria-label=\"Select menu example\" class=\"stock_label\" id=\"stock_label_size\">
-        <option selected value=\"\">please select the size</option>";
-        if ($check_bit) {
-          $retreive_product_result = $connect->query("select distinct productsize from producttable where productname='".$product_name."'");
-          if (!empty($retreive_product_result->num_rows)) {
-            while ($row = $retreive_product_result->fetch_assoc()) {
-              echo "<option value=\"".$row['productsize']."\">".$row['productsize']."</option>";
-            }
-          }
-        }
-        echo "</select></div></div>";
-        echo "<div class=\"stock_select_product\">
-        <div class=\"select\">
-        <select aria-label=\"Select menu example\" class=\"stock_label\" id=\"stock_label_length\">
-        <option selected value=\"\">please select the length</option>";
-        if ($check_bit) {
-          $retreive_product_result = $connect->query("select distinct productlength from producttable where productname='".$product_name."'");
-          if (!empty($retreive_product_result->num_rows)) {
-            while ($row = $retreive_product_result->fetch_assoc()) {
-              echo "<option value=\"".$row['productlength']."\">".$row['productlength']."\"</option>";
-            }
-          }
-        }
-        echo "</select></div></div>";
-        echo "<div class=\"stock_select_amount\">
-          <div class=\"input__icon stock_update_input\">
-            <input type=\"number\" min=\"1\" name=\"productqty\" value=\"1\" class=\"input__glow\" placeholder=\"Restock amount\">
-            <div class=\"icon__snap__field\">
-              <div class=\"icon__snap__field__relative\">
-                <i class=\"fas fa-cubes fa-lg fa-fw input__snap\" aria-hidden=\"true\"></i>
-              </div>
-            </div>
-          </div>
-        </div>";
-        echo "<button disabled class=\"button__icon button__green stock_update_button\"><i class=\"fas fa-cubes\"></i>Update stock</button>";
-      } else {
-        echo "<option value=\"nothing\">0 product found</option>";
-      }
-    } else {
-      echo "";
-    }
-    $connect->close();
+<?php
+require_once('../.confiq/confiq.php');
+if (session_auth_check($connect)['auth_key_valid']) {
+  $retreive_product_result = $connect->query("select distinct productname from producttable");
+  if (!empty($retreive_product_result->num_rows)) {
     ?>
-  </body>
-</html>
+    <h2>Product name</h2>
+    <div class="select__box" id="name" value="">
+      <div class="options__container search" id="productmodname">
+    <?php
+    $check_bit = false;
+    while ($product_row = $retreive_product_result->fetch_assoc()) {
+      ?>
+      <div class="option">
+        <input type="radio" class="radio" name="productmodname" id="<?php echo $product_row['productname']; ?>" value="<?php echo $product_row['productname']; ?>">
+        <label for="<?php echo $product_row['productname']; ?>"><?php echo $product_row['productname']; ?></label>
+      </div>
+      <?php
+    }
+    ?>
+      </div>
+      <div class="selected">
+        <p>Select product name</p>
+        <span><i class="fas fa-chevron-down" aria-hidden="true"></i></span>
+      </div>
+      <div class="search__box" id="1">
+        <input type="text" placeholder="Search for product...">
+      </div>
+    </div>
+    <h2>Product size</h2>
+    <div class="select__box" id="size" value="">
+      <div class="options__container" id="productmodsize">
+      </div>
+      <div class="selected">
+        <p>Select product size</p>
+        <span><i class="fas fa-chevron-down" aria-hidden="true"></i></span>
+      </div>
+      <div class="search__box" id="2">
+        <input type="text" placeholder="Search for size...">
+      </div>
+    </div>
+    <h2>Product length</h2>
+    <div class="select__box" id="length" value="">
+      <div class="options__container" id="productmodlength">
+      </div>
+      <div class="selected">
+        <p>Select product length</p>
+        <span><i class="fas fa-chevron-down" aria-hidden="true"></i></span>
+      </div>
+    </div>
+    <?php
+  } else {
+    ?>
+    <p class="cart__no__result" style="padding: 40px">No product found.</p>
+    <?php
+  }
+} else {
+  echo "";
+}
+$connect->close();
+?>

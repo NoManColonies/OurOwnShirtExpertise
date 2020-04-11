@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="webfontkit/stylesheet.css">
     <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/wtf-forms.css">
     <title>Admin</title>
@@ -22,7 +23,7 @@
         <a href="#addproduct" class="scroll" onclick="toggleSideMenu()">add product</a>
         <button class="button" name="button" onclick="toggleSideMenu()">notification</button>
         <button class="button" name="button" onclick="toggleSideMenu();toggleAlbumMenu();">view images album</button>
-        <button class="button stock_update_trigger" name="button" onclick="toggleSideMenu()">update stock</button>
+        <button class="button stock__update__trigger" name="button" onclick="toggleSideMenu()">update stock</button>
         <a href="user/logout.php" data-a="logout" class="scroll" onclick="toggleSideMenu()">log out</a>
       </div>
     </div>
@@ -32,16 +33,24 @@
       <p class="modify__header">Modify item</p>
       <i class="fas fa-times close__icon close__modify__popup" onclick=""></i>
     </div>
-    <div class="stock_update_menu">
-      <div class="stock_update_container">
-      </div>
-      <i class="fas fa-times close__icon" onclick="toggleStockUpdateMenu()"></i>
-    </div>
     <div class="view__album__popup">
       <p class="album__popup__header">Images album</p>
       <div class="album__container">
       </div>
       <i class="fas fa-times close__icon" onclick="toggleAlbumMenu()"></i>
+    </div>
+    <div class="drop__down__stock">
+      <div class="grid__group__left">
+      </div>
+      <div class="grid__group__right ">
+        <form class="group__right__float" action="" method="post">
+          <div class="input__underbar">
+            <input type="number" name="productstockqty" value="1" min="1">
+            <label for="productstockqty">Stock</label>
+          </div>
+          <button disabled type="submit" class="button__slide__appear" id="stock__update"><i class="fas fa-database"></i>Update stock</button>
+        </form>
+      </div>
     </div>
     <span class="dark__transparent__background" id="dark1" onclick="toggleSideMenu()"></span>
     <span class="dark__transparent__background close__modify__popup" id="dark2"></span>
