@@ -372,7 +372,6 @@ const updateOptionList = (e) => {
   optionsContainer.parentNode.value = option.querySelector("input").value;
   var target = optionsContainer.parentNode;
   var targetId = target.id;
-  alert(targetId + " has changed to " + target.value);
   switch (targetId) {
     case "name":
       url = 'user/show_stock_updatable_size.php';
