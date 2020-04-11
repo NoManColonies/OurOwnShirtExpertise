@@ -5,7 +5,6 @@ if (!empty($retreive_product_result->num_rows)) {
   $check_bit = false;
   while ($product_row = $retreive_product_result->fetch_assoc()) {
     if ($product_row['productlength'] != "" && $product_row['productlength'] != "u") {
-      echo "<option value=\"".$product_row['productlength']."\">".$product_row['productlength']."</option>";
       ?>
       <div class="option">
         <input type="radio" class="radio" name="productmodlength" id="<?php echo $product_row['productlength']; ?>" value="<?php echo $product_row['productlength']; ?>">
@@ -14,7 +13,6 @@ if (!empty($retreive_product_result->num_rows)) {
       <?php
     } else if (!$check_bit) {
       $check_bit = true;
-      echo "<option value=\"u\">Default</option>";
       ?>
       <div class="option">
         <input type="radio" class="radio" name="productmodlength" id="default" value="u">
