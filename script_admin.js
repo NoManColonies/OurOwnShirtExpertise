@@ -333,12 +333,8 @@ const refreshStockOption = () => {
 };
 
 const stockSearchEvent = (e) => {
-  filterList(e.currentTarget);
-};
-
-const filterList = (e) => {
-  var optionsList = e.parentNode.querySelector(".options__container").querySelectorAll(".option");
-  var searchTerm = e.value.toLowerCase();
+  var optionsList = e.currentTarget.parentNode.querySelector(".options__container").querySelectorAll(".option");
+  var searchTerm = e.currentTarget.value.toLowerCase();
   optionsList.forEach(option => {
     let label = option.firstElementChild.nextElementSibling.innerText.toLowerCase();
     if (label.indexOf(searchTerm) != -1) {
