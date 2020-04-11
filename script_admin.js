@@ -2,7 +2,7 @@ $(document).ready(function() {
   refreshModifiable();
   stockTrigger();
 
-  var stockQtyInput = $("[name='productqty']");
+  var stockQtyInput = $("[name='productstockqty']");
 
   stockQtyInput.val("");
 
@@ -373,11 +373,6 @@ const updateOptionList = (e) => {
   var target = optionsContainer.parentNode;
   var targetId = target.id;
   alert(targetId + " has changed to " + target.value);
-  if ($("#name").val() != "" && $("#size").val() != "" && $("#length").val() != "" && !$(".grid__group__right").hasClass("active")) {
-    document.querySelector(".grid__group__right").classList.toggle("active");
-  } else {
-    $("#stock__update").prop('disabled', true);
-  }
   switch (targetId) {
     case "name":
       url = 'user/show_stock_updatable_size.php';
@@ -389,7 +384,12 @@ const updateOptionList = (e) => {
       fd.append('s', $("#size").val());
       break;
     default:
-      alert("No options were appended.");
+      if ($("#name").val() != "" && $("#size").val() != "" && $("#length").val() != "" && !$(".grid__group__right").hasClass("active")) {
+        document.querySelector(".grid__group__right").classList.toggle("active");
+      } else {
+        $("#stock__update").prop('disabled', true);
+      }
+      return;
   }
   $.ajax({
       url: url,
@@ -410,7 +410,7 @@ const updateOptionList = (e) => {
             refreshStockOption();
             break;
           default:
-            alert("No options were selected target : " + targetId + " response : " + response);
+            alert("No respond target were selected. target : " + targetId + " response : " + response);
         }
       },
   });
