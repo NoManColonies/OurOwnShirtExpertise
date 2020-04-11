@@ -35,9 +35,6 @@ if (session_auth_check($connect)['auth_key_valid']) {
         <p>Select product size</p>
         <span><i class="fas fa-chevron-down" aria-hidden="true"></i></span>
       </div>
-      <div class="search__box" id="2">
-        <input type="text" placeholder="Search for size...">
-      </div>
     </div>
     <h2>Product length</h2>
     <div class="select__box" id="length" value="">

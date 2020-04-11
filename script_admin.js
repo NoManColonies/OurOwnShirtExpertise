@@ -361,6 +361,7 @@ const updateOptionList = (e) => {
   var url = '';
   var selected = e.currentTarget.parentNode.nextElementSibling;
   var optionsContainer = selected.previousElementSibling;
+  var option = e.currentTarget;
   selected.childNodes[1].innerHTML = option.querySelector("label").innerHTML;
   optionsContainer.classList.remove("active");
   optionsContainer.parentNode.value = option.querySelector("input").value;
