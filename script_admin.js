@@ -326,53 +326,8 @@ const refreshStockOption = () => {
     });
 
     optionsList.forEach(option => {
-      option.addEventListener("click", () => {
-        var fd = new FormData();
-        var url = '';
-        selected.childNodes[1].innerHTML = option.querySelector("label").innerHTML;
-        optionsContainer.classList.remove("active");
-        optionsContainer.parentNode.value = option.querySelector("input").value;
-        var target = optionsContainer.parentNode;
-        var targetId = target.id;
-        alert(targetId + " has changed to " + target.value);
-        if ($("#name").val() != "" && $("#size").val() != "" && $("#length").val() != "" && !$(".grid__group__right").hasClass("active")) {
-          document.querySelector(".grid__group__right").classList.toggle("active");
-        } else {
-          $("#stock__update").prop('disabled', true);
-        }
-        switch (targetId) {
-          case "name":
-            url = 'user/show_stock_updatable_size.php';
-            fd.append('q', $("#name").val());
-            break;
-          case "size":
-            url = 'user/show_stock_updatable_length.php';
-            fd.append('q', $("#name").val());
-            fd.append('s', $("#size").val());
-            break;
-          default:
-            alert("No options were appended.");
-        }
-        $.ajax({
-            url: url,
-            type: 'post',
-            data: fd,
-            contentType: false,
-            processData: false,
-            success: function(response) {
-              switch (targetId) {
-                case "name":
-                  $("#productmodsize").html(response);
-                  break;
-                case "size":
-                  $("#productmodlength").html(response);
-                  break;
-                default:
-                  alert("No options were selected target : " + targetId + " response : " + response);
-              }
-            },
-        });
-      });
+      option.removeEventListener("click", updateOptionList);
+      option.addEventListener("click", updateOptionList);
     });
 
     if (searchBox) {
@@ -400,6 +355,58 @@ const refreshStockOption = () => {
     }
   });
 };
+
+const updateOptionList = (e) => {
+  var fd = new FormData();
+  var url = '';
+  var selected = e.currentTarget.parentNode.nextElementSibling;
+  var optionsContainer = selected.previousElementSibling;
+  selected.childNodes[1].innerHTML = option.querySelector("label").innerHTML;
+  optionsContainer.classList.remove("active");
+  optionsContainer.parentNode.value = option.querySelector("input").value;
+  var target = optionsContainer.parentNode;
+  var targetId = target.id;
+  alert(targetId + " has changed to " + target.value);
+  if ($("#name").val() != "" && $("#size").val() != "" && $("#length").val() != "" && !$(".grid__group__right").hasClass("active")) {
+    document.querySelector(".grid__group__right").classList.toggle("active");
+  } else {
+    $("#stock__update").prop('disabled', true);
+  }
+  switch (targetId) {
+    case "name":
+      url = 'user/show_stock_updatable_size.php';
+      fd.append('q', $("#name").val());
+      break;
+    case "size":
+      url = 'user/show_stock_updatable_length.php';
+      fd.append('q', $("#name").val());
+      fd.append('s', $("#size").val());
+      break;
+    default:
+      alert("No options were appended.");
+  }
+  $.ajax({
+      url: url,
+      type: 'post',
+      data: fd,
+      contentType: false,
+      processData: false,
+      success: function(response) {
+        switch (targetId) {
+          case "name":
+            $("#productmodsize").html(response);
+            refreshStockOption();
+            break;
+          case "size":
+            $("#productmodlength").html(response);
+            refreshStockOption();
+            break;
+          default:
+            alert("No options were selected target : " + targetId + " response : " + response);
+        }
+      },
+  });
+}
 
 const reloadModifiableMenu = () => {
   $('.button__hover__expand__admin').hover(function() {
