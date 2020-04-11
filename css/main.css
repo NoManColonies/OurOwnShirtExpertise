@@ -188,7 +188,7 @@ body::-webkit-scrollbar {
 
 .activeDarkenBackground {
 	z-index: 11;
-	opacity: .75;
+	opacity: .9;
 	-webkit-transition: opacity ease 100ms;
 	-o-transition: opacity ease 100ms;
 	transition: opacity ease 100ms;
