@@ -327,7 +327,7 @@ const refreshStockOption = () => {
     if (searchBox) {
       searchBox.focus();
       searchBox.value = "";
-      filterList("");
+      //filterList("");
     }
   });
 };
