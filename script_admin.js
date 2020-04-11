@@ -399,12 +399,10 @@ const updateOptionList = (e) => {
       success: function(response) {
         switch (targetId) {
           case "name":
-            alert(response);
             $("#productmodsize").html(response);
             refreshStockOption();
             break;
           case "size":
-            alert(response);
             $("#productmodlength").html(response);
             refreshStockOption();
             break;
