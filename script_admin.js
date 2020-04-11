@@ -324,23 +324,22 @@ const refreshStockOption = () => {
       searchBox.addEventListener("keyup", stockSearchEvent);
     }
 
+    const filterList = (e) => {
+      searchTerm = e.target.value.toLowerCase();
+      optionsList.forEach(option => {
+        let label = option.firstElementChild.nextElementSibling.innerText.toLowerCase();
+        if (label.indexOf(searchTerm) != -1) {
+          option.style.display = "block";
+        } else {
+          option.style.display = "none";
+        }
+      });
+    };
+
     if (searchBox) {
       searchBox.focus();
       searchBox.value = "";
       //filterList("");
-    }
-  });
-};
-
-const stockSearchEvent = (e) => {
-  var optionsList = e.currentTarget.parentNode.querySelector(".options__container").querySelectorAll(".option");
-  var searchTerm = e.currentTarget.value.toLowerCase();
-  optionsList.forEach(option => {
-    let label = option.firstElementChild.nextElementSibling.innerText.toLowerCase();
-    if (label.indexOf(searchTerm) != -1) {
-      option.style.display = "block";
-    } else {
-      option.style.display = "none";
     }
   });
 };
