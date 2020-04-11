@@ -280,7 +280,7 @@ const refreshStockPage = () => {
 
   var target = $(".drop__down__stock .grid__group__left");
   target.css({
-    'min-width': '90%',
+    'min-width': '400px',
     'min-height': '600px'
   });
 
