@@ -174,7 +174,7 @@ const refreshBuyablePage = (e) => {
   });
 };
 
-const reloadBuyableOption = () = {
+const reloadBuyableOption = () => {
   $(".buy__loggedin").click(function() {
     toggleBuyableMenu();
     refreshBuyablePage($(this).data("valueq"));
