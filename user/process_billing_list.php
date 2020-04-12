@@ -6,7 +6,7 @@ if ($session['session_valid'] && $session['auth_key_valid']) {
   $retreive_billinglist = $connect->query($query);
   if (!empty($retreive_billinglist->num_rows)) {
     $billing_row = $retreive_billinglist->fetch_assoc();
-    $query = "insert into stockrequest (pid, userid, itemid, itemqty, keyhash) values(NULL, '".$billing_row['userid']."', '".$billing_row['itemid']."', '".$billing_row['itemqty']."', '".$billing_row['keyhash']."')";
+    $query = "insert into stockrequest (pid, status, userid, itemid, itemqty, keyhash) values(NULL, $_REQUEST['s'], '".$billing_row['userid']."', '".$billing_row['itemid']."', '".$billing_row['itemqty']."', '".$billing_row['keyhash']."')";
     $try_to_process_billinglist_result = $connect->query($query);
     if ($try_to_process_billinglist_result) {
       $query = "update billinglist set status='".$_REQUEST['s']."' where keyhash='".$billing_row['keyhash']."'";
