@@ -1,6 +1,6 @@
 <?php
 require_once('../.confiq/confiq.php');
-$session = session_restore_result($connect)['session_valid'];
+$session = session_restore_result($connect);
 $retreive_distinct_product_result = $connect->query("select distinct productname from producttable");
 if (!empty($retreive_distinct_product_result->num_rows)) {
   while ($name_row = $retreive_distinct_product_result->fetch_assoc()) {
