@@ -48,9 +48,9 @@
       <div class ="about">
         <h4><p>เกี่ยวกับเรา</p></h4>
         <p>DII สมรศรีวรวรรณ shop(DII วรวรรณ) เติบโตมาจากการทำโครงงานวิชา 960141 ซึ่งเป็นวิชาเกี่ยวกับการพัฒนา ทักษะด้านการใช้ภาษา html,css,php และการพัฒนา Database<br>ซึ่งงานชิ้นนี้เป็นการนำความรู้จากในห้องเรียนมาประยุกต์สร้างขึ้นเป็นการสร้าง Website ขึ้นมา 1 เว็บ</p>
-        <p>เนื่องด้วยช่วงนี้ใกล้ถึงเวลาที่ เด็กนักเรียนผู้ซึ่งเพิ่งจบม.6ต้องเข้าเรียนในมหาวิทยาลัย บวกกับเกิดโรคระบาด COVID-19 ขึ้น จึงทำให้ไม่สะดวกต่อการออกไปสำรวจสอบถามลูกค้าโดยตรง ทางผู้จัดการร้านจึงตัดสินใจจัดทำ<br>ร้านขายอุปกรณ์ชุดนักศึกษาแบบออนไลน์เพื่อตอบสนองต่อความต้องการของลูกค้าซึ่งอาจมีในอนาคต</p>
+        <p>เนื่องด้วยช่วงนี้ใกล้ถึงเวลาที่ เด็กนักเรียนผู้ซึ่งเพิ่งจบม.6ต้องเข้าเรียนในมหาวิทยาลัย บวกกับเกิดโรคระบาด COVID-19 ขึ้น จึงทำให้ไม่สะดวกต่อการออกไปสำรวจสอบถามลูกค้าโดยตรง ทางผู้จัดการร้านจึงตัดสินใจจัดทำ<br>ร้านขายอุปกรณ์ชุดนักศึกษาแบบออนไลน์เพื่อตอบสนองต่อความต้องการของลูกค้า</p>
         <p> DII Samornsriworawan shop(DII Worawan) grew up from 960141 class project that learn about  html, css, php, and<br>Database development.This project is to apply knowledge from the classroom to create a website. </p>
-        <p>Due to this time,students who have just finished high school year 6 must attend university and<br>with the outbreak of COVID-19, which makes it inconvenient to go to inquire directly with customers The store manager decided to create<br>the online store sells student uniforms to meet the needs of customers that may be available in the future.</p>
+        <p>Due to this time,students who have just finished high school year 6 must attend university and<br>with the outbreak of COVID-19, which makes it inconvenient to go to inquire directly with customers The store manager decided to create<br>the online store sells student uniforms to meet the needs of customers.</p>
       </div>
     </div>
   </body>
