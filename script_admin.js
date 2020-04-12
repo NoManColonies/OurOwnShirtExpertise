@@ -320,7 +320,7 @@ const refreshStockPage = () => {
     'min-height': '430px'
   });
 
-  target.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>");
+  target.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i></p>");
 
   $.ajax({
       url: 'user/show_stock_updatable_name.php',
