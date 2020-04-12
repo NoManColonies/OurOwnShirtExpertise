@@ -56,9 +56,9 @@
       <div class="notification__container">
         <h1>Notification</h1>
         <div class="tab">
-          <button class="tablinks" value="billing" onclick="openTab(event)">Billing request</button>
-          <button class="tablinks" value="pending" onclick="openTab(event)">Pending request</button>
-          <button class="tablinks" value="approved" onclick="openTab(event)">Approved request</button>
+          <button class="tablinks" value="billing" name="billing" onclick="openTab(event)">Billing request</button>
+          <button class="tablinks" value="pending" name="pending" onclick="openTab(event)">Pending request</button>
+          <button class="tablinks" value="approved" name="approved" onclick="openTab(event)">Approved request</button>
         </div>
         <div id="billing" class="tabcontent">
           <div class="tabcontent__group">

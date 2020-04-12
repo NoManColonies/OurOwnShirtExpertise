@@ -2,7 +2,7 @@
 require_once('../.confiq/confiq.php');
 $session = session_auth_check($connect);
 if ($session['session_valid'] && $session['auth_key_valid']) {
-  $retreive_all_billinglist = $connect->query("select * from billinglist where status='pending'");
+  $retreive_all_billinglist = $connect->query("select * from stockrequest where status='pending'");
   if (!empty($retreive_all_billinglist->num_rows)) {
     while ($billing_row = $retreive_all_billinglist->fetch_assoc()) {
       ?>
