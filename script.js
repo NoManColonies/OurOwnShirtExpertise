@@ -7,6 +7,35 @@ $(document).ready(function() {
     $(this).siblings('.icon__snap__field').removeClass('focus');
   });
 
+  $(document).on('submit', '.group__right__float', function() {
+    var fd = new FormData();
+    fd.append('a', $("#size").data("name"));
+    fd.append('s', $("#size").val());
+    fd.append('l', $("#length").val());
+    fd.append('q', $("[name='productbuyqty']").val());
+    var tempEntity = $("#buy__qty");
+    tempEntity.html("<i class=\"fas fa-sync fa-lg fa-fw fa-spin\"></i>Buy product");
+    $.ajax({
+        url: 'user/add_to_cart.php',
+        type: 'post',
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            if (response != "") {
+                alert(response);
+                tempEntity.html("<i class=\"fas fa-cart-arrow-down\"></i>Buy product");
+                refreshBuyablePage();
+                refreshBuyableProduct();
+            } else {
+              tempEntity.html("<i class=\"fas fa-cart-arrow-down\"></i>Buy product");
+              refreshBuyablePage();
+              refreshBuyableProduct();
+            }
+        },
+    });
+    return false;
+  });
 
   const hrefTerm = "https://worawanbydiistudent.store/product.php";
 
@@ -113,8 +142,113 @@ const reloadBuyableOptionHoverEffect = () => {
   });
 };
 
+const refreshBuyablePage = (e) => {
+  var fd = new FormData();
+  fd.append('q', e);
+  var buyQtyInput = $("[name='productbuyqty']");
+
+  buyQtyInput.val("");
+
+  var target = $(".drop__down__buyable .grid__group__left");
+  target.css({
+    'min-width': '400px',
+    'min-height': '400px'
+  });
+
+  target.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>");
+
+  $.ajax({
+    url: 'user/show_stock_buyable_size.php',
+    type: 'post',
+    data: fd,
+    contentType: false,
+    processData: false,
+    success: function(response) {
+      target.css({
+        'min-width': 'unset',
+        'min-height': 'unset'
+      });
+      target.html(response);
+      refreshStockOption();
+    },
+  });
+};
+
+const reloadBuyableOption = () = {
+  $(".buy__loggedin").click(function() {
+    toggleBuyableMenu();
+    refreshBuyablePage($(this).data("valueq"));
+  });
+};
+
+const refreshStockOption = () => {
+  const selectedAll = document.querySelectorAll(".selected");
+
+  selectedAll.forEach(selected => {
+    const optionsContainer = selected.previousElementSibling;
+    const optionsList = optionsContainer.querySelectorAll(".option");
+    const searchBox = selected.nextElementSibling;
+
+    selected.removeEventListener("click", updateOpenTrigger);
+    selected.addEventListener("click", updateOpenTrigger);
+
+    optionsList.forEach(option => {
+      option.removeEventListener("click", updateOptionList);
+      option.addEventListener("click", updateOptionList);
+    });
+  });
+};
+
+const updateOpenTrigger = (e) => {
+  var optionsContainer = e.currentTarget.previousElementSibling;
+  if (optionsContainer.classList.contains("active")) {
+    optionsContainer.classList.remove("active");
+  } else {
+    let currentActive = document.querySelector(".options__container.active");
+    if (currentActive) {
+      currentActive.classList.remove("active");
+    }
+    optionsContainer.classList.add("active");
+  }
+};
+
+const updateOptionList = (e) => {
+  var selected = e.currentTarget.parentNode.nextElementSibling;
+  var optionsContainer = selected.previousElementSibling;
+  var option = e.currentTarget;
+  selected.childNodes[1].innerHTML = option.querySelector("label").innerHTML;
+  optionsContainer.classList.remove("active");
+  optionsContainer.parentNode.value = option.querySelector("input").value;
+  var target = optionsContainer.parentNode;
+  var targetId = target.id;
+  if (targetId == "size") {
+    var fd = new FormData();
+    fd.append('q', $("#size").data("name"));
+    fd.append('s', $("#size").val());
+    $.ajax({
+        url: 'user/show_stock_buyable_length.php',
+        type: 'post',
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+          if (targetId == "size") {
+            $("#productbuylength").html(response);
+            refreshStockOption();
+          } else {
+            alert("No respond target were selected. target : " + targetId + " response : " + response);
+          }
+        },
+    });
+  } else if ($("#size").val() != "" && $("#length").val() != "" && !$(".grid__group__right").hasClass("active")) {
+    document.querySelector(".grid__group__right").classList.toggle("active");
+  } else {
+    $("#buy__qty").prop('disabled', true);
+  }
+}
+
+/*
 const reloadBuyableOption = () => {
-  /*
   $(".buy__loggedin").click(function() {
     var fd = new FormData();
     var tempEntity = $(this);
@@ -136,8 +270,8 @@ const reloadBuyableOption = () => {
         },
     });
   });
-  */
 };
+*/
 
 const toggleSideMenu = () => {
   const target = document.querySelector('.side__menu');
@@ -288,4 +422,9 @@ const selfReplicatingRemoveCart = () => {
     xmlhttp.open("GET", "user/update_into_cart.php?q=" + tempEntity.data("nameq") + "&a=" + $("[name=" + tempEntity.data("nameq") + "]").val(), true);
     xmlhttp.send();
   });
+};
+
+const toggleBuyableMenu = () => {
+  document.querySelector(".drop__down__buyable").classList.toggle("active");
+  document.querySelector("#dark5").classList.toggle("activeDarkenBackground");
 };
