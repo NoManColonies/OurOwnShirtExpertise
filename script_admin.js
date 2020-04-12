@@ -1,6 +1,9 @@
 $(document).ready(function() {
   refreshModifiable();
   stockTrigger();
+  if (document.querySelector("[name='billing']")) {
+    document.querySelector("[name='billing']").click();
+  }
 
   var stockQtyInput = $("[name='productstockqty']");
 
@@ -210,6 +213,108 @@ $(document).ready(function() {
   navBarObserver.observe(trigger);
 });
 
+const openTab = (evt) => {
+  var i, tabcontent, tablinks;
+
+  tabcontent = document.querySelectorAll(".tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  tablinks = document.querySelectorAll(".tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].classList.remove("active")
+  }
+
+  document.querySelector('#' + evt.currentTarget.value).style.display = "block";
+  evt.currentTarget.classList.add("active");
+  refreshNotificationPage(evt.currentTarget.value);
+};
+
+const refreshNotificationPage = (tab) => {
+  var fd = new FormData();
+  var url = 'user/show_' + tab + '_list.php';
+  var target = $('#' + tab + " .tabcontent__group");
+  target.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>");
+  $.ajax({
+      url: url,
+      type: 'post',
+      data: fd,
+      contentType: false,
+      processData: false,
+      success: function(response) {
+        target.html(response);
+        reloadNotificationMenuOption();
+      },
+  });
+};
+
+const reloadNotificationMenuOption = () => {
+  $("[name='approve']").click(function() {
+    var fd = new FormData();
+    fd.append('q', $(this).data("key"));
+    fd.append('s', 'accept');
+    $(this).html("<i class=\"fas fa-sync fa-lg fa-fw fa-spin\"></i>Approve");
+    $.ajax({
+        url: 'user/process_billing_list.php',
+        type: 'post',
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+          if (response != "") {
+            alert(response);
+          }
+          document.querySelector("[name='billing']").click();
+        },
+    });
+  });
+  $("[name='decline']").click(function() {
+    var fd = new FormData();
+    fd.append('q', $(this).data("key"));
+    fd.append('s', 'refund');
+    $(this).html("<i class=\"fas fa-sync fa-lg fa-fw fa-spin\"></i>Refund");
+    $.ajax({
+        url: 'user/process_billing_list.php',
+        type: 'post',
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+          if (response != "") {
+            alert(response);
+          }
+          document.querySelector("[name='billing']").click();
+        },
+    });
+  });
+  $("[name='mark']").click(function() {
+    var fd = new FormData();
+    fd.append('q', $(this).data("key"));
+    fd.append('s', 'ed');
+    $(this).html("<i class=\"fas fa-sync fa-lg fa-fw fa-spin\"></i>Mark as done");
+    $.ajax({
+        url: 'user/process_pending_list.php',
+        type: 'post',
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+          if (response != "") {
+            alert(response);
+          }
+          document.querySelector("[name='pending']").click();
+        },
+    });
+  });
+  $("[name='view']").click(function() {
+    window.open(
+      'https://worawanbydiistudent.store/user/adminview.php?q=' + $(this).data("key"),
+      '_blank'
+    );
+  });
+};
+
 const toggleSideMenu = () => {
   const target = document.querySelector('.side__menu');
   const background = document.querySelector('#dark1');
@@ -284,7 +389,7 @@ const refreshStockPage = () => {
     'min-height': '430px'
   });
 
-  target.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>");
+  target.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i></p>");
 
   $.ajax({
       url: 'user/show_stock_updatable_name.php',
@@ -411,20 +516,6 @@ const updateOptionList = (e) => {
 }
 
 const reloadModifiableMenu = () => {
-  $('.button__hover__expand__admin').hover(function() {
-    $(this).css({"margin-right": ".7em"});
-    $(this).html("<i class=\"fas fa-server\" aria-hidden=\"true\"></i>update stock");
-    $(this).children().css({"margin-right": "1.25em"});
-    $(this).siblings().html("<i class=\"fas fa-edit\"></i>");
-    $(this).siblings().children().css({"margin-right": "0"});
-  }, function() {
-    $(this).css({"margin-right": "0"});
-    $(this).html("<i class=\"fas fa-server\" aria-hidden=\"true\"></i>");
-    $(this).children().css({"margin-right": "0"});
-    $(this).siblings().html("<i class=\"fas fa-edit\"></i>modify product");
-    $(this).siblings().children().css({"margin-right": "1em"});
-  });
-
   $(".modify__popup").click(function() {
     var tempEntity = document.querySelector('.modify__product__menu');
     var background = document.querySelector('#dark2');
@@ -584,4 +675,9 @@ const toggleAlbumMenu = () => {
       },
     });
   }
+};
+
+const toggleNotificationMenu = () => {
+  document.querySelector(".notification__menu").classList.toggle("active");
+  document.querySelector("#dark5").classList.toggle("activeDarkenBackground");
 };

@@ -20,16 +20,17 @@
     <div class="side__menu">
       <div class="side__menu__group">
         <a href="index.php#home" class="scroll" onclick="toggleSideMenu()">home</a>
-        <a href="#product" class="scroll" onclick="toggleSideMenu()">product</a>
         <?php
         if (!$session['session_valid']) {
           ?>
+          <a href="#product" class="scroll" onclick="toggleSideMenu()">product</a>
           <button class="button" name="button" onclick="toggleSideMenu();toggleLoginMenu();">login</button>
           <button class="button" name="button" onclick="toggleSideMenu();toggleRegisterMenu();">register</button>
           <?php
         } else {
           ?>
           <button class="button" name="button" onclick="toggleSideMenu();toggleCartMenu();">your cart</button>
+          <button class="button" name="button" onclick="toggleSideMenu()">account</button>
           <a href="user/logout.php" onclick="toggleSideMenu()">logout</a>
           <?php
         }
@@ -184,22 +185,39 @@
       <div class="menu__cart">
         <div class="menu__cart__header">
           <span class="cart__header">Your cart items</span>
-          <p class="menu__cart__product__name">Name</p>
+          <p class="menu__cart__product__name">Product spec</p>
           <p class="menu__cart__product__price">Price</p>
           <p class="menu__cart__product__qty__header">Quantity</p>
           <p class="menu__cart__product__action">Action</p>
         </div>
         <div class="menu__cart__group">
         </div>
+        <div class="menu__cart__footer">
+          <button class="button__icon button__dark" id="purchase" style="margin-right: 1em"><i class="fas fa-money-bill-wave"></i>Purchase</button>
+        </div>
         <i class="fas fa-times close__icon" onclick="toggleCartMenu()"></i>
       </div>
       <?php
     }
     ?>
+    <div class="drop__down__buyable">
+      <div class="grid__group__left">
+      </div>
+      <div class="grid__group__right ">
+        <form class="group__right__float" action="" method="post">
+          <div class="input__underbar">
+            <input type="number" name="productbuyqty" value="1" min="1">
+            <label for="productbuyqty">Amount</label>
+          </div>
+          <button disabled type="submit" class="button__slide__appear" id="buy__qty"><i class="fas fa-cart-arrow-down"></i>Buy product</button>
+        </form>
+      </div>
+    </div>
     <span class="dark__transparent__background" id="dark1" onclick="toggleSideMenu()"></span>
     <span class="dark__transparent__background" id="dark2" onclick="toggleLoginMenu()"></span>
     <span class="dark__transparent__background" id="dark3" onclick="toggleRegisterMenu()"></span>
     <span class="dark__transparent__background" id="dark4" onclick="toggleCartMenu()"></span>
+    <span class="dark__transparent__background" id="dark5" onclick="toggleBuyableMenu()"></span>
     <span id="home"></span>
     <header>DII Samorasriworawan Shop</header>
     <nav class="floating">
@@ -231,94 +249,7 @@
     </nav>
     <span id="product"></span>
     <section class="product">
-      <?php
-      $retreive_product_result = $connect->query("select * from producttable");
-      if (!empty($retreive_product_result->num_rows)) {
-        while ($product_row = $retreive_product_result->fetch_assoc()) {
-          ?>
-          <div class="product__container">
-            <img src="<?php echo "images/".$product_row['productimagepath']; ?>" alt="">
-            <div class="desc">
-              <p class="product__name"><?php echo $product_row['productname']; ?></p>
-              <p class="product__detail"><?php echo $product_row['producttitle']; ?></p>
-              <div class="product__price__group">
-                <p class="product__price__tag">price :</p>
-                <?php
-                if (is_null($product_row['productdprice'])) {
-                  ?>
-                  <p class="product__price"><?php echo $product_row['productprice']; ?>฿</p>
-                  <?php
-                } else {
-                  ?>
-                  <p class="product__price discounted"><?php echo $product_row['productprice']; ?>฿</p>
-                  <p class="product__discounted__price"><?php echo $product_row['productdprice']; ?>฿</p>
-                  <?php
-                }
-                ?>
-              </div>
-            </div>
-            <div class="spec">
-              <?php
-              if (!is_null($product_row['productsize'])) {
-                ?>
-                <div class="product__spec">
-                  <p class="product__size__tag">size :</p>
-                  <?php
-                  $length = strlen($product_row['productsize']);
-                  for ($i = 0; $i < $length; $i++) {
-                    ?>
-                    <p class="product__size"><?php echo $product_row['productsize'][$i]; ?></p>
-                    <?php
-                  }
-                  ?>
-                </div>
-              <?php
-              }
-              if (!is_null($product_row['productlength'])) {
-                ?>
-                <div class="product__spec">
-                  <p class="product__size__tag">length :</p>
-                  <?php
-                  $length = strlen($product_row['productlength']);
-                  for ($i = 0; $i < $length; $i++) {
-                    ?>
-                    <p class="product__size"><?php echo $product_row['productlength'][$i]; ?></p>
-                    <?php
-                  }
-                  ?>
-                </div>
-                <?php
-              }
-              if (!is_null($product_row['productgender'])) {
-                ?>
-                <div class="product__gender__group">
-                  <p class="product__gender__tag">gender :</p>
-                  <p class="product__gender"><?php echo $product_row['productgender']; ?></p>
-                </div>
-                <?php
-              }
-              if ($session['session_valid']) {
-                ?>
-                <div class="product__button__group">
-                  <button type="button" class="inspect__item button__green button__hover__expand__loggedin" value="<?php echo $product_row['productcode']; ?>" onclick=""><i class="fas fa-external-link-alt" aria-hidden="true"></i></button>
-                  <button type="button" class="add__to__cart button__blue buy__loggedin" data-valueq="<?php echo $product_row['productcode']; ?>" onclick=""><i class="fas fa-cart-arrow-down" aria-hidden="true"></i>add to cart</button>
-                </div>
-                <?php
-              } else {
-                ?>
-                <div class="product__button__group">
-                  <button type="button" class="inspect__item button__green button__hover__expand__not__loggedin" value="<?php echo $product_row['productcode']; ?>" onclick=""><i class="fas fa-external-link-alt" aria-hidden="true"></i></button>
-                  <button type="button" class="add__to__cart button__blue" value="<?php echo $product_row['productcode']; ?>" onclick="" name="add"><i class="fas fa-shopping-bag" aria-hidden="true"></i>buy it now</button>
-                </div>
-                <?php
-              }
-              ?>
-            </div>
-          </div>
-          <?php
-        }
-      }
-      ?>
+
     </section>
   </body>
   <script src="https://kit.fontawesome.com/115266479a.js" crossorigin="anonymous"></script>

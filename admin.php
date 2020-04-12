@@ -21,7 +21,7 @@
     <div class="side__menu">
       <div class="side__menu__group">
         <a href="#addproduct" class="scroll" onclick="toggleSideMenu()">add product</a>
-        <button class="button" name="button" onclick="toggleSideMenu()">notification</button>
+        <button class="button" name="button" onclick="toggleSideMenu();toggleNotificationMenu();">notification</button>
         <button class="button" name="button" onclick="toggleSideMenu();toggleAlbumMenu();">view images album</button>
         <button class="button stock__update__trigger" name="button" onclick="toggleSideMenu()">update stock</button>
         <a href="user/logout.php" data-a="logout" class="scroll" onclick="toggleSideMenu()">log out</a>
@@ -52,10 +52,37 @@
         </form>
       </div>
     </div>
+    <div class="notification__menu">
+      <div class="notification__container">
+        <h1>Notification</h1>
+        <div class="tab">
+          <button class="tablinks" value="billing" name="billing" onclick="openTab(event)">Billing request</button>
+          <button class="tablinks" value="pending" name="pending" onclick="openTab(event)">Pending request</button>
+          <button class="tablinks" value="approved" name="approved" onclick="openTab(event)">Approved request</button>
+        </div>
+        <div id="billing" class="tabcontent">
+          <div class="tabcontent__group">
+
+          </div>
+        </div>
+        <div id="pending" class="tabcontent">
+          <div class="tabcontent__group">
+
+          </div>
+        </div>
+        <div id="approved" class="tabcontent">
+          <div class="tabcontent__group">
+
+          </div>
+        </div>
+      </div>
+      <i class="fas fa-times close__icon" onclick="toggleNotificationMenu()"></i>
+    </div>
     <span class="dark__transparent__background" id="dark1" onclick="toggleSideMenu()"></span>
     <span class="dark__transparent__background close__modify__popup" id="dark2"></span>
     <span class="dark__transparent__background" id="dark3" onclick="toggleStockUpdateMenu()"></span>
     <span class="dark__transparent__background" id="dark4" onclick="toggleAlbumMenu()"></span>
+    <span class="dark__transparent__background" id="dark5" onclick="toggleNotificationMenu()"></span>
     <span id="home"></span>
     <header>DII Samorasriworawan Shop</header>
     <nav class="floating">
@@ -72,7 +99,7 @@
             <i class="fas fa-search fa-lg fa-fw search__icon" aria-hidden="true"></i>
           </button>
         </form>
-        <button class="login__button" onclick=""><i class="fas fa-bell"></i>notification</button>
+        <button class="login__button" onclick="toggleNotificationMenu()"><i class="fas fa-bell"></i>notification</button>
       </div>
     </nav>
     <span id="addproduct"></span>
@@ -144,7 +171,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <input type="text" name="productaddimagepath" value="" class="input__glow" placeholder="File path in case of image was already uploaded (Optional)">
+          <input type="text" name="productaddimagepath" value="" class="input__glow" placeholder="File path (Optional)">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-file-signature fa-lg fa-fw input__snap" aria-hidden="true"></i>
