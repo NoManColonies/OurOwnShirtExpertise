@@ -210,7 +210,7 @@ const refreshBuyablePage = (e) => {
   var target = $(".drop__down__buyable .grid__group__left");
   target.css({
     'min-width': '400px',
-    'min-height': '400px'
+    'min-height': '320px'
   });
 
   target.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>");
