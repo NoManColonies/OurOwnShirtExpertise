@@ -67,6 +67,20 @@ $(document).ready(function() {
     }
   });
 
+  $("#purchase").click(function() {
+    var fd = new FormData();
+    $.ajax({
+        url: 'user/purchase_product.php',
+        type: 'post',
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+          validatePurchase(response);
+        },
+    });
+  });
+
   $(document).on('submit', '.group__right__float', function() {
     var fd = new FormData();
     fd.append('a', $("#size").data("name"));
@@ -151,6 +165,25 @@ $(document).ready(function() {
 
   navBarObserver.observe(trigger);
 });
+
+const validatePurchase = (keyhash) => {
+  var fd = new FormData();
+  fd.append('q', keyhash);
+  $.ajax({
+      url: 'user/verify_purchase_key.php',
+      type: 'post',
+      data: fd,
+      contentType: false,
+      processData: false,
+      success: function(response) {
+        if (response != "") {
+          alert(response + " keyhash: " + keyhash);
+        } else {
+          alert("Success keyhash: " + keyhash);
+        }
+      },
+  });
+};
 
 const refreshBuyableProduct = () => {
   var fd = new FormData();
