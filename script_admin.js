@@ -1,7 +1,7 @@
 $(document).ready(function() {
   refreshModifiable();
   stockTrigger();
-  document.querySelector('#billing').click();
+  document.querySelector("[name='billing']").click();
 
   var stockQtyInput = $("[name='productstockqty']");
 
@@ -233,6 +233,7 @@ const refreshNotificationPage = (tab) => {
   var fd = new FormData();
   var url = 'user/show_' + tab + '_list.php';
   var target = $('#' + tab + " .tabcontent__group");
+  target.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>");
   $.ajax({
       url: url,
       type: 'post',
