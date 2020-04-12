@@ -1,6 +1,7 @@
 $(document).ready(function() {
   refreshModifiable();
   stockTrigger();
+  refreshNotificationPage("billing");
 
   var stockQtyInput = $("[name='productstockqty']");
 
@@ -209,6 +210,39 @@ $(document).ready(function() {
 
   navBarObserver.observe(trigger);
 });
+
+const openTab = (evt) => {
+  var i, tabcontent, tablinks;
+
+  tabcontent = document.querySelectorAll(".tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  tablinks = document.querySelectorAll(".tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].classList.remove("active")
+  }
+
+  document.querySelector('#' + evt.currentTarget.value).style.display = "block";
+  evt.currentTarget.classList.add("active");
+};
+
+const refreshNotificationPage = (tab) => {
+  var fd = new FormData();
+  var url = 'user/show_' + tab + '_list.php';
+  var target = $('#' + tab + " .tabcontent__group");
+  $.ajax({
+      url: url,
+      type: 'post',
+      data: fd,
+      contentType: false,
+      processData: false,
+      success: function(response) {
+        target.html(response);
+      },
+  });
+};
 
 const toggleSideMenu = () => {
   const target = document.querySelector('.side__menu');
@@ -570,4 +604,9 @@ const toggleAlbumMenu = () => {
       },
     });
   }
+};
+
+const toggleNotificationMenu = () => {
+  document.querySelector(".notification__menu").classList.toggle("active");
+  document.querySelector("#dark5").classList.toggle("activeDarkenBackground");
 };
