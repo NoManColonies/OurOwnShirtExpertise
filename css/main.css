@@ -1264,8 +1264,8 @@ slide p {
 	margin-bottom: 5em;
 	flex-wrap: wrap;
 	position: relative;
-	justify-content: space-between;
 	align-content: space-between;
+	min-height: 320px
 }
 
 
