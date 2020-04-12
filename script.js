@@ -7,6 +7,66 @@ $(document).ready(function() {
     $(this).siblings('.icon__snap__field').removeClass('focus');
   });
 
+  var buyQtyInput = $("[name='productbuyqty']");
+
+  buyQtyInput.val("");
+
+  buyQtyInput
+  .keyup(function() {
+    const label = $(".input__underbar label");
+    const input = $(".input__underbar input");
+    const button = $("#buy__qty");
+    if (input.val() != "" && !input.hasClass("active")) {
+      $(this).addClass("active");
+      label.addClass("active");
+      if (input.val() >= input.attr("min")) {
+        button.prop('disabled', false);
+      }
+    } else if (input.val() < input.attr("min") && input.hasClass("active")) {
+      input.removeClass("active");
+      label.removeClass("active");
+      button.prop('disabled', true);
+    } else if (input.val() < input.attr("min")) {
+      button.prop('disabled', true);
+    }
+  })
+  .change(function() {
+    const label = $(".input__underbar label");
+    const input = $(".input__underbar input");
+    const button = $("#buy__qty");
+    if (input.val() != "" && !input.hasClass("active")) {
+      $(this).addClass("active");
+      label.addClass("active");
+      if (input.val() >= input.attr("min")) {
+        button.prop('disabled', false);
+      }
+    } else if (input.val() < input.attr("min") && input.hasClass("active")) {
+      input.removeClass("active");
+      label.removeClass("active");
+      button.prop('disabled', true);
+    } else if (input.val() < input.attr("min")) {
+      button.prop('disabled', true);
+    }
+  })
+  .focusout(function() {
+    const label = $(".input__underbar label");
+    const input = $(".input__underbar input");
+    const button = $("#buy__qty");
+    if (input.val() != "" && !input.hasClass("active")) {
+      $(this).addClass("active");
+      label.addClass("active");
+      if (input.val() >= input.attr("min")) {
+        button.prop('disabled', false);
+      }
+    } else if (input.val() < input.attr("min") && input.hasClass("active")) {
+      input.removeClass("active");
+      label.removeClass("active");
+      button.prop('disabled', true);
+    } else if (input.val() < input.attr("min")) {
+      button.prop('disabled', true);
+    }
+  });
+
   $(document).on('submit', '.group__right__float', function() {
     var fd = new FormData();
     fd.append('a', $("#size").data("name"));
@@ -27,10 +87,12 @@ $(document).ready(function() {
                 tempEntity.html("<i class=\"fas fa-cart-arrow-down\"></i>Buy product");
                 refreshBuyablePage();
                 refreshBuyableProduct();
+                $("[name='productbuyqty']").val("");
             } else {
               tempEntity.html("<i class=\"fas fa-cart-arrow-down\"></i>Buy product");
               refreshBuyablePage();
               refreshBuyableProduct();
+              $("[name='productbuyqty']").val("");
             }
         },
     });
