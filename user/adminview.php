@@ -40,7 +40,7 @@
           <?php
           $product_code_array = explode(',', $billing_row['itemid']);
           $product_qty_array = explode(',', $billing_row['itemqty']);
-          for ($i = 0; $i < $product_code_array.count(); $i++) {
+          for ($i = 0; $i < count($product_code_array); $i++) {
             $query = "select * from producttable where productcode='".$product_code_array[$i]."'";
             $retreive_product_result = $connect->query($query);
             if (!empty($retreive_product_result->num_rows)) {
@@ -52,12 +52,12 @@
                 <td><?php echo $product_row['productlength']; ?></td>
                 <td><?php echo $product_row['productprice']; ?></td>
                 <td><?php echo $product_row['productdprice']; ?></td>
-                <td><?php echo $product_row['productcode']; ?></td>
+                <td><?php echo $product_code_array[$i]; ?></td>
                 <td><?php echo $product_qty_array[$i]; ?></td>
               </tr>
               <?php
             } else {
-              alert("Failed to retreive product from billing list. error code : ".$connect->errno." query : ".$query);
+              alert_message("Failed to retreive product from billing list. error code : ".$connect->errno." query : ".$query);
             }
           }
           ?>
