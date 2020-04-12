@@ -61,7 +61,7 @@ if ($session['session_valid']) {
           <div class="menu__cart__action">
             <button type="button" disabled class="button__icon button__green button__cart__upload" data-nameq="<?php echo $cart_row['itemcode']; ?>"><i class="fas fa-cloud-upload-alt"></i>Update</button>
             <button class="button__icon button__blue"><i class="fas fa-eye"></i>View</button>
-            <button type="button" class="button__icon button__red button__cart__remove" data-valueq="<?php echo $cart_row['itemcode']; ?>" data-valuea="$cart_row['itemqty']" onclick=""><i class="fas fa-trash-alt"></i>Remove</button>
+            <button type="button" class="button__icon button__red button__cart__remove" data-valueq="<?php echo $cart_row['itemcode']; ?>" data-valuea="<?php echo $cart_row['itemqty']; ?>" onclick=""><i class="fas fa-trash-alt"></i>Remove</button>
           </div>
         </div>
       </div>
