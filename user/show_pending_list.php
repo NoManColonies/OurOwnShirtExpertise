@@ -14,8 +14,8 @@ if ($session['session_valid'] && $session['auth_key_valid']) {
           <p>Key: <?php echo $billing_row['keyhash']; ?></p>
         </span>
         <span class="tabcontent__action">
-          <button class="button__icon button__blue" id="view" data-key="<?php echo $billing_row['keyhash']; ?>"><i class="fas fa-location-arrow"></i>View</button>
-          <button class="button__icon button__green" id="mark" data-key="<?php echo $billing_row['keyhash']; ?>"><i class="fas fa-location-arrow"></i>Mark as done</button>
+          <button class="button__icon button__blue" name="view" data-key="<?php echo $billing_row['keyhash']; ?>"><i class="fas fa-eye"></i>View</button>
+          <button class="button__icon button__green" name="mark" data-key="<?php echo $billing_row['keyhash']; ?>"><i class="fas fa-check"></i>Mark as done</button>
         </span>
       </div>
       <?php

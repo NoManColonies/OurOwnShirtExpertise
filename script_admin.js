@@ -250,10 +250,11 @@ const refreshNotificationPage = (tab) => {
 };
 
 const reloadNotificationMenuOption = () => {
-  $("#approve").click(function() {
+  $("[name='approve']").click(function() {
     var fd = new FormData();
     fd.append('q', $(this).data("key"));
     fd.append('s', 'accept');
+    $(this).html("<i class=\"fas fa-sync fa-lg fa-fw fa-spin\"></i>Approve");
     $.ajax({
         url: 'user/process_billing_list.php',
         type: 'post',
@@ -268,10 +269,11 @@ const reloadNotificationMenuOption = () => {
         },
     });
   });
-  $("#decline").click(function() {
+  $("[name='decline']").click(function() {
     var fd = new FormData();
     fd.append('q', $(this).data("key"));
     fd.append('s', 'refund');
+    $(this).html("<i class=\"fas fa-sync fa-lg fa-fw fa-spin\"></i>Refund");
     $.ajax({
         url: 'user/process_billing_list.php',
         type: 'post',
@@ -286,10 +288,11 @@ const reloadNotificationMenuOption = () => {
         },
     });
   });
-  $("#mark").click(function() {
+  $("[name='mark']").click(function() {
     var fd = new FormData();
     fd.append('q', $(this).data("key"));
     fd.append('s', 'ed');
+    $(this).html("<i class=\"fas fa-sync fa-lg fa-fw fa-spin\"></i>Mark as done");
     $.ajax({
         url: 'user/process_pending_list.php',
         type: 'post',
@@ -304,7 +307,7 @@ const reloadNotificationMenuOption = () => {
         },
     });
   });
-  $("#view").click(function() {
+  $("[name='view']").click(function() {
     window.open(
       'https://worawanbydiistudent.store/user/adminview.php?q=' + $(this).data("key"),
       '_blank'
