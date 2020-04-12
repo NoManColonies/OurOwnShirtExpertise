@@ -42,10 +42,10 @@ if ($session['session_valid']) {
           if (!empty($retreive_user_uid->num_rows)) {
             $user_row = $retreive_user_uid->fetch_assoc();
             $keyhash = random_string().random_string().random_string().$user_row['uid'];
-            $query = "insert into billinglist (bid, status, userid, itemid, itemqty, keyhash) values(NULL, NULL, '".$_SESSION['current_userid']."', '".$product_code_string."', '".$product_qty_string."', '".$keyhash."')";
+            $query = "insert into billinglist (bid, userid, itemid, itemqty, keyhash) values(NULL, '".$_SESSION['current_userid']."', '".$product_code_string."', '".$product_qty_string."', '".$keyhash."')";
             $update_billinglist_result = $connect->query($query);
             if (!$update_billinglist_result) {
-              echo "Failed to push into billinglist. query : ".$query;
+              echo "Failed to push into billinglist. error code : ".$connect->errno." query : ".$query;
             } else {
               echo $keyhash;
             }
