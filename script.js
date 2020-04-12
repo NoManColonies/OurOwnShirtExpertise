@@ -362,7 +362,7 @@ const selfReplicatingRemoveCart = () => {
     fd.append('q', tempEntity.data("valueq"));
     fd.append('a', tempEntity.data("valuea"));
     $.ajax({
-        url: '.confiq/remove_from_cart.php',
+        url: 'user/remove_from_cart.php',
         type: 'post',
         data: fd,
         contentType: false,
