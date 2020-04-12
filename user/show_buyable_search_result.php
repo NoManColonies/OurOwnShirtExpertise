@@ -152,15 +152,15 @@ if (!empty($retreive_distinct_product_result->num_rows)) {
           if ($session['session_valid']) {
             ?>
             <div class="product__button__group">
-              <button type="button" class="inspect__item button__green button__hover__expand__loggedin" value="<?php echo $product_row['productcode']; ?>" onclick=""><i class="fas fa-external-link-alt" aria-hidden="true"></i></button>
-              <button type="button" class="add__to__cart button__blue buy__loggedin" data-valueq="<?php echo $product_row['productcode']; ?>" onclick=""><i class="fas fa-cart-arrow-down" aria-hidden="true"></i>add to cart</button>
+              <button type="button" class="inspect__item button__green button__hover__expand__loggedin" value="<?php echo $product_name; ?>" onclick=""><i class="fas fa-external-link-alt" aria-hidden="true"></i></button>
+              <button type="button" class="add__to__cart button__blue buy__loggedin" data-valueq="<?php echo $product_name; ?>" onclick=""><i class="fas fa-cart-arrow-down" aria-hidden="true"></i>add to cart</button>
             </div>
             <?php
           } else {
             ?>
             <div class="product__button__group">
-              <button type="button" class="inspect__item button__green button__hover__expand__not__loggedin" value="<?php echo $product_row['productcode']; ?>" onclick=""><i class="fas fa-external-link-alt" aria-hidden="true"></i></button>
-              <button type="button" class="add__to__cart button__blue buy__not__loggedin" value="<?php echo $product_row['productcode']; ?>" onclick="" name="add"><i class="fas fa-shopping-bag" aria-hidden="true"></i>buy it now</button>
+              <button type="button" class="inspect__item button__green button__hover__expand__not__loggedin" value="<?php echo $product_name; ?>" onclick=""><i class="fas fa-external-link-alt" aria-hidden="true"></i></button>
+              <button type="button" class="add__to__cart button__blue buy__not__loggedin" value="<?php echo $product_name; ?>" onclick="" name="add"><i class="fas fa-shopping-bag" aria-hidden="true"></i>buy it now</button>
             </div>
             <?php
           }

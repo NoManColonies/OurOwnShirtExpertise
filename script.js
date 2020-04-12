@@ -103,6 +103,7 @@ const refreshBuyableProduct = () => {
 };
 
 const reloadBuyableOption = () => {
+  /*
   $(".buy__loggedin").click(function() {
     var fd = new FormData();
     var tempEntity = $(this);
@@ -124,6 +125,7 @@ const reloadBuyableOption = () => {
         },
     });
   });
+  */
 };
 
 const toggleSideMenu = () => {
