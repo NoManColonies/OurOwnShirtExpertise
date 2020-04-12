@@ -352,7 +352,7 @@ const toggleCartMenu = () => {
             window.location = "index.php";
           } else {
             cartRow.html(value[0]);
-            if (value[1]) {
+            if (value[1] == 1) {
               purchaseButton.prop('disabled', false);
               selfReplicatingRemoveCart();
             } else {
