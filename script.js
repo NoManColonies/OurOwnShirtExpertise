@@ -338,6 +338,8 @@ const toggleCartMenu = () => {
     var fd = new FormData();
     var cartRow = $('.menu__cart__group');
     cartRow.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>");
+    const purchaseButton = $("#purchase");
+    purchaseButton.prop('disabled', true);
     $.ajax({
         url: '.confiq/cartlist.php',
         type: 'post',
@@ -351,10 +353,10 @@ const toggleCartMenu = () => {
           } else {
             cartRow.html(value[0]);
             if (value[1]) {
-              $("#purchase").prop('disabled', false);
+              purchaseButton.prop('disabled', false);
               selfReplicatingRemoveCart();
             } else {
-              $("#purchase").prop('disabled', true);
+              purchaseButton.prop('disabled', true);
             }
           }
         },
