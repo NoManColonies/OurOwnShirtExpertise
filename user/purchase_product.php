@@ -28,7 +28,7 @@ if ($session['session_valid']) {
       $retreive_cartlist = $listmanager->query("select * from ".$_SESSION['current_userid']."_cartlist where status=1");
       if (!empty($retreive_cartlist->num_rows)) {
         while ($row = $retreive_cartlist->fetch_assoc()) {
-          $query = "update ".$_SESSION['current_userid']."_cartlist set status=0 where productcode='".$row['itemid']."'";
+          $query = "update ".$_SESSION['current_userid']."_cartlist set status=0 where itemcode='".$row['itemcode']."'";
           $cartlist_update_result = $listmanager->query($query);
           if (!$cartlist_update_result) {
             $check_bit = true;

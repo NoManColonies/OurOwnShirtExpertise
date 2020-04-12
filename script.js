@@ -69,6 +69,8 @@ $(document).ready(function() {
 
   $("#purchase").click(function() {
     var fd = new FormData();
+    var target = $(this);
+    target.html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\">Purchase");
     $.ajax({
         url: 'user/purchase_product.php',
         type: 'post',
@@ -76,7 +78,7 @@ $(document).ready(function() {
         contentType: false,
         processData: false,
         success: function(response) {
-          validatePurchase(response);
+          validatePurchase(response, target);
         },
     });
   });
@@ -166,7 +168,7 @@ $(document).ready(function() {
   navBarObserver.observe(trigger);
 });
 
-const validatePurchase = (keyhash) => {
+const validatePurchase = (keyhash, target) => {
   var fd = new FormData();
   fd.append('q', keyhash);
   $.ajax({
@@ -181,6 +183,7 @@ const validatePurchase = (keyhash) => {
         } else {
           alert("Success keyhash: " + keyhash);
         }
+        target.html("<i class=\"fas fa-money-bill-wave\"></i>Purchase");
         reloadCartMenuList();
       },
   });
