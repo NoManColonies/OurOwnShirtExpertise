@@ -36,7 +36,10 @@ $(document).ready(function() {
   });
 
   reloadBuyableOption();
-  alert(window.location.href);
+  const hrefTerm = "https://worawanbydiistudent.store/product.php";
+  if (window.location.href.indexOf(hrefTerm) != -1) {
+    refreshBuyableProduct();
+  }
 
   var scrollTeleport = $('.scroll');
   scrollTeleport.click(function(e) {
