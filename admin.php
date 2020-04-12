@@ -144,7 +144,7 @@
           </div>
         </div>
         <div class="input__icon">
-          <input type="text" name="productaddimagepath" value="" class="input__glow" placeholder="File path in case of image was already uploaded (Optional)">
+          <input type="text" name="productaddimagepath" value="" class="input__glow" placeholder="File path (Optional)">
           <div class="icon__snap__field">
             <div class="icon__snap__field__relative">
               <i class="fas fa-file-signature fa-lg fa-fw input__snap" aria-hidden="true"></i>
