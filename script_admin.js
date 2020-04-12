@@ -411,20 +411,6 @@ const updateOptionList = (e) => {
 }
 
 const reloadModifiableMenu = () => {
-  $('.button__hover__expand__admin').hover(function() {
-    $(this).css({"margin-right": ".7em"});
-    $(this).html("<i class=\"fas fa-server\" aria-hidden=\"true\"></i>update stock");
-    $(this).children().css({"margin-right": "1.25em"});
-    $(this).siblings().html("<i class=\"fas fa-edit\"></i>");
-    $(this).siblings().children().css({"margin-right": "0"});
-  }, function() {
-    $(this).css({"margin-right": "0"});
-    $(this).html("<i class=\"fas fa-server\" aria-hidden=\"true\"></i>");
-    $(this).children().css({"margin-right": "0"});
-    $(this).siblings().html("<i class=\"fas fa-edit\"></i>modify product");
-    $(this).siblings().children().css({"margin-right": "1em"});
-  });
-
   $(".modify__popup").click(function() {
     var tempEntity = document.querySelector('.modify__product__menu');
     var background = document.querySelector('#dark2');

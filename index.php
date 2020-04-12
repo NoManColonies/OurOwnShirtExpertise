@@ -18,7 +18,6 @@
     } else if (isset($_REQUEST['login'])) {
       if ((!is_null($_REQUEST['username']) || !is_null($_REQUEST['password'])) && !isset($_SESSION['current_userid']) && !isset($_SESSION['encrypted_hash_key'])) {
         if (!login_result($connect, $_REQUEST['username'], $_REQUEST['password'])) {
-          //login_retry_redirect($connect, "Incorrect username or password.");
           alert_message("Incorret username or password.");
         } else {
           $connect->close();
@@ -274,94 +273,186 @@
     </div>
     <section class="product">
       <?php
-      $retreive_product_result = $connect->query("select * from producttable");
-      if (!empty($retreive_product_result->num_rows)) {
-        $counter = 0;
-        while ($product_row = $retreive_product_result->fetch_assoc()) {
-          ?>
-          <div class="product__container">
-            <img src="<?php echo "images/".$product_row['productimagepath']; ?>" alt="">
-            <div class="desc">
-              <p class="product__name"><?php echo $product_row['productname']; ?></p>
-              <p class="product__detail"><?php echo $product_row['producttitle']; ?></p>
-              <div class="product__price__group">
-                <p class="product__price__tag">price :</p>
-                <?php
-                if (is_null($product_row['productdprice'])) {
+      $retreive_distinct_product_result = $connect->query("select distinct productname from producttable");
+      if (!empty($retreive_distinct_product_result->num_rows)) {
+        while ($name_row = $retreive_distinct_product_result->fetch_assoc()) {
+          $counter = 0;
+          $retreive_all_product_result = $connect->query("select * from producttable where productname='".$name_row['productname']."'");
+          if (!empty($retreive_all_product_result->num_rows)) {
+            $price_array = [];
+            $size_array = [];
+            $length_array = [];
+            $dprice_array = [];
+            $code_array = [];
+            $product_name = "";
+            $product_title = "";
+            $product_desc = "";
+            $product_gender = "";
+            $product_imagepath = "";
+            while ($product_row = $retreive_all_product_result->fetch_assoc()) {
+              $price_array = array_merge($price_array, array($product_row['productprice']));
+              $dprice_array = array_merge($dprice_array, array($product_row['productdprice']));
+              $code_array = array_merge($code_array, array($product_row['productcode']));
+              if (empty($product_name)) {
+                $product_name = $product_row['productname'];
+              }
+              if (empty($product_title) && isset($product_row['producttitle'])) {
+                $product_title = $product_row['producttitle'];
+              }
+              if (empty($product_desc) && isset($product_row['productdescription'])) {
+                $product_desc = $product_row['productdescription'];
+              }
+              if (empty($product_gender) && isset($product_row['productgender']) && !empty($product_row['productgender'])) {
+                $product_gender = $product_row['productgender'];
+              }
+              if (empty($product_imagepath)) {
+                $product_imagepath = $product_row['productimagepath'];
+              }
+            }
+            $retreive_product_result = $connect->query("select distinct productsize from producttable where productname='".$product_name."'");
+            if (!empty($retreive_product_result->num_rows)) {
+              while ($row = $retreive_product_result->fetch_assoc()) {
+                $size_array = array_merge($size_array, array($row['productsize']));
+              }
+            } else {
+              $size_array = array("u");
+            }
+            $retreive_product_result = $connect->query("select distinct productlength from producttable where productname='".$product_name."'");
+            if (!empty($retreive_product_result->num_rows)) {
+              while ($row = $retreive_product_result->fetch_assoc()) {
+                $length_array = array_merge($length_array, array($row['productlength']));
+              }
+            } else {
+              $length_array = array("u");
+            }
+            ?>
+            <div class="product__container">
+              <img src="<?php echo "images/".$product_imagepath; ?>" alt="">
+              <div class="desc">
+                <p class="product__name"><?php echo $product_name; ?></p>
+                <p class="product__detail"><?php echo $product_title; ?></p>
+                <div class="product__price__group">
+                  <p class="product__price__tag">price :</p>
+                  <?php
+                  sort($price_array);
+                  sort($dprice_array);
+                  if (!is_null($price_array[0])) {
+                    $max = $price_array[0];
+                    $min = $price_array[0];
+                  } else {
+                    $max = 0;
+                    $min = 0;
+                  }
+                  if (!is_null($dprice_array[0])) {
+                    $maxd = $dprice_array[0];
+                    $mind = $dprice_array[0];
+                  } else {
+                    $maxd = 0;
+                    $mind = 0;
+                  }
+                  foreach (array_keys($price_array) as $key) {
+                    $maxd = ($dprice_array[$key] > $maxd)? $dprice_array[$key] : $maxd;
+                    $max = ($price_array[$key] > $max)? $price_array[$key] : $max;
+                    $mind = ($dprice_array[$key] < $mind)? $dprice_array[$key] : $mind;
+                    $min = ($price_array[$key] < $min)? $price_array[$key] : $min;
+                  }
+                  $check_bit = false;
+                  if ($mind > $min) {
+                    echo "<p class=\"product__price\">".$min."฿</p>";
+                    echo "<p class=\"product__price\">~</p>";
+                    $check_bit = true;
+                  } else if ($mind != $min && $mind != 0) {
+                    echo "<p class=\"product__price\">".$mind."฿</p>";
+                    echo "<p class=\"product__price\">~</p>";
+                    $check_bit = true;
+                  }
+                  if ($maxd > $max) {
+                    if (!$check_bit) {
+                      echo "<p class=\"product__price__specific\">".$maxd."฿</p>";
+                    } else {
+                      echo "<p class=\"product__price\">".$maxd."฿</p>";
+                    }
+                  } else if ($maxd != $max) {
+                    if (!$check_bit) {
+                      echo "<p class=\"product__price__specific\">".$max."฿</p>";
+                    } else {
+                      echo "<p class=\"product__price\">".$max."฿</p>";
+                    }
+                  }
                   ?>
-                  <p class="product__price"><?php echo $product_row['productprice']; ?>฿</p>
+                </div>
+              </div>
+              <div class="spec">
+                <?php
+                $check_bit = false;
+                foreach ($size_array as $value) {
+                  if ($value != "u" && $value != "") {
+                    if (!$check_bit) {
+                      ?>
+                      <div class="product__spec">
+                        <p class="product__size__tag">size :</p>
+                      <?php
+                      $check_bit = true;
+                    }
+                    ?>
+                    <p class="product__size"><?php echo $value; ?></option>
+                    <?php
+                  }
+                }
+                if ($check_bit) {
+                  ?>
+                  </div>
+                  <?php
+                }
+                $check_bit = false;
+                foreach ($length_array as $value) {
+                  if ($value != "" && $value != "u") {
+                    if (!$check_bit) {
+                      ?>
+                      <div class="product__spec">
+                      <p class="product__size__tag" style="margin-right: 0">length :</p>
+                      <?php
+                      $check_bit = true;
+                    }
+                    ?>
+                    <p class="product__size"><?php echo $value; ?>"</option>
+                    <?php
+                  }
+                }
+                if ($check_bit) {
+                  echo "</div>";
+                }
+                if (!is_null($product_gender) && $product_gender != "u") {
+                  ?>
+                  <div class="product__gender__group">
+                    <p class="product__gender__tag">gender :</p>
+                    <p class="product__gender"><?php echo $product_gender; ?></p>
+                  </div>
+                  <?php
+                }
+                if ($session['session_valid']) {
+                  ?>
+                  <div class="product__button__group">
+                    <button type="button" class="inspect__item button__green button__hover__expand__loggedin" value="<?php echo $product_row['productcode']; ?>" onclick=""><i class="fas fa-external-link-alt" aria-hidden="true"></i></button>
+                    <button type="button" class="add__to__cart button__blue buy__loggedin" data-valueq="<?php echo $product_row['productcode']; ?>" onclick=""><i class="fas fa-cart-arrow-down" aria-hidden="true"></i>add to cart</button>
+                  </div>
                   <?php
                 } else {
                   ?>
-                  <p class="product__price discounted"><?php echo $product_row['productprice']; ?>฿</p>
-                  <p class="product__discounted__price"><?php echo $product_row['productdprice']; ?>฿</p>
+                  <div class="product__button__group">
+                    <button type="button" class="inspect__item button__green button__hover__expand__not__loggedin" value="<?php echo $product_row['productcode']; ?>" onclick=""><i class="fas fa-external-link-alt" aria-hidden="true"></i></button>
+                    <button type="button" class="add__to__cart button__blue buy__not__loggedin" value="<?php echo $product_row['productcode']; ?>" onclick="" name="add"><i class="fas fa-shopping-bag" aria-hidden="true"></i>buy it now</button>
+                  </div>
                   <?php
                 }
                 ?>
               </div>
             </div>
-            <div class="spec">
-              <?php
-              if (!is_null($product_row['productsize'])) {
-                ?>
-                <div class="product__spec">
-                  <p class="product__size__tag">size :</p>
-                  <?php
-                  $length = strlen($product_row['productsize']);
-                  for ($i = 0; $i < $length; $i++) {
-                    ?>
-                    <p class="product__size"><?php echo $product_row['productsize'][$i]; ?></p>
-                    <?php
-                  }
-                  ?>
-                </div>
-              <?php
-              }
-              if (!is_null($product_row['productlength'])) {
-                ?>
-                <div class="product__spec">
-                  <p class="product__size__tag">length :</p>
-                  <?php
-                  $length = strlen($product_row['productlength']);
-                  for ($i = 0; $i < $length; $i++) {
-                    ?>
-                    <p class="product__size"><?php echo $product_row['productlength'][$i]; ?></p>
-                    <?php
-                  }
-                  ?>
-                </div>
-                <?php
-              }
-              if (!is_null($product_row['productgender'])) {
-                ?>
-                <div class="product__gender__group">
-                  <p class="product__gender__tag">gender :</p>
-                  <p class="product__gender"><?php echo $product_row['productgender']; ?></p>
-                </div>
-                <?php
-              }
-              if ($session['session_valid']) {
-                ?>
-                <div class="product__button__group">
-                  <button type="button" class="inspect__item button__green button__hover__expand__loggedin" value="<?php echo $product_row['productcode']; ?>" onclick=""><i class="fas fa-external-link-alt" aria-hidden="true"></i></button>
-                  <button type="button" class="add__to__cart button__blue buy__loggedin" data-valueq="<?php echo $product_row['productcode']; ?>" onclick=""><i class="fas fa-cart-arrow-down" aria-hidden="true"></i>add to cart</button>
-                </div>
-                <?php
-              } else {
-                ?>
-                <div class="product__button__group">
-                  <button type="button" class="inspect__item button__green button__hover__expand__not__loggedin" value="<?php echo $product_row['productcode']; ?>" onclick=""><i class="fas fa-external-link-alt" aria-hidden="true"></i></button>
-                  <button type="button" class="add__to__cart button__blue buy__not__loggedin" value="<?php echo $product_row['productcode']; ?>" onclick="" name="add"><i class="fas fa-shopping-bag" aria-hidden="true"></i>buy it now</button>
-                </div>
-                <?php
-              }
-              ?>
-            </div>
-          </div>
-          <?php
-          $counter++;
-          if ($counter > 5) {
-            break;
+            <?php
+            $counter++;
+            if ($counter > 5) {
+              break;
+            }
           }
         }
       }
