@@ -85,14 +85,10 @@ $(document).ready(function() {
             if (response != "") {
                 alert(response);
                 tempEntity.html("<i class=\"fas fa-cart-arrow-down\"></i>Buy product");
-                refreshBuyablePage();
-                refreshBuyableProduct();
-                $("[name='productbuyqty']").val("");
+                toggleBuyableMenu();
             } else {
               tempEntity.html("<i class=\"fas fa-cart-arrow-down\"></i>Buy product");
-              refreshBuyablePage();
-              refreshBuyableProduct();
-              $("[name='productbuyqty']").val("");
+              toggleBuyableMenu();
             }
         },
     });
@@ -240,6 +236,7 @@ const reloadBuyableOption = () => {
   $(".buy__loggedin").click(function() {
     toggleBuyableMenu();
     refreshBuyablePage($(this).data("valueq"));
+    $("[name='productbuyqty']").val("");
   });
 };
 
@@ -308,32 +305,6 @@ const updateOptionList = (e) => {
     $("#buy__qty").prop('disabled', true);
   }
 }
-
-/*
-const reloadBuyableOption = () => {
-  $(".buy__loggedin").click(function() {
-    var fd = new FormData();
-    var tempEntity = $(this);
-    fd.append('q', tempEntity.data("valueq"));
-    tempEntity.html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>add to cart");
-    $.ajax({
-        url: 'user/add_to_cart.php',
-        type: 'post',
-        data: fd,
-        contentType: false,
-        processData: false,
-        success: function(response) {
-          target.html(response);
-          if (response == "") {
-            alert("Your order amount is higher than stock quatity.");
-          } else {
-            tempEntity.html("<i class=\"fas fa-cart-arrow-down\"></i>add to cart");
-          }
-        },
-    });
-  });
-};
-*/
 
 const toggleSideMenu = () => {
   const target = document.querySelector('.side__menu');
