@@ -335,32 +335,7 @@ const toggleCartMenu = () => {
   target.classList.toggle('activeCartMenu');
   background.classList.toggle('activeDarkenBackground');
   if (target.classList.contains('activeCartMenu')) {
-    var fd = new FormData();
-    var cartRow = $('.menu__cart__group');
-    cartRow.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>");
-    const purchaseButton = $("#purchase");
-    purchaseButton.prop('disabled', true);
-    $.ajax({
-        url: '.confiq/cartlist.php',
-        type: 'post',
-        data: fd,
-        contentType: false,
-        processData: false,
-        success: function(response) {
-          var value = response.split(',');
-          if (value[0] == "") {
-            window.location = "index.php";
-          } else {
-            cartRow.html(value[0]);
-            if (value[1] == 1) {
-              purchaseButton.prop('disabled', false);
-              selfReplicatingRemoveCart();
-            } else {
-              purchaseButton.prop('disabled', true);
-            }
-          }
-        },
-    });
+    reloadCartMenuList();
   }
 };
 
@@ -381,84 +356,77 @@ const selfReplicatingRemoveCart = () => {
     if (!confirm("Remove this item?")) {
       return;
     }
-    if (window.XMLHttpRequest) {
-      xmlhttp = new XMLHttpRequest();
-    } else {
-      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
     var tempEntity = $(this);
     tempEntity.html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>remove");
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        if (this.responseText == "") {
-          alert("Failed to remove product from your cart.");
-        } else {
-          if (window.XMLHttpRequest) {
-            xmlhttp = new XMLHttpRequest();
-          } else {
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    var fd = new FormData();
+    fd.append('q', tempEntity.data("valueq"));
+    fd.append('a', tempEntity.data("valuea"));
+    $.ajax({
+        url: '.confiq/remove_from_cart.php',
+        type: 'post',
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+          if (response == "") {
+            alert("Failed to remove product from your cart.");
           }
-          var cartRow = document.querySelector('.menu__cart__group');
-          cartRow.innerHTML = "<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>";
-          xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-              if (this.responseText == "") {
-                window.location = "index.php";
-              } else {
-                cartRow.innerHTML = this.responseText;
-                selfReplicatingRemoveCart();
-              }
-            }
-          };
-          xmlhttp.open("GET", ".confiq/cartlist.php", true);
-          xmlhttp.send();
-        }
-      }
-    };
-    xmlhttp.open("GET", "user/remove_from_cart.php?q=" + tempEntity.data("valueq") + "&a=" + tempEntity.data("valuea"), true);
-    xmlhttp.send();
+          reloadCartMenuList();
+        },
+    });
   });
 
   $(".button__cart__upload").click(function() {
     if (!confirm("Confirm change?")) {
       return;
     }
-    if (window.XMLHttpRequest) {
-      xmlhttp = new XMLHttpRequest();
-    } else {
-      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
     var tempEntity = $(this);
     tempEntity.html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>upload");
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        if (this.responseText == "") {
-          alert("Failed to update item in your cart.");
-        } else {
-          if (window.XMLHttpRequest) {
-            xmlhttp = new XMLHttpRequest();
-          } else {
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    var fd = new FormData();
+    fd.append('q', tempEntity.data("nameq"));
+    fd.append('a', $("[name=" + tempEntity.data("nameq") + "]").val());
+    $.ajax({
+        url: 'user/update_into_cart.php',
+        type: 'post',
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+          if (response == "") {
+            alert("Failed to update item in your cart.");
           }
-          var cartRow = document.querySelector('.menu__cart__group');
-          cartRow.innerHTML = "<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>";
-          xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-              if (this.responseText == "") {
-                window.location = "index.php";
-              } else {
-                cartRow.innerHTML = this.responseText;
-                selfReplicatingRemoveCart();
-              }
-            }
-          };
-          xmlhttp.open("GET", ".confiq/cartlist.php", true);
-          xmlhttp.send();
+          reloadCartMenuList();
+        },
+    });
+  });
+};
+
+const reloadCartMenuList = () => {
+  var fd = new FormData();
+  var cartRow = $('.menu__cart__group');
+  cartRow.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>");
+  const purchaseButton = $("#purchase");
+  purchaseButton.prop('disabled', true);
+  $.ajax({
+      url: '.confiq/cartlist.php',
+      type: 'post',
+      data: fd,
+      contentType: false,
+      processData: false,
+      success: function(response) {
+        var value = response.split(',');
+        if (value[0] == "") {
+          window.location = "index.php";
+        } else {
+          cartRow.html(value[0]);
+          if (value[1] == 1) {
+            purchaseButton.prop('disabled', false);
+            selfReplicatingRemoveCart();
+          } else {
+            purchaseButton.prop('disabled', true);
+          }
         }
-      }
-    };
-    xmlhttp.open("GET", "user/update_into_cart.php?q=" + tempEntity.data("nameq") + "&a=" + $("[name=" + tempEntity.data("nameq") + "]").val(), true);
-    xmlhttp.send();
+      },
   });
 };
 
