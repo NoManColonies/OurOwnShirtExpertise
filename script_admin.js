@@ -1,7 +1,7 @@
 $(document).ready(function() {
   refreshModifiable();
   stockTrigger();
-  openTab();
+  document.querySelector('#billing').click();
 
   var stockQtyInput = $("[name='productstockqty']");
 
