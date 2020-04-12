@@ -1,7 +1,9 @@
 $(document).ready(function() {
   refreshModifiable();
   stockTrigger();
-  document.querySelector("[name='billing']").click();
+  if (document.querySelector("[name='billing']")) {
+    document.querySelector("[name='billing']").click();
+  }
 
   var stockQtyInput = $("[name='productstockqty']");
 
