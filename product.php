@@ -205,7 +205,7 @@
             <input type="number" name="productbuyqty" value="1" min="1">
             <label for="productbuyqty">Amount</label>
           </div>
-          <button disabled type="submit" class="button__slide__appear" id="buy__qty"><i class="fas fa-database"></i>Buy product</button>
+          <button disabled type="submit" class="button__slide__appear" id="buy__qty"><i class="fas fa-cart-arrow-down"></i>Buy product</button>
         </form>
       </div>
     </div>
