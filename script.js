@@ -335,25 +335,30 @@ const toggleCartMenu = () => {
   target.classList.toggle('activeCartMenu');
   background.classList.toggle('activeDarkenBackground');
   if (target.classList.contains('activeCartMenu')) {
-    if (window.XMLHttpRequest) {
-      xmlhttp = new XMLHttpRequest();
-    } else {
-      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    var cartRow = document.querySelector('.menu__cart__group');
-    cartRow.innerHTML = "<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>";
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        if (this.responseText == "") {
-          window.location = "index.php";
-        } else {
-          cartRow.innerHTML = this.responseText;
-          selfReplicatingRemoveCart();
-        }
-      }
-    };
-    xmlhttp.open("GET", ".confiq/cartlist.php", true);
-    xmlhttp.send();
+    var fd = new FormData();
+    var cartRow = $('.menu__cart__group');
+    cartRow.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>");
+    $.ajax({
+        url: '.confiq/cartlist.php',
+        type: 'post',
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+          var value = response.split(',');
+          if (value[0] == "") {
+            window.location = "index.php";
+          } else {
+            cartRow.html(value[0]);
+            if (value[1]) {
+              $("#purchase").prop('disabled', false);
+              selfReplicatingRemoveCart();
+            } else {
+              $("#purchase").prop('disabled', true);
+            }
+          }
+        },
+    });
   }
 };
 

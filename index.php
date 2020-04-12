@@ -46,16 +46,17 @@
     <div class="side__menu">
       <div class="side__menu__group">
         <a href="#home" class="scroll" onclick="toggleSideMenu()">home</a>
-        <a href="#product" class="scroll" onclick="toggleSideMenu()">product</a>
         <?php
         if (!$session['session_valid']) {
           ?>
+          <a href="#product" class="scroll" onclick="toggleSideMenu()">product</a>
           <button class="button" name="button" onclick="toggleSideMenu();toggleLoginMenu();">login</button>
           <button class="button" name="button" onclick="toggleSideMenu();toggleRegisterMenu();">register</button>
           <?php
         } else {
           ?>
           <button class="button" name="button" onclick="toggleSideMenu();toggleCartMenu();">your cart</button>
+          <button class="button" name="button" onclick="toggleSideMenu()">account</button>
           <a href="user/logout.php" onclick="toggleSideMenu()">logout</a>
           <?php
         }
@@ -210,12 +211,15 @@
       <div class="menu__cart">
         <div class="menu__cart__header">
           <span class="cart__header">Your cart items</span>
-          <p class="menu__cart__product__name">Name</p>
+          <p class="menu__cart__product__name">Product spec</p>
           <p class="menu__cart__product__price">Price</p>
           <p class="menu__cart__product__qty__header">Quantity</p>
           <p class="menu__cart__product__action">Action</p>
         </div>
         <div class="menu__cart__group">
+        </div>
+        <div class="menu__cart__footer">
+          <button class="button__icon button__dark" id="purchase" style="margin-right: 1em"><i class="fas fa-money-bill-wave"></i>Purchase</button>
         </div>
         <i class="fas fa-times close__icon" onclick="toggleCartMenu()"></i>
       </div>
