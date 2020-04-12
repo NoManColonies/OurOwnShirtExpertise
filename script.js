@@ -70,7 +70,7 @@ $(document).ready(function() {
   $("#purchase").click(function() {
     var fd = new FormData();
     var target = $(this);
-    target.html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\">Purchase");
+    target.html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>Purchase");
     $.ajax({
         url: 'user/purchase_product.php',
         type: 'post',
