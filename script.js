@@ -232,7 +232,7 @@ const reloadBuyableOptionHoverEffect = () => {
     $(this).css({"margin-right": "0"});
     $(this).html("<i class=\"fas fa-external-link-alt\" aria-hidden=\"true\"></i>");
     $(this).children().css({"margin-right": "0"});
-    $(this).siblings().html("<i class=\"fas fa-edit\"></i>buy it now");
+    $(this).siblings().html("<i class=\"fas fa-shopping-bag\"></i>buy it now");
     $(this).siblings().children().css({"margin-right": "1em"});
   });
 };

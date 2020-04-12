@@ -242,7 +242,71 @@ const refreshNotificationPage = (tab) => {
       processData: false,
       success: function(response) {
         target.html(response);
+        reloadNotificationMenuOption();
       },
+  });
+};
+
+const reloadNotificationMenuOption = () => {
+  $("#approve").click(function() {
+    var fd = new FormData();
+    fd.append('q', $(this).data("key"));
+    fd.append('s', 'accept');
+    $.ajax({
+        url: 'user/process_billing_list.php',
+        type: 'post',
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+          if (response != "") {
+            alert(response);
+          }
+          document.querySelector("[name='billing']").click();
+        },
+    });
+  });
+  $("#decline").click(function() {
+    var fd = new FormData();
+    fd.append('q', $(this).data("key"));
+    fd.append('s', 'refund');
+    $.ajax({
+        url: 'user/process_billing_list.php',
+        type: 'post',
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+          if (response != "") {
+            alert(response);
+          }
+          document.querySelector("[name='billing']").click();
+        },
+    });
+  });
+  $("#mark").click(function() {
+    var fd = new FormData();
+    fd.append('q', $(this).data("key"));
+    fd.append('s', 'ed');
+    $.ajax({
+        url: 'user/process_pending_list.php',
+        type: 'post',
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+          if (response != "") {
+            alert(response);
+          }
+          document.querySelector("[name='pending']").click();
+        },
+    });
+  });
+  $("#view").click(function() {
+    window.open(
+      'https://worawanbydiistudent.store/user/adminview.php?q=' + $(this).data("key"),
+      '_blank'
+    );
   });
 };
 
