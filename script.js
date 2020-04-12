@@ -7,38 +7,14 @@ $(document).ready(function() {
     $(this).siblings('.icon__snap__field').removeClass('focus');
   });
 
-  $('.button__hover__expand__loggedin').hover(function() {
-    $(this).css({"margin-right": ".7em"});
-    $(this).html("<i class=\"fas fa-external-link-alt\" aria-hidden=\"true\"></i>more info");
-    $(this).children().css({"margin-right": "1.25em"});
-    $(this).siblings().html("<i class=\"fas fa-cart-arrow-down\"></i>");
-    $(this).siblings().children().css({"margin-right": "0"});
-  }, function() {
-    $(this).css({"margin-right": "0"});
-    $(this).html("<i class=\"fas fa-external-link-alt\" aria-hidden=\"true\"></i>");
-    $(this).children().css({"margin-right": "0"});
-    $(this).siblings().html("<i class=\"fas fa-cart-arrow-down\"></i>add to cart");
-    $(this).siblings().children().css({"margin-right": "1em"});
-  });
 
-  $('.button__hover__expand__not__loggedin').hover(function() {
-    $(this).css({"margin-right": ".7em"});
-    $(this).html("<i class=\"fas fa-external-link-alt\" aria-hidden=\"true\"></i>more info");
-    $(this).children().css({"margin-right": "1.25em"});
-    $(this).siblings().html("<i class=\"fas fa-shopping-bag\"></i>");
-    $(this).siblings().children().css({"margin-right": "0"});
-  }, function() {
-    $(this).css({"margin-right": "0"});
-    $(this).html("<i class=\"fas fa-external-link-alt\" aria-hidden=\"true\"></i>");
-    $(this).children().css({"margin-right": "0"});
-    $(this).siblings().html("<i class=\"fas fa-edit\"></i>buy it now");
-    $(this).siblings().children().css({"margin-right": "1em"});
-  });
-
-  reloadBuyableOption();
   const hrefTerm = "https://worawanbydiistudent.store/product.php";
+
   if (window.location.href.indexOf(hrefTerm) != -1) {
     refreshBuyableProduct();
+  } else {
+    reloadBuyableOption();
+    reloadBuyableOptionHoverEffect();
   }
 
   var scrollTeleport = $('.scroll');
@@ -101,7 +77,39 @@ const refreshBuyableProduct = () => {
       processData: false,
       success: function(response) {
         target.html(response);
+        reloadBuyableOption();
+        reloadBuyableOptionHoverEffect();
       },
+  });
+};
+
+const reloadBuyableOptionHoverEffect = () => {
+  $('.button__hover__expand__loggedin').hover(function() {
+    $(this).css({"margin-right": ".7em"});
+    $(this).html("<i class=\"fas fa-external-link-alt\" aria-hidden=\"true\"></i>more info");
+    $(this).children().css({"margin-right": "1.25em"});
+    $(this).siblings().html("<i class=\"fas fa-cart-arrow-down\"></i>");
+    $(this).siblings().children().css({"margin-right": "0"});
+  }, function() {
+    $(this).css({"margin-right": "0"});
+    $(this).html("<i class=\"fas fa-external-link-alt\" aria-hidden=\"true\"></i>");
+    $(this).children().css({"margin-right": "0"});
+    $(this).siblings().html("<i class=\"fas fa-cart-arrow-down\"></i>add to cart");
+    $(this).siblings().children().css({"margin-right": "1em"});
+  });
+
+  $('.button__hover__expand__not__loggedin').hover(function() {
+    $(this).css({"margin-right": ".7em"});
+    $(this).html("<i class=\"fas fa-external-link-alt\" aria-hidden=\"true\"></i>more info");
+    $(this).children().css({"margin-right": "1.25em"});
+    $(this).siblings().html("<i class=\"fas fa-shopping-bag\"></i>");
+    $(this).siblings().children().css({"margin-right": "0"});
+  }, function() {
+    $(this).css({"margin-right": "0"});
+    $(this).html("<i class=\"fas fa-external-link-alt\" aria-hidden=\"true\"></i>");
+    $(this).children().css({"margin-right": "0"});
+    $(this).siblings().html("<i class=\"fas fa-edit\"></i>buy it now");
+    $(this).siblings().children().css({"margin-right": "1em"});
   });
 };
 
