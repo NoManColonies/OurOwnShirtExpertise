@@ -2,9 +2,9 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/admin.css">
-    <link rel="stylesheet" href="webfontkit/stylesheet.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../webfontkit/stylesheet.css">
     <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/wtf-forms.css">
     <title>Billing list details</title>
   </head>
@@ -68,10 +68,11 @@
         <p class="cart__no__result">Found nothing. :(</p>
         <?php
       }
+      $connect->close();
       ?>
     </div>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="script_admin.js" charset="utf-8"></script>
+  <script src="../script_admin.js" charset="utf-8"></script>
   <script src="https://kit.fontawesome.com/115266479a.js" crossorigin="anonymous"></script>
 </html>
