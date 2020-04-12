@@ -502,23 +502,12 @@ body::-webkit-scrollbar {
 .drop__down__buyable .grid__group__right {
   grid-column: 2;
   border-left: 2px solid black;
-  -webkit-transform: scaleX(0);
-  -ms-transform: scaleX(0);
-  transform: scaleX(0);
   transform-origin: left;
-  max-width: 0;
   -webkit-transition: all 100ms;
   -o-transition: all 100ms;
   transition: all 100ms;
   position: relative;
-}
-
-.drop__down__buyable .grid__group__right.active {
-  -webkit-transform: scaleX(1);
-  -ms-transform: scaleX(1);
-  transform: scaleX(1);
-  max-width: unset;
-  width: 400px;
+	width: 400px;
   margin: 20px;
 }
 

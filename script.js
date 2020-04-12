@@ -299,8 +299,6 @@ const updateOptionList = (e) => {
           }
         },
     });
-  } else if ($("#size").val() != "" && $("#length").val() != "" && !$(".grid__group__right").hasClass("active")) {
-    document.querySelector(".grid__group__right").classList.toggle("active");
   } else {
     $("#buy__qty").prop('disabled', true);
   }
