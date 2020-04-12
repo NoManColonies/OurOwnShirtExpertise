@@ -181,6 +181,7 @@ const validatePurchase = (keyhash) => {
         } else {
           alert("Success keyhash: " + keyhash);
         }
+        reloadCartMenuList();
       },
   });
 };
