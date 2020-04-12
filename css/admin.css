@@ -511,3 +511,20 @@
 .input__underbar input.active {
   border-color: #2f3640;
 }
+
+.view__billing__info {
+  padding: 200px;
+  font-family: 'roboto', sans-serif;
+  height: 100vh;
+  width: 100vw;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
