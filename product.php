@@ -196,10 +196,24 @@
       <?php
     }
     ?>
+    <div class="drop__down__buyable">
+      <div class="grid__group__left">
+      </div>
+      <div class="grid__group__right ">
+        <form class="group__right__float" action="" method="post">
+          <div class="input__underbar">
+            <input type="number" name="productbuyqty" value="1" min="1">
+            <label for="productbuyqty">Amount</label>
+          </div>
+          <button disabled type="submit" class="button__slide__appear" id="buy__qty"><i class="fas fa-database"></i>Buy product</button>
+        </form>
+      </div>
+    </div>
     <span class="dark__transparent__background" id="dark1" onclick="toggleSideMenu()"></span>
     <span class="dark__transparent__background" id="dark2" onclick="toggleLoginMenu()"></span>
     <span class="dark__transparent__background" id="dark3" onclick="toggleRegisterMenu()"></span>
     <span class="dark__transparent__background" id="dark4" onclick="toggleCartMenu()"></span>
+    <span class="dark__transparent__background" id="dark5" onclick="toggleBuyableMenu()"></span>
     <span id="home"></span>
     <header>DII Samorasriworawan Shop</header>
     <nav class="floating">
@@ -231,7 +245,7 @@
     </nav>
     <span id="product"></span>
     <section class="product">
-      
+
     </section>
   </body>
   <script src="https://kit.fontawesome.com/115266479a.js" crossorigin="anonymous"></script>
