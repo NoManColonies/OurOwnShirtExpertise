@@ -1,7 +1,7 @@
 $(document).ready(function() {
   refreshModifiable();
   stockTrigger();
-  refreshNotificationPage("billing");
+  openTab();
 
   var stockQtyInput = $("[name='productstockqty']");
 
@@ -226,6 +226,7 @@ const openTab = (evt) => {
 
   document.querySelector('#' + evt.currentTarget.value).style.display = "block";
   evt.currentTarget.classList.add("active");
+  refreshNotificationPage(evt.currentTarget.value);
 };
 
 const refreshNotificationPage = (tab) => {
