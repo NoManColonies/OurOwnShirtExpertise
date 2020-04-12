@@ -35,26 +35,8 @@ $(document).ready(function() {
     $(this).siblings().children().css({"margin-right": "1em"});
   });
 
-  $(".buy__loggedin").click(function() {
-    if (window.XMLHttpRequest) {
-      xmlhttp = new XMLHttpRequest();
-    } else {
-      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    var tempEntity = $(this);
-    tempEntity.html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>add to cart");
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        if (this.responseText == "") {
-          alert("Your order amount is higher than stock quatity.");
-        } else {
-          tempEntity.html("<i class=\"fas fa-cart-arrow-down\"></i>add to cart");
-        }
-      }
-    };
-    xmlhttp.open("GET", "user/add_to_cart.php?q=" + tempEntity.data("valueq"), true);
-    xmlhttp.send();
-  });
+  reloadBuyableOption();
+  alert(window.location.href);
 
   var scrollTeleport = $('.scroll');
   scrollTeleport.click(function(e) {
@@ -103,6 +85,48 @@ $(document).ready(function() {
 
   navBarObserver.observe(trigger);
 });
+
+const refreshBuyableProduct = () => {
+  var fd = new FormData();
+  var target = $("section.product");
+  target.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>");
+  $.ajax({
+      url: 'user/show_buyable_search_result.php',
+      type: 'post',
+      data: fd,
+      contentType: false,
+      processData: false,
+      success: function(response) {
+        target.html(response);
+      },
+  });
+};
+
+const reloadBuyableOption = () => {
+  /*
+  $(".buy__loggedin").click(function() {
+    var fd = new FormData();
+    var tempEntity = $(this);
+    fd.append('q', tempEntity.data("valueq"));
+    tempEntity.html("<i class=\"fas fa-sync fa-spin\" aria-hidden=\"true\"></i>add to cart");
+    $.ajax({
+        url: 'user/add_to_cart.php',
+        type: 'post',
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+          target.html(response);
+          if (response == "") {
+            alert("Your order amount is higher than stock quatity.");
+          } else {
+            tempEntity.html("<i class=\"fas fa-cart-arrow-down\"></i>add to cart");
+          }
+        },
+    });
+  });
+  */
+};
 
 const toggleSideMenu = () => {
   const target = document.querySelector('.side__menu');
