@@ -69,7 +69,7 @@ $(document).ready(function() {
     }
   });
 
-  if (window.location.href == "https://worawanbydiistudent.store/product.php") {
+  if (window.location.href.indexOf("https://worawanbydiistudent.store/product.php") != -1) {
     $(document).on('submit', '.search__group', function() {
       var fd = new FormData();
       fd.append('q', $(".search__field").val());
