@@ -11,8 +11,6 @@ $(document).ready(function() {
 
   buyQtyInput.val("");
 
-  $("[name='password']").val("");
-
   buyQtyInput
   .keyup(function() {
     const label = $(".input__underbar label");
