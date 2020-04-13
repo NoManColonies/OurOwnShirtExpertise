@@ -69,6 +69,24 @@ $(document).ready(function() {
     }
   });
 
+  if (window.location.href == "https://worawanbydiistudent.store/product.php") {
+    $(document).on('submit', '.search__group', function() {
+      var fd = new FormData();
+      fd.append('q', $(".search__field").val());
+      $.ajax({
+        url: 'user/show_buyable_search_result.php',
+        type: 'post',
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+          $(".product").val(response);
+        },
+      });
+      return false;
+    });
+  }
+
   $("#purchase").click(function() {
     var fd = new FormData();
     var target = $(this);
