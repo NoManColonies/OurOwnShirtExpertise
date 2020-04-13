@@ -83,6 +83,37 @@ $(document).ready(function() {
     });
   });
 
+  $(".account__menu__trigger").click(function() {
+    toggleAccountMenu();
+    document.querySelector("[name='credentials']").click();
+  });
+
+  $(document).on('submit', '#password__change', function() {
+    var fd = new FormData();
+    fd.append('oldpassword', $("[name='oldpassword']").val());
+    fd.append('newpassword', $("[name='newpassword']").val());
+    fd.append('repassword', $("[name='repassword']").val());
+    $.ajax({
+      url: 'user/update_account_password.php',
+      type: 'post',
+      data: fd,
+      contentType: false,
+      processData: false,
+      success: function(response) {
+        if (response != "") {
+          alert(response);
+          window.location = "https://worawanbydiistudent.store/index.php";
+        } else if (response == "Password did not match." || response == "Two new password are not the same.") {
+          alert(response);
+        }
+        $("[name='oldpassword']").val("");
+        $("[name='newpassword']").val("");
+        $("[name='repassword']").val("");
+      },
+    });
+    return false;
+  });
+
   $(document).on('submit', '.group__right__float', function() {
     var fd = new FormData();
     fd.append('a', $("#size").data("name"));
@@ -167,6 +198,86 @@ $(document).ready(function() {
 
   navBarObserver.observe(trigger);
 });
+
+const openTab = (evt) => {
+  var i, tabcontent, tablinks;
+
+  tabcontent = document.querySelectorAll(".tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  tablinks = document.querySelectorAll(".tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].classList.remove("active")
+  }
+
+  document.querySelector('#' + evt.currentTarget.value).style.display = "block";
+  evt.currentTarget.classList.add("active");
+  refreshAccountPage(evt.currentTarget.value);
+};
+
+const refreshAccountPage = (tab) => {
+  var fd = new FormData();
+  var url = 'user/show_account_' + tab + '.php';
+  var target;
+  switch (tab) {
+    case "credentials":
+      target = $("#credentials__parent");
+      target.html("<div class=\"tabcontent__field\"><p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p></div>");
+      break;
+    case "transaction":
+      target = $(".tabcontent__field__stack");
+      target.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>");
+      break;
+    default:
+  }
+  if (tab != "password") {
+    $.ajax({
+      url: url,
+      type: 'post',
+      data: fd,
+      contentType: false,
+      processData: false,
+      success: function(response) {
+        target.html(response);
+        reloadAccountMenuOption(tab);
+      },
+    });
+  }
+}
+
+const reloadAccountMenuOption = (tab) => {
+  if (tab == "credentials") {
+    $(document).on('submit', '#credentials__change', function() {
+      var fd = new FormData();
+      fd.append('username', $("[name='cname']").val());
+      fd.append('userlastname', $("[name='clastname']").val());
+      fd.append('emailaddress', $("[name='cemail']").val());
+      fd.append('phonenumber', $("[name='cphonenumber']").val());
+      fd.append('postnum', $("[name='cpostcode']").val());
+      fd.append('primaryaddress', $("[name='caddress1']").val());
+      fd.append('secondaryaddress', $("[name='caddress2']").val());
+      fd.append('city', $("[name='ccity']").val());
+      fd.append('state', $("[name='cstate']").val());
+      fd.append('province', $("[name='cprovince']").val());
+      $.ajax({
+        url: 'user/update_account_basicdata.php',
+        type: 'post',
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+          if (response != "") {
+            alert(response);
+          }
+          document.querySelector("[name='credentials']").click();
+        },
+      });
+      return false;
+    });
+  }
+};
 
 const validatePurchase = (keyhash, target) => {
   var fd = new FormData();
@@ -471,3 +582,8 @@ const toggleBuyableMenu = () => {
   document.querySelector(".drop__down__buyable").classList.toggle("active");
   document.querySelector("#dark5").classList.toggle("activeDarkenBackground");
 };
+
+const toggleAccountMenu = () => {
+  document.querySelector(".account__menu").toggle("active");
+  document.querySelector("#dark6").toggle("activeDarkenBackground");
+}
