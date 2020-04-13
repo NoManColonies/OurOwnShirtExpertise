@@ -1123,6 +1123,7 @@ body::-webkit-scrollbar {
 .tabcontent {
   overflow-y: auto;
   height: 55vh;
+	width: 800px;
   display: none;
   font-family: 'roboto', sans-serif;
   padding-top: 1em;
@@ -1130,6 +1131,7 @@ body::-webkit-scrollbar {
 
 .tabcontent .tabcontent__group {
   display: grid;
+	width: 100%;
   grid-template-columns: auto 97% auto;
 	grid-row-gap: 1em;
 }
@@ -2197,6 +2199,11 @@ img {
 	.account__menu {
 		width: 100vw;
 		height: 100vh;
+	}
+
+	.account__menu .tabcontent {
+		height: 100vw;
+		width: 100vw;
 	}
 
 	.menu__cart {
