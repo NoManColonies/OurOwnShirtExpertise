@@ -39,9 +39,15 @@ if (session_restore_result($connect)['session_valid']) {
             $retreive_product_result = $connect->query("select * from producttable where productcode='".$product_code_array[$i]."'");
             if (!empty($retreive_product_result->num_rows)) {
               $product_row = $retreive_product_result->fetch_assoc();
-              ?>
-              <p><?php echo $product_row['productqty']*$product_qty_array[$i]; ?>฿</p>
-              <?php
+              if (!empty($product_row['productdprice'])) {
+                ?>
+                <p><?php echo $product_row['productdprice'] * $product_qty_array[$i]; ?>฿</p>
+                <?php
+              } else {
+                ?>
+                <p><?php echo $product_row['productprice'] * $product_qty_array[$i]; ?>฿</p>
+                <?php
+              }
             }
           }
           ?>
