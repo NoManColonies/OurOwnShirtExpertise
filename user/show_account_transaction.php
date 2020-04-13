@@ -45,12 +45,12 @@ if (session_restore_result($connect)['session_valid']) {
                 ?>
                 <p><?php echo $product_row['productdprice'] * $product_qty_array[$i]; ?>฿</p>
                 <?php
-                $total_price += $product_row['productdprice']
+                $total_price += $product_row['productdprice'];
               } else {
                 ?>
                 <p><?php echo $product_row['productprice'] * $product_qty_array[$i]; ?>฿</p>
                 <?php
-                $total_price += $product_row['productprice']
+                $total_price += $product_row['productprice'];
               }
             }
           }
