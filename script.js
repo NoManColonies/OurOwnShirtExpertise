@@ -311,7 +311,7 @@ const validatePurchase = (keyhash, target) => {
         if (response != "") {
           alert(response + " keyhash: " + keyhash);
         } else {
-          alert("Success keyhash: " + keyhash);
+          alert("Success keyhash: " + keyhash + "\nPlease transfer money to XXXXX-XXXXX-XXXXX");
         }
         target.html("<i class=\"fas fa-money-bill-wave\"></i>Purchase");
         reloadCartMenuList();
