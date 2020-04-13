@@ -227,7 +227,7 @@ const refreshAccountPage = (tab) => {
       target.html("<div class=\"tabcontent__field\"><p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p></div>");
       break;
     case "transaction":
-      target = $(".tabcontent__field__stack");
+      target = $("[name='transaction__group']");
       target.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>");
       break;
     default:
