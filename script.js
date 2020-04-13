@@ -11,6 +11,10 @@ $(document).ready(function() {
 
   buyQtyInput.val("");
 
+  $("[name='login']").click(function() {
+    $("[name='password']").val("");
+  });
+
   buyQtyInput
   .keyup(function() {
     const label = $(".input__underbar label");
@@ -92,7 +96,7 @@ $(document).ready(function() {
     var fd = new FormData();
     fd.append('oldpassword', $("[name='oldpassword']").val());
     fd.append('newpassword', $("[name='newpassword']").val());
-    fd.append('repassword', $("[name='repassword']").val());
+    fd.append('repassword', $("[name='conpassword']").val());
     $.ajax({
       url: 'user/update_account_password.php',
       type: 'post',

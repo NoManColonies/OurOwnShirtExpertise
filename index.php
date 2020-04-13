@@ -277,7 +277,7 @@
                     </div>
                   </div>
                   <div class="input__icon">
-                    <input type="password" class="input__glow" required name="repassword" placeholder="Confirm new password">
+                    <input type="password" class="input__glow" required name="conpassword" placeholder="Confirm new password">
                     <div class="icon__snap__field">
                       <div class="icon__snap__field__relative">
                         <i class="fas fa-key fa-lg fa-fw input__snap" aria-hidden="true"></i>
