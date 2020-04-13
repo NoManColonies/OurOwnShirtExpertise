@@ -1186,6 +1186,7 @@ body::-webkit-scrollbar {
   padding: 10px;
   display: grid;
   grid-template-columns: 20% 60% 20%;
+	grid-row-gap: 1em;
 }
 
 .tabcontent__field__stack .tabcontent__key {
