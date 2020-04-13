@@ -262,9 +262,7 @@
             </div>
           </div>
           <div id="transaction" class="tabcontent">
-            <div class="tabcontent__group">
-              <div class="tabcontent__field__stack">
-              </div>
+            <div class="tabcontent__group" name="transaction__group">
             </div>
           </div>
         </div>
