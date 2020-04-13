@@ -1387,6 +1387,7 @@ nav {
 	padding-bottom: 1.5em;
 	padding-top: 1.5em;
 	width: 100vw;
+	height: 83px;
 	background-color: white;
 }
 
@@ -1522,10 +1523,6 @@ nav.floating {
 
 .login__button > i {
 	margin-right: .5em;
-}
-
-nav {
-	width: 83px;
 }
 
 nav a {
