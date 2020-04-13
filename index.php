@@ -290,7 +290,7 @@
                       </div>
                     </div>
                   </div>
-                  <button type="submit" class="button__icon button__blue" style="margin-top: 1em"><i class="fas fa-lock"></i>Change password</button>
+                  <button type="submit" class="button__icon button__blue" id="password__change__button" style="margin-top: 1em"><i class="fas fa-lock"></i>Change password</button>
                 </form>
               </div>
             </div>
