@@ -13,6 +13,26 @@ if ($session['session_valid'] && $session['auth_key_valid']) {
       $try_to_process_billinglist_result = $connect->query($query);
       if (!$try_to_process_billinglist_result) {
         echo "Failed to set status for billing list. error code : ".$connect->errno." query : ".$query;
+      } else {
+        if ($_REQUEST['s'] == "refund") {
+          $product_code_array = explode(',', $billing_row['itemid']);
+          $product_qty_array = explode(',', $billing_row['itemqty']);
+          for ($i = 0; $i < count($product_code_array); $i++) {
+            $retreive_product_result = $connect->query("select * from producttable where productcode='".$product_code_array[$i]."'");
+            if (!empty($retreive_product_result->num_rows)) {
+              $product_row = $retreive_product_result->fetch_assoc();
+              $query = "update producttable set productqty=".$product_qty_array[$i]." where productcode='".$product_code_array[$i]."'";
+              $try_to_revert_stock_result = $connect->query($query);
+              if (!$try_to_revert_stock_result) {
+                echo "Failed to revert stock result. error code : ".$connect->errno." query : ".$query." aborting...";
+                break;
+              }
+            } else {
+              echo "Failed to retreive from producttable. aborting...";
+              break;
+            }
+          }
+        }
       }
     } else {
       echo "Failed to process billing list. error code : ".$connect->errno." query : ".$query;
