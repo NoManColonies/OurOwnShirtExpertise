@@ -38,35 +38,41 @@
         <a href="index.php#about" class="scroll" onclick="toggleSideMenu();">about us</a>
       </div>
     </div>
-    <div class="login__menu">
-      <form class="" action="index.php" method="post">
-        <div class="field__center username">
-          <div class="input__icon">
-            <input type="text" class="input__glow" required name="username" value="" placeholder="Your username">
-            <div class="icon__snap__field">
-              <div class="icon__snap__field__relative">
-                <i class="fas fa-user-shield fa-lg fa-fw input__snap" aria-hidden="true"></i>
+    <?php
+    if (!$session['session_valid']) {
+      ?>
+      <div class="login__menu">
+        <form class="" action="index.php" method="post">
+          <div class="field__center username">
+            <div class="input__icon">
+              <input type="text" class="input__glow" required name="username" value="" placeholder="Your username">
+              <div class="icon__snap__field">
+                <div class="icon__snap__field__relative">
+                  <i class="fas fa-user-shield fa-lg fa-fw input__snap" aria-hidden="true"></i>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="field__center password">
-          <div class="input__icon">
-            <input type="password" class="input__glow" required name="password" value="" placeholder="*****">
-            <div class="icon__snap__field">
-              <div class="icon__snap__field__relative">
-                <i class="fas fa-key fa-lg fa-fw input__snap" aria-hidden="true"></i>
+          <div class="field__center password">
+            <div class="input__icon">
+              <input type="password" class="input__glow" required name="password" value="" placeholder="*****">
+              <div class="icon__snap__field">
+                <div class="icon__snap__field__relative">
+                  <i class="fas fa-key fa-lg fa-fw input__snap" aria-hidden="true"></i>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="field__center login__button__field">
-          <button type="button" class="button__icon button__green" name="register" onclick="toggleLoginMenu();toggleRegisterMenu();"><i class="fas fa-file-contract"></i>register</button>
-          <button type="submit" class="button__icon button__blue" name="login"><i class="fas fa-sign-in-alt"></i>login</button>
-        </div>
-      </form>
-      <i class="fas fa-times close__icon" onclick="toggleLoginMenu()"></i>
-    </div>
+          <div class="field__center login__button__field">
+            <button type="button" class="button__icon button__green" name="register" onclick="toggleLoginMenu();toggleRegisterMenu();"><i class="fas fa-file-contract"></i>register</button>
+            <button type="submit" class="button__icon button__blue" name="login"><i class="fas fa-sign-in-alt"></i>login</button>
+          </div>
+        </form>
+        <i class="fas fa-times close__icon" onclick="toggleLoginMenu()"></i>
+      </div>
+      <?php
+    }
+    ?>
     <form action="index.php" class="register__menu" method="post">
       <div class="register__left" style="margin-top: 3em">
         <div class="input__icon">
