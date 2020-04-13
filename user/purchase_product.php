@@ -18,7 +18,7 @@ if ($session['session_valid']) {
         } else {
           $product_code_string .= (empty($product_code_string))? $row['itemcode'] : ",".$row['itemcode'];
           $product_qty_string .= (empty($product_qty_string))? $row['itemqty'] : ",".$row['itemqty'];
-          $query = "update producttable set productqty='".$stock_row['productqty'] - $row['itemqty']."' where productcode='".$row['itemcode']."'";
+          $query = "update producttable set productqty=".($stock_row['productqty'] - $row['itemqty'])." where productcode='".$row['itemcode']."'";
           $deduct_from_stock_result = $connect->query($query);
           if (!$deduct_from_stock_result) {
             echo "Failed to deduct item from stock. error code : ".$connect->errno." query : ".$query." aborting...";
