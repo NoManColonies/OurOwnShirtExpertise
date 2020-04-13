@@ -554,7 +554,9 @@ const reloadCartMenuList = () => {
   var cartRow = $('.menu__cart__group');
   cartRow.html("<p class=\"cart__no__result\"><i class=\"fas fa-sync fa-lg fa-fw fa-spin\" style=\"margin-right: .5em\" aria-hidden=\"true\"></i>Loading please wait.</p>");
   const purchaseButton = $("#purchase");
+  const totalPriceTarget = $(".menu__cart__total");
   purchaseButton.prop('disabled', true);
+  totalPriceTarget.html("Total: 0");
   $.ajax({
       url: '.confiq/cartlist.php',
       type: 'post',
@@ -569,9 +571,11 @@ const reloadCartMenuList = () => {
           cartRow.html(value[0]);
           if (value[1] == 1) {
             purchaseButton.prop('disabled', false);
+            totalPriceTarget.html("Total: " + parseInt(value[2]));
             selfReplicatingRemoveCart();
           } else {
             purchaseButton.prop('disabled', true);
+            totalPriceTarget.html("Total: " + parseInt(value[2]));
           }
         }
       },

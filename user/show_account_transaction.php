@@ -4,6 +4,7 @@ if (session_restore_result($connect)['session_valid']) {
   $retreive_billinglist = $connect->query("select * from billinglist where userid='".$_SESSION['current_userid']."'");
   if (!empty($retreive_billinglist->num_rows)) {
     while ($billing_row = $retreive_billinglist->fetch_assoc()) {
+      $total_price = 0;
       ?>
       <div class="tabcontent__field__stack">
         <span class="tabcontent__key">
@@ -31,6 +32,7 @@ if (session_restore_result($connect)['session_valid']) {
             }
           }
           ?>
+          <p class="quantity">Total: </p>
         </span>
         <span class="tabcontent__price">
           <p>price</p>
@@ -43,14 +45,17 @@ if (session_restore_result($connect)['session_valid']) {
                 ?>
                 <p><?php echo $product_row['productdprice'] * $product_qty_array[$i]; ?>฿</p>
                 <?php
+                $total_price += $product_row['productdprice']
               } else {
                 ?>
                 <p><?php echo $product_row['productprice'] * $product_qty_array[$i]; ?>฿</p>
                 <?php
+                $total_price += $product_row['productprice']
               }
             }
           }
           ?>
+          <p><?php echo $total_price; ?></p>
         </span>
       </div>
       <?php
