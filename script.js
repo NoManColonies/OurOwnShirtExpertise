@@ -70,9 +70,11 @@ $(document).ready(function() {
   });
 
   if (window.location.href.indexOf("https://worawanbydiistudent.store/product.php") != -1) {
+    console.log("1");
     $(document).on('submit', '.search__group', function() {
       var fd = new FormData();
       fd.append('q', $(".search__field").val());
+      console.log("2");
       $.ajax({
         url: 'user/show_buyable_search_result.php',
         type: 'post',
@@ -81,6 +83,7 @@ $(document).ready(function() {
         processData: false,
         success: function(response) {
           $(".product").val(response);
+          console.log("3");
         },
       });
       return false;
