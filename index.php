@@ -56,7 +56,7 @@
         } else {
           ?>
           <button class="button" name="button" onclick="toggleSideMenu();toggleCartMenu();">your cart</button>
-          <button class="button" name="button" onclick="toggleSideMenu()">account</button>
+          <button class="button account__menu__trigger" name="button" onclick="toggleSideMenu()">account</button>
           <a href="user/logout.php" onclick="toggleSideMenu()">logout</a>
           <?php
         }
@@ -239,11 +239,72 @@
         </form>
       </div>
     </div>
+    <?php
+    if ($session['session_valid']) {
+      ?>
+      <div class="account__menu">
+        <div class="account__container">
+          <h1>Account menu</h1>
+          <div class="tab">
+            <button class="tablinks" value="credentials" name="credentials" onclick="openTab(event)">User credentials</button>
+            <button class="tablinks" value="password" name="password" onclick="openTab(event)">Password management</button>
+            <button class="tablinks" value="transactions" name="transactions" onclick="openTab(event)">Transaction history</button>
+          </div>
+          <div id="credentials" class="tabcontent">
+            <div class="tabcontent__group" id="credentials__parent">
+            </div>
+          </div>
+          <div id="password" class="tabcontent">
+            <div class="tabcontent__group">
+              <div class="tabcontent__field">
+                <form action="" method="post" id="password__change" class="group__center">
+                  <div class="input__icon">
+                    <input type="password" class="input__glow" required name="oldpassword" placeholder="Old password">
+                    <div class="icon__snap__field">
+                      <div class="icon__snap__field__relative">
+                        <i class="fas fa-key fa-lg fa-fw input__snap" aria-hidden="true"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input__icon">
+                    <input type="password" class="input__glow" required name="newpassword" placeholder="New password">
+                    <div class="icon__snap__field">
+                      <div class="icon__snap__field__relative">
+                        <i class="fas fa-key fa-lg fa-fw input__snap" aria-hidden="true"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input__icon">
+                    <input type="password" class="input__glow" required name="repassword" placeholder="Confirm new password">
+                    <div class="icon__snap__field">
+                      <div class="icon__snap__field__relative">
+                        <i class="fas fa-key fa-lg fa-fw input__snap" aria-hidden="true"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="submit" class="button__icon button__blue" style="margin-top: 1em"><i class="fas fa-lock"></i>Change password</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div id="transaction" class="tabcontent">
+            <div class="tabcontent__group">
+              <div class="tabcontent__field__stack">
+              </div>
+            </div>
+          </div>
+        </div>
+        <i class="fas fa-times close__icon" onclick="toggleAccountMenu()"></i>
+      </div>
+      <?php
+    }
+    ?>
     <span class="dark__transparent__background" id="dark1" onclick="toggleSideMenu()"></span>
     <span class="dark__transparent__background" id="dark2" onclick="toggleLoginMenu()"></span>
     <span class="dark__transparent__background" id="dark3" onclick="toggleRegisterMenu()"></span>
     <span class="dark__transparent__background" id="dark4" onclick="toggleCartMenu()"></span>
     <span class="dark__transparent__background" id="dark5" onclick="toggleBuyableMenu()"></span>
+    <span class="dark__transparent__background" id="dark6" onclick="toggleAccountMenu()"></span>
     <span id="home"></span>
     <header>DII Samorasriworawan Shop</header>
     <nav class="floating">
@@ -484,23 +545,15 @@
       <p>About Us</p>
     </div>
     <section class="page">
-	<style type="text/css">
-    .habout{
-	padding: 0px 100px 0px 100px;
-	}
-	.textabout {
-	font-size: 24px;
-	padding: 10px 100px 100px 100px;
-	
-	}
-    </style>
-  
-	<div class= "habout"><h1>ต้นกำเนิด worawanbydiistudent.store</h1></div>
-	<br>
-	<div class= "textabout">จุดกำเนิดร้านแห่งนี้เกิดจากเด็ก DII ตัวน้อยๆ 3 คนเกิดความคิดริเริ่มที่จะทำร้านขายชุดนักศึกษาออนไลน์ในช่วงการแพร่ระบาด COVID-19 
-	เพื่อลดความแออัดในการเดินทางไปซื้อชุดนักศึกษาที่ร้านด้วยตนเอง โดยเฉพาะช่วงใกล้การเปิดภาคการศึกษา 2563 จึงอาจทำให้มีการเดินทางไปซื้อชุดนักศึกษาที่ร้านกันอย่างหนาแน่น พวกเราจึงเกิด 
-	Project worawanbydiistudent.store แห่งนี้ขึ้นมาเพื่อตอบสนองนโยบายรัฐบาล ลดการแพร่ระบาดของเชื้อโรค</div>
-
+      <div class= "habout">
+        <h1>ต้นกำเนิด worawanbydiistudent.store</h1>
+      </div>
+      <br>
+    	<div class= "textabout">
+        จุดกำเนิดร้านแห่งนี้เกิดจากเด็ก DII ตัวน้อยๆ 3 คนเกิดความคิดริเริ่มที่จะทำร้านขายชุดนักศึกษาออนไลน์ในช่วงการแพร่ระบาด COVID-19
+      	เพื่อลดความแออัดในการเดินทางไปซื้อชุดนักศึกษาที่ร้านด้วยตนเอง โดยเฉพาะช่วงใกล้การเปิดภาคการศึกษา 2563 จึงอาจทำให้มีการเดินทางไปซื้อชุดนักศึกษาที่ร้านกันอย่างหนาแน่น พวกเราจึงเกิด
+      	Project worawanbydiistudent.store แห่งนี้ขึ้นมาเพื่อตอบสนองนโยบายรัฐบาล ลดการแพร่ระบาดของเชื้อโรค
+      </div>
     </section>
   </body>
   <script src="https://kit.fontawesome.com/115266479a.js" crossorigin="anonymous"></script>

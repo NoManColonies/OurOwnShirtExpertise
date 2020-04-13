@@ -288,6 +288,14 @@
   overflow-x: hidden;
 }
 
+.notification__container h1 {
+  font-family: 'gidoleregular';
+  font-size: 36px;
+  font-weight: normal;
+  text-align: center;
+  margin-top: 1em;
+}
+
 .tab {
   display: -webkit-flex;
   display: -ms-flex;
@@ -299,14 +307,6 @@
   overflow: hidden;
   -webkit-box-shadow: 0 5px 5px #999;
   box-shadow: 0 5px 5px #999;
-}
-
-.notification__container h1 {
-  font-family: 'gidoleregular';
-  font-size: 36px;
-  font-weight: normal;
-  text-align: center;
-  margin-top: 1em;
 }
 
 .tab button {
