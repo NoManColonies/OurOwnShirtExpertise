@@ -381,6 +381,7 @@
 
 .tabcontent__group .tabcontent__field {
   grid-column: 2;
+  grid-row: auto;
   box-shadow: 0 0 5px black;
   -webkit-box-shadow: 0 0 5px black;
   border-radius: 10px;
