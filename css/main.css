@@ -2194,6 +2194,25 @@ img {
 		display: none;
 	}
 
+	.account__menu {
+		width: 100vw;
+		height: 100vh;
+	}
+
+	.menu__cart {
+		width: 100vw;
+		height: 100vh;
+	}
+
+	.side__menu {
+		width: 60vw;
+	}
+
+	.notification__menu {
+		width: 100vw;
+		height: 100vh;
+	}
+
 	.register__menu {
 		width: 100vw;
 		height: 100vh;
