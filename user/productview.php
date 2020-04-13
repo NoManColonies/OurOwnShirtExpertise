@@ -360,6 +360,7 @@
           }
           ?>
           </div>
+          </div>
           <?php
           if ($session['session_valid']) {
             ?>
@@ -375,7 +376,6 @@
             <?php
           }
           ?>
-          </div>
         </div>
       </section>
       <?php
