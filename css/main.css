@@ -1125,6 +1125,7 @@ body::-webkit-scrollbar {
 .tabcontent .tabcontent__group {
   display: grid;
   grid-template-columns: auto 97% auto;
+	grid-row-gap: 1em;
 }
 
 .tabcontent__group .tabcontent__field {
@@ -1186,7 +1187,6 @@ body::-webkit-scrollbar {
   padding: 10px;
   display: grid;
   grid-template-columns: 20% 60% 20%;
-	grid-row-gap: 1em;
 }
 
 .tabcontent__field__stack .tabcontent__key {
