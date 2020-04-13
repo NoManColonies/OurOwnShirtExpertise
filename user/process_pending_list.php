@@ -12,7 +12,13 @@ if ($session['session_valid'] && $session['auth_key_valid']) {
       $query = "update stockrequest set status='".$billing_row['status'].$_REQUEST['s']."' where keyhash='".$billing_row['keyhash']."'";
       $try_to_process_billinglist_result = $connect->query($query);
       if (!$try_to_process_billinglist_result) {
-        echo "Failed to set status for billing list. error code : ".$connect->errno." query : ".$query;
+        echo "Failed to set status for pending list. error code : ".$connect->errno." query : ".$query;
+      } else {
+        $query = "update billinglist set status='".$billing_row['status'].$_REQUEST['s']."' where keyhash='".$billing_row['keyhash']."'";
+        $try_to_process_billinglist_result = $connect->query($query);
+        if (!$try_to_process_billinglist_result) {
+          echo "Failed to set status for billing list. error code : ".$connect->errno." query : ".$query;
+        }
       }
     } else {
       echo "Failed to process billing list. error code : ".$connect->errno." query : ".$query;

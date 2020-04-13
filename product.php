@@ -194,6 +194,8 @@
         </div>
         <div class="menu__cart__footer">
           <button class="button__icon button__dark" id="purchase" style="margin-right: 1em"><i class="fas fa-money-bill-wave"></i>Purchase</button>
+          <div class="menu__cart__total">
+          </div>
         </div>
         <i class="fas fa-times close__icon" onclick="toggleCartMenu()"></i>
       </div>

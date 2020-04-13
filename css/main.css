@@ -370,6 +370,10 @@ body::-webkit-scrollbar {
 	align-items: center;
 }
 
+.menu__cart__footer .menu__cart__total {
+	margin-right: 1em;
+}
+
 .cart__no__result {
 	position: absolute;
 	top: 50%;
