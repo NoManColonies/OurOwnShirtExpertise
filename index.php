@@ -484,6 +484,22 @@
       <p>About Us</p>
     </div>
     <section class="page">
+	<style type="text/css">
+    .habout{
+	padding: 0px 100px 0px 100px;
+	}
+	.textabout {
+	font-size: 24px;
+	padding: 10px 100px 100px 100px;
+	
+	}
+    </style>
+  
+	<div class= "habout"><h1>ต้นกำเนิด worawanbydiistudent.store</h1></div>
+	<br>
+	<div class= "textabout">จุดกำเนิดร้านแห่งนี้เกิดจากเด็ก DII ตัวน้อยๆ 3 คนเกิดความคิดริเริ่มที่จะทำร้านขายชุดนักศึกษาออนไลน์ในช่วงการแพร่ระบาด COVID-19 
+	เพื่อลดความแออัดในการเดินทางไปซื้อชุดนักศึกษาที่ร้านด้วยตนเอง โดยเฉพาะช่วงใกล้การเปิดภาคการศึกษา 2563 จึงอาจทำให้มีการเดินทางไปซื้อชุดนักศึกษาที่ร้านกันอย่างหนาแน่น พวกเราจึงเกิด 
+	Project worawanbydiistudent.store แห่งนี้ขึ้นมาเพื่อตอบสนองนโยบายรัฐบาล ลดการแพร่ระบาดของเชื้อโรค</div>
 
     </section>
   </body>
