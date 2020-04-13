@@ -403,6 +403,7 @@ const refreshStockPage = () => {
           'min-height': 'unset'
         });
         target.html(response);
+        stockQtyInput.val("");
         refreshStockOption();
       },
   });
