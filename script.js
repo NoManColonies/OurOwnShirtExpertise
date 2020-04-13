@@ -571,11 +571,11 @@ const reloadCartMenuList = () => {
           cartRow.html(value[0]);
           if (value[1] == 1) {
             purchaseButton.prop('disabled', false);
-            totalPriceTarget.html("Total: " + parseInt(value[2]));
+            totalPriceTarget.html("Total: " + parseInt(value[2]) + "฿");
             selfReplicatingRemoveCart();
           } else {
             purchaseButton.prop('disabled', true);
-            totalPriceTarget.html("Total: " + parseInt(value[2]));
+            totalPriceTarget.html("Total: " + parseInt(value[2]) + "฿");
           }
         }
       },
