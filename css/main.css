@@ -1650,7 +1650,7 @@ slider {
 	-ms-transform: translateX(-50%);
 	transform: translateX(-50%);
 	width: 80%;
-	height: auto;
+	min-height: 40vh;
 	background-color: #1f1f1f;
 	overflow: hidden;
 	position: absolute;
