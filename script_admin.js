@@ -379,7 +379,7 @@ const stockTrigger = () => {
 
 const refreshStockPage = () => {
   var fd = new FormData();
-  var stockQtyInput = $("[name='productqty']");
+  var stockQtyInput = $("[name='productstockqty']");
 
   stockQtyInput.val("");
 
