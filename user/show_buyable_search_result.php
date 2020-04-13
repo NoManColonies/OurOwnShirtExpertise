@@ -1,7 +1,7 @@
 <?php
 require_once('../.confiq/confiq.php');
 $session = session_restore_result($connect);
-$search_term = (!empty($_REQUEST['q']) && isset($_REQUEST['q']))? " where productname like '%".$_REQUEST['q']."%' or producttitle like '%".$_REQUEST['q']."%' or productdescription like '%".$_REQUEST['q']."%'" : "";
+$search_term = (!empty($_REQUEST['q']))? " where productname like '%".$_REQUEST['q']."%' or producttitle like '%".$_REQUEST['q']."%' or productdescription like '%".$_REQUEST['q']."%'" : "";
 $retreive_distinct_product_result = $connect->query("select distinct productname from producttable".$search_term);
 if (!empty($retreive_distinct_product_result->num_rows)) {
   while ($name_row = $retreive_distinct_product_result->fetch_assoc()) {
