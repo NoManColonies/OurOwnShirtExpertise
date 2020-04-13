@@ -2183,3 +2183,14 @@ img {
 	font-family: 'caligraphic';
 	src: url('DandeleonVintageDemo.otf');
 }
+
+@media screen and (max-width: 1000px) {
+	nav .anchor {
+		display: none;
+	}
+
+	.register__menu {
+		width: 100vw;
+		height: 100vh;
+	}
+}
