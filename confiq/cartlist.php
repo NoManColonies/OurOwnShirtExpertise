@@ -7,6 +7,7 @@ if ($session['session_valid']) {
     $retrieve_product_result = $connect->query("select * from producttable");
     $product_array = [];
     $counter = 0;
+    $total_price = 0;
     while ($row = $retrieve_product_result->fetch_assoc()) {
       $product_array = array_merge($product_array,
       [
@@ -44,13 +45,15 @@ if ($session['session_valid']) {
           <?php
           if (isset($product_array['productdprice'.$product_index]) && !empty($product_array['productdprice'.$product_index])) {
             ?>
-            <p class="discounted"><?php echo $product_array['productdprice'.$product_index]; ?>฿</p>
-            <p><?php echo $product_array['productprice'.$product_index]; ?>฿</p>
+            <p class="discounted"><?php echo $product_array['productdprice'.$product_index] * $cart_row['itemqty']; ?>฿</p>
+            <p><?php echo $product_array['productprice'.$product_index] * $cart_row['itemqty']; ?>฿</p>
             <?php
+            $total_price += $product_array['productdprice'.$product_index] * $cart_row['itemqty'];
           } else {
             ?>
-            <p><?php echo $product_array['productprice'.$product_index]; ?>฿</p>
+            <p><?php echo $product_array['productprice'.$product_index] * $cart_row['itemqty']; ?>฿</p>
             <?php
+            $total_price += $product_array['productprice'.$product_index] * $cart_row['itemqty'];
           }
           ?>
         </span>
@@ -67,14 +70,14 @@ if ($session['session_valid']) {
       </div>
       <?php
     }
-    echo ",1";
+    echo ",1,".$total_price;
     $listmanager->close();
     $connect->close();
   } else {
     ?>
     <p class="cart__no__result">Nothing was found in your cart.</p>
     <?php
-    echo ",0";
+    echo ",0,0";
     $listmanager->close();
     $connect->close();
   }

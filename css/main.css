@@ -372,6 +372,8 @@ body::-webkit-scrollbar {
 
 .menu__cart__footer .menu__cart__total {
 	margin-right: 1em;
+	font-family: 'gidoleregular';
+	font-size: 36px;
 }
 
 .cart__no__result {
