@@ -415,6 +415,9 @@ const reloadViewBuyable = () => {
       '_blank'
     );
   });
+  $(".buy__not__loggedin").click(function() {
+    alert("Please login first.");
+  });
 };
 
 const refreshStockOption = () => {
