@@ -115,7 +115,7 @@ if (!empty($retreive_distinct_product_result->num_rows)) {
             <?php
             foreach ($size_array as $value) {
             if ($value != "u") {
-              echo "<p class=\"product__size\">".$value."</option>";
+              echo "<p class=\"product__size\">".$value."</p>";
               }
             }
             ?>
@@ -132,7 +132,7 @@ if (!empty($retreive_distinct_product_result->num_rows)) {
                 $check_bit = true;
               }
               ?>
-              <p class="product__size"><?php echo $value; ?>"</option>
+              <p class="product__size"><?php echo $value; ?>"</p>
               <?php
             }
           }
@@ -160,7 +160,7 @@ if (!empty($retreive_distinct_product_result->num_rows)) {
             ?>
             <div class="product__button__group">
               <button type="button" class="inspect__item button__green button__hover__expand__not__loggedin" value="<?php echo $product_name; ?>" onclick=""><i class="fas fa-external-link-alt" aria-hidden="true"></i></button>
-              <button type="button" class="add__to__cart button__blue buy__not__loggedin" value="<?php echo $product_name; ?>" onclick="" name="add"><i class="fas fa-shopping-bag" aria-hidden="true"></i>buy it now</button>
+              <button type="button" class="add__to__cart button__blue buy__not__loggedin" value="<?php echo $product_name; ?>" onclick="toggleRegisterMenu()" name="add"><i class="fas fa-shopping-bag" aria-hidden="true"></i>buy it now</button>
             </div>
             <?php
           }
