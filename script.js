@@ -11,9 +11,7 @@ $(document).ready(function() {
 
   buyQtyInput.val("");
 
-  $("[name='login']").click(function() {
-    $("[name='password']").val("");
-  });
+  $("[name='password']").val("");
 
   buyQtyInput
   .keyup(function() {
