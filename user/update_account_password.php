@@ -8,7 +8,7 @@ if (session_restore_result($connect)['session_valid']) {
       if ($_REQUEST['newpassword'] == $_REQUEST['repassword']) {
         $try_encrypt_new_password_result = $connect->query("update usercredentials set userpassword='".argon2_encrypt($_REQUEST['newpassword'])."' where userid='".$_SESSION['current_userid']."'");
       } else {
-        echo "Two new password are not the same.";
+        echo "Two new password are not the same. password1 : ".$_REQUEST['newpassword']." password2 : ".$_REQUEST['repassword'];
       }
     } else {
       echo "Password did not match.";
