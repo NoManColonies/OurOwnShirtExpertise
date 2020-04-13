@@ -2201,6 +2201,11 @@ img {
 		height: 100vh;
 	}
 
+	.account__menu .tabcontent {
+		height: 100vw;
+		width: 100vw;
+	}
+
 	.menu__cart {
 		width: 100vw;
 		height: 100vh;
