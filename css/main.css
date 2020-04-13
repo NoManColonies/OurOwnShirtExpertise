@@ -1524,6 +1524,10 @@ nav.floating {
 	margin-right: .5em;
 }
 
+nav {
+	width: 83px;
+}
+
 nav a {
 	font-family: 'gidoleregular';
 	text-decoration: none;
@@ -2186,6 +2190,10 @@ img {
 
 @media screen and (max-width: 1000px) {
 	nav .anchor {
+		display: none;
+	}
+
+	nav .anchor::after {
 		display: none;
 	}
 
