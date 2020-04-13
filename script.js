@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  reloadViewBuyable();
+
   $(".input__glow")
   .focus(function() {
     $(this).siblings('.icon__snap__field').addClass('focus');
@@ -249,6 +251,15 @@ const refreshAccountPage = (tab) => {
       success: function(response) {
         target.html(response);
         reloadAccountMenuOption(tab);
+        if (tab == "credentials") {
+          $(".input__glow")
+          .focus(function() {
+            $(this).siblings('.icon__snap__field').addClass('focus');
+          })
+          .focusout(function() {
+            $(this).siblings('.icon__snap__field').removeClass('focus');
+          });
+        }
       },
     });
   }
@@ -393,6 +404,19 @@ const reloadBuyableOption = () => {
     toggleBuyableMenu();
     refreshBuyablePage($(this).data("valueq"));
     $("[name='productbuyqty']").val("");
+  });
+  reloadViewBuyable();
+};
+
+const reloadViewBuyable = () => {
+  $(".inspect__item").click(function() {
+    window.open(
+      'https://worawanbydiistudent.store/user/productview.php?q=' + $(this).val(),
+      '_blank'
+    );
+  });
+  $(".buy__not__loggedin").click(function() {
+    alert("Please login first.");
   });
 };
 
@@ -564,7 +588,7 @@ const reloadCartMenuList = () => {
   const purchaseButton = $("#purchase");
   const totalPriceTarget = $(".menu__cart__total");
   purchaseButton.prop('disabled', true);
-  totalPriceTarget.html("Total: 0");
+  totalPriceTarget.html("Total: 0฿");
   $.ajax({
       url: '.confiq/cartlist.php',
       type: 'post',

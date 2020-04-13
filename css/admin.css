@@ -375,7 +375,7 @@
 .tabcontent .tabcontent__group {
   display: grid;
   grid-template-columns: auto 97% auto;
-  grid-auto-rows: minmax(100px, 15vh);
+  grid-auto-rows: 100px;
   grid-row-gap: 1em;
 }
 
