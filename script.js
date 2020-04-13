@@ -584,6 +584,6 @@ const toggleBuyableMenu = () => {
 };
 
 const toggleAccountMenu = () => {
-  document.querySelector(".account__menu").toggle("active");
-  document.querySelector("#dark6").toggle("activeDarkenBackground");
+  document.querySelector(".account__menu").classList.toggle("active");
+  document.querySelector("#dark6").classList.toggle("activeDarkenBackground");
 }
