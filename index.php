@@ -248,7 +248,7 @@
           <div class="tab">
             <button class="tablinks" value="credentials" name="credentials" onclick="openTab(event)">User credentials</button>
             <button class="tablinks" value="password" name="password" onclick="openTab(event)">Password management</button>
-            <button class="tablinks" value="transactions" name="transactions" onclick="openTab(event)">Transaction history</button>
+            <button class="tablinks" value="transaction" name="transaction" onclick="openTab(event)">Transaction history</button>
           </div>
           <div id="credentials" class="tabcontent">
             <div class="tabcontent__group" id="credentials__parent">
