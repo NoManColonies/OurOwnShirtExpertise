@@ -55,7 +55,7 @@ if (session_restore_result($connect)['session_valid']) {
             }
           }
           ?>
-          <p><?php echo $total_price; ?></p>
+          <p><?php echo $total_price."฿"; ?></p>
         </span>
       </div>
       <?php
