@@ -93,6 +93,7 @@ $(document).ready(function() {
     fd.append('oldpassword', $("[name='oldpassword']").val());
     fd.append('newpassword', $("[name='newpassword']").val());
     fd.append('repassword', $("[name='conpassword']").val());
+    $("#password__change__button").html("<i class=\"fas fa-sync fa-lg fa-fw fa-spin\"></i>Change password");
     $.ajax({
       url: 'user/update_account_password.php',
       type: 'post',
@@ -106,6 +107,7 @@ $(document).ready(function() {
         } else if (response == "Password did not match." || response == "Two new password are not the same.") {
           alert(response);
         }
+        $("#password__change__button").html("<i class=\"fas fa-lock\"></i>Change password");
         $("[name='oldpassword']").val("");
         $("[name='newpassword']").val("");
         $("[name='conpassword']").val("");
@@ -266,6 +268,7 @@ const reloadAccountMenuOption = (tab) => {
       fd.append('city', $("[name='ccity']").val());
       fd.append('state', $("[name='cstate']").val());
       fd.append('province', $("[name='cprovince']").val());
+      $("#basicdata").html("<i class=\"fas fa-sync fa-lg fa-fw fa-spin\"></i>Submit change");
       $.ajax({
         url: 'user/update_account_basicdata.php',
         type: 'post',
